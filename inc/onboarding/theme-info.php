@@ -245,7 +245,7 @@ function sydney_info_page() {
 					</tr> 
 				   </tbody> 
 				  </table>
-				  <p style="text-align: right;"><a class="button button-primary button-large" href="https://athemes.com/theme/sydney-pro/?utm_source=theme_table&utm_medium=button&utm_campaign=Sydney"><?php esc_html_e('View Sydney Pro', 'sydney'); ?></a></p>
+                  <p style="text-align: right;"><a class="button button-primary button-large" href="<?php echo esc_url( sydney_admin_upgrade_link( 'https://athemes.com/theme/sydney-pro/', array( 'utm_source' => 'theme_table', 'utm_medium' => 'button', 'utm_campaign' => 'Sydney' ), 'onboarding-view-pro-link' ) ); ?>"><?php esc_html_e('View Sydney Pro', 'sydney'); ?></a></p>
 				</div>		
 			</div>
 		</div>
@@ -266,7 +266,7 @@ function sydney_info_page() {
 			<div class="sydney-sidebar-widget">
 				<h3>Upgrade to Sydney Pro</h3>
 				<p><?php echo esc_html__( 'Take Sydney to a whole other level by upgrading to the Pro version.', 'sydney' ); ?> </p>	
-				<p><a target="_blank" href="https://athemes.com/theme/sydney-pro/?utm_source=theme_info&utm_medium=link&utm_campaign=Sydney"><?php echo esc_html__( 'Discover Sydney Pro', 'sydney' ); ?></a></p>		
+                <p><a target="_blank" href="<?php echo esc_url( sydney_admin_upgrade_link( 'https://athemes.com/theme/sydney-pro/', array( 'utm_source' => 'theme_info', 'utm_medium' => 'link', 'utm_campaign' => 'Sydney' ), 'onboarding-discover-pro-link' ) ); ?>"><?php echo esc_html__( 'Discover Sydney Pro', 'sydney' ); ?></a></p>     
 			</div>									
 		</div>
 	</div>

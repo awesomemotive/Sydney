@@ -435,7 +435,7 @@ if ( ! class_exists( 'Sydney_Style_Book' ) ) :
                 <div class="sydney-style-book-section-header">
                     <h2 class="sydney-style-book-section-title"><?php esc_html_e( 'Forms', 'sydney' ); ?></h2>
                     <?php if ( !defined( 'SYDNEY_PRO_VERSION' ) ) : ?>
-                    <a href="https://athemes.com/sydney-upgrade/?utm_source=style_book&utm_medium=sydney_customizer&utm_campaign=Sydney" target="_blank"><?php esc_html_e( 'Requires Sydney Pro.', 'sydney' ); ?></a>
+                    <a href="<?php echo esc_url( sydney_admin_upgrade_link( 'https://athemes.com/sydney-upgrade', array( 'utm_source' => 'style_book', 'utm_medium' => 'sydney_customizer', 'utm_campaign' => 'Sydney' ), 'style-book-requires-pro-link' ) ); ?>" target="_blank"><?php esc_html_e( 'Requires Sydney Pro.', 'sydney' ); ?></a>
                     <?php endif; ?>
                 </div>
                 <div class="sydney-style-book-section-content <?php defined( 'SYDNEY_PRO_VERSION' ) ? '' : 'sydney-style-book-disabled'; ?>">
@@ -464,7 +464,7 @@ if ( ! class_exists( 'Sydney_Style_Book' ) ) :
                 <div class="sydney-style-book-section-header">
                     <h2 class="sydney-style-book-section-title"><?php esc_html_e( 'Lists', 'sydney' ); ?></h2>
                     <?php if ( !defined( 'SYDNEY_PRO_VERSION' ) ) : ?>
-                    <a href="https://athemes.com/sydney-upgrade/?utm_source=style_book&utm_medium=sydney_customizer&utm_campaign=Sydney" target="_blank"><?php esc_html_e( 'Requires Sydney Pro.', 'sydney' ); ?></a>
+                    <a href="<?php echo esc_url( sydney_admin_upgrade_link( 'https://athemes.com/sydney-upgrade', array( 'utm_source' => 'style_book', 'utm_medium' => 'sydney_customizer', 'utm_campaign' => 'Sydney' ), 'style-book-requires-pro-link' ) ); ?>" target="_blank"><?php esc_html_e( 'Requires Sydney Pro.', 'sydney' ); ?></a>
                     <?php endif; ?>
                 </div>
                 <div class="sydney-style-book-section-content <?php defined( 'SYDNEY_PRO_VERSION' ) ? '' : 'sydney-style-book-disabled'; ?>">
@@ -497,7 +497,7 @@ if ( ! class_exists( 'Sydney_Style_Book' ) ) :
                 <div class="sydney-style-book-section-header">
                     <h2 class="sydney-style-book-section-title"><?php esc_html_e( 'Tables', 'sydney' ); ?></h2>
                     <?php if ( !defined( 'SYDNEY_PRO_VERSION' ) ) : ?>
-                    <a href="https://athemes.com/sydney-upgrade/?utm_source=style_book&utm_medium=sydney_customizer&utm_campaign=Sydney" target="_blank"><?php esc_html_e( 'Requires Sydney Pro.', 'sydney' ); ?></a>
+                    <a href="<?php echo esc_url( sydney_admin_upgrade_link( 'https://athemes.com/sydney-upgrade', array( 'utm_source' => 'style_book', 'utm_medium' => 'sydney_customizer', 'utm_campaign' => 'Sydney' ), 'style-book-requires-pro-link' ) ); ?>" target="_blank"><?php esc_html_e( 'Requires Sydney Pro.', 'sydney' ); ?></a>
                     <?php endif; ?>
                 </div>
                 <div class="sydney-style-book-section-content <?php defined( 'SYDNEY_PRO_VERSION' ) ? '' : 'sydney-style-book-disabled'; ?>">
@@ -546,7 +546,7 @@ if ( ! class_exists( 'Sydney_Style_Book' ) ) :
                 <div class="sydney-style-book-section-header">
                     <h2 class="sydney-style-book-section-title"><?php esc_html_e( 'Quotes', 'sydney' ); ?></h2>
                     <?php if ( !defined( 'SYDNEY_PRO_VERSION' ) ) : ?>
-                    <a href="https://athemes.com/sydney-upgrade/?utm_source=style_book&utm_medium=sydney_customizer&utm_campaign=Sydney" target="_blank"><?php esc_html_e( 'Requires Sydney Pro.', 'sydney' ); ?></a>
+                    <a href="<?php echo esc_url( sydney_admin_upgrade_link( 'https://athemes.com/sydney-upgrade', array( 'utm_source' => 'style_book', 'utm_medium' => 'sydney_customizer', 'utm_campaign' => 'Sydney' ), 'style-book-requires-pro-link' ) ); ?>" target="_blank"><?php esc_html_e( 'Requires Sydney Pro.', 'sydney' ); ?></a>
                     <?php endif; ?>
                 </div>
                 <div class="sydney-style-book-section-content <?php defined( 'SYDNEY_PRO_VERSION' ) ? '' : 'sydney-style-book-disabled'; ?>">
