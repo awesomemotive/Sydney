@@ -35,7 +35,7 @@
  const { exec } = require('child_process');
  
  // CSS related plugins.
- var nodesass = require('node-sass')
+ var nodesass = require('sass')
  var sass = require('gulp-sass')(nodesass); // Gulp plugin for Sass compilation.
  const minifycss = require('gulp-uglifycss'); // Minifies CSS files.
  const autoprefixer = require('gulp-autoprefixer'); // Autoprefixing magic.
