@@ -181,11 +181,6 @@ if ( ! class_exists( 'Sydney_Modules' ) ) {
 					continue;
 				}
 
-				// Verify nonce per module.
-				if ( ! isset( $_GET['sydney_modules_nonce'] ) || ! wp_verify_nonce( wp_unslash( $_GET['sydney_modules_nonce'] ), 'sydney_toggle_module_' . $module['slug'] ) ) {
-					continue;
-				}
-
 				$value = (int) wp_unslash( $_GET[ $param ] );
 				if ( 1 === $value ) {
 					update_option( 'sydney-modules', array_merge( $all_modules, array( $module['slug'] => true ) ) );
