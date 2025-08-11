@@ -4,3 +4,4 @@ node_modules/
 /playwright/.cache/
 **.code-workspace
 package-lock.json
+tasks.md
