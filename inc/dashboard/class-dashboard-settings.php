@@ -44,22 +44,22 @@ function sydney_dashboard_settings()
 	//
 	// Upgrade to Pro.
 	//
-	$settings['upgrade_pro'] = 'https://athemes.com/sydney-upgrade?utm_source=theme_info&utm_medium=link&utm_campaign=Sydney';
+    $settings['upgrade_pro'] = sydney_admin_upgrade_link( 'https://athemes.com/sydney-upgrade', array( 'utm_source' => 'theme_info', 'utm_medium' => 'link', 'utm_campaign' => 'Sydney' ), 'dashboard-upgrade-pro-link' );
 
 	//
 	// Support.
 	//
-	$settings['upgrade_pro_support'] = 'https://athemes.com/sydney-upgrade?utm_source=dashboard_upgrade_support&utm_medium=link&utm_campaign=Sydney';
+    $settings['upgrade_pro_support'] = sydney_admin_upgrade_link( 'https://athemes.com/sydney-upgrade', array( 'utm_source' => 'dashboard_upgrade_support', 'utm_medium' => 'link', 'utm_campaign' => 'Sydney' ), 'dashboard-upgrade-pro-support-link' );
 
 	//
 	// Free vs Pro upgrade link.
 	//
-	$settings['upgrade_pro_freevspro'] = 'https://athemes.com/sydney-upgrade?utm_source=dashboard_freevspro&utm_medium=link&utm_campaign=Sydney';
+    $settings['upgrade_pro_freevspro'] = sydney_admin_upgrade_link( 'https://athemes.com/sydney-upgrade', array( 'utm_source' => 'dashboard_freevspro', 'utm_medium' => 'link', 'utm_campaign' => 'Sydney' ), 'dashboard-upgrade-pro-freevspro-link' );
 
 	//
 	// Module upgrade link.
 	//
-	$settings['upgrade_pro_module'] = 'https://athemes.com/sydney-upgrade?utm_source=dashboard_module&utm_medium=link&utm_campaign=Sydney';	
+    $settings['upgrade_pro_module'] = sydney_admin_upgrade_link( 'https://athemes.com/sydney-upgrade', array( 'utm_source' => 'dashboard_module', 'utm_medium' => 'link', 'utm_campaign' => 'Sydney' ), 'dashboard-upgrade-pro-module-link' ); 
 
 	//
 	// Promo.
@@ -67,7 +67,7 @@ function sydney_dashboard_settings()
 	$settings['promo_title']  = esc_html__('Upgrade to Pro', 'sydney');
 	$settings['promo_desc']   = esc_html__('Take Sydney to a whole other level by upgrading to the Pro version.', 'sydney');
 	$settings['promo_button'] = esc_html__('Discover Sydney Pro', 'sydney');
-	$settings['promo_link']   = 'https://athemes.com/sydney-upgrade?utm_source=theme_info&utm_medium=link&utm_campaign=Sydney';
+    $settings['promo_link']   = sydney_admin_upgrade_link( 'https://athemes.com/sydney-upgrade', array( 'utm_source' => 'theme_info', 'utm_medium' => 'link', 'utm_campaign' => 'Sydney' ), 'dashboard-promo-link' );
 
 	//
 	// Review.
@@ -85,7 +85,7 @@ function sydney_dashboard_settings()
 	//
 	$settings['support_link']     = 'https://athemes.com/support/';
 
-	$settings['support_pro_link'] = 'https://athemes.com/sydney-upgrade?utm_source=theme_support&utm_medium=button&utm_campaign=Sydney';
+    $settings['support_pro_link'] = sydney_admin_upgrade_link( 'https://athemes.com/sydney-upgrade', array( 'utm_source' => 'theme_support', 'utm_medium' => 'button', 'utm_campaign' => 'Sydney' ), 'dashboard-support-pro-link' );
 
 	//
 	// Community.
@@ -577,7 +577,7 @@ function sydney_demos_settings($settings) {
 	$settings['has_pro']   		= defined( 'SYDNEY_PRO_VERSION' ) ? true : false;
 	$settings['pro_status']   	= defined( 'SYDNEY_PRO_VERSION' ) ? true : false; //for backward compatibility
 	$settings['pro_label'] 		= esc_html__('Get Pro', 'sydney');
-	$settings['pro_link']  		= 'https://athemes.com/theme/sydney?utm_source=theme_table&utm_medium=button&utm_campaign=Sydney';
+	$settings['pro_link']  		= sydney_admin_upgrade_link( 'https://athemes.com/theme/sydney', array( 'utm_source' => 'theme_table', 'utm_medium' => 'button', 'utm_campaign' => 'Sydney' ), 'dashboard-pro-link' );
 
 	return $settings;
 }

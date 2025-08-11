@@ -204,7 +204,7 @@ class Sydney_Campaign_Notice {
                 get_template_directory_uri() . '/images/admin/30-percent-green.png'
             ) ); ?></h3>
 
-            <a href="https://athemes.com/pricing/?utm_source=theme_notice&utm_content=easter-notice&utm_medium=button&utm_campaign=Sydney#sydney-pro" class="sydney-btn sydney-btn-primary" target="_blank"><?php esc_html_e( 'Give Me This Deal', 'sydney' ); ?></a>
+            <a href="<?php echo esc_url( sydney_admin_upgrade_link( 'https://athemes.com/pricing/', array( 'utm_source' => 'theme_notice', 'utm_content' => 'easter-notice', 'utm_medium' => 'button', 'utm_campaign' => 'Sydney' ), 'notice-pricing-link' ) ); ?>#sydney-pro" class="sydney-btn sydney-btn-primary" target="_blank"><?php esc_html_e( 'Give Me This Deal', 'sydney' ); ?></a>
 
             <img src="<?php echo esc_url( get_template_directory_uri() . '/images/admin/people-easter.png' ); ?>" alt="<?php echo esc_attr__( 'Ready to join 130,000+ WordPress creators who\'ve found their perfect match?', 'sydney' ); ?>" class="sydney-campaign-notice-thumbnail" />
 

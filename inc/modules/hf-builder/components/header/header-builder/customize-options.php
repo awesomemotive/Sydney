@@ -421,7 +421,7 @@ if( ! defined( 'SYDNEY_AWL_ACTIVE' ) && ! defined( 'SYDNEY_PRO_VERSION' ) ) {
 					__( 'Custom breakpoints', 'sydney' ),
 					__( 'A mobile-only menu & logo', 'sydney' ),
 					__( 'Elementor mega menu builder', 'sydney' ),
-					'<a target="_blank" href="https://athemes.com/sydney-upgrade/#features?utm_source=theme_customizer_main_header&amp;utm_medium=sydney_customizer&amp;utm_campaign=Sydney">' . __( '&hellip;and many more premium features', 'sydney' ) . '</a>',
+                    '<a target="_blank" href="' . esc_url( sydney_admin_upgrade_link( 'https://athemes.com/sydney-upgrade', array( 'utm_source' => 'theme_customizer_main_header', 'utm_medium' => 'sydney_customizer', 'utm_campaign' => 'Sydney' ), 'customizer-main-header-features-link' ) ) . '#features">' . __( '&hellip;and many more premium features', 'sydney' ) . '</a>',
 				),    
 				'priority'    => 999
 			)

@@ -358,7 +358,7 @@ class Sydney_Header_Footer_Builder {
                 'title'  => esc_html__( 'PRO Components', 'sydney' ),
                 'total'  => esc_html__( '13+ Components Available', 'sydney' ),
                 'button' => esc_html__( 'Get Sydney Pro Now!', 'sydney' ),
-                'link'   => 'https://athemes.com/sydney-upgrade?utm_source=theme_customizer_deep&utm_content=hf_builder&utm_medium=button&utm_campaign=Sydney',
+                'link'   => esc_url( sydney_admin_upgrade_link( 'https://athemes.com/sydney-upgrade', array( 'utm_source' => 'theme_customizer_deep', 'utm_content' => 'hf_builder', 'utm_medium' => 'button', 'utm_campaign' => 'Sydney' ), 'customizer-deep-hf-builder-button' ) ),
             ),
             'header_presets' => $this->header_presets_values(),
             'i18n' => array(
