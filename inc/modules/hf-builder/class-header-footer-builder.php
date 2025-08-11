@@ -75,9 +75,6 @@ class Sydney_Header_Footer_Builder {
 
         remove_all_actions( 'sydney_footer' );
         add_action( 'sydney_footer', array( $this, 'footer_front_output' ) );
-
-        // Header Image (customize > header > header image)
-        add_action( 'sydney_header', array( $this, 'header_image' ), 30 );
     }
 
     /**
@@ -1390,32 +1387,6 @@ class Sydney_Header_Footer_Builder {
         }
 
         return $css;
-    }
-
-    /**
-     * Core header image
-     */
-    public function header_image() {
-        if ( ! get_header_image() ) {
-            return;
-        }
-
-        // output
-        $output = '<div class="header-image">';
-
-            /**
-             * Hook 'sydney_header_image_tag'
-             *
-             * @since 1.0.0
-             */
-            $output .= apply_filters( 'sydney_header_image_tag', get_header_image_tag() );
-        $output .= '</div>';
-
-        if ( ! sydney_get_display_conditions( 'header_image_display_conditions', false, '[{"type":"include","condition":"all","id":null}]' ) ) {
-            return;
-        }
-
-        echo wp_kses_post( $output );
     }
 
     /**
