@@ -463,3 +463,24 @@ function sydney_update_settings_2_54() {
     }
 }
 add_action( 'after_switch_theme', 'sydney_update_settings_2_54' );
+
+/**
+ * Set footer border opacity defaults for new users
+ * 
+ * @since 2.56
+ */
+function sydney_hf_border_opacity_defaults() {
+    $flag = get_theme_mod( 'sydney_hf_border_opacity_defaults', false );
+
+    if ( true === $flag ) {
+        return;
+    }
+
+    // For new users, set opacity to 1
+    // Existing users will keep their current 0.1 opacity
+    set_theme_mod( 'sydney_footer_border_opacity', '1' );
+
+    // Set flag
+    set_theme_mod( 'sydney_hf_border_opacity_defaults', true );
+}
+add_action( 'after_switch_theme', 'sydney_hf_border_opacity_defaults' );
