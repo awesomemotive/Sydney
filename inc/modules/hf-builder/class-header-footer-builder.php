@@ -1026,7 +1026,7 @@ class Sydney_Header_Footer_Builder {
         $devices = array( 'desktop' );
         foreach( $devices as $device ) { ?>
 
-            <footer class="shfb shfb-footer shfb-<?php echo esc_attr( $device ); ?>" <?php sydney_get_schema( 'footer' ); ?>>
+            <footer id="colophon" class="shfb shfb-footer shfb-<?php echo esc_attr( $device ); ?>" <?php sydney_get_schema( 'footer' ); ?>>
 
                 <?php 
                 /**
