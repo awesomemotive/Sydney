@@ -2497,11 +2497,16 @@ SVGs
 	h6 { font-size: 14px;}
 }
 /* Tablet Landscape */
-	@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {
 	.parallax {
 		background-size: cover;
 		background-attachment: scroll;
 		background-position: top center!important;
+	}
+	/* Fix for hero slider images appearing zoomed in on iPad landscape */
+	.slides-container .slide-item {
+		background-position: center center!important;
+		background-attachment: scroll!important;
 	}
 }
 
