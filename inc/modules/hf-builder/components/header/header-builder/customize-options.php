@@ -48,7 +48,8 @@ $wp_customize->add_control(
 						'#customize-control-sydney_section_hb_wrapper__header_builder_transparent_title',
 						'#customize-control-sydney_section_hb_wrapper__header_builder_container_title',
 						'#customize-control-sydney_section_hb_wrapper__header_builder_upsell',
-						'#customize-control-sydney_section_hb_wrapper__header_builder_sticky_group'
+						'#customize-control-sydney_section_hb_wrapper__header_builder_sticky_group',
+						'#customize-control-mobile_breakpoint'
 					),
 					array_map( function( $name ){ return "#customize-control-$name"; }, $opts_to_move[ 'general' ] )
 				)
@@ -178,9 +179,9 @@ $wp_customize->add_control( new Sydney_Responsive_Slider( $wp_customize, 'mobile
 		),
 		'input_attrs'     => array(
 			'min'   => 0,
-			'max'   => 2000,
+			'max'   => 3600,
 		),
-		'priority'        => 20,
+		'priority'        => 30,
 	)
 ) );
 
