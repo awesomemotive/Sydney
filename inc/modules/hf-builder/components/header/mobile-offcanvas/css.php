@@ -13,7 +13,7 @@ $el_spacing = get_theme_mod( 'mobile_menu_elements_spacing', 20 );
 $css .= '.shfb-mobile_offcanvas .shfb-builder-item + .shfb-builder-item { margin-top: '. esc_attr( $el_spacing ) .'px; }';
 
 // Close Icon Offset
-$offset = get_theme_mod( 'shfb_mobile_offcanvas_close_offset', 25 );
+$offset = get_theme_mod( 'shfb_mobile_offcanvas_close_offset', 20 );
 if ( is_rtl() ) {
     $css .= '.shfb-mobile_offcanvas .mobile-menu-close { top: '. esc_attr( $offset ) .'px; left: '. esc_attr( $offset ) .'px; right: auto; }';
 } else {
