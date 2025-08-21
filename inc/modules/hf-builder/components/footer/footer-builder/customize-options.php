@@ -283,7 +283,7 @@ if( ! defined( 'SYDNEY_AWL_ACTIVE' ) && ! defined( 'SYDNEY_PRO_VERSION' ) ) {
 					__( 'SVG footer separators', 'sydney' ),
 					__( 'Reveal animation effect', 'sydney' ),
 					__( 'Extra components: HTML, Shortcode, Button, Footer Menu', 'sydney' ),
-					'<a target="_blank" href="https://athemes.com/sydney-upgrade/#features?utm_source=theme_customizer_footer_credits&amp;utm_medium=sydney_customizer&amp;utm_campaign=Sydney">' . __( '&hellip;and many more premium features', 'sydney' ) . '</a>',   
+                    '<a target="_blank" href="' . esc_url( sydney_admin_upgrade_link( 'https://athemes.com/sydney-upgrade', array( 'utm_source' => 'theme_customizer_footer_credits', 'utm_medium' => 'sydney_customizer', 'utm_campaign' => 'Sydney' ), 'customizer-footer-credits-features-link' ) ) . '#features">' . __( '&hellip;and many more premium features', 'sydney' ) . '</a>',   
 				), 
 				'priority'    => 999
 			)

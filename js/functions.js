@@ -146,13 +146,21 @@ var sydney = sydney || {};
 			document.body.classList.remove( 'mobile-menu-visible' );
 		} );
 
-		//Handle same page links
-		var samePageLinks = siteNavigation.querySelectorAll( 'a[href*="#"]' );
-		for ( var samePageLink of samePageLinks ) {
-			samePageLink.addEventListener( 'click', samePageLinkHandler );
+		//Handle same page links in offcanvas menu
+		if ( offCanvas ) {
+			var samePageLinks = offCanvas.querySelectorAll( 'a[href*="#"]' );
+			for ( var samePageLink of samePageLinks ) {
+				samePageLink.addEventListener( 'click', samePageLinkHandler );
+			}
 		}
 
 		function samePageLinkHandler() {
+			// Reset mobile button focus state like the close button does
+			if ( button ) {
+				button.focus();
+				button.classList.remove( 'open' );
+			}
+			
 			offCanvas.classList.remove( 'toggled' );
 			document.body.classList.remove( 'mobile-menu-visible' );
 		}

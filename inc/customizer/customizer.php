@@ -496,7 +496,7 @@ function sydney_customize_register( $wp_customize ) {
             '<p style="padding-bottom: 10px;border-bottom: 1px solid #d3d2d2">' . __(' 1. Documentation for Sydney can be found ', 'sydney') . '<a target="_blank" href="https://docs.athemes.com/category/8-sydney">here</a></p>' 
             . '<p style="padding-bottom: 10px;border-bottom: 1px solid #d3d2d2">' . __(' 2. All of our starter sites, both free and pro, can be previewed ', 'sydney') . '<a target="_blank" href="https://athemes.com/sydney-demos">here</a></p>'
             . '<p style="padding-bottom: 10px;border-bottom: 1px solid #d3d2d2">' .  __(' 3. You can receive free support on the community forums ', 'sydney') . '<a target="_blank" href="https://wordpress.org/support/theme/sydney/">here</a></p>'
-            .  __(' 4. Priority email support is available for our premium users. You can upgrade ', 'sydney') . '<a target="_blank" href="https://athemes.com/sydney-upgrade/?utm_source=theme_customizer_theme_info&utm_medium=sydney_customizer&utm_campaign=Sydney">here</a>'   
+            .  __(' 4. Priority email support is available for our premium users. You can upgrade ', 'sydney') . '<a target="_blank" href="' . esc_url( sydney_admin_upgrade_link( 'https://athemes.com/sydney-upgrade', array( 'utm_source' => 'theme_customizer_theme_info', 'utm_medium' => 'sydney_customizer', 'utm_campaign' => 'Sydney' ), 'customizer-theme-info-link' ) ) . '">here</a>'   
                  
         )
     );
@@ -751,6 +751,16 @@ function sydney_customize_footer_scripts() {
             'ajax_url'   => admin_url( 'admin-ajax.php' ),
             'ajax_nonce' => wp_create_nonce( 'sydney_ajax_nonce' ),
             'sortable_config' => $sortable_config,
+            'customizer_upgrade_link_with_utm_content_markup' => sydney_admin_upgrade_link(
+                'https://athemes.com/sydney-upgrade',
+                array(
+                    'utm_source'   => 'theme_customizer',
+                    'utm_content'  => '{{utm_content}}',
+                    'utm_medium'   => 'sydney_customizer',
+                    'utm_campaign' => 'Sydney',
+                ),
+                'customizer-upgrade-link'
+            ),
     ) );
 }
 add_action( 'customize_controls_print_footer_scripts', 'sydney_customize_footer_scripts' );

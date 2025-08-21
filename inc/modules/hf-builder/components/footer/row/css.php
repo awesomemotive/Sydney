@@ -69,7 +69,9 @@ foreach( $rows as $row ) {
         )
     );
     $css .= ".shfb-$row { border-top-style: solid; }";
-    $css .= Sydney_Custom_CSS::get_border_top_color_rgba_css( "sydney_footer_row__{$row}_border_top_color", '#EAEAEA', ".shfb-$row", 0.1 );
+   // Get opacity - default 0.1 for existing users, 1 for new users
+   $opacity = get_theme_mod( 'sydney_hf_border_opacity', '0.1' );
+   $css .= Sydney_Custom_CSS::get_border_top_color_rgba_css( "sydney_footer_row__{$row}_border_top_color", '#EAEAEA', ".shfb-$row", $opacity );
 
     // Elements Spacing.
     $elements_spacing = get_theme_mod( "sydney_footer_row__{$row}_elements_spacing", '25' );

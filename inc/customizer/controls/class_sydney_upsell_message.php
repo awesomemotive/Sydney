@@ -19,7 +19,7 @@ class Sydney_Upsell_Message extends WP_Customize_Control {
 	public $type 		 = 'sydney-upsell-features';
 	public $button_title = '';
 	public $features 	 = array();
-	public $button_link  = 'https://athemes.com/sydney-upgrade/?utm_source=theme_customizer_deep&utm_medium=sydney_customizer&utm_campaign=Sydney';
+    public $button_link  = '';
 	public $intro_text   = '';
 	public $show_separator = true;
 	public $show_button = true;
@@ -29,6 +29,18 @@ class Sydney_Upsell_Message extends WP_Customize_Control {
 	 */
 	public function __construct( $manager, $id, $args = array(), $options = array() ) {
 		parent::__construct( $manager, $id, $args );
+
+        if ( empty( $this->button_link ) ) {
+            $this->button_link = sydney_admin_upgrade_link(
+                'https://athemes.com/sydney-upgrade',
+                array(
+                    'utm_source'   => 'theme_customizer_deep',
+                    'utm_medium'   => 'sydney_customizer',
+                    'utm_campaign' => 'Sydney',
+                ),
+                'customizer-upsell-message-button'
+            );
+        }
 	}
 
 	/**

@@ -42,6 +42,9 @@ $css .= "
         .is-mega-menu:not(.is-mega-menu-vertical) .sydney-mega-menu-column .is-mega-menu-heading {
             display: none !important;
         }
+        .sydney-offcanvas-menu.toggled .menu {
+           display: block !important;
+        }
     }
 
     @media (min-width: {$min_width}px) {

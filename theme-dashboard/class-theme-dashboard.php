@@ -366,13 +366,20 @@ class Sydney_Theme_Dashboard {
 							if ( isset( $feature['type'] ) && 'pro' === $feature['type'] ) {
 								$activate_uri = $this->pro_status ? '?page=theme-dashboard' . $activate_uri : 'javascript:void(0);';
 							}
-							?>
-							<?php if ( !Sydney_Modules::is_module_active( $feature['slug'] ) ) : ?>
-								<a href="<?php echo esc_attr( $activate_uri ); ?>=1" class="thd-theme-feature-customize">
+						?>
+						<?php
+							$nonce_param = 'sydney_modules_nonce';
+							$action      = 'sydney_toggle_module_' . $feature['slug'];
+							$nonce       = wp_create_nonce( $action );
+							$activate_on  = esc_url( add_query_arg( $nonce_param, $nonce, $activate_uri . '=1' ) );
+							$activate_off = esc_url( add_query_arg( $nonce_param, $nonce, $activate_uri . '=0' ) );
+						?>
+						<?php if ( !Sydney_Modules::is_module_active( $feature['slug'] ) ) : ?>
+							<a href="<?php echo $activate_on; ?>" class="thd-theme-feature-customize">
 									<?php esc_html_e( 'Activate', 'sydney' ); ?>
 								</a>
 							<?php else : ?>
-								<a href="<?php echo esc_attr( $activate_uri ); ?>=0" class="thd-theme-feature-customize">
+							<a href="<?php echo $activate_off; ?>" class="thd-theme-feature-customize">
 									<?php esc_html_e( 'Deactivate', 'sydney' ); ?>
 								</a>
 								<?php if ( $feature['link'] ) : ?>

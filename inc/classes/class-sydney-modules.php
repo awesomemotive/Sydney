@@ -164,18 +164,28 @@ if ( ! class_exists( 'Sydney_Modules' ) ) {
 		 * Activate modules on click
 		 */
 		public function activate_modules() {
+			// Only allow in admin and for users with appropriate capability.
+			if ( ! is_admin() || ! current_user_can( 'manage_options' ) ) {
+				return;
+			}
+
 			$modules = $this->get_modules();
 
 			$all_modules = get_option( 'sydney-modules' );
 			$all_modules = ( is_array( $all_modules ) ) ? $all_modules : (array) $all_modules;
 
 			foreach ( $modules as $module ) {
-				if ( isset( $_GET['activate_module_' . $module['slug'] ] ) ) {
-					if ( '1' == $_GET['activate_module_' . $module['slug'] ] ) {
-						update_option( 'sydney-modules', array_merge( $all_modules, array( $module['slug'] => true ) ) );
-					} elseif ( '0' == $_GET['activate_module_' . $module['slug'] ] ) {
-						update_option( 'sydney-modules', array_merge( $all_modules, array( $module['slug'] => false ) ) );
-					}
+				$param = 'activate_module_' . $module['slug'];
+
+				if ( ! isset( $_GET[ $param ] ) ) {
+					continue;
+				}
+
+				$value = (int) wp_unslash( $_GET[ $param ] );
+				if ( 1 === $value ) {
+					update_option( 'sydney-modules', array_merge( $all_modules, array( $module['slug'] => true ) ) );
+				} elseif ( 0 === $value ) {
+					update_option( 'sydney-modules', array_merge( $all_modules, array( $module['slug'] => false ) ) );
 				}
 			}
 		}

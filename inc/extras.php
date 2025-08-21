@@ -8,6 +8,32 @@
  */
 
 /**
+ * Build an upgrade/upsell URL with UTM parameters and allow filtering per placement.
+ *
+ * @param string $url  Base URL for the upgrade link (e.g., https://athemes.com/sydney-upgrade).
+ * @param array  $args Key/value query arguments to append (e.g., utm_* params). Optional.
+ * @param string $type Link placement/type identifier (e.g., 'customizer-upgrade-link'). Optional.
+ *
+ * @return string Final upgrade link URL.
+ */
+if ( ! function_exists( 'sydney_admin_upgrade_link' ) ) {
+    function sydney_admin_upgrade_link( $url, $args = array(), $type = 'upgrade-link' ) {
+        if ( ! empty( $args ) ) {
+            $url = add_query_arg( $args, $url );
+        }
+
+        /**
+         * Filter: Modify generated upgrade link before output.
+         *
+         * @param string $url  The generated upgrade link URL.
+         * @param string $type The link placement/type identifier.
+         * @param array  $args The arguments used to build the link.
+         */
+        return apply_filters( 'sydney_upgrade_link', $url, $type, $args );
+    }
+}
+
+/**
  * Adds custom classes to the array of body classes.
  *
  * @param array $classes Classes for the body element.
@@ -310,7 +336,7 @@ add_action('wp_footer', 'sydney_append_gotop_html', 1);
  */
 function sydney_get_social_network( $social ) {
 
-	$networks = array( 'bsky', 'bluesky', 'threads', 'mastodon', 'feed','maps', 'facebook', 'twitter', 'x.com', 'instagram', 'github', 'linkedin', 'youtube', 'xing', 'flickr', 'dribbble', 'vk', 'weibo', 'vimeo', 'mix', 'behance', 'spotify', 'soundcloud', 'twitch', 'bandcamp', 'etsy', 'pinterest', 'amazon', 'tiktok', 'telegram', 'whatsapp', 'wa.me', 't.me', 'discord' );
+	$networks = array( 'bsky', 'bluesky', 'threads', 'mastodon', 'feed','maps', 'facebook', 'twitter', 'x.com', 'instagram', 'github', 'linkedin', 'youtube', 'xing', 'flickr', 'dribbble', 'vk', 'weibo', 'vimeo', 'mix', 'behance', 'spotify', 'soundcloud', 'twitch', 'bandcamp', 'etsy', 'pinterest', 'amazon', 'tiktok', 'telegram', 'whatsapp', 'wa.me', 't.me', 'discord', 'goodreads' );
 
 	foreach ( $networks as $network ) {
 		$found = strpos( $social, $network );

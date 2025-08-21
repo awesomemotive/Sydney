@@ -48,7 +48,8 @@ $wp_customize->add_control(
 						'#customize-control-sydney_section_hb_wrapper__header_builder_transparent_title',
 						'#customize-control-sydney_section_hb_wrapper__header_builder_container_title',
 						'#customize-control-sydney_section_hb_wrapper__header_builder_upsell',
-						'#customize-control-sydney_section_hb_wrapper__header_builder_sticky_group'
+						'#customize-control-sydney_section_hb_wrapper__header_builder_sticky_group',
+						'#customize-control-mobile_breakpoint'
 					),
 					array_map( function( $name ){ return "#customize-control-$name"; }, $opts_to_move[ 'general' ] )
 				)
@@ -178,9 +179,9 @@ $wp_customize->add_control( new Sydney_Responsive_Slider( $wp_customize, 'mobile
 		),
 		'input_attrs'     => array(
 			'min'   => 0,
-			'max'   => 2000,
+			'max'   => 3600,
 		),
-		'priority'        => 20,
+		'priority'        => 30,
 	)
 ) );
 
@@ -421,7 +422,7 @@ if( ! defined( 'SYDNEY_AWL_ACTIVE' ) && ! defined( 'SYDNEY_PRO_VERSION' ) ) {
 					__( 'Custom breakpoints', 'sydney' ),
 					__( 'A mobile-only menu & logo', 'sydney' ),
 					__( 'Elementor mega menu builder', 'sydney' ),
-					'<a target="_blank" href="https://athemes.com/sydney-upgrade/#features?utm_source=theme_customizer_main_header&amp;utm_medium=sydney_customizer&amp;utm_campaign=Sydney">' . __( '&hellip;and many more premium features', 'sydney' ) . '</a>',
+                    '<a target="_blank" href="' . esc_url( sydney_admin_upgrade_link( 'https://athemes.com/sydney-upgrade', array( 'utm_source' => 'theme_customizer_main_header', 'utm_medium' => 'sydney_customizer', 'utm_campaign' => 'Sydney' ), 'customizer-main-header-features-link' ) ) . '#features">' . __( '&hellip;and many more premium features', 'sydney' ) . '</a>',
 				),    
 				'priority'    => 999
 			)

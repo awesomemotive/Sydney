@@ -75,9 +75,6 @@ class Sydney_Header_Footer_Builder {
 
         remove_all_actions( 'sydney_footer' );
         add_action( 'sydney_footer', array( $this, 'footer_front_output' ) );
-
-        // Header Image (customize > header > header image)
-        add_action( 'sydney_header', array( $this, 'header_image' ), 30 );
     }
 
     /**
@@ -358,7 +355,7 @@ class Sydney_Header_Footer_Builder {
                 'title'  => esc_html__( 'PRO Components', 'sydney' ),
                 'total'  => esc_html__( '13+ Components Available', 'sydney' ),
                 'button' => esc_html__( 'Get Sydney Pro Now!', 'sydney' ),
-                'link'   => 'https://athemes.com/sydney-upgrade?utm_source=theme_customizer_deep&utm_content=hf_builder&utm_medium=button&utm_campaign=Sydney',
+                'link'   => esc_url( sydney_admin_upgrade_link( 'https://athemes.com/sydney-upgrade', array( 'utm_source' => 'theme_customizer_deep', 'utm_content' => 'hf_builder', 'utm_medium' => 'button', 'utm_campaign' => 'Sydney' ), 'customizer-deep-hf-builder-button' ) ),
             ),
             'header_presets' => $this->header_presets_values(),
             'i18n' => array(
@@ -1029,7 +1026,7 @@ class Sydney_Header_Footer_Builder {
         $devices = array( 'desktop' );
         foreach( $devices as $device ) { ?>
 
-            <footer class="shfb shfb-footer shfb-<?php echo esc_attr( $device ); ?>" <?php sydney_get_schema( 'footer' ); ?>>
+            <footer id="colophon" class="shfb shfb-footer shfb-<?php echo esc_attr( $device ); ?>" <?php sydney_get_schema( 'footer' ); ?>>
 
                 <?php 
                 /**
@@ -1390,32 +1387,6 @@ class Sydney_Header_Footer_Builder {
         }
 
         return $css;
-    }
-
-    /**
-     * Core header image
-     */
-    public function header_image() {
-        if ( ! get_header_image() ) {
-            return;
-        }
-
-        // output
-        $output = '<div class="header-image">';
-
-            /**
-             * Hook 'sydney_header_image_tag'
-             *
-             * @since 1.0.0
-             */
-            $output .= apply_filters( 'sydney_header_image_tag', get_header_image_tag() );
-        $output .= '</div>';
-
-        if ( ! sydney_get_display_conditions( 'header_image_display_conditions', false, '[{"type":"include","condition":"all","id":null}]' ) ) {
-            return;
-        }
-
-        echo wp_kses_post( $output );
     }
 
     /**

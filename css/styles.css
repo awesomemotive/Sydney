@@ -837,7 +837,7 @@ Header
 	transition: all 0.4s;
 	top: 0;
 	box-shadow: 0 5px 15px 3px rgba(0, 0, 0, 0.07);
-	padding: 30px;
+	padding: 40px 30px 30px;
 	margin: 0;
 	z-index: 99999;
 	background-color: var(--sydney-dark-background);
@@ -2497,11 +2497,16 @@ SVGs
 	h6 { font-size: 14px;}
 }
 /* Tablet Landscape */
-	@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {
 	.parallax {
 		background-size: cover;
 		background-attachment: scroll;
 		background-position: top center!important;
+	}
+	/* Fix for hero slider images appearing zoomed in on iPad landscape */
+	.slides-container .slide-item {
+		background-position: center center!important;
+		background-attachment: scroll!important;
 	}
 }
 

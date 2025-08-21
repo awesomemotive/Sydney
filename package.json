@@ -50,8 +50,5 @@
     "cache-clear": "gulp clearCache",
     "test": "npx playwright test",
     "report": "npx playwright show-report"
-  },
-  "dependencies": {
-    "node-sass": "^8.0.0"
   }
 }
