@@ -18,6 +18,9 @@
       "@phpcs"
     ]
   },
+  "require": {
+    "wptt/webfont-loader": "^1.1.4"
+  },
   "require-dev": {
     "dealerdirect/phpcodesniffer-composer-installer": "1.1.2",
     "wp-coding-standards/wpcs": "3.2.0",
