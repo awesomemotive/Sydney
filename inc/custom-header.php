@@ -29,7 +29,7 @@ function sydney_custom_header_setup() {
 		'width'                  => 1920,
 		'height'                 => 1080,
 		'flex-height'            => true,
-		'video'					 => true,
+		'video'                  => true,
 		'video-active-callback'  => '',
 		'wp-head-callback'       => 'sydney_header_style',
 		'admin-head-callback'    => 'sydney_admin_header_style',
@@ -42,10 +42,10 @@ add_action( 'after_setup_theme', 'sydney_custom_header_setup' );
  * Video header settings
  */
 function sydney_video_settings( $settings ) {
-	$settings['l10n']['play'] 	= '';
-	$settings['l10n']['pause'] 	= '';
-	$settings['minWidth'] 		= '100';
-	$settings['minHeight'] 		= '100';	
+	$settings['l10n']['play']   = '';
+	$settings['l10n']['pause']  = '';
+	$settings['minWidth']       = '100';
+	$settings['minHeight']      = '100';    
 	
 	return $settings;
 }

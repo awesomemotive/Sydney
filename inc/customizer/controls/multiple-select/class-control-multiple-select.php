@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @package     OceanWP WordPress theme
  * @subpackage  Controls
- * @see   		https://github.com/aristath/kirki
+ * @see         https://github.com/aristath/kirki
  * @license     http://opensource.org/licenses/https://opensource.org/licenses/MIT
  * @since       1.0
  */
@@ -51,7 +51,6 @@ class Sydney_Select2_Custom_Control extends WP_Customize_Control {
 		wp_enqueue_style( 'select2', get_template_directory_uri() . '/css/select2.min.css', null );
 		wp_enqueue_script( 'sydney-multiple-select', get_template_directory_uri() . '/inc/customizer/controls/multiple-select/multiple-select.js', array( 'jquery', 'customize-base', 'select2' ), false, true );
 		wp_enqueue_style( 'sydney-multiple-select', get_template_directory_uri() . '/inc/customizer/controls/multiple-select/multiple-select.css', null );
-
 	}
 
 	/**
@@ -76,7 +75,6 @@ class Sydney_Select2_Custom_Control extends WP_Customize_Control {
 		foreach ( $this->input_attrs as $attr => $value ) {
 			$this->json['inputAttrs'] .= $attr . '="' . esc_attr( $value ) . '" ';
 		}
-
 	}
 
 	/**

@@ -37,9 +37,9 @@ function sydney_customize_register( $wp_customize ) {
 
     //Divider
     class Sydney_Divider extends WP_Customize_Control {
-         public function render_content() {
+        public function render_content() {
             echo '<hr style="margin: 15px 0;border-top: 1px dashed #919191;" />';
-         }
+        }
     }
     //Titles
     class Sydney_Info extends WP_Customize_Control {
@@ -94,7 +94,7 @@ function sydney_customize_register( $wp_customize ) {
     require get_template_directory() . '/inc/vendor/kirki-framework/control-sortable/src/Control/Sortable.php';
     require get_template_directory() . '/inc/vendor/kirki-framework/control-slider/src/Control/Slider.php';
     
-    $wp_customize->register_control_type( 'Sydney_Select2_Custom_Control' 	);
+    $wp_customize->register_control_type( 'Sydney_Select2_Custom_Control'   );
     $wp_customize->register_control_type( '\Kirki\Control\sortable' );
     require get_template_directory() . '/inc/customizer/controls/display-conditions/class_sydney_display_conditions_control.php';
     require get_template_directory() . '/inc/customizer/controls/class_sydney_palette_control.php';
@@ -239,7 +239,7 @@ function sydney_customize_register( $wp_customize ) {
             'section' => 'sydney_menu_style',
             'settings' => 'sydney_options[info]',
             'priority' => 11,
-            'active_callback' => 'sydney_header_custom_btn_active_callback'
+            'active_callback' => 'sydney_header_custom_btn_active_callback',
         ) )
     ); 
 
@@ -257,7 +257,7 @@ function sydney_customize_register( $wp_customize ) {
             'section'   => 'sydney_menu_style',
             'type'      => 'text',
             'priority'  => 11,
-            'active_callback' => 'sydney_header_custom_btn_active_callback'
+            'active_callback' => 'sydney_header_custom_btn_active_callback',
         )
     );
     $wp_customize->add_setting(
@@ -274,7 +274,7 @@ function sydney_customize_register( $wp_customize ) {
             'section'   => 'sydney_menu_style',
             'type'      => 'text',
             'priority'  => 11,
-            'active_callback' => 'sydney_header_custom_btn_active_callback'
+            'active_callback' => 'sydney_header_custom_btn_active_callback',
         )
     );
     $wp_customize->add_setting(
@@ -291,7 +291,7 @@ function sydney_customize_register( $wp_customize ) {
             'label'             => __('Open link in a new tab?', 'sydney'),
             'section'           => 'sydney_menu_style',
             'priority'          => 11,
-            'active_callback'   => 'sydney_header_custom_btn_active_callback'
+            'active_callback'   => 'sydney_header_custom_btn_active_callback',
         )
     );  
     $wp_customize->add_setting(
@@ -299,7 +299,7 @@ function sydney_customize_register( $wp_customize ) {
         array(
             'sanitize_callback' => 'absint',
             'default'           => '12',
-            'transport'         => 'postMessage'
+            'transport'         => 'postMessage',
         )       
     );
     $wp_customize->add_control( 'header_custom_item_btn_tb_padding', array(
@@ -312,14 +312,14 @@ function sydney_customize_register( $wp_customize ) {
             'max'   => 40,
             'step'  => 1,
         ),
-        'active_callback'   => 'sydney_header_custom_btn_active_callback'
+        'active_callback'   => 'sydney_header_custom_btn_active_callback',
     ) );
     $wp_customize->add_setting(
         'header_custom_item_btn_lr_padding',
         array(
             'sanitize_callback' => 'absint',
             'default'           => '35',
-            'transport'         => 'postMessage'
+            'transport'         => 'postMessage',
         )       
     );
     $wp_customize->add_control( 'header_custom_item_btn_lr_padding', array(
@@ -332,7 +332,7 @@ function sydney_customize_register( $wp_customize ) {
             'max'   => 50,
             'step'  => 1,
         ),
-        'active_callback'   => 'sydney_header_custom_btn_active_callback'
+        'active_callback'   => 'sydney_header_custom_btn_active_callback',
     ) );
     //Font size
     $wp_customize->add_setting(
@@ -340,7 +340,7 @@ function sydney_customize_register( $wp_customize ) {
         array(
             'sanitize_callback' => 'absint',
             'default'           => '13',
-            'transport'         => 'postMessage'
+            'transport'         => 'postMessage',
         )       
     );
     $wp_customize->add_control( 'header_custom_item_btn_font_size', array(
@@ -353,7 +353,7 @@ function sydney_customize_register( $wp_customize ) {
             'max'   => 40,
             'step'  => 1,
         ),
-        'active_callback'   => 'sydney_header_custom_btn_active_callback'
+        'active_callback'   => 'sydney_header_custom_btn_active_callback',
     ) ); 
     //Border radius
     $wp_customize->add_setting(
@@ -361,7 +361,7 @@ function sydney_customize_register( $wp_customize ) {
         array(
             'sanitize_callback' => 'absint',
             'default'           => '3',
-            'transport'         => 'postMessage'
+            'transport'         => 'postMessage',
         )       
     );
     $wp_customize->add_control( 'header_custom_item_btn_radius', array(
@@ -374,7 +374,7 @@ function sydney_customize_register( $wp_customize ) {
             'max'   => 50,
             'step'  => 1,
         ),
-        'active_callback'   => 'sydney_header_custom_btn_active_callback'
+        'active_callback'   => 'sydney_header_custom_btn_active_callback',
     ) );
 
     //Custom header html
@@ -388,7 +388,7 @@ function sydney_customize_register( $wp_customize ) {
             'section' => 'sydney_menu_style',
             'settings' => 'sydney_options[info]',
             'priority' => 11,
-            'active_callback' => 'sydney_header_custom_html_active_callback'
+            'active_callback' => 'sydney_header_custom_html_active_callback',
         ) )
     );     
     $wp_customize->add_setting(
@@ -403,7 +403,7 @@ function sydney_customize_register( $wp_customize ) {
         'priority'    => 11,
         'section'     => 'sydney_menu_style',
         'label'       => __('Custom HTML', 'sydney'),
-        'active_callback'   => 'sydney_header_custom_html_active_callback'
+        'active_callback'   => 'sydney_header_custom_html_active_callback',
     ) );
 
     }
@@ -471,7 +471,7 @@ function sydney_customize_register( $wp_customize ) {
         array(
             'default-image' => '',
             'sanitize_callback' => 'esc_url_raw',
-            'transport' => 'postMessage'
+            'transport' => 'postMessage',
         )
     );
     $wp_customize->add_control(
@@ -479,10 +479,10 @@ function sydney_customize_register( $wp_customize ) {
             $wp_customize,
             'site_logo',
             array(
-               'label'          => __( 'Upload your logo', 'sydney' ),
-               'type'           => 'image',
-               'section'        => 'title_tagline',
-               'priority'       => 12,
+                'label'          => __( 'Upload your logo', 'sydney' ),
+                'type'           => 'image',
+                'section'        => 'title_tagline',
+                'priority'       => 12,
             )
         )
     );
@@ -502,7 +502,7 @@ function sydney_customize_register( $wp_customize ) {
             '<p style="padding-bottom: 10px;border-bottom: 1px solid #d3d2d2">' . __(' 1. Documentation for Sydney can be found ', 'sydney') . '<a target="_blank" href="https://docs.athemes.com/category/8-sydney">here</a></p>' 
             . '<p style="padding-bottom: 10px;border-bottom: 1px solid #d3d2d2">' . __(' 2. All of our starter sites, both free and pro, can be previewed ', 'sydney') . '<a target="_blank" href="https://athemes.com/sydney-demos">here</a></p>'
             . '<p style="padding-bottom: 10px;border-bottom: 1px solid #d3d2d2">' .  __(' 3. You can receive free support on the community forums ', 'sydney') . '<a target="_blank" href="https://wordpress.org/support/theme/sydney/">here</a></p>'
-            .  __(' 4. Priority email support is available for our premium users. You can upgrade ', 'sydney') . '<a target="_blank" href="' . esc_url( sydney_admin_upgrade_link( 'https://athemes.com/sydney-upgrade', array( 'utm_source' => 'theme_customizer_theme_info', 'utm_medium' => 'sydney_customizer', 'utm_campaign' => 'Sydney' ), 'customizer-theme-info-link' ) ) . '">here</a>'   
+            .  __(' 4. Priority email support is available for our premium users. You can upgrade ', 'sydney') . '<a target="_blank" href="' . esc_url( sydney_admin_upgrade_link( 'https://athemes.com/sydney-upgrade', array( 'utm_source' => 'theme_customizer_theme_info', 'utm_medium' => 'sydney_customizer', 'utm_campaign' => 'Sydney' ), 'customizer-theme-info-link' ) ) . '">here</a>',   
                  
         )
     );
@@ -515,7 +515,7 @@ function sydney_customize_register( $wp_customize ) {
     $wp_customize->add_control( new Sydney_Theme_Info( $wp_customize, 'documentation', array(
         'section' => 'sydney_themeinfo',
         'settings' => 'sydney_theme_docs',
-        'priority' => 10
+        'priority' => 10,
         ) )
     ); 
 
@@ -540,13 +540,12 @@ function sydney_customize_register( $wp_customize ) {
             $wp_customize,
             'enable_page_feat_images',
             array(
-                'label'         	=> esc_html__( 'Enable featured images on all pages', 'sydney' ),
+                'label'             => esc_html__( 'Enable featured images on all pages', 'sydney' ),
                 'section'   => 'sydney_cpt_page',
-                'separator' => 'after'
+                'separator' => 'after',
             )
         )
     );
-
 }
 add_action( 'customize_register', 'sydney_customize_register' );
 
@@ -559,7 +558,7 @@ function sydney_sanitize_layout( $input ) {
         'slider'    => __('Full screen slider', 'sydney'),
         'image'     => __('Image', 'sydney'),
         'core-video'=> __('Video', 'sydney'),
-        'nothing'   => __('Nothing (only menu)', 'sydney')
+        'nothing'   => __('Nothing (only menu)', 'sydney'),
     );
  
     if ( array_key_exists( $input, $valid ) ) {
@@ -587,7 +586,7 @@ function sydney_sanitize_fw( $input ) {
         '1'     => __('One', 'sydney'),
         '2'     => __('Two', 'sydney'),
         '3'     => __('Three', 'sydney'),
-        '4'     => __('Four', 'sydney')
+        '4'     => __('Four', 'sydney'),
     );
     if ( array_key_exists( $input, $valid ) ) {
         return $input;
@@ -614,7 +613,7 @@ function sydney_sanitize_blog( $input ) {
         'classic-alt'    => __( 'Classic (alternative)', 'sydney' ),
         'modern'    => __( 'Modern', 'sydney' ),
         'fullwidth'  => __( 'Full width (no sidebar)', 'sydney' ),
-        'masonry-layout'    => __( 'Masonry (grid style)', 'sydney' )
+        'masonry-layout'    => __( 'Masonry (grid style)', 'sydney' ),
 
     );
     if ( array_key_exists( $input, $valid ) ) {
@@ -681,7 +680,6 @@ function sydney_sanitize_selects( $input, $setting ){
     $choices = $setting->manager->get_control( $setting->id )->choices;
                       
     return ( array_key_exists( $input, $choices ) ? $input : $setting->default );                
-      
 }
 
 /**
@@ -714,16 +712,16 @@ function sydney_customize_footer_scripts() {
 
     $header_sortable = array(
         'woocommerce_icons' => array(
-            'controls' => array('enable_header_cart', 'enable_header_account', 'enable_header_wishlist')
+            'controls' => array( 'enable_header_cart', 'enable_header_account', 'enable_header_wishlist' ),
         ),
         'button' => array(
-            'controls' => array('header_button_text', 'header_button_link', 'header_button_newtab')
+            'controls' => array( 'header_button_text', 'header_button_link', 'header_button_newtab' ),
         ),
         'contact_info' => array(
-            'controls' => array('header_contact_mail', 'header_contact_phone')
+            'controls' => array( 'header_contact_mail', 'header_contact_phone' ),
         ),
         'social' => array(
-            'controls' => array('social_profiles_header')
+            'controls' => array( 'social_profiles_header' ),
         ),
     );
 
@@ -738,15 +736,15 @@ function sydney_customize_footer_scripts() {
         'header_components_l5bottom'    => $header_sortable,
         'single_post_meta_elements'     => array(
             'sydney_meta_custom_field' => array(
-                'controls' => array('post_before_custom_field', 'post_single_custom_field', 'post_after_custom_field' )
+                'controls' => array( 'post_before_custom_field', 'post_single_custom_field', 'post_after_custom_field' ),
             ),
             'sydney_updated_date' => array(
-                'controls' => array( 'before_updated_date_text' )
+                'controls' => array( 'before_updated_date_text' ),
             ),
         ),
         'archive_meta_elements'        => array(
             'post_author' => array(
-                'controls'  => array('show_avatar')
+                'controls'  => array( 'show_avatar' ),
             ),
         ),
     );    

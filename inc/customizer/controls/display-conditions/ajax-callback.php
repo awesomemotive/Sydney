@@ -17,7 +17,6 @@ function sydney_display_conditions_select_ajax() {
             case 'post-id':
             case 'page-id':
             case 'product-id':
-        
                 $post_type = 'post';
 
                 if ( $source === 'page-id' ) {
@@ -45,11 +44,10 @@ function sydney_display_conditions_select_ajax() {
                     }
                 }
     
-            break;
+                break;
 
             case 'tag-id':
             case 'category-id':
-
                 $taxonomy = 'category';
 
                 if ( $source === 'tag-id' ) {
@@ -72,11 +70,10 @@ function sydney_display_conditions_select_ajax() {
                     }
                 }
 
-            break;
+                break;
 
             case 'author':
             case 'author-id':
-
                 $query      = new WP_User_Query( array(
                     'search'  => '*'. $term .'*',
                     'number'  => 25,
@@ -95,10 +92,9 @@ function sydney_display_conditions_select_ajax() {
                     }
                 }
 
-            break;
+                break;
 
             case 'cpt-post-id':
-
                 $post_types = get_post_types( array( 'show_in_nav_menus' => true ), 'objects' );
 
                 if ( ! empty( $post_types ) ) {
@@ -124,10 +120,9 @@ function sydney_display_conditions_select_ajax() {
                     }
                 }
 
-            break;
+                break;
 
             case 'cpt-term-id':
-
                 $terms = get_terms( array(
                     'search'     => $term,
                     'number'     => 25,
@@ -149,10 +144,9 @@ function sydney_display_conditions_select_ajax() {
                     }
                 }
 
-            break;
+                break;
 
             case 'cpt-taxonomy-id':
-
                 $taxonomies = get_taxonomies( array( 'show_in_nav_menus' => true ), 'objects' );
 
                 if ( ! empty( $taxonomies ) ) {
@@ -169,7 +163,7 @@ function sydney_display_conditions_select_ajax() {
                     }
                 }
 
-            break;
+                break;
 
         }
 
@@ -180,6 +174,5 @@ function sydney_display_conditions_select_ajax() {
         wp_send_json_error();
 
     }
-
 }
 add_action( 'wp_ajax_sydney_display_conditions_select_ajax', 'sydney_display_conditions_select_ajax' );

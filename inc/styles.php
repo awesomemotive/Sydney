@@ -13,7 +13,7 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
 
 		/**
 		 * Instance
-		 */		
+		 */     
 		private static $instance;
 
 		/**
@@ -28,7 +28,7 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
 		 */
 		public static function get_instance() {
 			if ( ! isset( self::$instance ) ) {
-				self::$instance = new self;
+				self::$instance = new self();
 			}
 			return self::$instance;
 		}
@@ -36,7 +36,7 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
 		/**
 		 * Constructor
 		 */
-		public function __construct() {	
+		public function __construct() { 
 			$this->customizer_js = array();
 
 			add_action( 'wp_enqueue_scripts', array( $this, 'print_styles' ) );
@@ -61,13 +61,13 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
             $shop_thumb = get_the_post_thumbnail_url( get_option( 'woocommerce_shop_page_id' ) );
             if ( class_exists( 'Woocommerce' ) && is_product_category() ) {
                 global $wp_query;
-                $cat 			= $wp_query->get_queried_object();
-                $thumbnail_id 	= get_term_meta( $cat->term_id, 'thumbnail_id', true );
-                $shop_archive_thumb	= wp_get_attachment_url( $thumbnail_id );
+                $cat            = $wp_query->get_queried_object();
+                $thumbnail_id   = get_term_meta( $cat->term_id, 'thumbnail_id', true );
+                $shop_archive_thumb = wp_get_attachment_url( $thumbnail_id );
             }
         
             if ( class_exists( 'Woocommerce' ) && is_shop() && $shop_thumb ) {
-                $custom .= ".header-image { background-image:url(" . esc_url($shop_thumb) . ")!important;display:block;}"."\n";	
+                $custom .= ".header-image { background-image:url(" . esc_url($shop_thumb) . ")!important;display:block;}"."\n"; 
                 $custom .= ".site-header { background-color:transparent;}" . "\n";
                 $custom .= "@media only screen and (max-width: 1024px) { .sydney-hero-area .header-image { height:300px!important; }}" . "\n";
                 $shop_overlay = get_theme_mod( 'hide_overlay_shop' );
@@ -75,14 +75,14 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
                     $custom .= ".header-image .overlay { background-color:transparent;}" . "\n";
                 }
             } elseif ( class_exists( 'Woocommerce' ) && is_product_category() && $shop_archive_thumb ) {
-                $custom .= ".header-image { background-image:url(" . esc_url($shop_archive_thumb) . ")!important;display:block;}"."\n";	
+                $custom .= ".header-image { background-image:url(" . esc_url($shop_archive_thumb) . ")!important;display:block;}"."\n"; 
                 if ( !$is_amp ) {
                     $custom .= ".site-header { background-color:transparent;}" . "\n";
                 }
                 $custom .= "@media only screen and (max-width: 1024px) { .sydney-hero-area .header-image { height:300px!important; }}" . "\n";
             } elseif ( $is_amp || (get_theme_mod('front_header_type','nothing') == 'nothing' && is_front_page()) || (get_theme_mod('site_header_type') == 'nothing' && !is_front_page()) ) {
                 $menu_bg_color = get_theme_mod( 'menu_bg_color', '#263246' );
-                $rgba 	= $this->hex2rgba($menu_bg_color, 0.9);
+                $rgba   = $this->hex2rgba($menu_bg_color, 0.9);
                 $custom .= ".site-header { background-color:" . esc_attr($rgba) . ";}" . "\n";
             }
         
@@ -115,10 +115,10 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
                 }
             } else {
                 $custom .= "html { scroll-behavior: smooth;}" . "\n";
-            }	
+            }   
 
             //Header image
-            $header_bg_size = get_theme_mod('header_bg_size','cover');	
+            $header_bg_size = get_theme_mod('header_bg_size','cover');  
             $header_height = get_theme_mod('header_height','300');
             $custom .= ".header-image { background-size:" . esc_attr($header_bg_size) . ";}"."\n";
             $custom .= ".header-image { height:" . intval($header_height) . "px; }"."\n";
@@ -139,7 +139,7 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
                 }
                 $custom .= ".btn-menu { margin: 0 auto; float: none; }"."\n";
                 $custom .= ".header-wrap .container > .row { display: block; }"."\n";
-            }	
+            }   
         
             //AMP
             if ( 'sticky' == $sticky_menu && $is_amp ) {
@@ -176,7 +176,7 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
 
             //Top level menu items color
             $top_items_color = get_theme_mod( 'top_items_color', '#ffffff' );
-			$custom .= "#mainnav ul li a, #mainnav ul li::before { color:" . esc_attr($top_items_color) . "}"."\n";	
+			$custom .= "#mainnav ul li a, #mainnav ul li::before { color:" . esc_attr($top_items_color) . "}"."\n"; 
 
             //Sub menu items color
             $submenu_items_color = get_theme_mod( 'submenu_items_color', '#ffffff' );
@@ -207,13 +207,13 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
 		
             //Rows overlay
             $rows_overlay = get_theme_mod( 'rows_overlay', '#000000' );
-            $custom .= ".overlay { background-color:" . esc_attr($rows_overlay) . "}"."\n";	
+            $custom .= ".overlay { background-color:" . esc_attr($rows_overlay) . "}"."\n"; 
         
             //Page wrapper padding
             $pw_top_padding = get_theme_mod( 'wrapper_top_padding', '83' );
             $pw_bottom_padding = get_theme_mod( 'wrapper_bottom_padding', '100' );
-            $custom .= ".page-wrap { padding-top:" . intval($pw_top_padding) . "px;}"."\n";	
-            $custom .= ".page-wrap { padding-bottom:" . intval($pw_bottom_padding) . "px;}"."\n";	
+            $custom .= ".page-wrap { padding-top:" . intval($pw_top_padding) . "px;}"."\n"; 
+            $custom .= ".page-wrap { padding-bottom:" . intval($pw_bottom_padding) . "px;}"."\n";   
 
 			if ( is_singular() ) {
                 $post_type = get_post_type();
@@ -228,8 +228,8 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
         
             $text_slide = get_theme_mod('textslider_slide', 0);
             if ( $text_slide ) {
-                $custom .= ".slide-inner { display:none;}"."\n";	
-                $custom .= ".slide-inner.text-slider-stopped { display:block;}"."\n";	
+                $custom .= ".slide-inner { display:none;}"."\n";    
+                $custom .= ".slide-inner.text-slider-stopped { display:block;}"."\n";   
             }
         
             $mobile_slider = get_theme_mod('mobile_slider', 'responsive');
@@ -249,7 +249,7 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
                     .slide-inner {
                         min-height: initial;
                     } 
-                }"."\n";     	
+                }"."\n";        
             }
         
             if ( $is_amp ) {
@@ -258,11 +258,11 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
         
             /* Start porting */
             /* Back to top */
-			$scrolltop_radius 			= get_theme_mod( 'scrolltop_radius', 2 );
-			$scrolltop_side_offset 		= get_theme_mod( 'scrolltop_side_offset', 20 );
-			$scrolltop_bottom_offset 	= get_theme_mod( 'scrolltop_bottom_offset', 10 );
-			$scrolltop_icon_size 		= get_theme_mod( 'scrolltop_icon_size', 16 );
-			$scrolltop_padding 			= get_theme_mod( 'scrolltop_padding', 15 );
+			$scrolltop_radius           = get_theme_mod( 'scrolltop_radius', 2 );
+			$scrolltop_side_offset      = get_theme_mod( 'scrolltop_side_offset', 20 );
+			$scrolltop_bottom_offset    = get_theme_mod( 'scrolltop_bottom_offset', 10 );
+			$scrolltop_icon_size        = get_theme_mod( 'scrolltop_icon_size', 16 );
+			$scrolltop_padding          = get_theme_mod( 'scrolltop_padding', 15 );
 
 			$custom .= ".go-top.show { border-radius:" . esc_attr( $scrolltop_radius ) . "px;bottom:" . esc_attr( $scrolltop_bottom_offset ) . "px;}" . "\n";
 			$custom .= ".go-top.position-right { right:" . esc_attr( $scrolltop_side_offset ) . "px;}" . "\n";
@@ -277,10 +277,10 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
 			$custom .= ".go-top { padding:" . esc_attr( $scrolltop_padding ) . "px;}" . "\n";
         
             /* Footer */
-			$footer_widgets_divider 		= get_theme_mod( 'footer_widgets_divider', 0 );
-			$footer_widgets_divider_width 	= get_theme_mod( 'footer_widgets_divider_width', 'contained' );
-			$footer_widgets_divider_size 	= get_theme_mod( 'footer_widgets_divider_size', 1 );
-			$footer_widgets_divider_color 	= get_theme_mod( 'footer_widgets_divider_color' );
+			$footer_widgets_divider         = get_theme_mod( 'footer_widgets_divider', 0 );
+			$footer_widgets_divider_width   = get_theme_mod( 'footer_widgets_divider_width', 'contained' );
+			$footer_widgets_divider_size    = get_theme_mod( 'footer_widgets_divider_size', 1 );
+			$footer_widgets_divider_color   = get_theme_mod( 'footer_widgets_divider_color' );
 
 			if ( $footer_widgets_divider ) {
 				if ( 'contained' === $footer_widgets_divider_width ) {
@@ -290,10 +290,10 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
 				}
 			}
             $custom .= $this->get_font_sizes_css( 'footer_copyright_font_size', $defaults = array( 'desktop' => 16, 'tablet' => 16, 'mobile' => 16 ), '.site-info' );
-			$footer_credits_divider 		= get_theme_mod( 'footer_credits_divider', 0 );
-			$footer_credits_divider_width 	= get_theme_mod( 'footer_credits_divider_width', 'contained' );
-			$footer_credits_divider_size 	= get_theme_mod( 'footer_credits_divider_size', 0 );
-			$footer_credits_divider_color 	= get_theme_mod( 'footer_credits_divider_color', 'rgba(33,33,33,0.1)' );			
+			$footer_credits_divider         = get_theme_mod( 'footer_credits_divider', 0 );
+			$footer_credits_divider_width   = get_theme_mod( 'footer_credits_divider_width', 'contained' );
+			$footer_credits_divider_size    = get_theme_mod( 'footer_credits_divider_size', 0 );
+			$footer_credits_divider_color   = get_theme_mod( 'footer_credits_divider_color', 'rgba(33,33,33,0.1)' );            
 			if ( $footer_credits_divider ) {
 				if ( 'contained' === $footer_credits_divider_width ) {
 					$custom .= ".site-info { border-top:" . esc_attr( $footer_credits_divider_size ) . 'px solid ' . esc_attr( $footer_credits_divider_color ) . ";}" . "\n";
@@ -302,7 +302,7 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
 				}
 			} else {
 				$custom .= ".site-info { border-top:0;}" . "\n";
-			}			
+			}           
 
 			$footer_widgets_column_spacing_desktop = get_theme_mod( 'footer_widgets_column_spacing_desktop', 30 );
 			$custom .= ".footer-widgets-grid { gap:" . esc_attr( $footer_widgets_column_spacing_desktop ) . "px;}" . "\n";
@@ -334,11 +334,11 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
 			$button_text_transform = get_theme_mod( 'button_text_transform', 'uppercase' );
 			$custom .= "button,.roll-button,a.button,.wp-block-button__link,input[type=\"button\"],input[type=\"reset\"],input[type=\"submit\"] { text-transform:" . esc_attr( $button_text_transform ) . ";}" . "\n";
 
-			$custom .= $this->get_background_color_css( 'button_background_color', '', 'button,.wp-element-button,div.wpforms-container-full .wpforms-form input[type=submit],div.wpforms-container-full .wpforms-form button[type=submit],div.wpforms-container-full .wpforms-form .wpforms-page-button,.roll-button,a.button,.wp-block-button__link,input[type="button"],input[type="reset"],input[type="submit"]' );			
-			$custom .= $this->get_background_color_css( 'button_background_color_hover', '', 'button:hover,.wp-element-button:hover,div.wpforms-container-full .wpforms-form input[type=submit]:hover,div.wpforms-container-full .wpforms-form button[type=submit]:hover,div.wpforms-container-full .wpforms-form .wpforms-page-button:hover,.roll-button:hover,a.button:hover,.wp-block-button__link:hover,input[type="button"]:hover,input[type="reset"]:hover,input[type="submit"]:hover' );			
+			$custom .= $this->get_background_color_css( 'button_background_color', '', 'button,.wp-element-button,div.wpforms-container-full .wpforms-form input[type=submit],div.wpforms-container-full .wpforms-form button[type=submit],div.wpforms-container-full .wpforms-form .wpforms-page-button,.roll-button,a.button,.wp-block-button__link,input[type="button"],input[type="reset"],input[type="submit"]' );         
+			$custom .= $this->get_background_color_css( 'button_background_color_hover', '', 'button:hover,.wp-element-button:hover,div.wpforms-container-full .wpforms-form input[type=submit]:hover,div.wpforms-container-full .wpforms-form button[type=submit]:hover,div.wpforms-container-full .wpforms-form .wpforms-page-button:hover,.roll-button:hover,a.button:hover,.wp-block-button__link:hover,input[type="button"]:hover,input[type="reset"]:hover,input[type="submit"]:hover' );         
 
-			$custom .= $this->get_color_css( 'button_color', '', 'button,#sidebar-footer a.wp-block-button__link,.wp-element-button,div.wpforms-container-full .wpforms-form input[type=submit],div.wpforms-container-full .wpforms-form button[type=submit],div.wpforms-container-full .wpforms-form .wpforms-page-button,.checkout-button.button,a.button,.wp-block-button__link,input[type="button"],input[type="reset"],input[type="submit"]' );			
-			$custom .= $this->get_color_css( 'button_color_hover', '', 'button:hover,#sidebar-footer .wp-block-button__link:hover,.wp-element-button:hover,div.wpforms-container-full .wpforms-form input[type=submit]:hover,div.wpforms-container-full .wpforms-form button[type=submit]:hover,div.wpforms-container-full .wpforms-form .wpforms-page-button:hover,.roll-button:hover,a.button:hover,.wp-block-button__link:hover,input[type="button"]:hover,input[type="reset"]:hover,input[type="submit"]:hover' );			
+			$custom .= $this->get_color_css( 'button_color', '', 'button,#sidebar-footer a.wp-block-button__link,.wp-element-button,div.wpforms-container-full .wpforms-form input[type=submit],div.wpforms-container-full .wpforms-form button[type=submit],div.wpforms-container-full .wpforms-form .wpforms-page-button,.checkout-button.button,a.button,.wp-block-button__link,input[type="button"],input[type="reset"],input[type="submit"]' );            
+			$custom .= $this->get_color_css( 'button_color_hover', '', 'button:hover,#sidebar-footer .wp-block-button__link:hover,.wp-element-button:hover,div.wpforms-container-full .wpforms-form input[type=submit]:hover,div.wpforms-container-full .wpforms-form button[type=submit]:hover,div.wpforms-container-full .wpforms-form .wpforms-page-button:hover,.roll-button:hover,a.button:hover,.wp-block-button__link:hover,input[type="button"]:hover,input[type="reset"]:hover,input[type="submit"]:hover' );          
 
 			$button_border_color = get_theme_mod( 'button_border_color', '' );
 			$button_border_color_hover = get_theme_mod( 'button_border_color_hover', '' );
@@ -396,9 +396,9 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
 			} else {
 				$custom .= $this->get_max_width_css( 'site_logo_size', $defaults = array( 'desktop' => 180, 'tablet' => 100, 'mobile' => 100 ), '.custom-logo-link img' );
 
-				$main_header_divider_width 	= get_theme_mod( 'main_header_divider_width', 'fullwidth' );
-				$main_header_divider_size 	= get_theme_mod( 'main_header_divider_size', 0 );
-				$main_header_divider_color 	= get_theme_mod( 'main_header_divider_color', 'rgba(255,255,255,0.1)' );
+				$main_header_divider_width  = get_theme_mod( 'main_header_divider_width', 'fullwidth' );
+				$main_header_divider_size   = get_theme_mod( 'main_header_divider_size', 0 );
+				$main_header_divider_color  = get_theme_mod( 'main_header_divider_color', 'rgba(255,255,255,0.1)' );
 				
 				if ( 'fullwidth' === $main_header_divider_width ) {
 					$custom .= ".main-header, .bottom-header-row { border-bottom:" . esc_attr( $main_header_divider_size ) . 'px solid ' . esc_attr( $main_header_divider_color ) . ";}" . "\n";
@@ -426,7 +426,7 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
 				$custom .= $this->get_color_css( 'color_link_hover', '', '.bottom-header-row #mainnav .menu > li > a:hover' );
 				$custom .= $this->get_fill_css( 'main_header_bottom_color', '', '.bottom-header-row .header-item svg,.dropdown-symbol .sydney-svg-icon svg' );
 				
-				$main_header_padding 	= get_theme_mod( 'main_header_padding', 15 );
+				$main_header_padding    = get_theme_mod( 'main_header_padding', 15 );
 				$custom .= ".main-header .site-header-inner, .main-header .top-header-row { padding-top:" . esc_attr( $main_header_padding ) . 'px;padding-bottom:' . esc_attr( $main_header_padding ) . "px;}" . "\n";
 
 				$main_header_bottom_padding = get_theme_mod( 'main_header_bottom_padding', 15 );
@@ -467,9 +467,9 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
 				$offcanvas_submenu_font_size = get_theme_mod( 'offcanvas_submenu_font_size', '16' );
 				$custom .= ".sydney-offcanvas-menu #mainnav ul ul li a { font-size:" . intval($offcanvas_submenu_font_size) . "px; }"."\n";
 
-				$mobile_menu_link_separator 	= get_theme_mod( 'mobile_menu_link_separator', 0 );
-				$link_separator_color 			= get_theme_mod( 'link_separator_color', 'rgba(238, 238, 238, 0.14)' );
-				$mobile_header_separator_width	= get_theme_mod( 'mobile_header_separator_width', 1 );
+				$mobile_menu_link_separator     = get_theme_mod( 'mobile_menu_link_separator', 0 );
+				$link_separator_color           = get_theme_mod( 'link_separator_color', 'rgba(238, 238, 238, 0.14)' );
+				$mobile_header_separator_width  = get_theme_mod( 'mobile_header_separator_width', 1 );
 
 				if ( $mobile_menu_link_separator ) {
 					$custom .= ".sydney-offcanvas-menu .mainnav ul li { padding-top:5px;border-bottom: " . intval( $mobile_header_separator_width ) . "px solid " . esc_attr( $link_separator_color ) . ";}" . "\n";
@@ -497,11 +497,11 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
             $custom .= $this->get_max_height_css( 'site_logo_size', $defaults = array( 'desktop' => 100, 'tablet' => 100, 'mobile' => 100 ), '.site-logo' );      
             
             //Site title
-			$logo_site_title	= get_theme_mod('logo_site_title', 0);
+			$logo_site_title    = get_theme_mod('logo_site_title', 0);
 
             if ( $logo_site_title && '' !== get_theme_mod( 'site_logo' ) ) {
                 $custom .= ".site-branding { display: flex;gap:15px;align-items:center; }"."\n";
-            }			
+            }           
             $site_title = get_theme_mod( 'site_title_color' );
             $custom .= ".site-title a, .site-title a:visited, .main-header .site-title a, .main-header .site-title a:visited  { color:" . esc_attr($site_title) . "}"."\n";
             //Site desc
@@ -514,20 +514,20 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
 			//Typography 
 			$typography_defaults = json_encode(
 				array(
-					'font' 			=> 'System default',
+					'font'          => 'System default',
 					'regularweight' => 'regular',
-					'category' 		=> 'sans-serif'
+					'category'      => 'sans-serif',
 				)
 			);
 
-			$body_font		= get_theme_mod( 'sydney_body_font', $typography_defaults );
-			$headings_font 	= get_theme_mod( 'sydney_headings_font', $typography_defaults );
+			$body_font      = get_theme_mod( 'sydney_body_font', $typography_defaults );
+			$headings_font  = get_theme_mod( 'sydney_headings_font', $typography_defaults );
 		
-			$body_font 		= json_decode( $body_font, true );
-			$headings_font 	= json_decode( $headings_font, true );
+			$body_font      = json_decode( $body_font, true );
+			$headings_font  = json_decode( $headings_font, true );
 			
 			if ( 'System default' !== $body_font['font'] ) {
-				$custom .= 'body { font-family:' . esc_attr( $body_font['font'] ) . ',' . esc_attr( $body_font['category'] ) . '; font-weight: ' . esc_attr( $body_font['regularweight'] ) . ';}' . "\n";	
+				$custom .= 'body { font-family:' . esc_attr( $body_font['font'] ) . ',' . esc_attr( $body_font['category'] ) . '; font-weight: ' . esc_attr( $body_font['regularweight'] ) . ';}' . "\n";   
 			}
 			
 			if ( 'System default' !== $headings_font['font'] ) {
@@ -537,28 +537,28 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
             $enable_top_menu_typography = get_theme_mod( 'enable_top_menu_typography', 0 );
             if ( $enable_top_menu_typography ) {
 
-                $menu_font		= get_theme_mod( 'sydney_menu_font', $typography_defaults );
-                $menu_font 	    = json_decode( $menu_font, true );
+                $menu_font      = get_theme_mod( 'sydney_menu_font', $typography_defaults );
+                $menu_font      = json_decode( $menu_font, true );
 
                 $menu_text_transform = get_theme_mod( 'menu_items_text_transform' );
 
                 if ( 'System default' !== $menu_font['font'] ) {
-                    $custom .= '#mainnav > div > ul > li > a { font-family:' . esc_attr( $menu_font['font'] ) . ',' . esc_attr( $menu_font['category'] ) . '; font-weight: ' . esc_attr( $menu_font['regularweight'] ) . ';}' . "\n";	
+                    $custom .= '#mainnav > div > ul > li > a { font-family:' . esc_attr( $menu_font['font'] ) . ',' . esc_attr( $menu_font['category'] ) . '; font-weight: ' . esc_attr( $menu_font['regularweight'] ) . ';}' . "\n";   
                 }
 
-                $custom .= "#mainnav > div > ul > li > a { text-transform:" . esc_attr( $menu_text_transform ) . ";}" . "\n";	
+                $custom .= "#mainnav > div > ul > li > a { text-transform:" . esc_attr( $menu_text_transform ) . ";}" . "\n";   
        
                 $custom .= $this->get_font_sizes_css( 'sydney_menu_font_size', $defaults = array( 'desktop' => 14, 'tablet' => 14, 'mobile' => 14 ), '#mainnav > div > ul > li' );
                 $custom .= $this->get_font_sizes_css( 'sydney_menu_font_size', $defaults = array( 'desktop' => 14, 'tablet' => 14, 'mobile' => 14 ), '.header-item' );
-            }			
+            }           
 
-			$headings_font_style 		= get_theme_mod( 'headings_font_style' );
-			$headings_line_height 		= get_theme_mod( 'headings_line_height', 1.2 );
-			$headings_letter_spacing 	= get_theme_mod( 'headings_letter_spacing' );
-			$headings_text_transform 	= get_theme_mod( 'headings_text_transform' );
-			$headings_text_decoration 	= get_theme_mod( 'headings_text_decoration' );
+			$headings_font_style        = get_theme_mod( 'headings_font_style' );
+			$headings_line_height       = get_theme_mod( 'headings_line_height', 1.2 );
+			$headings_letter_spacing    = get_theme_mod( 'headings_letter_spacing' );
+			$headings_text_transform    = get_theme_mod( 'headings_text_transform' );
+			$headings_text_decoration   = get_theme_mod( 'headings_text_decoration' );
 
-			$custom .= "h1,h2,h3,h4,h5,h6,.site-title { text-decoration:" . esc_attr( $headings_text_decoration ) . ";text-transform:" . esc_attr( $headings_text_transform ) . ";font-style:" . esc_attr( $headings_font_style ) . ";line-height:" . esc_attr( $headings_line_height ) . ";letter-spacing:" . esc_attr( $headings_letter_spacing ) . "px;}" . "\n";	
+			$custom .= "h1,h2,h3,h4,h5,h6,.site-title { text-decoration:" . esc_attr( $headings_text_decoration ) . ";text-transform:" . esc_attr( $headings_text_transform ) . ";font-style:" . esc_attr( $headings_font_style ) . ";line-height:" . esc_attr( $headings_line_height ) . ";letter-spacing:" . esc_attr( $headings_letter_spacing ) . "px;}" . "\n";    
 
 			$custom .= $this->get_font_sizes_css( 'h1_font_size', $defaults = array( 'desktop' => 48, 'tablet' => 42, 'mobile' => 32 ), 'h1:not(.site-title)' );
 			$custom .= $this->get_font_sizes_css( 'h2_font_size', $defaults = array( 'desktop' => 38, 'tablet' => 32, 'mobile' => 24 ), 'h2' );
@@ -567,20 +567,20 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
 			$custom .= $this->get_font_sizes_css( 'h5_font_size', $defaults = array( 'desktop' => 20, 'tablet' => 16, 'mobile' => 16 ), 'h5' );
 			$custom .= $this->get_font_sizes_css( 'h6_font_size', $defaults = array( 'desktop' => 16, 'tablet' => 16, 'mobile' => 16 ), 'h6' );
 
-            $body_font_style 		= get_theme_mod( 'body_font_style' );
-			$body_line_height 		= get_theme_mod( 'body_line_height', 1.68 );
-			$body_letter_spacing 	= get_theme_mod( 'body_letter_spacing' );
-			$body_text_transform 	= get_theme_mod( 'body_text_transform' );
-			$body_text_decoration 	= get_theme_mod( 'body_text_decoration' );
+            $body_font_style        = get_theme_mod( 'body_font_style' );
+			$body_line_height       = get_theme_mod( 'body_line_height', 1.68 );
+			$body_letter_spacing    = get_theme_mod( 'body_letter_spacing' );
+			$body_text_transform    = get_theme_mod( 'body_text_transform' );
+			$body_text_decoration   = get_theme_mod( 'body_text_decoration' );
 
-			$custom .= "p, .posts-layout .entry-post { text-decoration:" . esc_attr( $body_text_decoration ) . "}" . "\n";	
-			$custom .= "body, .posts-layout .entry-post { text-transform:" . esc_attr( $body_text_transform ) . ";font-style:" . esc_attr( $body_font_style ) . ";line-height:" . esc_attr( $body_line_height ) . ";letter-spacing:" . esc_attr( $body_letter_spacing ) . "px;}" . "\n";	
+			$custom .= "p, .posts-layout .entry-post { text-decoration:" . esc_attr( $body_text_decoration ) . "}" . "\n";  
+			$custom .= "body, .posts-layout .entry-post { text-transform:" . esc_attr( $body_text_transform ) . ";font-style:" . esc_attr( $body_font_style ) . ";line-height:" . esc_attr( $body_line_height ) . ";letter-spacing:" . esc_attr( $body_letter_spacing ) . "px;}" . "\n";    
 			$custom .= $this->get_font_sizes_css( 'body_font_size', $defaults = array( 'desktop' => 16, 'tablet' => 16, 'mobile' => 16 ), 'body' );            
 
 			//Woocommerce single
-			$single_sku 	 	= get_theme_mod( 'single_product_sku', 1 );
+			$single_sku         = get_theme_mod( 'single_product_sku', 1 );
 			$single_categories  = get_theme_mod( 'single_product_categories', 1 );
-			$single_tags 	 	= get_theme_mod( 'single_product_tags', 1 );
+			$single_tags        = get_theme_mod( 'single_product_tags', 1 );
 			$single_sticky_add_to_cart_elements_spacing = get_theme_mod( 'single_sticky_add_to_cart_elements_spacing', 35 );
 
 			if( !$single_sku ) {
@@ -603,9 +603,9 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
             $shop_product_element_spacing = get_theme_mod( 'shop_product_element_spacing', 12 );
 			$custom .= ".woocommerce  ul.products li.product .col-md-7 > *,.woocommerce  ul.products li.product .col-md-8 > *,.woocommerce  ul.products li.product > * { margin-bottom:" . esc_attr( $shop_product_element_spacing ) . "px;}" . "\n";
 
-			$shop_product_sale_tag_layout 	= get_theme_mod( 'shop_product_sale_tag_layout', 'layout2' );
-			$shop_sale_tag_spacing			= get_theme_mod( 'shop_sale_tag_spacing', 20 );
-			$shop_sale_tag_radius			= get_theme_mod( 'shop_sale_tag_radius', 0 );
+			$shop_product_sale_tag_layout   = get_theme_mod( 'shop_product_sale_tag_layout', 'layout2' );
+			$shop_sale_tag_spacing          = get_theme_mod( 'shop_sale_tag_spacing', 20 );
+			$shop_sale_tag_radius           = get_theme_mod( 'shop_sale_tag_radius', 0 );
 
 			$custom .= ".wc-block-grid__product-onsale, span.onsale {border-radius:" . esc_attr( $shop_sale_tag_radius ) . "px;top:" . esc_attr( $shop_sale_tag_spacing ) . "px!important;left:" . esc_attr( $shop_sale_tag_spacing ) . "px!important;}" . "\n";
 			if ( 'layout2' === $shop_product_sale_tag_layout ) {
@@ -643,15 +643,15 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
 				$custom .= '.woocommerce-checkout .woocommerce-form-coupon-toggle { display: none; }';
 			} 
 
-			$shop_product_card_style 		= get_theme_mod( 'shop_product_card_style', 'layout1' );
+			$shop_product_card_style        = get_theme_mod( 'shop_product_card_style', 'layout1' );
 			$shop_product_card_border_color = get_theme_mod( 'shop_product_card_border_color', '#eee' );
-			$shop_product_card_border_size 	= get_theme_mod( 'shop_product_card_border_size', 1 );
-			$shop_product_card_background 	= get_theme_mod( 'shop_product_card_background' );
-			$shop_product_card_radius 		= get_theme_mod( 'shop_product_card_radius' );
+			$shop_product_card_border_size  = get_theme_mod( 'shop_product_card_border_size', 1 );
+			$shop_product_card_background   = get_theme_mod( 'shop_product_card_background' );
+			$shop_product_card_radius       = get_theme_mod( 'shop_product_card_radius' );
 			$shop_product_card_thumb_radius = get_theme_mod( 'shop_product_card_thumb_radius' );
 
 			if ( 'layout2' === $shop_product_card_style || 'layout3' === $shop_product_card_style ) {
-				$custom .= ".woocommerce-page ul.products li.product { background-color: " . esc_attr( $shop_product_card_background ) . ";border-radius: " . intval( $shop_product_card_radius ) . "px; border: " . intval( $shop_product_card_border_size ) . "px solid " . esc_attr( $shop_product_card_border_color ) . ";padding:30px;}" . "\n";			
+				$custom .= ".woocommerce-page ul.products li.product { background-color: " . esc_attr( $shop_product_card_background ) . ";border-radius: " . intval( $shop_product_card_radius ) . "px; border: " . intval( $shop_product_card_border_size ) . "px solid " . esc_attr( $shop_product_card_border_color ) . ";padding:30px;}" . "\n";           
 				$custom .= "ul.products li.wc-block-grid__product .loop-image-wrap, ul.products li.product .loop-image-wrap { overflow:hidden;border-radius:" . esc_attr( $shop_product_card_thumb_radius ) . "px;}" . "\n";
 			}
 
@@ -671,9 +671,9 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
 
 			$custom .= $this->get_color_css( 'color_forms_text', '', 'div.wpforms-container-full .wpforms-form input[type=date], div.wpforms-container-full .wpforms-form input[type=datetime], div.wpforms-container-full .wpforms-form input[type=datetime-local], div.wpforms-container-full .wpforms-form input[type=email], div.wpforms-container-full .wpforms-form input[type=month], div.wpforms-container-full .wpforms-form input[type=number], div.wpforms-container-full .wpforms-form input[type=password], div.wpforms-container-full .wpforms-form input[type=range], div.wpforms-container-full .wpforms-form input[type=search], div.wpforms-container-full .wpforms-form input[type=tel], div.wpforms-container-full .wpforms-form input[type=text], div.wpforms-container-full .wpforms-form input[type=time], div.wpforms-container-full .wpforms-form input[type=url], div.wpforms-container-full .wpforms-form input[type=week], div.wpforms-container-full .wpforms-form select, div.wpforms-container-full .wpforms-form textarea,input[type="text"],input[type="email"],input[type="url"],input[type="password"],input[type="search"],input[type="number"],input[type="tel"],input[type="range"],input[type="date"],input[type="month"],input[type="week"],input[type="time"],input[type="datetime"],input[type="datetime-local"],input[type="color"],textarea,select,.woocommerce .select2-container .select2-selection--single,.woocommerce-page .select2-container .select2-selection--single,input[type="text"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="password"]:focus, input[type="search"]:focus, input[type="number"]:focus, input[type="tel"]:focus, input[type="range"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="week"]:focus, input[type="time"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="color"]:focus, textarea:focus, select:focus, .woocommerce .select2-container .select2-selection--single:focus, .woocommerce-page .select2-container .select2-selection--single:focus,.select2-container--default .select2-selection--single .select2-selection__rendered,.wp-block-search .wp-block-search__input,.wp-block-search .wp-block-search__input:focus' );
 			$custom .= $this->get_background_color_css( 'color_forms_background', '', 'div.wpforms-container-full .wpforms-form input[type=date], div.wpforms-container-full .wpforms-form input[type=datetime], div.wpforms-container-full .wpforms-form input[type=datetime-local], div.wpforms-container-full .wpforms-form input[type=email], div.wpforms-container-full .wpforms-form input[type=month], div.wpforms-container-full .wpforms-form input[type=number], div.wpforms-container-full .wpforms-form input[type=password], div.wpforms-container-full .wpforms-form input[type=range], div.wpforms-container-full .wpforms-form input[type=search], div.wpforms-container-full .wpforms-form input[type=tel], div.wpforms-container-full .wpforms-form input[type=text], div.wpforms-container-full .wpforms-form input[type=time], div.wpforms-container-full .wpforms-form input[type=url], div.wpforms-container-full .wpforms-form input[type=week], div.wpforms-container-full .wpforms-form select, div.wpforms-container-full .wpforms-form textarea,input[type="text"],input[type="email"],input[type="url"],input[type="password"],input[type="search"],input[type="number"],input[type="tel"],input[type="range"],input[type="date"],input[type="month"],input[type="week"],input[type="time"],input[type="datetime"],input[type="datetime-local"],input[type="color"],textarea,select,.woocommerce .select2-container .select2-selection--single,.woocommerce-page .select2-container .select2-selection--single,.woocommerce-cart .woocommerce-cart-form .actions .coupon input[type="text"]' );
-			$color_forms_borders 	= get_theme_mod( 'color_forms_borders' );
+			$color_forms_borders    = get_theme_mod( 'color_forms_borders' );
 			$custom .= "div.wpforms-container-full .wpforms-form input[type=date], div.wpforms-container-full .wpforms-form input[type=datetime], div.wpforms-container-full .wpforms-form input[type=datetime-local], div.wpforms-container-full .wpforms-form input[type=email], div.wpforms-container-full .wpforms-form input[type=month], div.wpforms-container-full .wpforms-form input[type=number], div.wpforms-container-full .wpforms-form input[type=password], div.wpforms-container-full .wpforms-form input[type=range], div.wpforms-container-full .wpforms-form input[type=search], div.wpforms-container-full .wpforms-form input[type=tel], div.wpforms-container-full .wpforms-form input[type=text], div.wpforms-container-full .wpforms-form input[type=time], div.wpforms-container-full .wpforms-form input[type=url], div.wpforms-container-full .wpforms-form input[type=week], div.wpforms-container-full .wpforms-form select, div.wpforms-container-full .wpforms-form textarea,input[type=\"text\"],input[type=\"email\"],input[type=\"url\"],input[type=\"password\"],input[type=\"search\"],input[type=\"number\"],input[type=\"tel\"],input[type=\"range\"],input[type=\"date\"],input[type=\"month\"],input[type=\"week\"],input[type=\"time\"],input[type=\"datetime\"],input[type=\"datetime-local\"],input[type=\"color\"],textarea,select,.woocommerce .select2-container .select2-selection--single,.woocommerce-page .select2-container .select2-selection--single,.woocommerce-account fieldset,.woocommerce-account .woocommerce-form-login, .woocommerce-account .woocommerce-form-register,.woocommerce-cart .woocommerce-cart-form .actions .coupon input[type=\"text\"],.wp-block-search .wp-block-search__input { border-color:" . esc_attr( $color_forms_borders ) . ";}" . "\n";
-			$color_forms_placeholder 	= get_theme_mod( 'color_forms_placeholder' );
+			$color_forms_placeholder    = get_theme_mod( 'color_forms_placeholder' );
 			$custom .= "input::placeholder { color:" . esc_attr( $color_forms_placeholder ) . ";opacity:1;}" . "\n";
 			$custom .= "input:-ms-input-placeholder { color:" . esc_attr( $color_forms_placeholder ) . ";}" . "\n";
 			$custom .= "input::-ms-input-placeholder { color:" . esc_attr( $color_forms_placeholder ) . ";}" . "\n";
@@ -683,7 +683,7 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
 			//Images
 			$image_border_radius = get_theme_mod('image_border_radius', 0);
 			$custom .= "img { border-radius:" . intval($image_border_radius) . "px;}" . "\n";
-			$custom .= $this->get_font_sizes_css('image_caption_font_size', $defaults = array('desktop' => 16, 'tablet' => 16, 'mobile' => 16), '.wp-caption-text, figcaption');
+			$custom .= $this->get_font_sizes_css('image_caption_font_size', $defaults = array( 'desktop' => 16, 'tablet' => 16, 'mobile' => 16 ), '.wp-caption-text, figcaption');
 			$custom .= $this->get_color_css('image_caption_color', '', '.wp-caption-text, figcaption');
 
 			//Container widths
@@ -754,7 +754,7 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
             Sydney_Custom_CSS::get_instance()->mount_customizer_js_options( $selector, $setting, 'color', '', $important );
 
 			return $selector . '{ color:' . esc_attr( $mod ) . ';}' . "\n";
-		}		
+		}       
 
 		/**
 		 * Get border color CSS
@@ -763,7 +763,7 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
 			$mod = get_theme_mod( $setting, $default );
 
 			return $selector . '{ border-color:' . esc_attr( $mod ) . ';}' . "\n";
-		}			
+		}           
 		
 		/**
 		 * Get fill CSS
@@ -774,7 +774,7 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
 			Sydney_Custom_CSS::get_instance()->mount_customizer_js_options( $selector, $setting, 'fill', '', $important );
 
 			return $selector . '{ fill:' . esc_attr( $mod ) . ';}' . "\n";
-		}	
+		}   
 		
 		/**
 		 * Get stroke CSS
@@ -783,21 +783,21 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
 			$mod = get_theme_mod( $setting, $default );
 
 			return $selector . '{ stroke:' . esc_attr( $mod ) . ';}' . "\n";
-		}		
+		}       
 
 		//Font sizes
 		public static function get_font_sizes_css( $setting, $defaults, $selector ) {
-			$devices 	= array( 
-				'desktop' 	=> '@media (min-width: 992px)',
-				'tablet'	=> '@media (min-width: 576px) and (max-width:  991px)',
-				'mobile'	=> '@media (max-width: 575px)'
+			$devices    = array( 
+				'desktop'   => '@media (min-width: 992px)',
+				'tablet'    => '@media (min-width: 576px) and (max-width:  991px)',
+				'mobile'    => '@media (max-width: 575px)',
 			);
 
 			$css = '';
 
 			foreach ( $devices as $device => $media ) {
 				$mod = get_theme_mod( $setting . '_' . $device, $defaults[$device] );
-				$css .= $media . ' { ' . $selector . ' { font-size:' . intval( $mod ) . 'px;} }' . "\n";	
+				$css .= $media . ' { ' . $selector . ' { font-size:' . intval( $mod ) . 'px;} }' . "\n";    
 			}
 
 			return $css;
@@ -826,75 +826,75 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
 		
 		//Max width
 		public static function get_max_width_css( $setting, $defaults, $selector ) {
-			$devices 	= array( 
-				'desktop' 	=> '@media (min-width: 992px)',
-				'tablet'	=> '@media (min-width: 576px) and (max-width:  991px)',
-				'mobile'	=> '@media (max-width: 575px)'
+			$devices    = array( 
+				'desktop'   => '@media (min-width: 992px)',
+				'tablet'    => '@media (min-width: 576px) and (max-width:  991px)',
+				'mobile'    => '@media (max-width: 575px)',
 			);
 
 			$css = '';
 
 			foreach ( $devices as $device => $media ) {
 				$mod = get_theme_mod( $setting . '_' . $device, $defaults[$device] );
-				$css .= $media . ' { ' . $selector . ' { max-width:' . intval( $mod ) . 'px;} }' . "\n";	
+				$css .= $media . ' { ' . $selector . ' { max-width:' . intval( $mod ) . 'px;} }' . "\n";    
 			}
 
 			return $css;
-		}			
+		}           
 
 		//Max height
 		public static function get_max_height_css( $setting, $defaults, $selector ) {
-			$devices 	= array( 
-				'desktop' 	=> '@media (min-width: 992px)',
-				'tablet'	=> '@media (min-width: 576px) and (max-width:  991px)',
-				'mobile'	=> '@media (max-width: 575px)'
+			$devices    = array( 
+				'desktop'   => '@media (min-width: 992px)',
+				'tablet'    => '@media (min-width: 576px) and (max-width:  991px)',
+				'mobile'    => '@media (max-width: 575px)',
 			);
 
 			$css = '';
 
 			foreach ( $devices as $device => $media ) {
 				$mod = get_theme_mod( $setting . '_' . $device, $defaults[$device] );
-				$css .= $media . ' { ' . $selector . ' { max-height:' . intval( $mod ) . 'px;} }' . "\n";	
+				$css .= $media . ' { ' . $selector . ' { max-height:' . intval( $mod ) . 'px;} }' . "\n";   
 			}
 
 			return $css;
-		}	
+		}   
 
 		//Top bottom padding
 		public static function get_top_bottom_padding_css( $setting, $defaults, $selector ) {
-			$devices 	= array( 
-				'desktop' 	=> '@media (min-width: 992px)',
-				'tablet'	=> '@media (min-width: 576px) and (max-width:  991px)',
-				'mobile'	=> '@media (max-width: 575px)'
+			$devices    = array( 
+				'desktop'   => '@media (min-width: 992px)',
+				'tablet'    => '@media (min-width: 576px) and (max-width:  991px)',
+				'mobile'    => '@media (max-width: 575px)',
 			);
 
 			$css = '';
 
 			foreach ( $devices as $device => $media ) {
 				$mod = get_theme_mod( $setting . '_' . $device, $defaults[$device] );
-				$css .= $media . ' { ' . $selector . ' { padding-top:' . intval( $mod ) . 'px;padding-bottom:' . intval( $mod ) . 'px;} }' . "\n";	
+				$css .= $media . ' { ' . $selector . ' { padding-top:' . intval( $mod ) . 'px;padding-bottom:' . intval( $mod ) . 'px;} }' . "\n";  
 			}
 
 			return $css;
-		}	
+		}   
 
 		//Left right padding
 		public static function get_left_right_padding_css( $setting, $defaults, $selector ) {
-			$devices 	= array( 
-				'desktop' 	=> '@media (min-width: 992px)',
-				'tablet'	=> '@media (min-width: 576px) and (max-width:  991px)',
-				'mobile'	=> '@media (max-width: 575px)'
+			$devices    = array( 
+				'desktop'   => '@media (min-width: 992px)',
+				'tablet'    => '@media (min-width: 576px) and (max-width:  991px)',
+				'mobile'    => '@media (max-width: 575px)',
 			);
 
 			$css = '';
 
 			foreach ( $devices as $device => $media ) {
 				$mod = get_theme_mod( $setting . '_' . $device, $defaults[$device] );
-				$css .= $media . ' { ' . $selector . ' { padding-left:' . intval( $mod ) . 'px;padding-right:' . intval( $mod ) . 'px;} }' . "\n";	
+				$css .= $media . ' { ' . $selector . ' { padding-left:' . intval( $mod ) . 'px;padding-right:' . intval( $mod ) . 'px;} }' . "\n";  
 			}
 
 			return $css;
-		}	
+		}   
 
         public function hex2rgba($color, $opacity = false) {
 
@@ -1173,7 +1173,7 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
 			);
 
 			self::get_instance()->customizer_js_css_vars[] = $options;
-		}	
+		}   
 		
 		/**
 		 * Get border top color CSS
@@ -1196,7 +1196,6 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
 
 			return $selector . '{ border-top-color:' . esc_attr( self::get_instance()->to_rgba( $mod, $opacity ) ) . ( $important ? '!important' : '' ) .';}' . "\n";
 		}
-
 	}
 
 	/**

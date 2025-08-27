@@ -87,34 +87,31 @@ class Sydney_Display_Conditions_Control extends WP_Customize_Control {
 
 			case 'tag-id':
 			case 'category-id':
-			
         $term = get_term( $value['id'] );
 
         if ( ! empty( $term ) ) {
 					return $term->name;
         }
 
-			break;
+			    break;
 
 			case 'cpt-term-id':
-			
         $term = get_term( $value['id'] );
         
         if ( ! empty( $term ) ) {
 					return $term->name;
         }
 
-			break;
+			    break;
 
 			case 'cpt-taxonomy-id':
-			
         $taxonomy = get_taxonomy( $value['id'] );
         
         if ( ! empty( $taxonomy ) ) {
 					return $taxonomy->label;
         }
 
-			break;
+			    break;
 
 			case 'author':
 			case 'author-id':
@@ -132,7 +129,5 @@ class Sydney_Display_Conditions_Control extends WP_Customize_Control {
 		}
 
 		return $value['id'];
-
 	}
-
 }

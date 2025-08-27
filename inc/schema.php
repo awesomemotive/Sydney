@@ -40,11 +40,11 @@ if ( ! function_exists( 'sydney_get_schema' ) ) {
 
 			case 'nav';
 				$schema = 'itemscope="itemscope" itemtype="https://schema.org/SiteNavigationElement"';
-				break;	
+				break;  
 				
 			case 'sidebar';
 				$schema = 'itemscope="itemscope" itemtype="https://schema.org/WPSideBar"';
-				break;	
+				break;  
 				
 			case 'footer';
 				$schema = 'itemscope="itemscope" itemtype="https://schema.org/WPFooter"';
@@ -56,7 +56,7 @@ if ( ! function_exists( 'sydney_get_schema' ) ) {
 
 			case 'entry_content';
 				$schema = 'itemprop="text"';
-				break;		
+				break;      
 				
 			case 'published_date';
 				$schema = 'itemprop="datePublished"';
@@ -64,15 +64,15 @@ if ( ! function_exists( 'sydney_get_schema' ) ) {
 				
 			case 'modified_date';
 				$schema = 'itemprop="dateModified"';
-				break;		
+				break;      
 				
 			case 'author_name';
 				$schema = 'itemprop="name"';
-				break;			
+				break;          
 				
 			case 'image';
 				$schema = 'itemprop="image"';
-				break;				
+				break;              
 
 			default:
 				$schema = '';
@@ -80,7 +80,6 @@ if ( ! function_exists( 'sydney_get_schema' ) ) {
 		}
 
 		return $schema;
-
 	}
 
 }

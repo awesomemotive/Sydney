@@ -35,7 +35,7 @@ function sydney_slider_template() {
         'slider_subtitle_2' => get_theme_mod('slider_subtitle_2', 'Feel free to look around'),
         'slider_subtitle_3' => get_theme_mod('slider_subtitle_3'),
         'slider_subtitle_4' => get_theme_mod('slider_subtitle_4'),
-        'slider_subtitle_5' => get_theme_mod('slider_subtitle_5'),    		
+        'slider_subtitle_5' => get_theme_mod('slider_subtitle_5'),          
     );
     $images = array(
         'slider_image_1' => get_theme_mod('slider_image_1'),
@@ -136,7 +136,6 @@ function sydney_slider_button() {
     if ($slider_button) {
         return '<a href="' . esc_url($slider_button_url) . '" class="roll-button button-slider">' . esc_html($slider_button) . '</a>';
     }
-
 }
 
 function sydney_stop_text() {

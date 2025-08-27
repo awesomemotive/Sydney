@@ -42,7 +42,7 @@ function sydney_post_navigation() {
 
 	if ( !apply_filters( 'sydney_single_post_nav_enable', true ) ) {
 		return;
-	}	
+	}   
 
 	$single_post_show_post_nav = get_theme_mod( 'single_post_show_post_nav', 1 );
 	if ( !$single_post_show_post_nav ) {
@@ -85,8 +85,7 @@ function sydney_posts_navigation() {
 		'mid_size'  => 1,
 		'prev_text' => '&lt;',
 		'next_text' => '&gt;',
-	) );	
-
+	) );    
 }
 endif;
 
@@ -175,7 +174,7 @@ if ( ! function_exists( 'sydney_post_categories' ) ) :
 				/* translators: 1: list of categories. */
 				printf( '<span class="cat-links">' . '%1$s' . '</span>', $categories_list ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			}
-		}		
+		}       
 	}
 endif;
 
@@ -185,7 +184,7 @@ if ( ! function_exists( 'sydney_entry_comments' ) ) :
 			echo '<span class="comments-link">';
 			comments_popup_link( esc_html__( '0 comments', 'sydney' ), esc_html__( '1 comment', 'sydney' ), esc_html__( '% comments', 'sydney' ) );
 			echo '</span>';
-		}		
+		}       
 	}
 endif;
 
@@ -401,14 +400,14 @@ if ( ! function_exists( 'sydney_single_post_meta' ) ) :
 			return;
 		}
 
-		$elements 				= get_theme_mod( 'single_post_meta_elements', array( 'sydney_posted_by', 'sydney_posted_on', 'sydney_post_categories' ) );
+		$elements               = get_theme_mod( 'single_post_meta_elements', array( 'sydney_posted_by', 'sydney_posted_on', 'sydney_post_categories' ) );
 		$archive_meta_delimiter = get_theme_mod( 'archive_meta_delimiter', 'dot' );
 
 		echo '<div class="entry-meta ' . esc_attr( $location ) . ' delimiter-' . esc_attr( $archive_meta_delimiter ) . '">';
 		foreach( $elements as $element ) {
 			call_user_func( $element );
-		}			
-		echo '</div>';		
+		}           
+		echo '</div>';      
 	}
 endif;
 
@@ -445,6 +444,6 @@ if ( ! function_exists( 'sydney_post_tags' ) ) :
 				/* translators: 1: list of tags. */
 				printf( '<span>' . '%1$s' . '</span>', $tags_list ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			}
-		}		
+		}       
 	}
 endif;

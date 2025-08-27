@@ -16,9 +16,9 @@ class Sydney_Upsell_Message extends WP_Customize_Control {
 	/**
 	 * The type of control being rendered
 	 */
-	public $type 		 = 'sydney-upsell-features';
+	public $type         = 'sydney-upsell-features';
 	public $button_title = '';
-	public $features 	 = array();
+	public $features     = array();
     public $button_link  = '';
 	public $intro_text   = '';
 	public $show_separator = true;

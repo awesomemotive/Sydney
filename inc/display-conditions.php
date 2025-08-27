@@ -183,5 +183,4 @@ function sydney_get_display_conditions( $maybe_rules, $default = true, $mod_defa
 	$result = apply_filters( 'sydney_display_conditions_result', $result, $rules );
 
 	return $result;
-
 }

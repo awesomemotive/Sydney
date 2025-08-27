@@ -20,7 +20,7 @@ class Sydney_Text_Control extends WP_Customize_Control {
 
 	public $link_title = '';
 
-	public $link = '';	
+	public $link = '';  
 
 	public $controls_general;
 

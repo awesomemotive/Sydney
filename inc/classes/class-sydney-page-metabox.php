@@ -64,14 +64,13 @@ class Sydney_Page_Metabox {
 			$transparent_menu_bar = ( isset( $_POST['sydney_transparent_menu'] ) && '1' === $_POST['sydney_transparent_menu'] ) ? 1 : 0;
 			update_post_meta( $post_id, '_sydney_transparent_menu', $transparent_menu_bar );
 		}
-		
 	}
 
 	public function render_meta_box_content( $post ) {
 	
 		// Add an nonce field so we can check for it later.
 		wp_nonce_field( 'sydney_single_page_box', 'sydney_single_page_box_nonce' );
-		$merge_top_bar 		= get_post_meta( $post->ID, '_sydney_transparent_menu', true );
+		$merge_top_bar      = get_post_meta( $post->ID, '_sydney_transparent_menu', true );
 
 	?>
 	<?php if ( 'page' == get_post_type( $post ) ) : ?>
