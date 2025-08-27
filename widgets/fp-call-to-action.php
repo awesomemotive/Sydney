@@ -70,7 +70,7 @@ class Sydney_Action extends WP_Widget {
 			<div class="promo-wrap">
 				<?php if ($action_text !='') : ?>
 				<div class="promo-content">
-					<h3 class="title"><?php echo $action_text; ?></h3>
+					<h3 class="title"><?php echo wp_kses_post( $action_text ); ?></h3>
 				</div>
 				<?php endif; ?>
 				<div class="promo-controls">

@@ -94,59 +94,59 @@ class Sydney_Services_Type_A extends WP_Widget {
 ?>
 			<?php if ( $title ) echo $before_title . $title . $after_title; ?>
 
-					<?php while ( $services->have_posts() ) : $services->the_post(); ?>
-						<?php $icon = get_post_meta( get_the_ID(), 'wpcf-service-icon', true ); ?>
-						<?php $link = get_post_meta( get_the_ID(), 'wpcf-service-link', true ); ?>
-						<?php if ( !$two_cols ) : ?>
-						<div class="service col-md-4">
-						<?php else : ?>
-						<div class="service col-md-6">
-						<?php endif; ?>
-							<div class="roll-icon-box">
-								<?php if ( has_post_thumbnail() ) : ?>
-									<div class="service-thumb">
-										<?php if ($link) : ?>
-											<?php echo '<a href="' . esc_url($link) . '">' . get_the_post_thumbnail(get_the_ID(), 'sydney-service-thumb') . '</a>'; ?>
-										<?php else : ?>
-											<?php the_post_thumbnail('sydney-service-thumb'); ?>
-										<?php endif; ?>
-									</div>
-								<?php elseif ($icon) : ?>			
-									<div class="icon">
-										<?php if ($link) : ?>
-											<?php echo '<a href="' . esc_url($link) . '"><i class="' . esc_html($fa_prefix . $icon) . '"></i></a>'; ?>
-										<?php else : ?>
-											<?php echo '<i class="' . esc_html($fa_prefix . $icon) . '"></i>'; ?>
-										<?php endif; ?>
-									</div>
+			<?php while ( $services->have_posts() ) : $services->the_post(); ?>
+				<?php $icon = get_post_meta( get_the_ID(), 'wpcf-service-icon', true ); ?>
+				<?php $link = get_post_meta( get_the_ID(), 'wpcf-service-link', true ); ?>
+				<?php if ( !$two_cols ) : ?>
+				<div class="service col-md-4">
+				<?php else : ?>
+				<div class="service col-md-6">
+				<?php endif; ?>
+					<div class="roll-icon-box">
+						<?php if ( has_post_thumbnail() ) : ?>
+							<div class="service-thumb">
+								<?php if ($link) : ?>
+									<?php echo '<a href="' . esc_url($link) . '">' . get_the_post_thumbnail(get_the_ID(), 'sydney-service-thumb') . '</a>'; ?>
+								<?php else : ?>
+									<?php the_post_thumbnail('sydney-service-thumb'); ?>
 								<?php endif; ?>
-								<div class="content">
-									<h3>
-										<?php if ($link) : ?>
-											<a href="<?php echo esc_url($link); ?>"><?php the_title(); ?></a>
-										<?php else : ?>
-											<?php the_title(); ?>
-										<?php endif; ?>
-									</h3>
-									<?php if ( $content_excerpt == 'fullcontent' ) : ?>								
-										<?php the_content(); ?>
-									<?php else : ?>
-										<?php the_excerpt(); ?>
-									<?php endif; ?>
-								</div><!--.info-->	
 							</div>
-						</div>
-					<?php endwhile; ?>
-
-				<?php if ($see_all != '') : ?>
-					<a href="<?php echo esc_url($see_all); ?>" class="roll-button more-button">
-						<?php if ($see_all_text) : ?>
-							<?php echo $see_all_text; ?>
-						<?php else : ?>
-							<?php echo __('See all our services', 'sydney'); ?>
+						<?php elseif ($icon) : ?>			
+							<div class="icon">
+								<?php if ($link) : ?>
+									<?php echo '<a href="' . esc_url($link) . '"><i class="' . esc_html($fa_prefix . $icon) . '"></i></a>'; ?>
+								<?php else : ?>
+									<?php echo '<i class="' . esc_html($fa_prefix . $icon) . '"></i>'; ?>
+								<?php endif; ?>
+							</div>
 						<?php endif; ?>
-					</a>
-				<?php endif; ?>				
+						<div class="content">
+							<h3>
+								<?php if ($link) : ?>
+									<a href="<?php echo esc_url($link); ?>"><?php the_title(); ?></a>
+								<?php else : ?>
+									<?php the_title(); ?>
+								<?php endif; ?>
+							</h3>
+							<?php if ( $content_excerpt == 'fullcontent' ) : ?>								
+								<?php the_content(); ?>
+							<?php else : ?>
+								<?php the_excerpt(); ?>
+							<?php endif; ?>
+						</div><!--.info-->	
+					</div>
+				</div>
+			<?php endwhile; ?>
+
+			<?php if ($see_all != '') : ?>
+				<a href="<?php echo esc_url($see_all); ?>" class="roll-button more-button">
+					<?php if ($see_all_text) : ?>
+						<?php echo $see_all_text; ?>
+					<?php else : ?>
+						<?php echo __('See all our services', 'sydney'); ?>
+					<?php endif; ?>
+				</a>
+			<?php endif; ?>				
 	<?php
 		wp_reset_postdata();
 		endif;
