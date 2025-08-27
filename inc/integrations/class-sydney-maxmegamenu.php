@@ -15,7 +15,7 @@ if ( !class_exists( 'Sydney_MaxMegaMenu' ) ) :
 
 		/**
 		 * Instance
-		 */		
+		 */     
 		private static $instance;
 
 		/**
@@ -23,7 +23,7 @@ if ( !class_exists( 'Sydney_MaxMegaMenu' ) ) :
 		 */
 		public static function get_instance() {
 			if ( ! isset( self::$instance ) ) {
-				self::$instance = new self;
+				self::$instance = new self();
 			}
 			return self::$instance;
 		}
@@ -32,7 +32,7 @@ if ( !class_exists( 'Sydney_MaxMegaMenu' ) ) :
 		/**
 		 * Constructor
 		 */
-		public function __construct() {	
+		public function __construct() { 
 			add_filter( 'default_option_megamenu_settings', array( $this, 'default_theme' ) );
 			add_filter( 'megamenu_themes', array( $this, 'custom_theme' ) );
 		}
@@ -114,7 +114,6 @@ if ( !class_exists( 'Sydney_MaxMegaMenu' ) ) :
 			);
 			return $themes;
 		}
-
 	}
 
 	/**

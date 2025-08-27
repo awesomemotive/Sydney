@@ -15,7 +15,7 @@
         <?php
         if ( get_theme_mod('site_logo') ) : ?>
             <?php
-                $logo_id 	= attachment_url_to_postid( get_theme_mod( 'site_logo' ) );
+                $logo_id    = attachment_url_to_postid( get_theme_mod( 'site_logo' ) );
                 $logo_attrs = wp_get_attachment_image_src( $logo_id, 'large' );
             ?>						
             <a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php bloginfo('name'); ?>"><img width="<?php echo esc_attr( $logo_attrs[1] ); ?>" height="<?php echo esc_attr( $logo_attrs[2] ); ?>" class="site-logo" src="<?php echo esc_url(get_theme_mod('site_logo')); ?>" alt="<?php bloginfo('name'); ?>" <?php sydney_do_schema( 'logo' ); ?> /></a>

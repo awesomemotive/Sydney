@@ -3,18 +3,18 @@
 class Sydney_Clients extends WP_Widget {
 
 	public function __construct() {
-		$widget_ops = array('classname' => 'sydney_clients_widget', 'description' => __( 'Display your clients list.', 'sydney') );
+		$widget_ops = array( 'classname' => 'sydney_clients_widget', 'description' => __( 'Display your clients list.', 'sydney') );
         parent::__construct(false, $name = __('Sydney FP: Clients', 'sydney'), $widget_ops);
 		$this->alt_option_name = 'sydney_clients_widget';
     }
 	
 	function form($instance) {
-		$title     		= isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : '';
-		$number    		= isset( $instance['number'] ) ? intval( $instance['number'] ) : -1;
-		$category   	= isset( $instance['category'] ) ? esc_attr( $instance['category'] ) : '';
-		$see_all   		= isset( $instance['see_all'] ) ? esc_url_raw( $instance['see_all'] ) : '';
-		$see_all_text  	= isset( $instance['see_all_text'] ) ? esc_html( $instance['see_all_text'] ) : '';
-		$newtab			= isset( $instance['newtab'] ) ? (bool) $instance['newtab'] : false;					
+		$title          = isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : '';
+		$number         = isset( $instance['number'] ) ? intval( $instance['number'] ) : -1;
+		$category       = isset( $instance['category'] ) ? esc_attr( $instance['category'] ) : '';
+		$see_all        = isset( $instance['see_all'] ) ? esc_url_raw( $instance['see_all'] ) : '';
+		$see_all_text   = isset( $instance['see_all_text'] ) ? esc_html( $instance['see_all_text'] ) : '';
+		$newtab         = isset( $instance['newtab'] ) ? (bool) $instance['newtab'] : false;                    
 				
 	?>
 
@@ -39,12 +39,12 @@ class Sydney_Clients extends WP_Widget {
 
 	function update($new_instance, $old_instance) {
 		$instance = $old_instance;
-		$instance['title'] 			= strip_tags($new_instance['title']);
-		$instance['number'] 		= strip_tags($new_instance['number']);
-		$instance['see_all'] 		= esc_url_raw( $new_instance['see_all'] );	
-		$instance['see_all_text'] 	= strip_tags($new_instance['see_all_text']);
-		$instance['category'] 		= strip_tags($new_instance['category']);		
-		$instance['newtab'] 		= isset( $new_instance['newtab'] ) ? (bool) $new_instance['newtab'] : false;		
+		$instance['title']          = strip_tags($new_instance['title']);
+		$instance['number']         = strip_tags($new_instance['number']);
+		$instance['see_all']        = esc_url_raw( $new_instance['see_all'] );  
+		$instance['see_all_text']   = strip_tags($new_instance['see_all_text']);
+		$instance['category']       = strip_tags($new_instance['category']);        
+		$instance['newtab']         = isset( $new_instance['newtab'] ) ? (bool) $new_instance['newtab'] : false;        
 		  
 		return $instance;
 	}
@@ -56,16 +56,16 @@ class Sydney_Clients extends WP_Widget {
 		}
 		extract($args);
 
-		$title 			= ( ! empty( $instance['title'] ) ) ? $instance['title'] : '';
-		$title 			= apply_filters( 'widget_title', $title, $instance, $this->id_base );
-		$see_all 		= isset( $instance['see_all'] ) ? esc_url($instance['see_all']) : '';
-		$see_all_text 	= isset( $instance['see_all_text'] ) ? esc_html($instance['see_all_text']) : '';
-		$number 		= ( ! empty( $instance['number'] ) ) ? intval( $instance['number'] ) : -1;
+		$title          = ( ! empty( $instance['title'] ) ) ? $instance['title'] : '';
+		$title          = apply_filters( 'widget_title', $title, $instance, $this->id_base );
+		$see_all        = isset( $instance['see_all'] ) ? esc_url($instance['see_all']) : '';
+		$see_all_text   = isset( $instance['see_all_text'] ) ? esc_html($instance['see_all_text']) : '';
+		$number         = ( ! empty( $instance['number'] ) ) ? intval( $instance['number'] ) : -1;
 		if ( ! $number ) {
 			$number = -1;
-		}			
-		$category 		= isset( $instance['category'] ) ? esc_attr($instance['category']) : '';
-		$newtab			= isset( $instance['newtab'] ) ? $instance['newtab'] : false;
+		}           
+		$category       = isset( $instance['category'] ) ? esc_attr($instance['category']) : '';
+		$newtab         = isset( $instance['newtab'] ) ? $instance['newtab'] : false;
 
 		if ( $newtab ) {
 			$target = "_blank";
@@ -76,9 +76,9 @@ class Sydney_Clients extends WP_Widget {
 		$clients = new WP_Query( array(
 			'no_found_rows'       => true,
 			'post_status'         => 'publish',
-			'post_type' 		  => 'clients',
-			'posts_per_page'	  => $number,
-			'category_name'		  => $category
+			'post_type'           => 'clients',
+			'posts_per_page'      => $number,
+			'category_name'       => $category,
 		) );
 		
 		echo $args['before_widget'];
@@ -121,5 +121,4 @@ class Sydney_Clients extends WP_Widget {
 
 		endif;
 	}
-	
 }

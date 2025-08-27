@@ -23,10 +23,10 @@ echo '<nav class="sydney-dashboard-tabs-nav" data-tab-wrapper-id="main">';
                 continue;
             }
 
-            $tab_link   = add_query_arg(array('page' => $this->settings['menu_slug'], 'tab' => $tab_id), admin_url('themes.php')); // phpcs:ignore WPThemeReview.CoreFunctionality.PrefixAllGlobals.NonPrefixedVariableFound
+            $tab_link   = add_query_arg(array( 'page' => $this->settings['menu_slug'], 'tab' => $tab_id ), admin_url('themes.php')); // phpcs:ignore WPThemeReview.CoreFunctionality.PrefixAllGlobals.NonPrefixedVariableFound
             $tab_active = (($tab && $tab === $tab_id) || (!$tab && $num === 0)) ? 'active' : ''; // phpcs:ignore WPThemeReview.CoreFunctionality.PrefixAllGlobals.NonPrefixedVariableFound
 
-            echo sprintf('<li class="sydney-dashboard-tabs-nav-item %s"><a href="#" class="sydney-dashboard-tabs-nav-link" data-tab-to="%s">%s</a></li>', esc_attr($tab_active), esc_attr($tab_id), esc_html($tab_title));
+            printf('<li class="sydney-dashboard-tabs-nav-item %s"><a href="#" class="sydney-dashboard-tabs-nav-link" data-tab-to="%s">%s</a></li>', esc_attr($tab_active), esc_attr($tab_id), esc_html($tab_title));
 
             $num++;
         }

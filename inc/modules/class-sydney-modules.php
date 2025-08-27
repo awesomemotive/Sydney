@@ -16,7 +16,7 @@ if ( ! class_exists( 'Sydney_Modules' ) ) {
 		 */
 		public function __construct() {
 			add_action( 'admin_init', array( $this, 'activate_modules' ) );
-		}		
+		}       
 
 		/**
 		 * All modules registered in Sydney
@@ -27,15 +27,15 @@ if ( ! class_exists( 'Sydney_Modules' ) ) {
 
 			$modules['general'] = array(
 				array(
-					'slug'			=> 'block-templates',
+					'slug'          => 'block-templates',
 					'name'          => esc_html__( 'Block Templates', 'sydney' ),
 					'type'          => 'pro',
-					'link' 			=> admin_url( 'site-editor.php?path=%2Fwp_template_part%2Fall' ),
-					'link_label'	=> esc_html__( 'Build templates', 'sydney' ),
-					'activate_uri' 	=> '&amp;activate_module_block-templates', //param is added in dashboard class
-					'text'			=> __( 'Build headers, footers etc. with the site editor.', 'sydney' ) . '<div><a target="_blank" href="#">' . __( 'Documentation article', 'sydney' ) . '</a></div>',
-					'keywords'		=> array( 'header', 'footer', 'template', 'templates', 'builder' ),
-				)
+					'link'          => admin_url( 'site-editor.php?path=%2Fwp_template_part%2Fall' ),
+					'link_label'    => esc_html__( 'Build templates', 'sydney' ),
+					'activate_uri'  => '&amp;activate_module_block-templates', //param is added in dashboard class
+					'text'          => __( 'Build headers, footers etc. with the site editor.', 'sydney' ) . '<div><a target="_blank" href="#">' . __( 'Documentation article', 'sydney' ) . '</a></div>',
+					'keywords'      => array( 'header', 'footer', 'template', 'templates', 'builder' ),
+				),
 			);
 
 			if ( $category ) {
@@ -94,7 +94,7 @@ if ( ! class_exists( 'Sydney_Modules' ) ) {
 				}
 			}
 		}
-	}	
+	}   
 }
 
 new Sydney_Modules();

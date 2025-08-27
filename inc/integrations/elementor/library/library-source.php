@@ -175,7 +175,7 @@ class Template_Library_Source extends Source_Base {
 			self::TEMPLATE_LIBRARY_ITEMS_API . $template_id,
 			[
 				'body' => $body,
-				'timeout' => 25
+				'timeout' => 25,
 			]
 		);
 

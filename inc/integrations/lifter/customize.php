@@ -6,7 +6,7 @@
  */
 
 
- $wp_customize->add_panel( 'sydney_lifterlms', array(
+$wp_customize->add_panel( 'sydney_lifterlms', array(
         'priority'       => 29,
         'theme_supports' => '',
         'title'          => esc_html__( 'LifterLMS', 'sydney' ),
@@ -32,7 +32,7 @@
         	'section' => 'sydney_lifterlms_general',
         	'settings' => 'sydney_options[info]',
         ) )
-    ); 	
+    );  
     $wp_customize->add_setting(
         'sydney_lifter_course_cols',
         array(
@@ -73,7 +73,7 @@
                 'sidebar-right' => esc_html__( 'Sidebar right', 'sydney' ),
             ),
         )
-    );	
+    );  
 	
 	//Memberships
     $wp_customize->add_setting('sydney_options[info]', array(
@@ -86,7 +86,7 @@
         	'section' => 'sydney_lifterlms_general',
         	'settings' => 'sydney_options[info]',
         ) )
-    ); 		
+    );      
     $wp_customize->add_setting(
         'sydney_lifter_membership_cols',
         array(
@@ -106,7 +106,7 @@
                 'step'  => 1,
             ),            
         )
-	);	
+	);  
 	
     $wp_customize->add_setting(
         'sydney_lifter_membership_loop_sidebar',
@@ -127,7 +127,7 @@
                 'sidebar-right' => esc_html__( 'Sidebar right', 'sydney' ),
             ),
         )
-	);		
+	);      
 	//Styling
     $wp_customize->add_setting('sydney_options[info]', array(
             'type'              => 'info_control',
@@ -139,7 +139,7 @@
         	'section' => 'sydney_lifterlms_general',
         	'settings' => 'sydney_options[info]',
         ) )
-	); 	
+	);  
 
     $wp_customize->add_setting(
         'sydney_lifter_loop_title_color',
@@ -158,7 +158,7 @@
                 'settings'      => 'sydney_lifter_loop_title_color',
             )
         )
-	);	
+	);  
 	
     $wp_customize->add_setting(
         'sydney_lifter_loop_title_color_hover',
@@ -177,7 +177,7 @@
                 'settings'      => 'sydney_lifter_loop_title_color_hover',
             )
         )
-	);		
+	);      
 	
     $wp_customize->add_setting(
         'sydney_lifter_loop_meta_color',
@@ -196,13 +196,13 @@
                 'settings'      => 'sydney_lifter_loop_meta_color',
             )
         )
-	);		
+	);      
 	
     $wp_customize->add_setting(
         'sydney_lifter_loop_title_size',
         array(
             'sanitize_callback' => 'absint',
-            'default'         	=> 25
+            'default'           => 25,
         )       
     );
     $wp_customize->add_control( 'sydney_lifter_loop_title_size', array(
@@ -214,7 +214,7 @@
             'max'   => 40,
             'step'  => 1,
         ),
-    ) ); 	
+    ) );    
 
 /**
  * Single course
@@ -245,13 +245,13 @@ $wp_customize->add_control(
             'settings'      => 'sydney_lifter_course_title_color',
         )
     )
-);	
+);  
 
 $wp_customize->add_setting(
     'sydney_lifter_course_title_size',
     array(
         'sanitize_callback' => 'absint',
-        'default'         	=> 36
+        'default'           => 36,
     )       
 );
 $wp_customize->add_control( 'sydney_lifter_course_title_size', array(
@@ -310,13 +310,13 @@ $wp_customize->add_control(
             'settings'      => 'sydney_lifter_lesson_title_color',
         )
     )
-);	
+);  
 
 $wp_customize->add_setting(
     'sydney_lifter_lesson_title_size',
     array(
         'sanitize_callback' => 'absint',
-        'default'         	=> 36
+        'default'           => 36,
     )       
 );
 $wp_customize->add_control( 'sydney_lifter_lesson_title_size', array(

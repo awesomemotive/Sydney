@@ -28,8 +28,7 @@ class Sydney_Recommended_Plugins {
 	public function __construct() {
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-
-	}	
+	}   
 
 
 	/**

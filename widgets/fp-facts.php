@@ -4,7 +4,7 @@ class Sydney_Facts extends WP_Widget {
 
 // constructor
 	public function __construct() {
-		$widget_ops = array('classname' => 'sydney_facts_widget', 'description' => __( 'Show your visitors some facts about your company.', 'sydney') );
+		$widget_ops = array( 'classname' => 'sydney_facts_widget', 'description' => __( 'Show your visitors some facts about your company.', 'sydney') );
         parent::__construct(false, $name = __('Sydney FP: Facts', 'sydney'), $widget_ops);
 		$this->alt_option_name = 'sydney_facts_widget';
     }
@@ -13,19 +13,19 @@ class Sydney_Facts extends WP_Widget {
 	function form($instance) {
 
 	// Check values
-		$title     			= isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : '';
-		$fact_one   		= isset( $instance['fact_one'] ) ? esc_html( $instance['fact_one'] ) : '';
-		$fact_one_max   	= isset( $instance['fact_one_max'] ) ? esc_html( $instance['fact_one_max'] ) : '';
-		$fact_one_icon  	= isset( $instance['fact_one_icon'] ) ? esc_html( $instance['fact_one_icon'] ) : '';		
-		$fact_two   		= isset( $instance['fact_two'] ) ? esc_attr( $instance['fact_two'] ) : '';
-		$fact_two_max   	= isset( $instance['fact_two_max'] ) ? esc_html( $instance['fact_two_max'] ) : '';
-		$fact_two_icon  	= isset( $instance['fact_two_icon'] ) ? esc_html( $instance['fact_two_icon'] ) : '';
-		$fact_three   		= isset( $instance['fact_three'] ) ? esc_attr( $instance['fact_three'] ) : '';
-		$fact_three_max 	= isset( $instance['fact_three_max'] ) ? esc_html( $instance['fact_three_max'] ) : '';
-		$fact_three_icon  	= isset( $instance['fact_three_icon'] ) ? esc_html( $instance['fact_three_icon'] ) : '';
-		$fact_four   		= isset( $instance['fact_four'] ) ? esc_attr( $instance['fact_four'] ) : '';		
-		$fact_four_max  	= isset( $instance['fact_four_max'] ) ? esc_html( $instance['fact_four_max'] ) : '';
-		$fact_four_icon  	= isset( $instance['fact_four_icon'] ) ? esc_html( $instance['fact_four_icon'] ) : '';	
+		$title              = isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : '';
+		$fact_one           = isset( $instance['fact_one'] ) ? esc_html( $instance['fact_one'] ) : '';
+		$fact_one_max       = isset( $instance['fact_one_max'] ) ? esc_html( $instance['fact_one_max'] ) : '';
+		$fact_one_icon      = isset( $instance['fact_one_icon'] ) ? esc_html( $instance['fact_one_icon'] ) : '';        
+		$fact_two           = isset( $instance['fact_two'] ) ? esc_attr( $instance['fact_two'] ) : '';
+		$fact_two_max       = isset( $instance['fact_two_max'] ) ? esc_html( $instance['fact_two_max'] ) : '';
+		$fact_two_icon      = isset( $instance['fact_two_icon'] ) ? esc_html( $instance['fact_two_icon'] ) : '';
+		$fact_three         = isset( $instance['fact_three'] ) ? esc_attr( $instance['fact_three'] ) : '';
+		$fact_three_max     = isset( $instance['fact_three_max'] ) ? esc_html( $instance['fact_three_max'] ) : '';
+		$fact_three_icon    = isset( $instance['fact_three_icon'] ) ? esc_html( $instance['fact_three_icon'] ) : '';
+		$fact_four          = isset( $instance['fact_four'] ) ? esc_attr( $instance['fact_four'] ) : '';        
+		$fact_four_max      = isset( $instance['fact_four_max'] ) ? esc_html( $instance['fact_four_max'] ) : '';
+		$fact_four_icon     = isset( $instance['fact_four_icon'] ) ? esc_html( $instance['fact_four_icon'] ) : '';  
 	?>
 	<p><?php _e('You can find a list of the available icons ', 'sydney'); ?><a href="http://fortawesome.github.io/Font-Awesome/cheatsheet/" target="_blank"><?php _e('here.', 'sydney'); ?></a>&nbsp;
 		<?php 
@@ -110,19 +110,19 @@ class Sydney_Facts extends WP_Widget {
 	// update widget
 	function update($new_instance, $old_instance) {
 		$instance = $old_instance;
-		$instance['title'] 			= strip_tags($new_instance['title']);
-		$instance['fact_one'] 		= strip_tags($new_instance['fact_one']);
-		$instance['fact_one_max'] 	= strip_tags($new_instance['fact_one_max']);
-		$instance['fact_one_icon'] 	= strip_tags($new_instance['fact_one_icon']);
-		$instance['fact_two'] 		= strip_tags($new_instance['fact_two']);
-		$instance['fact_two_max'] 	= strip_tags($new_instance['fact_two_max']);
-		$instance['fact_two_icon'] 	= strip_tags($new_instance['fact_two_icon']);
-		$instance['fact_three'] 	= strip_tags($new_instance['fact_three']);
-		$instance['fact_three_max']	= strip_tags($new_instance['fact_three_max']);
+		$instance['title']          = strip_tags($new_instance['title']);
+		$instance['fact_one']       = strip_tags($new_instance['fact_one']);
+		$instance['fact_one_max']   = strip_tags($new_instance['fact_one_max']);
+		$instance['fact_one_icon']  = strip_tags($new_instance['fact_one_icon']);
+		$instance['fact_two']       = strip_tags($new_instance['fact_two']);
+		$instance['fact_two_max']   = strip_tags($new_instance['fact_two_max']);
+		$instance['fact_two_icon']  = strip_tags($new_instance['fact_two_icon']);
+		$instance['fact_three']     = strip_tags($new_instance['fact_three']);
+		$instance['fact_three_max'] = strip_tags($new_instance['fact_three_max']);
 		$instance['fact_three_icon']= strip_tags($new_instance['fact_three_icon']);
-		$instance['fact_four'] 		= strip_tags($new_instance['fact_four']);
-		$instance['fact_four_max'] 	= strip_tags($new_instance['fact_four_max']);
-		$instance['fact_four_icon'] = strip_tags($new_instance['fact_four_icon']);	  
+		$instance['fact_four']      = strip_tags($new_instance['fact_four']);
+		$instance['fact_four_max']  = strip_tags($new_instance['fact_four_max']);
+		$instance['fact_four_icon'] = strip_tags($new_instance['fact_four_icon']);    
 		  
 		return $instance;
 	}
@@ -136,20 +136,20 @@ class Sydney_Facts extends WP_Widget {
 
 		$icon_prefix = sydney_get_fontawesome_prefix();
 
-		$title 			= ( ! empty( $instance['title'] ) ) ? $instance['title'] : '';
-		$title 			= apply_filters( 'widget_title', $title, $instance, $this->id_base );
-		$fact_one   	= isset( $instance['fact_one'] ) ? esc_html( $instance['fact_one'] ) : '';
-		$fact_one_max  	= isset( $instance['fact_one_max'] ) ? esc_html( $instance['fact_one_max'] ) : '';
+		$title          = ( ! empty( $instance['title'] ) ) ? $instance['title'] : '';
+		$title          = apply_filters( 'widget_title', $title, $instance, $this->id_base );
+		$fact_one       = isset( $instance['fact_one'] ) ? esc_html( $instance['fact_one'] ) : '';
+		$fact_one_max   = isset( $instance['fact_one_max'] ) ? esc_html( $instance['fact_one_max'] ) : '';
 		$fact_one_icon  = isset( $instance['fact_one_icon'] ) ? esc_html( $icon_prefix . $instance['fact_one_icon'] ) : '';
-		$fact_two   	= isset( $instance['fact_two'] ) ? esc_attr( $instance['fact_two'] ) : '';
-		$fact_two_max  	= isset( $instance['fact_two_max'] ) ? esc_html( $instance['fact_two_max'] ) : '';
+		$fact_two       = isset( $instance['fact_two'] ) ? esc_attr( $instance['fact_two'] ) : '';
+		$fact_two_max   = isset( $instance['fact_two_max'] ) ? esc_html( $instance['fact_two_max'] ) : '';
 		$fact_two_icon  = isset( $instance['fact_two_icon'] ) ? esc_html( $icon_prefix . $instance['fact_two_icon'] ) : '';
-		$fact_three   	= isset( $instance['fact_three'] ) ? esc_attr( $instance['fact_three'] ) : '';
-		$fact_three_max	= isset( $instance['fact_three_max'] ) ? esc_html( $instance['fact_three_max'] ) : '';
+		$fact_three     = isset( $instance['fact_three'] ) ? esc_attr( $instance['fact_three'] ) : '';
+		$fact_three_max = isset( $instance['fact_three_max'] ) ? esc_html( $instance['fact_three_max'] ) : '';
 		$fact_three_icon= isset( $instance['fact_three_icon'] ) ? esc_html( $icon_prefix . $instance['fact_three_icon'] ) : '';
-		$fact_four   	= isset( $instance['fact_four'] ) ? esc_attr( $instance['fact_four'] ) : '';		
-		$fact_four_max 	= isset( $instance['fact_four_max'] ) ? esc_html( $instance['fact_four_max'] ) : '';
-		$fact_four_icon = isset( $instance['fact_four_icon'] ) ? esc_html( $icon_prefix . $instance['fact_four_icon'] ) : '';		
+		$fact_four      = isset( $instance['fact_four'] ) ? esc_attr( $instance['fact_four'] ) : '';        
+		$fact_four_max  = isset( $instance['fact_four_max'] ) ? esc_html( $instance['fact_four_max'] ) : '';
+		$fact_four_icon = isset( $instance['fact_four_icon'] ) ? esc_html( $icon_prefix . $instance['fact_four_icon'] ) : '';       
 
 		echo $args['before_widget'];
 ?>
@@ -195,7 +195,5 @@ class Sydney_Facts extends WP_Widget {
 
 	<?php
 		echo $args['after_widget'];
-
 	}
-	
 }

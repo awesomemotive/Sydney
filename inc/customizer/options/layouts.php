@@ -32,19 +32,19 @@ foreach ( $post_types as $post_type ) {
 	//Title
 	$wp_customize->add_setting( $post_type->name . '_layout_title',
 		array(
-			'default' 			=> '',
-			'sanitize_callback' => 'esc_attr'
+			'default'           => '',
+			'sanitize_callback' => 'esc_attr',
 		)
 	);
 
 	$wp_customize->add_control( new Sydney_Text_Control( $wp_customize, $post_type->name . '_layout_title',
 			array(
-				'label'			=> esc_html__( 'Layout', 'sydney' ),
-				'section' 		=> $section,
+				'label'         => esc_html__( 'Layout', 'sydney' ),
+				'section'       => $section,
 				'priority' => 1,
 			)
 		)
-	);	
+	);  
 
 	//Layout
 	$wp_customize->add_setting(
@@ -61,21 +61,21 @@ foreach ( $post_types as $post_type ) {
 			array(
 				'label'    => esc_html__( 'Select your layout', 'sydney' ),
 				'section'  => $section,
-				'cols' 		=> 3,
+				'cols'      => 3,
 				'show_labels' => true,
-				'choices'  => array( 	
+				'choices'  => array(    
 					'normal' => array(
 						'label' => esc_html__( 'Normal', 'sydney' ),
-						'url'   => '%s/images/customizer/gc1.svg'
+						'url'   => '%s/images/customizer/gc1.svg',
 					), 
 					'narrow' => array(
 						'label' => esc_html__( 'Narrow', 'sydney' ),
-						'url'   => '%s/images/customizer/gc2.svg'
-					), 	
+						'url'   => '%s/images/customizer/gc2.svg',
+					),  
 					'stretched' => array(
 						'label' => esc_html__( 'Stretched', 'sydney' ),
-						'url'   => '%s/images/customizer/gc3.svg'
-					), 										
+						'url'   => '%s/images/customizer/gc3.svg',
+					),                                      
 				),
 				'priority' => 1,
 			)
@@ -85,18 +85,18 @@ foreach ( $post_types as $post_type ) {
 	//Boxed content
 	$wp_customize->add_setting( $post_type->name . '_boxed_content',
 		array(
-			'default' 			=> 'unboxed',
+			'default'           => 'unboxed',
 			'sanitize_callback' => 'sydney_sanitize_text',
-			'transport' 		=> 'postMessage'
+			'transport'         => 'postMessage',
 		)
 	);
 	$wp_customize->add_control( new Sydney_Radio_Buttons( $wp_customize, $post_type->name . '_boxed_content',
 		array(
-			'label' 	=> esc_html__( 'Boxed content area', 'sydney' ),
+			'label'     => esc_html__( 'Boxed content area', 'sydney' ),
 			'section'  => $section,
-			'choices' 	=> array(
-				'unboxed' 	=> esc_html__( 'Unboxed', 'sydney' ),
-				'boxed' 	=> esc_html__( 'Boxed', 'sydney' ),
+			'choices'   => array(
+				'unboxed'   => esc_html__( 'Unboxed', 'sydney' ),
+				'boxed'     => esc_html__( 'Boxed', 'sydney' ),
 			),
 			'priority' => 1,
 		)
@@ -115,39 +115,39 @@ foreach ( $post_types as $post_type ) {
 			$wp_customize,
 			'sidebar_single_' . $post_type->name,
 			array(
-				'label'         	=> esc_html__( 'Enable sidebar', 'sydney' ),
-				'section'       	=> $section,
-				'priority' 			=> 1,
+				'label'             => esc_html__( 'Enable sidebar', 'sydney' ),
+				'section'           => $section,
+				'priority'          => 1,
 			)
 		)
 	);
 	
 	$wp_customize->add_setting( 'sidebar_single_' . $post_type->name . '_position',
 		array(
-			'default' 			=> 'sidebar-right',
+			'default'           => 'sidebar-right',
 			'sanitize_callback' => 'sydney_sanitize_text',
-			'transport' 		=> 'postMessage'
+			'transport'         => 'postMessage',
 		)
 	);
 	$wp_customize->add_control( new Sydney_Radio_Buttons( $wp_customize, 'sidebar_single_' . $post_type->name . '_position',
 		array(
-			'label' 	=> esc_html__( 'Sidebar position', 'sydney' ),
+			'label'     => esc_html__( 'Sidebar position', 'sydney' ),
 			'section'   => $section,
-			'choices' 	=> array(
-				'sidebar-left' 		=> esc_html__( 'Left', 'sydney' ),
-				'sidebar-right' 	=> esc_html__( 'Right', 'sydney' ),
+			'choices'   => array(
+				'sidebar-left'      => esc_html__( 'Left', 'sydney' ),
+				'sidebar-right'     => esc_html__( 'Right', 'sydney' ),
 			),
-			'active_callback' 	=> function() use ( $post_type ) {
+			'active_callback'   => function() use ( $post_type ) {
 				$enable = get_theme_mod( 'sidebar_single_' . $post_type->name, 1 );
 
 				if ( $enable ) {
 					return true;
 				} else {
 					return false;
-				}	
+				}   
 			},
 			'priority' => 1,
-			'separator' 	=> 'after'
+			'separator'     => 'after',
 		)
 	) );
 }

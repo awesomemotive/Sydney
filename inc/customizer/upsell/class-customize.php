@@ -19,7 +19,7 @@ final class Sydney_Customize_Upsell {
 		static $instance = null;
 
 		if ( is_null( $instance ) ) {
-			$instance = new self;
+			$instance = new self();
 			$instance->setup_actions();
 		}
 

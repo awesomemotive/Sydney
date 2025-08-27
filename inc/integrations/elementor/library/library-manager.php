@@ -24,7 +24,6 @@ class Template_Library_Manager {
 
 	public static function enqueue_preview_styles() {
 		wp_enqueue_style( 'sydney-template-preview-style', get_template_directory_uri() . '/inc/integrations/elementor/library/template-preview.css', '1.0.0' );
-
 	}
 
 	public static function editor_scripts() {
@@ -39,7 +38,7 @@ class Template_Library_Manager {
 				'templatesEmptyMessage' => esc_html__( 'Try different category or sync for new templates.', 'sydney' ),
 				'templatesNoResultsTitle' => esc_html__( 'No Results Found', 'sydney' ),
 				'templatesNoResultsMessage' => esc_html__( 'Please make sure your search is spelled correctly or try a different word.', 'sydney' ),
-			]
+			],
 	
         ];
 

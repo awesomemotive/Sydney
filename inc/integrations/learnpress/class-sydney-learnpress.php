@@ -15,7 +15,7 @@ if ( !class_exists( 'Sydney_LearnPress' ) ) :
 
 		/**
 		 * Instance
-		 */		
+		 */     
 		private static $instance;
 
 		/**
@@ -23,7 +23,7 @@ if ( !class_exists( 'Sydney_LearnPress' ) ) :
 		 */
 		public static function get_instance() {
 			if ( ! isset( self::$instance ) ) {
-				self::$instance = new self;
+				self::$instance = new self();
 			}
 			return self::$instance;
 		}
@@ -37,7 +37,7 @@ if ( !class_exists( 'Sydney_LearnPress' ) ) :
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue' ) );
 
 			//Setup
-			add_action( 'wp', array( $this, 'setup' ) );		
+			add_action( 'wp', array( $this, 'setup' ) );        
 
 			//Remove advertisment
 			remove_action( 'admin_footer', 'learn_press_footer_advertisement', -10 );
@@ -56,8 +56,8 @@ if ( !class_exists( 'Sydney_LearnPress' ) ) :
 				add_filter( 'sydney_content_area_class', function() { return 'fullwidth'; } );
 			} elseif ( ( is_post_type_archive( 'lp_course' ) || 'lp_course' == get_post_type() ) && 'sidebar-left' == $this->check_sidebar() ) {
 				add_filter( 'sydney_content_area_class', function() { return 'col-md-9 sidebar-left'; } );
-			}			
-		}		
+			}           
+		}       
 
 		/**
 		 * Learnpress Customizer options
@@ -78,7 +78,7 @@ if ( !class_exists( 'Sydney_LearnPress' ) ) :
 				$sidebar = get_theme_mod( 'sydney_learnpress_single_course_sidebar', 'sidebar-right' );
 			}
 
-			return $sidebar;			
+			return $sidebar;            
 		}
 
 		/**
@@ -86,8 +86,7 @@ if ( !class_exists( 'Sydney_LearnPress' ) ) :
 		 */
 		public function enqueue() {
 			wp_enqueue_style( 'sydney-learnpress-css', get_template_directory_uri() . '/inc/integrations/learnpress/learnpress.css' );
-		}		
-
+		}
 	}
 
 	/**

@@ -13,10 +13,10 @@ if (!defined('ABSPATH')) {
 $existing_parts = $this->get_template_parts();
 
 $parts = array( 
-	'header' 		=> __( 'Header', 'sydney' ),
-	'page_title' 	=> __( 'Page Title', 'sydney' ),
-	'content' 		=> __( 'Content', 'sydney' ),
-	'footer' 		=> __( 'Footer', 'sydney' ),
+	'header'        => __( 'Header', 'sydney' ),
+	'page_title'    => __( 'Page Title', 'sydney' ),
+	'content'       => __( 'Content', 'sydney' ),
+	'footer'        => __( 'Footer', 'sydney' ),
 );
 
 //disabled links in free
@@ -48,13 +48,13 @@ $disabled = !$this->settings['has_pro'] ? 'style="pointer-events:none;"' : '';
 
 				if ( !is_array( $custom_templates ) && empty( $custom_templates ) ) {
 					$templates['global'] = array(
-						'id' 			=> 'global',
+						'id'            => 'global',
 						'template_name' => 'Global',
-						'conditions' 	=> '',
-						'header' 		=> '',
-						'page_title' 	=> '',
-						'content' 		=> '',
-						'footer' 		=> '',
+						'conditions'    => '',
+						'header'        => '',
+						'page_title'    => '',
+						'content'       => '',
+						'footer'        => '',
 					);
 				} else {
 					$templates = $custom_templates;
@@ -109,8 +109,8 @@ $disabled = !$this->settings['has_pro'] ? 'style="pointer-events:none;"' : '';
 							<div class="template-part <?php echo esc_attr( $type ); ?>" data-page-builder="<?php echo !empty( $template[$type . '_builder'] ) ? $template[$type . '_builder'] : ''; ?>" data-part-type="<?php echo esc_attr( $type ); ?>" data-part-active="<?php echo !empty( $template[$type] ) ? 'active' : 'inactive'; ?>">
 								<div class="template-part-inner">
 									<span class="part-title">
-										<span class="not-selected" style="display:<?php echo !empty( $template[$type] ) ? 'none' : 'block'; ?>;"><?php echo sprintf( __( 'Select %s', 'sydney' ), $part ); ?></span>
-										<span class="selected" style="display:<?php echo !empty( $template[$type] ) ? 'block' : 'none'; ?>;"><span class="dashicons dashicons-yes-alt"></span><?php echo sprintf( __( '%s Selected', 'sydney' ), $part ); ?></span>
+										<span class="not-selected" style="display:<?php echo !empty( $template[$type] ) ? 'none' : 'block'; ?>;"><?php printf( __( 'Select %s', 'sydney' ), $part ); ?></span>
+										<span class="selected" style="display:<?php echo !empty( $template[$type] ) ? 'block' : 'none'; ?>;"><span class="dashicons dashicons-yes-alt"></span><?php printf( __( '%s Selected', 'sydney' ), $part ); ?></span>
 									</span>
 									<div class="part-options" style="display:none;">
 										<span class="select-existing"><?php esc_html_e( 'Select Existing', 'sydney' ); ?></span>

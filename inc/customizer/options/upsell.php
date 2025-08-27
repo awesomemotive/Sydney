@@ -12,7 +12,7 @@ $wp_customize->add_setting(
     'sydney_upsell_main_header',
 	array(
 		'default'           => '',
-		'sanitize_callback' => 'sydney_sanitize_text'
+		'sanitize_callback' => 'sydney_sanitize_text',
 	)
 );
 
@@ -32,7 +32,7 @@ $wp_customize->add_control(
                 __( 'Elementor mega menu builder', 'sydney' ),
                 '<a target="_blank" href="https://athemes.com/sydney-upgrade/#features?utm_source=theme_customizer_main_header&amp;utm_medium=sydney_customizer&amp;utm_campaign=Sydney">' . __( '&hellip;and many more premium features', 'sydney' ) . '</a>',
             ),    
-            'priority'    => 999
+            'priority'    => 999,
         )
     ) 
 );
@@ -44,7 +44,7 @@ $wp_customize->add_setting(
     'sydney_upsell_mobile_header',
 	array(
 		'default'           => '',
-		'sanitize_callback' => 'sydney_sanitize_text'
+		'sanitize_callback' => 'sydney_sanitize_text',
 	)
 );
 
@@ -62,7 +62,7 @@ $wp_customize->add_control(
                 __( 'Header builder with Elementor', 'sydney' ),
             ),             
             'priority'    => 999,
-            'show_button' => false
+            'show_button' => false,
         )
     ) 
 );
@@ -71,7 +71,7 @@ $wp_customize->add_setting(
     'sydney_upsell_mobile_header2',
 	array(
 		'default'           => '',
-		'sanitize_callback' => 'sydney_sanitize_text'
+		'sanitize_callback' => 'sydney_sanitize_text',
 	)
 );
 
@@ -90,7 +90,7 @@ $wp_customize->add_control(
                 '<a target="_blank" href="https://athemes.com/sydney-upgrade/#features?utm_source=theme_customizer_mobile_header&amp;utm_medium=sydney_customizer&amp;utm_campaign=Sydney">' . __( '&hellip;and many more premium features', 'sydney' ) . '</a>',
             ),             
             'priority'    => 999,
-            'show_separator' => false
+            'show_separator' => false,
         )
     ) 
 );
@@ -102,7 +102,7 @@ $wp_customize->add_setting(
     'sydney_upsell_footer_widgets',
 	array(
 		'default'           => '',
-		'sanitize_callback' => 'sydney_sanitize_text'
+		'sanitize_callback' => 'sydney_sanitize_text',
 	)
 );
 
@@ -121,7 +121,7 @@ $wp_customize->add_control(
                 __( 'Reveal animation effect', 'sydney' ),
                 '<a target="_blank" href="https://athemes.com/sydney-upgrade/#features?utm_source=theme_customizer_footer_widgets&amp;utm_medium=sydney_customizer&amp;utm_campaign=Sydney">' . __( '&hellip;and many more premium features', 'sydney' ) . '</a>',                
             ),            
-            'priority'    => 999
+            'priority'    => 999,
         )
     ) 
 );
@@ -133,7 +133,7 @@ $wp_customize->add_setting(
     'sydney_upsell_footer_credits',
 	array(
 		'default'           => '',
-		'sanitize_callback' => 'sydney_sanitize_text'
+		'sanitize_callback' => 'sydney_sanitize_text',
 	)
 );
 
@@ -152,7 +152,7 @@ $wp_customize->add_control(
                 __( 'Reveal animation effect', 'sydney' ),
                 '<a target="_blank" href="https://athemes.com/sydney-upgrade/#features?utm_source=theme_customizer_footer_credits&amp;utm_medium=sydney_customizer&amp;utm_campaign=Sydney">' . __( '&hellip;and many more premium features', 'sydney' ) . '</a>',   
             ), 
-            'priority'    => 999
+            'priority'    => 999,
         )
     ) 
 );
@@ -164,7 +164,7 @@ $wp_customize->add_setting(
     'sydney_upsell_blog_archives',
 	array(
 		'default'           => '',
-		'sanitize_callback' => 'sydney_sanitize_text'
+		'sanitize_callback' => 'sydney_sanitize_text',
 	)
 );
 
@@ -184,7 +184,7 @@ $wp_customize->add_control(
                 __( 'Elementor template builder for category pages', 'sydney' ),
                 '<a target="_blank" href="https://athemes.com/sydney-upgrade/#features?utm_source=theme_customizer_blog_archives&amp;utm_medium=sydney_customizer&amp;utm_campaign=Sydney">' . __( '&hellip;and many more premium features', 'sydney' ) . '</a>',                
             ),
-            'priority'    => 999
+            'priority'    => 999,
         )
     ) 
 );
@@ -193,7 +193,7 @@ $wp_customize->add_setting(
     'sydney_upsell_blog_singles',
 	array(
 		'default'           => '',
-		'sanitize_callback' => 'sydney_sanitize_text'
+		'sanitize_callback' => 'sydney_sanitize_text',
 	)
 );
 
@@ -213,7 +213,7 @@ $wp_customize->add_control(
                 __( 'Elementor template builder for single posts', 'sydney' ),
                 '<a target="_blank" href="https://athemes.com/sydney-upgrade/#features?utm_source=theme_customizer_blog_singles&amp;utm_medium=sydney_customizer&amp;utm_campaign=Sydney">' . __( '&hellip;and many more premium features', 'sydney' ) . '</a>',                
             ),            
-            'priority'    => 999
+            'priority'    => 999,
         )
     ) 
 );
@@ -225,7 +225,7 @@ $wp_customize->add_setting(
     'sydney_upsell_hero_slider',
 	array(
 		'default'           => '',
-		'sanitize_callback' => 'sydney_sanitize_text'
+		'sanitize_callback' => 'sydney_sanitize_text',
 	)
 );
 
@@ -244,7 +244,7 @@ $wp_customize->add_control(
                 __( 'Title tag control', 'sydney' ),
                 '<a target="_blank" href="https://athemes.com/sydney-upgrade/#features?utm_source=theme_customizer_hero_slider&amp;utm_medium=sydney_customizer&amp;utm_campaign=Sydney">' . __( '&hellip;and many more premium features', 'sydney' ) . '</a>',
             ),             
-            'priority'    => 999
+            'priority'    => 999,
         )
     ) 
 );
@@ -257,7 +257,7 @@ $wp_customize->add_setting(
     'sydney_upsell_typography',
 	array(
 		'default'           => '',
-		'sanitize_callback' => 'sydney_sanitize_text'
+		'sanitize_callback' => 'sydney_sanitize_text',
 	)
 );
 
@@ -274,7 +274,7 @@ $wp_customize->add_control(
                 __( 'An option to upload custom fonts', 'sydney' ),
                 '<a target="_blank" href="https://athemes.com/sydney-upgrade/#features?utm_source=theme_customizer_typography_headings&amp;utm_medium=sydney_customizer&amp;utm_campaign=Sydney">' . __( '&hellip;and many more premium features', 'sydney' ) . '</a>',
             ),             
-            'priority'    => 999
+            'priority'    => 999,
         )
     ) 
 );
@@ -282,7 +282,7 @@ $wp_customize->add_setting(
     'sydney_upsell_typography_body',
 	array(
 		'default'           => '',
-		'sanitize_callback' => 'sydney_sanitize_text'
+		'sanitize_callback' => 'sydney_sanitize_text',
 	)
 );
 
@@ -299,7 +299,7 @@ $wp_customize->add_control(
                 __( 'An option to upload custom fonts', 'sydney' ),
                 '<a target="_blank" href="https://athemes.com/sydney-upgrade/#features?utm_source=theme_customizer_typography_body&amp;utm_medium=sydney_customizer&amp;utm_campaign=Sydney">' . __( '&hellip;and many more premium features', 'sydney' ) . '</a>',
             ),             
-            'priority'    => 999
+            'priority'    => 999,
         )
     ) 
 );

@@ -3,16 +3,16 @@
 class Sydney_Video_Widget extends WP_Widget {
 
 	public function __construct() {
-		$widget_ops = array('classname' => 'sydney_video_widget_widget', 'description' => __( 'Display a video from Youtube, Vimeo etc.', 'sydney') );
+		$widget_ops = array( 'classname' => 'sydney_video_widget_widget', 'description' => __( 'Display a video from Youtube, Vimeo etc.', 'sydney') );
         parent::__construct(false, $name = __('Sydney: Video', 'sydney'), $widget_ops);
 		$this->alt_option_name = 'sydney_video_widget';
     }
 	
 	function form($instance) {
-		$title     	= isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : '';
-		$url    	= isset( $instance['url'] ) ? esc_url( $instance['url'] ) : '';
+		$title      = isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : '';
+		$url        = isset( $instance['url'] ) ? esc_url( $instance['url'] ) : '';
 		$video_mode = isset( $instance['video_mode'] ) ? esc_attr( $instance['video_mode'] ) : '';
-		$text 		= isset( $instance['text'] ) ? wp_kses_post( $instance['text'] ) : '';
+		$text       = isset( $instance['text'] ) ? wp_kses_post( $instance['text'] ) : '';
 		
 	?>
 
@@ -37,9 +37,9 @@ class Sydney_Video_Widget extends WP_Widget {
 
 	function update($new_instance, $old_instance) {
 		$instance = $old_instance;
-		$instance['title'] 		= strip_tags($new_instance['title']);
-		$instance['url'] 		= esc_url_raw($new_instance['url']);
-		$instance['video_mode'] = sanitize_text_field($new_instance['video_mode']);		
+		$instance['title']      = strip_tags($new_instance['title']);
+		$instance['url']        = esc_url_raw($new_instance['url']);
+		$instance['video_mode'] = sanitize_text_field($new_instance['video_mode']);     
 		if ( current_user_can( 'unfiltered_html' ) ) {
 			$instance['text'] = $new_instance['text'];
 		} else {
@@ -56,11 +56,11 @@ class Sydney_Video_Widget extends WP_Widget {
 
 		extract($args);
 
-		$title 	= ( ! empty( $instance['title'] ) ) ? $instance['title'] : '';
-		$title 	= apply_filters( 'widget_title', $title, $instance, $this->id_base );
-		$url   	= isset( $instance['url'] ) ? esc_url( $instance['url'] ) : '';
+		$title  = ( ! empty( $instance['title'] ) ) ? $instance['title'] : '';
+		$title  = apply_filters( 'widget_title', $title, $instance, $this->id_base );
+		$url    = isset( $instance['url'] ) ? esc_url( $instance['url'] ) : '';
 		$video_mode = isset( $instance['video_mode'] ) ? esc_html($instance['video_mode']) : 'vid-normal';
-		$text 	= isset( $instance['text'] ) ? $instance['text'] : '';
+		$text   = isset( $instance['text'] ) ? $instance['text'] : '';
 		echo $before_widget;
 		
 		if ( $title ) echo $before_title . $title . $after_title;
@@ -75,7 +75,5 @@ class Sydney_Video_Widget extends WP_Widget {
 			echo '</div>';
 		}
 		echo $after_widget;
-
 	}
-	
-}	
+}   

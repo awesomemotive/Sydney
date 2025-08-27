@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Class to display the theme review notice after certain period.
  *
-  */
+ */
 class Sydney_Theme_Review_Notice {
 
 	/**

@@ -112,7 +112,6 @@ if ( ! class_exists( 'PAnD' ) ) {
 				return true;
 			}
 		}
-
 	}
 
 }

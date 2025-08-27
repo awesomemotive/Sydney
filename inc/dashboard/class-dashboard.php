@@ -38,8 +38,8 @@ class Sydney_Dashboard
         }
 
         if( $this->is_themes_page() || $this->is_sydney_dashboard_page() ) {
-            add_action('init', array($this, 'set_settings'));
-            add_action('admin_enqueue_scripts', array($this, 'admin_enqueue_scripts'));
+            add_action('init', array( $this, 'set_settings' ));
+            add_action('admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ));
         }
 
         if( $this->is_sydney_dashboard_page() ) {
@@ -56,14 +56,14 @@ class Sydney_Dashboard
 
         add_filter('woocommerce_enable_setup_wizard', '__return_false');
 
-        add_action('admin_menu', array($this, 'add_menu_page'));
+        add_action('admin_menu', array( $this, 'add_menu_page' ));
         add_action('admin_footer', array( $this, 'add_admin_footer_internal_scripts' ));
-        add_action('admin_notices', array($this, 'html_notice'));
+        add_action('admin_notices', array( $this, 'html_notice' ));
         
-        add_action('wp_ajax_sydney_notifications_read', array($this, 'ajax_notifications_read'));
+        add_action('wp_ajax_sydney_notifications_read', array( $this, 'ajax_notifications_read' ));
 
-        add_action('wp_ajax_sydney_plugin', array($this, 'ajax_plugin'));
-        add_action('wp_ajax_sydney_dismissed_handler', array($this, 'ajax_dismissed_handler'));
+        add_action('wp_ajax_sydney_plugin', array( $this, 'ajax_plugin' ));
+        add_action('wp_ajax_sydney_dismissed_handler', array( $this, 'ajax_dismissed_handler' ));
 
         add_action( 'wp_ajax_sydney_module_activation_handler', array( $this, 'ajax_module_activation_handler' ) );
         add_action( 'wp_ajax_sydney_module_activation_all_handler', array( $this, 'ajax_module_activation_all_handler' ) );
@@ -71,8 +71,8 @@ class Sydney_Dashboard
         add_action( 'wp_ajax_insert_template_part_callback', array( $this, 'insert_template_part_callback' ) );
         add_action( 'wp_ajax_edit_template_part_callback', array( $this, 'edit_template_part_callback' ) );
 
-        add_action('switch_theme', array($this, 'reset_notices'));
-        add_action('after_switch_theme', array($this, 'reset_notices'));
+        add_action('switch_theme', array( $this, 'reset_notices' ));
+        add_action('after_switch_theme', array( $this, 'reset_notices' ));
     }
 
     /**
@@ -237,7 +237,7 @@ class Sydney_Dashboard
             wp_enqueue_style('sydney-dashboard-rtl', get_template_directory_uri() . '/inc/dashboard/assets/css/sydney-dashboard-rtl.min.css', array(), '20230525');
         }
 
-        wp_enqueue_script('sydney-dashboard', get_template_directory_uri() . '/inc/dashboard/assets/js/sydney-dashboard.min.js', array('jquery', 'wp-util', 'jquery-ui-sortable' ), '20230525', true);
+        wp_enqueue_script('sydney-dashboard', get_template_directory_uri() . '/inc/dashboard/assets/js/sydney-dashboard.min.js', array( 'jquery', 'wp-util', 'jquery-ui-sortable' ), '20230525', true);
 
         wp_enqueue_script( 'sydney-select2-js', get_template_directory_uri() . '/inc/customizer/controls/typography/select2.full.min.js', array( 'jquery' ), '4.0.13', true );
 		wp_enqueue_style( 'sydney-select2-css', get_template_directory_uri() . '/inc/customizer/controls/typography/select2.min.css', array(), '4.0.13', 'all' );
@@ -295,7 +295,6 @@ class Sydney_Dashboard
         } else {
             return 'inactive';
         }
-
     }
 
     /**
@@ -315,7 +314,6 @@ class Sydney_Dashboard
         }
 
         return get_plugin_data(WP_PLUGIN_DIR . '/' . $plugin_path);
-
     }
 
     /**
@@ -439,7 +437,7 @@ class Sydney_Dashboard
         wp_send_json_success();
     }
 
-     /**
+    /**
      * Admin Footer Text
      */
     public function admin_footer_text() {
@@ -498,7 +496,7 @@ class Sydney_Dashboard
                 $this->install_plugin($plugin_slug);
                 $this->activate_plugin($plugin_path);
 
-            } else if ('inactive' === $this->get_plugin_status($plugin_path)) {
+            } elseif ('inactive' === $this->get_plugin_status($plugin_path)) {
 
                 $this->activate_plugin($plugin_path);
 
@@ -508,7 +506,7 @@ class Sydney_Dashboard
                 wp_send_json_success();
             }
 
-        } else if ($plugin_type === 'deactivate') {
+        } elseif ($plugin_type === 'deactivate') {
 
             $this->deactivate_plugin($plugin_path);
 
@@ -533,7 +531,6 @@ class Sydney_Dashboard
         }
 
         wp_send_json_error();
-
     }
 
     /**
@@ -645,34 +642,31 @@ class Sydney_Dashboard
 
 			case 'tag-id':
 			case 'category-id':
-			
         $term = get_term( $value['id'] );
 
         if ( ! empty( $term ) ) {
 					return $term->name;
         }
 
-			break;
+			    break;
 
 			case 'cpt-term-id':
-			
         $term = get_term( $value['id'] );
         
         if ( ! empty( $term ) ) {
 					return $term->name;
         }
 
-			break;
+			    break;
 
 			case 'cpt-taxonomy-id':
-			
         $taxonomy = get_taxonomy( $value['id'] );
         
         if ( ! empty( $taxonomy ) ) {
 					return $taxonomy->label;
         }
 
-			break;
+			    break;
 
 			case 'author':
 			case 'author-id':
@@ -690,7 +684,6 @@ class Sydney_Dashboard
 		}
 
 		return $value['id'];
-
 	}    
 
     /**
@@ -801,9 +794,9 @@ class Sydney_Dashboard
      */
     function get_template_parts() {
         $args = array(
-            'numberposts' 	=> -1,
-            'post_type'   	=> 'athemes_hf',
-        );	
+            'numberposts'   => -1,
+            'post_type'     => 'athemes_hf',
+        );  
 
         $posts = get_posts( $args );
 
@@ -946,15 +939,14 @@ class Sydney_Dashboard
 
             if (!get_transient($transient)) {
                 ?>
-          <div class="sydney-dashboard sydney-dashboard-notice">
+            <div class="sydney-dashboard sydney-dashboard-notice">
             <div class="sydney-dashboard-dismissable dashicons dashicons-dismiss" data-notice="<?php echo esc_attr($transient); ?>"></div>
             <?php require get_template_directory() . '/inc/dashboard/html-hero.php'; // phpcs:ignore WPThemeReview.CoreFunctionality.FileInclude.FileIncludeFound ?>
-          </div>
+            </div>
         <?php
 }
 
         }
-
     }
 
     /**
@@ -963,7 +955,6 @@ class Sydney_Dashboard
     public function html_patcher() {
         require get_template_directory() . '/inc/dashboard/html-patcher.php';
     }
-
 }
 
 new Sydney_Dashboard();

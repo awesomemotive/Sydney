@@ -32,7 +32,7 @@ if (!defined('ABSPATH')) {
                         <ul class="sydney-dashboard-content-expand-list">
                             <li>
                                 <?php echo sydney_dashboard_get_setting_icon( 'arrow' ); ?>
-                                <?php echo sprintf(
+                                <?php printf(
                                     esc_html__( 'To get your key, please login to your %1$saThemes account%2$s.', 'sydney' ),
                                     '<a href="https://athemes.com/your-account/" target="_blank">',
                                     '</a>'

@@ -32,7 +32,7 @@
         	'section' => 'sydney_learndash_layout',
         	'settings' => 'sydney_options[info]',
         ) )
-	); 	
+	);  
 	
     $wp_customize->add_setting(
         'sydney_lifter_single_course_sidebar',
@@ -53,7 +53,7 @@
                 'sidebar-right' => esc_html__( 'Sidebar right', 'sydney' ),
             ),
         )
-    );		
+    );      
     
     $wp_customize->add_setting('sydney_options[info]', array(
             'type'              => 'info_control',
@@ -65,7 +65,7 @@
         	'section' => 'sydney_learndash_layout',
         	'settings' => 'sydney_options[info]',
         ) )
-	); 	
+	);  
 	
     $wp_customize->add_setting(
         'sydney_lifter_single_lesson_sidebar',
@@ -86,4 +86,4 @@
                 'sidebar-right' => esc_html__( 'Sidebar right', 'sydney' ),
             ),
         )
-	);		    
+	);          

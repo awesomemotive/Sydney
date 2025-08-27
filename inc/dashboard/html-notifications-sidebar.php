@@ -77,7 +77,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                                     <?php if( $display_version ) : ?>
                                         <h3 class="sydney-dashboard-notification-version"><?php echo $version; ?></h3>
                                     <?php endif; ?>
-                                    <?php echo sprintf( '(%s)', esc_html( date_format( date_create( $date ), 'F j, Y' ) ) ); ?>
+                                    <?php printf( '(%s)', esc_html( date_format( date_create( $date ), 'F j, Y' ) ) ); ?>
                                 </span>
                             <?php endif; ?>
                             <?php if( $content ) : ?>
@@ -125,7 +125,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                                 <span class="sydney-dashboard-notification-date">
                                     <?php echo esc_html( date_format( date_create( $date ), 'F j, Y' ) ); ?>
                                     <?php if( $display_version ) : ?>
-                                        <span class="sydney-dashboard-notification-version"><?php echo sprintf( '(%s)', $version ); ?></span>
+                                        <span class="sydney-dashboard-notification-version"><?php printf( '(%s)', $version ); ?></span>
                                     <?php endif; ?>
                                 </span>
                             <?php endif; ?>

@@ -10,14 +10,14 @@ class Sydney_Pro_WPML_Elementor_Testimonials extends WPML_Elementor_Module_With_
 	 * @return string
 	 */
 	public function get_items_field() {
-	   return 'testimonials_list';
+		return 'testimonials_list';
 	}
    
 	/**
 	 * @return array
 	 */
 	public function get_fields() {
-	   return array( 'name', 'position', 'testimonial' );
+		return array( 'name', 'position', 'testimonial' );
 	}
    
 	/**
@@ -26,7 +26,7 @@ class Sydney_Pro_WPML_Elementor_Testimonials extends WPML_Elementor_Module_With_
 	 * @return string
 	 */
 	protected function get_title( $field ) {
-	   switch( $field ) {
+		switch( $field ) {
 			case 'name':
 				return esc_html__( '[aThemes Testimonials] Name', 'sydney' );
    
@@ -38,7 +38,7 @@ class Sydney_Pro_WPML_Elementor_Testimonials extends WPML_Elementor_Module_With_
    
 			default:
 				return '';
-	   }
+		}
 	}
    
 	/**
@@ -47,7 +47,7 @@ class Sydney_Pro_WPML_Elementor_Testimonials extends WPML_Elementor_Module_With_
 	 * @return string
 	 */
 	protected function get_editor_type( $field ) {
-	   switch( $field ) {
+		switch( $field ) {
 			case 'name':
 			case 'position':
 				return 'LINE';
@@ -57,7 +57,6 @@ class Sydney_Pro_WPML_Elementor_Testimonials extends WPML_Elementor_Module_With_
    
 			default:
 				return '';
-	   }
+		}
 	}
-
 }

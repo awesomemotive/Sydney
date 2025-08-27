@@ -17,7 +17,7 @@ $wp_customize->add_setting(
 	array(
 		'default'           => 0,
 		'sanitize_callback' => 'sydney_sanitize_checkbox',
-		'transport'         => 'postMessage'
+		'transport'         => 'postMessage',
 	)
 );
 $wp_customize->add_control(
@@ -25,30 +25,30 @@ $wp_customize->add_control(
 		$wp_customize,
 		'enable_block_templates',
 		array(
-			'label'         	=> esc_html__( 'Enable Block Templates', 'sydney' ),
-			'section'       	=> 'sydney_block_templates',
+			'label'             => esc_html__( 'Enable Block Templates', 'sydney' ),
+			'section'           => 'sydney_block_templates',
 		)
 	)
 );
 
 $wp_customize->add_setting( 'block_templates_notice',
 	array(
-		'default' 			=> '',
-		'sanitize_callback' => 'esc_attr'
+		'default'           => '',
+		'sanitize_callback' => 'esc_attr',
 	)
 );
 
 $wp_customize->add_control( new Sydney_Text_Control( $wp_customize, 'block_templates_notice',
 		array(
-			'label' 		=> __( 'How to use block templates?', 'sydney' ),
-			'description' 	=> 
+			'label'         => __( 'How to use block templates?', 'sydney' ),
+			'description'   => 
 				'<ol>'
 				. '<li>' . sprintf( __( 'Go %s and customize the templates you want to use.', 'sydney' ), '<a target="_blank" href="' . admin_url( 'site-editor.php?path=%2Fwp_template_part%2Fall' ) . '">' . __( 'here', 'sydney' ) . '</a>' ) . '</li>'
 				. '<li>' . __( 'Activate the block template you want to use below. Example: if you activate the header template, the theme\'s default header will be replaced with your header block template.', 'sydney' ) . '</li>'
 				. '<li>' . __( 'Save the changes and refresh this page.', 'sydney' ) . '</li>'
 				. '</ol>',
-			'section' 		=> 'sydney_block_templates',
-			'active_callback' 	=> 'sydney_block_templates_active_callback'
+			'section'       => 'sydney_block_templates',
+			'active_callback'   => 'sydney_block_templates_active_callback',
 		)
 	)
 );
@@ -59,7 +59,7 @@ $wp_customize->add_setting(
 	array(
 		'default'           => 0,
 		'sanitize_callback' => 'sydney_sanitize_checkbox',
-		'transport'         => 'postMessage'
+		'transport'         => 'postMessage',
 	)
 );
 
@@ -68,10 +68,10 @@ $wp_customize->add_control(
 		$wp_customize,
 		'enable_header_block_template',
 		array(
-			'label'         	=> esc_html__( 'Enable Header Block Template', 'sydney' ),
-			'section'       	=> 'sydney_block_templates',
-			'separator'     	=> 'before',
-			'active_callback' 	=> 'sydney_block_templates_active_callback'
+			'label'             => esc_html__( 'Enable Header Block Template', 'sydney' ),
+			'section'           => 'sydney_block_templates',
+			'separator'         => 'before',
+			'active_callback'   => 'sydney_block_templates_active_callback',
 		)
 	)
 );
@@ -82,7 +82,7 @@ $wp_customize->add_setting(
 	array(
 		'default'           => 0,
 		'sanitize_callback' => 'sydney_sanitize_checkbox',
-		'transport'         => 'postMessage'
+		'transport'         => 'postMessage',
 	)
 );
 
@@ -93,7 +93,7 @@ $wp_customize->add_control(
 		array(
 			'label'         => esc_html__( 'Enable Footer Block Template', 'sydney' ),
 			'section'       => 'sydney_block_templates',
-			'active_callback' => 'sydney_block_templates_active_callback'
+			'active_callback' => 'sydney_block_templates_active_callback',
 		)
 	)
 );
@@ -104,7 +104,7 @@ $wp_customize->add_setting(
 	array(
 		'default'           => 0,
 		'sanitize_callback' => 'sydney_sanitize_checkbox',
-		'transport'         => 'postMessage'
+		'transport'         => 'postMessage',
 	)
 );
 
@@ -115,7 +115,7 @@ $wp_customize->add_control(
 		array(
 			'label'         => esc_html__( 'Enable Single Block Template', 'sydney' ),
 			'section'       => 'sydney_block_templates',
-			'active_callback' => 'sydney_block_templates_active_callback'
+			'active_callback' => 'sydney_block_templates_active_callback',
 		)
 	)
 );
@@ -126,7 +126,7 @@ $wp_customize->add_setting(
 	array(
 		'default'           => 0,
 		'sanitize_callback' => 'sydney_sanitize_checkbox',
-		'transport'         => 'postMessage'
+		'transport'         => 'postMessage',
 	)
 );
 
@@ -137,7 +137,7 @@ $wp_customize->add_control(
 		array(
 			'label'         => esc_html__( 'Enable Page Block Template', 'sydney' ),
 			'section'       => 'sydney_block_templates',
-			'active_callback' => 'sydney_block_templates_active_callback'
+			'active_callback' => 'sydney_block_templates_active_callback',
 		)
 	)
 );
@@ -148,7 +148,7 @@ $wp_customize->add_setting(
 	array(
 		'default'           => 0,
 		'sanitize_callback' => 'sydney_sanitize_checkbox',
-		'transport'         => 'postMessage'
+		'transport'         => 'postMessage',
 	)
 );
 
@@ -159,7 +159,7 @@ $wp_customize->add_control(
 		array(
 			'label'         => esc_html__( 'Enable Archive Block Template', 'sydney' ),
 			'section'       => 'sydney_block_templates',
-			'active_callback' => 'sydney_block_templates_active_callback'
+			'active_callback' => 'sydney_block_templates_active_callback',
 		)
 	)
 );
@@ -170,7 +170,7 @@ $wp_customize->add_setting(
 	array(
 		'default'           => 0,
 		'sanitize_callback' => 'sydney_sanitize_checkbox',
-		'transport'         => 'postMessage'
+		'transport'         => 'postMessage',
 	)
 );
 
@@ -181,7 +181,7 @@ $wp_customize->add_control(
 		array(
 			'label'         => esc_html__( 'Enable Search Block Template', 'sydney' ),
 			'section'       => 'sydney_block_templates',
-			'active_callback' => 'sydney_block_templates_active_callback'
+			'active_callback' => 'sydney_block_templates_active_callback',
 		)
 	)
 );
@@ -192,7 +192,7 @@ $wp_customize->add_setting(
 	array(
 		'default'           => 0,
 		'sanitize_callback' => 'sydney_sanitize_checkbox',
-		'transport'         => 'postMessage'
+		'transport'         => 'postMessage',
 	)
 );
 
@@ -203,7 +203,7 @@ $wp_customize->add_control(
 		array(
 			'label'         => esc_html__( 'Enable 404 Block Template', 'sydney' ),
 			'section'       => 'sydney_block_templates',
-			'active_callback' => 'sydney_block_templates_active_callback'
+			'active_callback' => 'sydney_block_templates_active_callback',
 		)
 	)
 );
