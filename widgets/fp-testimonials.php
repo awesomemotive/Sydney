@@ -75,11 +75,11 @@ class Sydney_Testimonials extends WP_Widget {
 			'category_name'       => $category,
 		) );
 		
-		echo $args['before_widget'];
+		echo $args['before_widget']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		if ($testimonials->have_posts()) :
 ?>
-			<?php if ( $title ) echo $before_title . $title . $after_title; ?>
+			<?php if ( $title ) echo $before_title . $title . $after_title; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 			<div class="col-md-12">
 				<div class="roll-testimonials" data-autoplay="<?php echo intval($autoplay); ?>">
 					<?php while ( $testimonials->have_posts() ) : $testimonials->the_post(); ?>
@@ -100,7 +100,7 @@ class Sydney_Testimonials extends WP_Widget {
 				</div>
 			</div>	
 
-			<?php if ($see_all != '') : ?>
+			<?php if ($see_all !== '') : ?>
 				<a href="<?php echo esc_url($see_all); ?>" class="roll-button more-button">
 					<?php if ($see_all_text) : ?>
 						<?php echo $see_all_text; ?>
@@ -111,7 +111,7 @@ class Sydney_Testimonials extends WP_Widget {
 			<?php endif; ?>	
 
 	<?php
-		echo $args['after_widget'];
+		echo $args['after_widget']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		wp_reset_postdata();
 		endif;
 	}
