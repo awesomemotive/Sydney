@@ -745,11 +745,6 @@ function sydney_enable_fontawesome_latest_version( $old_theme_name ) {
 add_action('after_switch_theme', 'sydney_enable_fontawesome_latest_version');
 
 /**
- * Autoload
- */
-require_once get_parent_theme_file_path( 'vendor/autoload.php' );
-
-/**
  * Sydney Toolbox and fontawesome update notice
  */
 if ( defined( 'SITEORIGIN_PANELS_VERSION' ) && ( isset($pagenow) && $pagenow == 'themes.php' ) && isset( $_GET['page'] ) && $_GET['page'] == 'theme-dashboard' ) {
