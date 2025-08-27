@@ -53,9 +53,9 @@ function sydney_setup() {
 	add_image_size('sydney-mas-thumb', 480);
 
 	// This theme uses wp_nav_menu() in one location.
-	$nav_menus = array(	
-		'primary' 	=> __( 'Primary Menu', 'sydney' ),
-		'mobile' 	=> __( 'Mobile menu (optional)', 'sydney' ),
+	$nav_menus = array( 
+		'primary'   => __( 'Primary Menu', 'sydney' ),
+		'mobile'    => __( 'Mobile menu (optional)', 'sydney' ),
 	);
 
 	if ( class_exists( 'Sydney_Modules' ) && Sydney_Modules::is_module_active( 'hf-builder' ) ) {
@@ -96,7 +96,7 @@ function sydney_setup() {
 	$forked_owl = get_theme_mod( 'forked_owl_carousel', false );
 	if ( !$forked_owl ) {
 		set_theme_mod( 'forked_owl_carousel', true );
-	}	
+	}   
 
 	//Set the compare icon for YTIH button
 	update_option( 'yith_woocompare_button_text', sydney_get_svg_icon( 'icon-compare', false ) );
@@ -114,8 +114,8 @@ function sydney_setup() {
 	$colors = array();
 	for ( $i = 1; $i <= 9; $i++ ) {
 		$colors[] = array(
-			'name' 	=> sprintf( __( 'Global Color %s', 'sydney' ), $i ),
-			'slug' 	=> 'global_color_' . $i,
+			'name'  => sprintf( __( 'Global Color %s', 'sydney' ), $i ),
+			'slug'  => 'global_color_' . $i,
 			'color' => 'var(--sydney-global-color-' . $i . ')',
 		);
 	}
@@ -171,7 +171,6 @@ function sydney_widgets_init() {
 		register_widget( 'Sydney_Portfolio' );
 	}
 	register_widget( 'Sydney_Contact_Info' );
-
 }
 add_action( 'widgets_init', 'sydney_widgets_init' );
 
@@ -196,7 +195,7 @@ if ( defined( 'SITEORIGIN_PANELS_VERSION' ) ) {
 	/**
 	 * Page builder support
 	 */
-	require get_template_directory() . '/inc/so-page-builder.php';	
+	require get_template_directory() . '/inc/so-page-builder.php';  
 }
 require get_template_directory() . "/widgets/contact-info.php";
 
@@ -204,20 +203,20 @@ require get_template_directory() . "/widgets/contact-info.php";
  * Enqueue scripts and styles.
  */
 function sydney_admin_scripts() {
-	wp_enqueue_script( 'sydney-admin-functions', get_template_directory_uri() . '/js/admin-functions.js', array('jquery'),'20250317', true );
+	wp_enqueue_script( 'sydney-admin-functions', get_template_directory_uri() . '/js/admin-functions.js', array( 'jquery' ),'20250317', true );
 	wp_localize_script( 'sydney-admin-functions', 'sydneyadm', array(
 		'fontawesomeUpdate' => array(
 			'confirmMessage' => __( 'Are you sure? Keep in mind this is a global change and you will need update your icons class names in all theme widgets and post types that use Font Awesome 4 icons.', 'sydney' ),
-			'errorMessage' => __( 'It was not possible complete the request, please reload the page and try again.', 'sydney' )
+			'errorMessage' => __( 'It was not possible complete the request, please reload the page and try again.', 'sydney' ),
 		),
 		'headerUpdate' => array(
 			'confirmMessage' => __( 'Are you sure you want to upgrade your header?', 'sydney' ),
-			'errorMessage' => __( 'It was not possible complete the request, please reload the page and try again.', 'sydney' )
+			'errorMessage' => __( 'It was not possible complete the request, please reload the page and try again.', 'sydney' ),
 		),
 		'headerUpdateDimiss' => array(
 			'confirmMessage' => __( 'Are you sure you want to dismiss this notice?', 'sydney' ),
-			'errorMessage' => __( 'It was not possible complete the request, please reload the page and try again.', 'sydney' )
-		),					
+			'errorMessage' => __( 'It was not possible complete the request, please reload the page and try again.', 'sydney' ),
+		),                  
 	) );
 }
 add_action( 'admin_enqueue_scripts', 'sydney_admin_scripts' );
@@ -235,7 +234,7 @@ function sydney_set_modern_header_flag() {
 	set_theme_mod( 'swc_sidebar_products', true );
 
 	//Disable shop archive sidebar
-	set_theme_mod( 'shop_archive_sidebar', 'no-sidebar' );	
+	set_theme_mod( 'shop_archive_sidebar', 'no-sidebar' );  
 }
 add_action( 'after_switch_theme', 'sydney_set_modern_header_flag' );
 
@@ -268,27 +267,27 @@ function sydney_scripts() {
 		$slider_home = get_theme_mod('front_header_type','nothing');
 		$slider_site = get_theme_mod('site_header_type');
 		if ( ( $slider_home == 'slider' && is_front_page() ) || ( $slider_site == 'slider' && !is_front_page() ) ) {
-			wp_enqueue_script( 'sydney-scripts', get_template_directory_uri() . '/js/scripts.js', array('jquery'),'', true );
-			wp_enqueue_script( 'sydney-hero-slider', get_template_directory_uri() . '/js/hero-slider.js', array('jquery'),'', true );
+			wp_enqueue_script( 'sydney-scripts', get_template_directory_uri() . '/js/scripts.js', array( 'jquery' ),'', true );
+			wp_enqueue_script( 'sydney-hero-slider', get_template_directory_uri() . '/js/hero-slider.js', array( 'jquery' ),'', true );
 			wp_enqueue_style( 'sydney-hero-slider', get_template_directory_uri() . '/css/components/hero-slider.min.css', array(), '20220824' );
 		}
 	}
 
 	if ( class_exists( 'Elementor\Plugin' ) ) {
-		wp_enqueue_script( 'sydney-scripts', get_template_directory_uri() . '/js/scripts.js', array('jquery'),'', true );		
+		wp_enqueue_script( 'sydney-scripts', get_template_directory_uri() . '/js/scripts.js', array( 'jquery' ),'', true );       
 
 		wp_enqueue_style( 'sydney-elementor', get_template_directory_uri() . '/css/components/elementor.min.css', array(), '20220824' );
 	}
 
-	if ( defined( 'SITEORIGIN_PANELS_VERSION' )	) {
+	if ( defined( 'SITEORIGIN_PANELS_VERSION' ) ) {
 
 		wp_enqueue_style( 'sydney-siteorigin', get_template_directory_uri() . '/css/components/siteorigin.min.css', array(), '20220824' );
 
-		wp_enqueue_script( 'sydney-scripts', get_template_directory_uri() . '/js/scripts.js', array('jquery'),'', true );
+		wp_enqueue_script( 'sydney-scripts', get_template_directory_uri() . '/js/scripts.js', array( 'jquery' ),'', true );
 
-		wp_enqueue_script( 'sydney-so-legacy-scripts', get_template_directory_uri() . '/js/so-legacy.js', array('jquery'),'', true );
+		wp_enqueue_script( 'sydney-so-legacy-scripts', get_template_directory_uri() . '/js/so-legacy.js', array( 'jquery' ),'', true );
 
-		wp_enqueue_script( 'sydney-so-legacy-main', get_template_directory_uri() . '/js/so-legacy-main.min.js', array('jquery'),'', true );
+		wp_enqueue_script( 'sydney-so-legacy-main', get_template_directory_uri() . '/js/so-legacy-main.min.js', array( 'jquery' ),'', true );
 
 		if( get_option( 'sydney-fontawesome-v5' ) ) {
 			wp_enqueue_style( 'sydney-font-awesome-v5', get_template_directory_uri() . '/fonts/font-awesome-v5/all.min.css' );
@@ -338,9 +337,8 @@ add_action( 'wp_enqueue_scripts', 'sydney_enqueue_bootstrap', 9 );
  */
 function sydney_excerpt_length( $length ) {
 
-  $excerpt = get_theme_mod('exc_lenght', 22 );
-  return $excerpt;
-
+    $excerpt = get_theme_mod('exc_lenght', 22 );
+    return $excerpt;
 }
 add_filter( 'excerpt_length', 'sydney_excerpt_length', 999 );
 
@@ -380,8 +378,8 @@ function sydney_header_video() {
 		return;
 	}
 
-	$front_header_type 	= get_theme_mod( 'front_header_type' );
-	$site_header_type 	= get_theme_mod( 'site_header_type' );
+	$front_header_type  = get_theme_mod( 'front_header_type' );
+	$site_header_type   = get_theme_mod( 'site_header_type' );
 
 	if ( ( get_theme_mod('front_header_type') == 'core-video' && is_front_page() || get_theme_mod('site_header_type') == 'core-video' && !is_front_page() ) ) {
 		the_custom_header_markup();
@@ -418,8 +416,8 @@ add_action('elementor/theme/before_do_header', 'sydney_preloader'); // Elementor
  */
 function sydney_header_clone() {
 
-	$front_header_type 	= get_theme_mod('front_header_type','nothing');
-	$site_header_type 	= get_theme_mod('site_header_type');
+	$front_header_type  = get_theme_mod('front_header_type','nothing');
+	$site_header_type   = get_theme_mod('site_header_type');
 
 	if ( class_exists( 'Woocommerce' ) ) {
 
@@ -431,9 +429,9 @@ function sydney_header_clone() {
 			}
 		} elseif ( is_product_category() ) {
 			global $wp_query;
-			$cat 				= $wp_query->get_queried_object();
-			$thumbnail_id 		= get_term_meta( $cat->term_id, 'thumbnail_id', true );
-			$shop_archive_thumb	= wp_get_attachment_url( $thumbnail_id );
+			$cat                = $wp_query->get_queried_object();
+			$thumbnail_id       = get_term_meta( $cat->term_id, 'thumbnail_id', true );
+			$shop_archive_thumb = wp_get_attachment_url( $thumbnail_id );
 			
 			if ( $shop_archive_thumb ) {
 				return;
@@ -511,9 +509,9 @@ function sydney_get_svg_icon( $icon, $echo = false ) {
 				'fill-rule' => true,
 				'd'         => true,
 				'transform' => true,
-				'stroke'	=> true,
+				'stroke'    => true,
 				'stroke-width' => true,
-				'stroke-linejoin' => true
+				'stroke-linejoin' => true,
 			),
 			'polygon' => array(
 				'fill'      => true,
@@ -527,10 +525,10 @@ function sydney_get_svg_icon( $icon, $echo = false ) {
 				'y'      => true,
 				'width'  => true,
 				'height' => true,
-				'transform' => true
+				'transform' => true,
 			),
 		)
-	);	
+	);  
 
 	if ( $echo != false ) {
 		echo $svg_code; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped

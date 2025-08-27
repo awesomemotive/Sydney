@@ -5,8 +5,8 @@
  * @package Sydney
  */
 ?>
-<?php $enable_featured 	= get_post_meta( $post->ID, '_sydney_page_enable_featured', true ); ?>
-<?php $enable_featured_all 	= get_theme_mod( 'enable_page_feat_images', 0 ); ?>
+<?php $enable_featured  = get_post_meta( $post->ID, '_sydney_page_enable_featured', true ); ?>
+<?php $enable_featured_all  = get_theme_mod( 'enable_page_feat_images', 0 ); ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<div class="content-inner">
 		<header class="entry-header">

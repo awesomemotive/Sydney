@@ -16,7 +16,7 @@ get_header(); ?>
 
 			<?php while ( have_posts() ) : the_post(); ?>
 				<?php //Get the custom field values
-					$photo 	  = get_post_meta( get_the_ID(), 'wpcf-photo', true );
+					$photo    = get_post_meta( get_the_ID(), 'wpcf-photo', true );
 					$position = get_post_meta( get_the_ID(), 'wpcf-position', true );
 					$facebook = get_post_meta( get_the_ID(), 'wpcf-facebook', true );
 					$twitter  = get_post_meta( get_the_ID(), 'wpcf-twitter', true );
