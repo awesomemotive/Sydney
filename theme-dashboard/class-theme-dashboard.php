@@ -328,7 +328,7 @@ class Sydney_Theme_Dashboard {
 
 					<?php if ( isset( $feature['text'] ) && $feature['text'] ) : ?>
 						<div class="thd-feature-help"></div>
-						<div class="thd-feature-help-text"><?php echo $feature['text']; ?></div>
+						<div class="thd-feature-help-text"><?php echo wp_kses_post( $feature['text'] ); ?></div>
 					<?php endif; ?>
 
 					<div class="thd-theme-feature-row">
@@ -375,11 +375,11 @@ class Sydney_Theme_Dashboard {
 							$activate_off = esc_url( add_query_arg( $nonce_param, $nonce, $activate_uri . '=0' ) );
 						?>
 						<?php if ( !Sydney_Modules::is_module_active( $feature['slug'] ) ) : ?>
-							<a href="<?php echo $activate_on; ?>" class="thd-theme-feature-customize">
+							<a href="<?php echo $activate_on; ?>" class="thd-theme-feature-customize"> <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 									<?php esc_html_e( 'Activate', 'sydney' ); ?>
 								</a>
 							<?php else : ?>
-							<a href="<?php echo $activate_off; ?>" class="thd-theme-feature-customize">
+							<a href="<?php echo $activate_off; ?>" class="thd-theme-feature-customize"> <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 									<?php esc_html_e( 'Deactivate', 'sydney' ); ?>
 								</a>
 								<?php if ( $feature['link'] ) : ?>
