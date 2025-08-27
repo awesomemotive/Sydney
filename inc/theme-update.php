@@ -111,7 +111,9 @@ function sydney_header_update_notice_1_8_1() {
             <?php esc_html_e( 'Note 4: Please take a full backup of your website before upgrading.', 'sydney' ); ?>
         </p>             
         <p>
-            <?php printf( esc_html__( 'Want to see the new header options before upgrading? Check out our %s.', 'sydney' ), '<a target="_blank" href="https://docs.athemes.com/collection/370-sydney">documentation</a>' ); ?>
+            <?php
+            /* translators: %s: Documentation link */
+            printf( esc_html__( 'Want to see the new header options before upgrading? Check out our %s.', 'sydney' ), '<a target="_blank" href="https://docs.athemes.com/collection/370-sydney">documentation</a>' ); ?>
         </p>
         <a href="#" class="button sydney-update-header" data-nonce="<?php echo esc_attr( wp_create_nonce( 'sydney-update-header-nonce' ) ); ?>" style="margin-top: 15px;"><?php esc_html_e( 'Upgrade Theme Header', 'sydney' ); ?></a>
         <a href="#" class="button sydney-update-header-dismiss" data-nonce="<?php echo esc_attr( wp_create_nonce( 'sydney-update-header-dismiss-nonce' ) ); ?>" style="margin-top: 15px;"><?php esc_html_e( 'Continue to use the old header', 'sydney' ); ?></a> 
@@ -171,7 +173,7 @@ function sydney_migrate_typography() {
 
     if ( 'Raleway' !== $body_font ) {
 
-        $body_font_family = json_encode(
+        $body_font_family = wp_json_encode(
             array(
                 'font'          => $body_font,
                 'regularweight' => 'regular',
@@ -187,7 +189,7 @@ function sydney_migrate_typography() {
 
     if ( 'Raleway' !== $headings_font ) {
 
-        $headings_font_family = json_encode(
+        $headings_font_family = wp_json_encode(
             array(
                 'font'          => $headings_font,
                 'regularweight' => '600',
@@ -393,8 +395,12 @@ function sydney_hf_update_notice_2_52() {
         </p>            
         <p>
             <?php 
-            /* translators: 1: documentation link. */
-            printf( esc_html__( 'Want to see the new header and footer builder before upgrading? Check out our %s.', 'sydney' ), '<a target="_blank" href="https://docs.athemes.com/article/header-footer-builder-2/">documentation</a>' ); ?>
+            printf(
+                /* translators: %s: Documentation link */
+                esc_html__( 'Want to see the new header and footer builder before upgrading? Check out our %s.', 'sydney' ),
+                '<a target="_blank" href="https://docs.athemes.com/article/header-footer-builder-2/">documentation</a>'
+            );
+            ?>
         </p>
         <a href="#" class="button sydney-update-hf" data-nonce="<?php echo esc_attr( wp_create_nonce( 'sydney-update-hf-nonce' ) ); ?>" style="margin-top: 15px;"><?php esc_html_e( 'Update theme header and footer', 'sydney' ); ?></a>
         <a href="#" class="button sydney-update-hf-dismiss" data-nonce="<?php echo esc_attr( wp_create_nonce( 'sydney-update-hf-dismiss-nonce' ) ); ?>" style="margin-top: 15px;"><?php esc_html_e( 'Continue to use the old header and footer system', 'sydney' ); ?></a> 
