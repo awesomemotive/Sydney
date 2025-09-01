@@ -30,47 +30,47 @@ if ( ! function_exists( 'sydney_get_schema' ) ) {
 				}
 				break;
 
-			case 'header';
+			case 'header':
 				$schema = 'itemscope="itemscope" itemtype="https://schema.org/WPHeader"';
 				break;
 
-			case 'logo';
+			case 'logo':
 				$schema = 'itemscope itemtype="https://schema.org/Brand"';
 				break;
 
-			case 'nav';
+			case 'nav':
 				$schema = 'itemscope="itemscope" itemtype="https://schema.org/SiteNavigationElement"';
 				break;  
 				
-			case 'sidebar';
+			case 'sidebar':
 				$schema = 'itemscope="itemscope" itemtype="https://schema.org/WPSideBar"';
 				break;  
 				
-			case 'footer';
+			case 'footer':
 				$schema = 'itemscope="itemscope" itemtype="https://schema.org/WPFooter"';
 				break;
 				
-			case 'headline';
+			case 'headline':
 				$schema = 'itemprop="headline"';
 				break;
 
-			case 'entry_content';
+			case 'entry_content':
 				$schema = 'itemprop="text"';
 				break;      
 				
-			case 'published_date';
+			case 'published_date':
 				$schema = 'itemprop="datePublished"';
 				break;
 				
-			case 'modified_date';
+			case 'modified_date':
 				$schema = 'itemprop="dateModified"';
 				break;      
 				
-			case 'author_name';
+			case 'author_name':
 				$schema = 'itemprop="name"';
 				break;          
 				
-			case 'image';
+			case 'image':
 				$schema = 'itemprop="image"';
 				break;              
 
@@ -86,6 +86,6 @@ if ( ! function_exists( 'sydney_get_schema' ) ) {
 
 if ( ! function_exists( 'sydney_do_schema' ) ) {
 	function sydney_do_schema( $location ) {
-		echo sydney_get_schema( $location );
+		echo sydney_get_schema( $location ); // phpcs:ignore WordPress.Security.EscapeOutput
 	}
 }

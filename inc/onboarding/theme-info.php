@@ -27,9 +27,12 @@ function sydney_info_page() {
 	$user = wp_get_current_user();
 ?>
 	<div class="info-container">
-		<p class="hello-user"><?php printf( __( 'Hello, %s,', 'sydney' ), '<span>' . esc_html( ucfirst( $user->display_name ) ) . '</span>' ); ?></p>
-		<h1 class="info-title"><?php echo __( 'Welcome to Sydney', 'sydney' ); ?><span class="info-version"><?php echo 'v' . esc_html( wp_get_theme()->version ); ?></span></h1>
-		<p class="welcome-desc"><?php _e( 'Sydney is now installed and ready to go. To help you with the next step, we’ve gathered together on this page all the resources you might need. We hope you enjoy using Sydney. You can always come back to this page by going to <strong>Appearance > Sydney Info</strong>.', 'sydney' ); ?>
+		<?php
+		// translators: %s is the user's display name
+		?>
+		<p class="hello-user"><?php printf( esc_html__( 'Hello, %s,', 'sydney' ), '<span>' . esc_html( ucfirst( $user->display_name ) ) . '</span>' ); ?></p>
+		<h1 class="info-title"><?php echo esc_html__( 'Welcome to Sydney', 'sydney' ); ?><span class="info-version"><?php echo 'v' . esc_html( wp_get_theme()->version ); ?></span></h1>
+		<p class="welcome-desc"><?php esc_html_e( 'Sydney is now installed and ready to go. To help you with the next step, we\'ve gathered together on this page all the resources you might need. We hope you enjoy using Sydney. You can always come back to this page by going to <strong>Appearance > Sydney Info</strong>.', 'sydney' ); ?>
 	
 
 		<div class="sydney-theme-tabs">
@@ -46,14 +49,14 @@ function sydney_info_page() {
 					
 					<div class="plugins-row">
 						<h2><span class="step-number">1</span><?php esc_html_e( 'Install recommended plugins', 'sydney' ); ?></h2>
-						<p><?php _e( 'Install one plugin at a time. Wait for each plugin to activate.', 'sydney' ); ?></p>
+						<p><?php esc_html_e( 'Install one plugin at a time. Wait for each plugin to activate.', 'sydney' ); ?></p>
 
 						<div style="margin: 0 -15px;overflow:hidden;display:flex;">
 							<div class="plugin-block">
 								<?php $plugin = 'sydney-toolbox'; ?>
 								<h3>Sydney Toolbox</h3>
 								<p><?php esc_html_e( 'Sydney Toolbox is a free addon for the Sydney WordPress theme. It helps with things like demo import and additional Elementor widgets.', 'sydney' ); ?></p>
-								<?php echo Sydney_Recommended_Plugins::instance()->get_button_html( $plugin ); ?>
+								<?php echo Sydney_Recommended_Plugins::instance()->get_button_html( $plugin ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 							</div>
 
 							<div class="plugin-block">
@@ -63,18 +66,18 @@ function sydney_info_page() {
 								<?php 
 								//If Elementor is active, show a link to Elementor's getting started video
 								$is_elementor_active = Sydney_Recommended_Plugins::instance()->check_plugin_state( $plugin );
-								if ( $is_elementor_active == 'deactivate' ) {
-									echo '<a target="_blank" href="https://www.youtube.com/watch?v=nZlgNmbC-Cw&feature=emb_title">' . __( 'First time Elementor user?', 'sydney') . '</a>';
+								if ( $is_elementor_active === 'deactivate' ) {
+									echo '<a target="_blank" href="https://www.youtube.com/watch?v=nZlgNmbC-Cw&feature=emb_title">' . esc_html__( 'First time Elementor user?', 'sydney') . '</a>';
 								}; ?>
 								</p>
-								<?php echo Sydney_Recommended_Plugins::instance()->get_button_html( $plugin ); ?>
+								<?php echo Sydney_Recommended_Plugins::instance()->get_button_html( $plugin ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 							</div>
 
 							<div class="plugin-block">
 								<?php $plugin = 'one-click-demo-import'; ?>
 								<h3>One Click Demo Import</h3>
 								<p><?php esc_html_e( 'This plugin is useful for importing our demos. You can uninstall it after you\'re done with it.', 'sydney' ); ?></p>
-								<?php echo Sydney_Recommended_Plugins::instance()->get_button_html( $plugin ); ?>
+								<?php echo Sydney_Recommended_Plugins::instance()->get_button_html( $plugin ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 							</div>
 						</div>
 					</div>
@@ -91,8 +94,8 @@ function sydney_info_page() {
 							$plugin = 'one-click-demo-import';
 							$is_ocdi_active = Sydney_Recommended_Plugins::instance()->check_plugin_state( $plugin );                                                        
 						?>
-							<?php if ( $is_sydney_toolbox_active == 'deactivate' && $is_elementor_active == 'deactivate' && $is_ocdi_active == 'deactivate' ) : ?>
-								<a class="button button-primary button-large" href="<?php echo admin_url( 'themes.php?page=pt-one-click-demo-import.php' ); ?>"><?php esc_html_e( 'Go to the automatic importer', 'sydney' ); ?></a>
+							<?php if ( $is_sydney_toolbox_active === 'deactivate' && $is_elementor_active === 'deactivate' && $is_ocdi_active === 'deactivate' ) : ?>
+								<a class="button button-primary button-large" href="<?php echo esc_url( admin_url( 'themes.php?page=pt-one-click-demo-import.php' ) ); ?>"><?php esc_html_e( 'Go to the automatic importer', 'sydney' ); ?></a>
 							<?php else : ?>
 								<p class="sydney-notice"><?php esc_html_e( 'All recommended plugins need to be installed and activated for this step.', 'sydney' ); ?></p>
 							<?php endif; ?>
@@ -280,7 +283,7 @@ function sydney_info_hook_styles(){
 function sydney_info_page_styles() {
 	wp_enqueue_style( 'sydney-info-style', get_template_directory_uri() . '/inc/onboarding/assets/info-page.css', array(), true );
 
-	wp_enqueue_script( 'sydney-info-script', get_template_directory_uri() . '/inc/onboarding/assets/info-page.js', array( 'jquery' ),'', true );
+	wp_enqueue_script( 'sydney-info-script', get_template_directory_uri() . '/inc/onboarding/assets/info-page.js', array( 'jquery' ),'20250901', true );
 
 	wp_enqueue_script( 'plugin-install' );
 	wp_enqueue_script( 'updates' ); 

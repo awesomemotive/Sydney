@@ -80,7 +80,7 @@ class Sydney_Theme_Review_Notice {
 	 * Disable review notice permanently
 	 */
 	public function ignore_theme_review_notice() {
-		if ( isset( $_GET['nag_sydney_disable_review_notice'] ) && '0' == $_GET['nag_sydney_disable_review_notice'] ) {
+		if ( isset( $_GET['nag_sydney_disable_review_notice'] ) && '0' === $_GET['nag_sydney_disable_review_notice'] ) {
 			add_user_meta( get_current_user_id(), 'sydney_disable_review_notice', 'true', true );
 		}
 	}
@@ -89,7 +89,7 @@ class Sydney_Theme_Review_Notice {
 	 * Delay review notice
 	 */
 	public function ignore_theme_review_notice_partially() {
-		if ( isset( $_GET['delay_sydney_disable_review_notice_partially'] ) && '0' == $_GET['delay_sydney_disable_review_notice_partially'] ) {
+		if ( isset( $_GET['delay_sydney_disable_review_notice_partially'] ) && '0' === $_GET['delay_sydney_disable_review_notice_partially'] ) {
 			update_user_meta( get_current_user_id(), 'delay_sydney_disable_review_notice_partially', time() );
 		}
 	}

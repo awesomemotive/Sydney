@@ -145,7 +145,7 @@ class Sydney_Recommended_Plugins {
 	 * Enqueue Function.
 	 */
 	public function enqueue_scripts() {
-		wp_register_script( 'sydney-plugin-install', get_template_directory_uri() . '/inc/onboarding/plugins/plugin-install.js', array( 'jquery' ), '', true );
+		wp_register_script( 'sydney-plugin-install', get_template_directory_uri() . '/inc/onboarding/plugins/plugin-install.js', array( 'jquery' ), '20250901', true );
 
 		wp_localize_script(
 			'sydney-plugin-install',

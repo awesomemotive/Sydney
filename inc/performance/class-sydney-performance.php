@@ -74,7 +74,7 @@ if ( !class_exists( 'Sydney_Performance' ) ) {
 		 */
 		public function disable_emojis_remove_dns_prefetch( $urls, $relation_type ) {
 
-			if ( 'dns-prefetch' == $relation_type ) {
+			if ( 'dns-prefetch' === $relation_type ) {
 
 				$emoji_svg_url_bit = 'https://s.w.org/images/core/emoji/';
 				foreach ( $urls as $key => $url ) {
