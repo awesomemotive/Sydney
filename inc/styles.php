@@ -80,7 +80,7 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
                     $custom .= ".site-header { background-color:transparent;}" . "\n";
                 }
                 $custom .= "@media only screen and (max-width: 1024px) { .sydney-hero-area .header-image { height:300px!important; }}" . "\n";
-            } elseif ( $is_amp || (get_theme_mod('front_header_type','nothing') == 'nothing' && is_front_page()) || (get_theme_mod('site_header_type') == 'nothing' && !is_front_page()) ) {
+            } elseif ( $is_amp || (get_theme_mod('front_header_type','nothing') === 'nothing' && is_front_page()) || (get_theme_mod('site_header_type') === 'nothing' && !is_front_page()) ) {
                 $menu_bg_color = get_theme_mod( 'menu_bg_color', '#263246' );
                 $rgba   = $this->hex2rgba($menu_bg_color, 0.9);
                 $custom .= ".site-header { background-color:" . esc_attr($rgba) . ";}" . "\n";
@@ -125,11 +125,11 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
         
             //Menu style
             $sticky_menu = get_theme_mod('sticky_menu','sticky');
-            if ($sticky_menu == 'static') {
+            if ($sticky_menu === 'static') {
                 $custom .= ".site-header.fixed { position: absolute;}"."\n";
             }
             $menu_style = get_theme_mod('menu_style','inline');
-            if ($menu_style == 'centered') {
+            if ($menu_style === 'centered') {
                 $custom .= ".header-wrap .col-md-4, .header-wrap .col-md-8 { width: 100%; text-align: center;}"."\n";
                 $custom .= "#mainnav { float: none;}"."\n";
                 $custom .= "#mainnav li { float: none; display: inline-block;}"."\n";
@@ -142,7 +142,7 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
             }   
         
             //AMP
-            if ( 'sticky' == $sticky_menu && $is_amp ) {
+            if ( 'sticky' === $sticky_menu && $is_amp ) {
                 $custom .= ".site-header { position: -webkit-sticky;position: sticky;}"."\n";
             }
         
@@ -220,7 +220,7 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
 
                 //Boxed content
                 $boxed = get_theme_mod( $post_type . '_boxed_content', 'unboxed' );
-                if ( $boxed == 'boxed' ) {
+                if ( $boxed === 'boxed' ) {
                     $custom .= ".content-inner { padding: 60px; background-color: #fff; box-shadow: 0 0 15px 0 rgba(0,0,0,0.05);}"."\n";
                     $custom .= "@media only screen and (max-width: 767px) { .content-inner {padding: 20px;} }" . "\n";
                 }
@@ -233,7 +233,7 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
             }
         
             $mobile_slider = get_theme_mod('mobile_slider', 'responsive');
-            if ( $mobile_slider == 'responsive' ) {
+            if ( $mobile_slider === 'responsive' ) {
                     $custom .= "@media only screen and (max-width: 1025px) {		
                     .mobile-slide {
                         display: block;
@@ -402,12 +402,12 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
 				
 				if ( 'fullwidth' === $main_header_divider_width ) {
 					$custom .= ".main-header, .bottom-header-row { border-bottom:" . esc_attr( $main_header_divider_size ) . 'px solid ' . esc_attr( $main_header_divider_color ) . ";}" . "\n";
-					if ( 0 == $main_header_divider_size ) {
+					if ( 0 === $main_header_divider_size ) {
 						$custom .= ".header_layout_3,.header_layout_4,.header_layout_5 { border-bottom: 1px solid " . esc_attr( $main_header_divider_color ) . ";}" . "\n";
 					}            
 				} else {
 					$custom .= ".top-header-row,.site-header-inner, .bottom-header-inner { border-bottom:" . esc_attr( $main_header_divider_size ) . 'px solid ' . esc_attr( $main_header_divider_color ) . ";} .main-header,.bottom-header-row {border:0;}" . "\n";
-					if ( 0 == $main_header_divider_size ) {
+					if ( 0 === $main_header_divider_size ) {
 						$custom .= ".top-header-row { border-bottom: 1px solid " . esc_attr( $main_header_divider_color ) . ";}" . "\n";
 					}            
 				}
@@ -512,7 +512,7 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
 			$custom .= $this->get_font_sizes_css( 'site_desc_font_size', $defaults = array( 'desktop' => 16, 'tablet' => 16, 'mobile' => 16 ), '.site-description' );
 
 			//Typography 
-			$typography_defaults = json_encode(
+			$typography_defaults = wp_json_encode(
 				array(
 					'font'          => 'System default',
 					'regularweight' => 'regular',
@@ -901,7 +901,7 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
             $output = '';
             
             if ( $color !== false ) {
-                if ($color[0] == '#' ) {
+                if ($color[0] === '#' ) {
                     $color = substr( $color, 1 );
                 }
                 $hex = array( $color[0] . $color[1], $color[2] . $color[3], $color[4] . $color[5] );
@@ -1042,14 +1042,14 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
 			}
 		 
 			if ( $color ) {
-				if ( $color[0] == '#' ) {
+				if ( $color[0] === '#' ) {
 					$color = substr( $color, 1 );
 				}   
 			}
 
-			if (strlen($color) == 6) {
+			if (strlen($color) === 6) {
 				$hex = array( $color[0] . $color[1], $color[2] . $color[3], $color[4] . $color[5] );
-			} elseif ( strlen( $color ) == 3 ) {
+			} elseif ( strlen( $color ) === 3 ) {
 				$hex = array( $color[0] . $color[0], $color[1] . $color[1], $color[2] . $color[2] );
 			} else {
 				return $default;
