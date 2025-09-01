@@ -77,7 +77,7 @@ if ( !class_exists('Sydney_Block_Templates') ) {
 				}
 
 				add_action( $action, function() use ( $type ) {
-					echo $this->do_block_template_part( $type );
+					echo $this->do_block_template_part( $type ); // phpcs:ignore WordPress.Security.EscapeOutput
 				}, 10 );
 			}
 		}

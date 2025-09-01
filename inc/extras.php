@@ -172,7 +172,7 @@ add_filter( 'sydney_content_area_class', 'sydney_page_content_classes' );
  */
 function sydney_get_sidebar() {
 
-	if ( false == apply_filters( 'sydney_show_sidebar', true ) ) {
+	if ( false === apply_filters( 'sydney_show_sidebar', true ) ) {
 		return;
 	}
 
@@ -221,8 +221,8 @@ function sydney_add_header_menu_button( $items, $args ) {
 
 	$type = get_theme_mod( 'header_button_html', 'nothing' );
 
-    if ( $args -> theme_location == 'primary' ) {
-		if ( 'button' == $type ) {
+    if ( $args -> theme_location === 'primary' ) {
+		if ( 'button' === $type ) {
 			$link   = get_theme_mod( 'header_custom_item_btn_link', 'https://example.org/' );
 			$text   = get_theme_mod( 'header_custom_item_btn_text', __( 'Get in touch', 'sydney' ) );
 			$target = get_theme_mod( 'header_custom_item_btn_target', 1 );
@@ -233,7 +233,7 @@ function sydney_add_header_menu_button( $items, $args ) {
 			}
 
 			$items .= '<li class="header-custom-item"><a class="header-button roll-button" target="' . $target . '" href="' . esc_url( $link ) . '" title="' . esc_attr( $text ) . '">' . esc_html( $text ) . '</a></li>';
-		} elseif ( 'html' == $type ) {
+		} elseif ( 'html' === $type ) {
 			$content = get_theme_mod( 'header_custom_item_html' );
 
 			$items .= '<li class="header-custom-item">' . wp_kses_post( $content ) . '</li>';
@@ -361,7 +361,8 @@ function sydney_social_profile( $location ) {
 	foreach ( $social_links as $social ) {
 		$network = sydney_get_social_network( $social );
 		if ( $network ) {
-			$aria_label = sprintf( __( '%s link, opens in a new tab', 'sydney' ), esc_html( $network ) );
+			// translators: %s is the social network name
+			$aria_label = sprintf( esc_html__( '%s link, opens in a new tab', 'sydney' ), esc_html( $network ) );
 			$items .= '<a target="_blank" href="' . esc_url( $social ) . '" aria-label="' . esc_attr( $aria_label )  . '"><i class="sydney-svg-icon">' . sydney_get_svg_icon( 'icon-' . esc_html( $network ), false ) . '</i></a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped		
 		}
 	}
@@ -379,7 +380,7 @@ function sydney_footer_credits() {
 	$credits    = get_theme_mod( 'footer_credits', sprintf( esc_html__( '%1$1s. Proudly powered by %2$2s', 'sydney' ), '{copyright} {year} {site_title}', '{theme_author}' ) );
 
 	$tags       = array( '{theme_author}', '{site_title}', '{copyright}', '{year}' );
-	$replace    = array( '<a rel="nofollow" href="https://athemes.com/theme/sydney/">' . esc_html__( 'Sydney', 'sydney' ) . '</a>', get_bloginfo( 'name' ), '&copy;', date('Y') );
+	$replace    = array( '<a rel="nofollow" href="https://athemes.com/theme/sydney/">' . esc_html__( 'Sydney', 'sydney' ) . '</a>', get_bloginfo( 'name' ), '&copy;', gmdate('Y') );
 
 	$credits    = str_replace( $tags, $replace, $credits );
 
@@ -624,7 +625,7 @@ function sydney_header_elements() {
  */
 function sydney_add_submenu_icons( $item_output, $item, $depth, $args ) {
 
-	if ( false == get_option( 'sydney-update-header' ) ) {
+	if ( false === get_option( 'sydney-update-header' ) ) {
 		return $item_output;
 	}
 	
@@ -632,7 +633,7 @@ function sydney_add_submenu_icons( $item_output, $item, $depth, $args ) {
 		return $item_output;
 	}
 
-	if ( ! empty( $item->classes ) && in_array( 'menu-item-has-children', $item->classes ) ) {
+	if ( ! empty( $item->classes ) && in_array( 'menu-item-has-children', $item->classes, true ) ) {
 		$item_output = preg_replace('/<a /', '<a aria-haspopup="true" aria-expanded="false" ', $item_output, 1);
 		return $item_output . '<span tabindex=0 class="dropdown-symbol"><i class="sydney-svg-icon">' . sydney_get_svg_icon( 'icon-down', false ) . '</i></span>';
 	}
@@ -648,7 +649,7 @@ function sydney_google_fonts_url() {
 	$fonts_url  = '';
 	$subsets    = 'latin';
 
-	$defaults = json_encode(
+	$defaults = wp_json_encode(
 		array(
 			'font'          => 'System default',
 			'regularweight' => '400',
@@ -692,7 +693,7 @@ function sydney_google_fonts_url() {
 
 		$old_weights = get_theme_mod( 'headings_font_weights' );
 		
-		if ( is_array( $old_weights ) && in_array( '400', $old_weights ) ) {
+		if ( is_array( $old_weights ) && in_array( '400', $old_weights, true ) ) {
 			$headings_font['regularweight'] = '400';
 		}
 
@@ -735,7 +736,7 @@ function sydney_preconnect_google_fonts() {
 		return;
 	}
 
-	$defaults = json_encode(
+	$defaults = wp_json_encode(
 		array(
 			'font'          => 'System default',
 			'regularweight' => 'regular',
@@ -765,11 +766,11 @@ function sydney_404_page_content() {
 	?>
 	<section class="error-404 not-found">
 		<header class="page-header">
-			<h1 class="page-title"><?php _e( 'Oops! That page can&rsquo;t be found.', 'sydney' ); ?></h1>
+			<h1 class="page-title"><?php esc_html_e( 'Oops! That page can&rsquo;t be found.', 'sydney' ); ?></h1>
 		</header><!-- .page-header -->
 
 		<div class="page-content">
-			<p><?php _e( 'It looks like nothing was found at this location. Maybe try one of the links below or a search?', 'sydney' ); ?></p>
+			<p><?php esc_html_e( 'It looks like nothing was found at this location. Maybe try one of the links below or a search?', 'sydney' ); ?></p>
 
 			<?php get_search_form(); ?>
 
@@ -793,7 +794,7 @@ function sydney_single_container_layout() {
 	$layout = get_theme_mod( $post_type . '_container_layout', 'normal' );
 
 	//Add container type class
-	add_filter( 'sydney_content_area_class', function( $class ) use ( $layout ) {
+	add_filter( 'sydney_content_area_class', function( $class ) use ( $layout ) { // phpcs:ignore Universal.NamingConventions.NoReservedKeywordParameterNames.classFound
 		$class .= ' container-' . $layout;
 
 		return $class;
@@ -830,7 +831,7 @@ function sydney_archive_template() {
 		<?php if ( have_posts() ) : ?>
 
 			<?php if ( !is_home() && apply_filters( 'sydney_display_archive_title', true ) ) : ?>
-				<?php if ( ( !is_category() && !is_tag() && !is_author() ) || ( 'post' == $post_type && 'layout1' === $archive_title_layout ) ) : ?>
+				<?php if ( ( !is_category() && !is_tag() && !is_author() ) || ( 'post' === $post_type && 'layout1' === $archive_title_layout ) ) : ?>
 				<header class="page-header">
 					<?php
 						do_action( 'sydney_before_title' );
@@ -1021,7 +1022,8 @@ function sydney_search_template() {
 		<?php if ( have_posts() ) : ?>
 
 			<header class="page-header">
-				<h3><?php printf( __( 'Search Results for: %s', 'sydney' ), '<span>' . get_search_query() . '</span>' ); ?></h3>
+				<?php // translators: %s is the search query ?>
+				<h3><?php printf( esc_html__( 'Search Results for: %s', 'sydney' ), '<span>' . get_search_query() . '</span>' ); ?></h3>
 			</header><!-- .page-header -->
 
 			<div class="posts-layout">

@@ -23,12 +23,12 @@ class Template_Library_Manager {
 	}
 
 	public static function enqueue_preview_styles() {
-		wp_enqueue_style( 'sydney-template-preview-style', get_template_directory_uri() . '/inc/integrations/elementor/library/template-preview.css', '1.0.0' );
+		wp_enqueue_style( 'sydney-template-preview-style', get_template_directory_uri() . '/inc/integrations/elementor/library/template-preview.css', array(), '20250901' );
 	}
 
 	public static function editor_scripts() {
         wp_enqueue_script( 'sydney-template-library-script', get_template_directory_uri() . '/inc/integrations/elementor/library/template-library.min.js', [ 'elementor-editor', 'jquery-hover-intent' ], '1.0.0', true );
-		wp_enqueue_style( 'sydney-template-library-style', get_template_directory_uri() . '/inc/integrations/elementor/library/template-library.min.css', '1.0.0' );
+		wp_enqueue_style( 'sydney-template-library-style', get_template_directory_uri() . '/inc/integrations/elementor/library/template-library.min.css', array(), '20250901' );
 
 		$localized_data = [
             'sydneyProWidgets' => [],
@@ -68,7 +68,7 @@ class Template_Library_Manager {
 				$editor_post_id = absint( $data['editor_post_id'] );
 
 				if ( ! get_post( $editor_post_id ) ) {
-					throw new \Exception( __( 'Post not found.', 'sydney' ) );
+					throw new \Exception( esc_html__( 'Post not found.', 'sydney' ) );
 				}
 
 				\Elementor\Plugin::instance()->db->switch_to_post( $editor_post_id );
@@ -88,14 +88,14 @@ class Template_Library_Manager {
 				$editor_post_id = absint( $data['editor_post_id'] );
 
 				if ( ! get_post( $editor_post_id ) ) {
-					throw new \Exception( __( 'Post not found', 'sydney' ) );
+					throw new \Exception( esc_html__( 'Post not found', 'sydney' ) );
 				}
 
 				\Elementor\Plugin::instance()->db->switch_to_post( $editor_post_id );
 			}
 
 			if ( empty( $data['template_id'] ) ) {
-				throw new \Exception( __( 'Template id missing', 'sydney' ) );
+				throw new \Exception( esc_html__( 'Template id missing', 'sydney' ) );
 			}
 
 			$result = self::get_template_data( $data );

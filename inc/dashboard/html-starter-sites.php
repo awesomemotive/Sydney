@@ -17,7 +17,7 @@ if (!defined('ABSPATH')) {
         <div class="sydney-dashboard-card sydney-dashboard-card-top-spacing sydney-dashboard-card-tabs-divider">
             <div class="sydney-dashboard-card-body">
                 
-                <?php if ( in_array( $this->get_plugin_status( $this->settings['starter_plugin_path'] ), array( 'inactive', 'not_installed' ) ) ) : ?>
+                <?php if ( in_array( $this->get_plugin_status( $this->settings['starter_plugin_path'] ), array( 'inactive', 'not_installed' ), true ) ) : ?>
 
                 <div class="sydney-dashboard-row">
 

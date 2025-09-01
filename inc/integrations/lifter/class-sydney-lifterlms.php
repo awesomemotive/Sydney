@@ -90,7 +90,7 @@ if ( !class_exists( 'Sydney_LifterLMS' ) ) :
 		 * Enqueue custom Lifter styles
 		 */
 		public function enqueue() {
-			wp_enqueue_style( 'sydney-lifter-css', get_template_directory_uri() . '/inc/integrations/lifter/lifter.min.css' );
+			wp_enqueue_style( 'sydney-lifter-css', get_template_directory_uri() . '/inc/integrations/lifter/lifter.min.css', array(), '20250901' );
 		}
 		
 		/**
@@ -114,7 +114,7 @@ if ( !class_exists( 'Sydney_LifterLMS' ) ) :
 				$cols = 'col-md-9';
 			}
 
-			echo '<div id="primary" class="content-area llms-content-area ' . $this->loop_sidebars() . ' ' . $cols . '">';
+			echo '<div id="primary" class="content-area llms-content-area ' . esc_attr( $this->loop_sidebars() ) . ' ' . esc_attr( $cols ) . '">';
 				echo '<main id="main" class="site-main" role="main">';
 		}
 

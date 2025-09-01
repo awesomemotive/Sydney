@@ -52,8 +52,8 @@ if ( !function_exists('sydney_enqueue_google_fonts') ) :
 		//Build the fonts URL
 		if ( $fonts ) {
 			$fonts_url = add_query_arg( array(
-				'family'    => urlencode( implode( '|', $fonts_array ) ),
-				'subset'    => urlencode( $subsets ),
+				'family'    => urlencode( implode( '|', $fonts_array ) ), // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.urlencode_urlencode
+				'subset'    => urlencode( $subsets ), // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.urlencode_urlencode
 				'display'   => 'swap',
 			), 'https://fonts.googleapis.com/css' );
 		}

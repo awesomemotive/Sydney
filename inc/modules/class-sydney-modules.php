@@ -74,6 +74,11 @@ if ( ! class_exists( 'Sydney_Modules' ) ) {
 				return;
 			}
 
+			// Verify nonce for security
+			if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'sydney_modules_nonce' ) ) {
+				return;
+			}
+
 			$modules = $this->get_modules();
 
 			$all_modules = get_option( 'sydney-modules' );
@@ -86,7 +91,10 @@ if ( ! class_exists( 'Sydney_Modules' ) ) {
 					continue;
 				}
 
-				$value = (int) wp_unslash( $_GET[ $param ] );
+				// Sanitize the parameter name and value
+				$sanitized_param = sanitize_key( $param );
+				$value = (int) wp_unslash( sanitize_text_field( $_GET[ $param ] ) );
+				
 				if ( 1 === $value ) {
 					update_option( 'sydney-modules', array_merge( $all_modules, array( $module['slug'] => true ) ) );
 				} elseif ( 0 === $value ) {

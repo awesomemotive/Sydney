@@ -7,7 +7,7 @@
 function sydney_editor_styles() {
 	wp_enqueue_style( 'sydney-block-editor-styles', get_theme_file_uri( '/sydney-gutenberg-editor-styles.css' ), '', '20220208', 'all' );
 
-	wp_enqueue_style( 'sydney-fonts', esc_url( sydney_google_fonts_url() ), array(), null );
+	wp_enqueue_style( 'sydney-fonts', esc_url( sydney_google_fonts_url() ), array(), '20250901' );
 
 
 	//Dynamic styles
@@ -25,7 +25,7 @@ function sydney_editor_styles() {
 	$custom .= "}" . "\n";
 
 	//Fonts
-	$typography_defaults = json_encode(
+	$typography_defaults = wp_json_encode(
 		array(
 			'font'          => 'System default',
 			'regularweight' => '400',

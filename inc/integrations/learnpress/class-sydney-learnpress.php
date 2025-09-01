@@ -51,10 +51,10 @@ if ( !class_exists( 'Sydney_LearnPress' ) ) :
 		 */
 		public function setup() {
 
-			if ( ( is_post_type_archive( 'lp_course' ) || 'lp_course' == get_post_type() ) && 'no-sidebar' == $this->check_sidebar() ) {
+			if ( ( is_post_type_archive( 'lp_course' ) || 'lp_course' === get_post_type() ) && 'no-sidebar' === $this->check_sidebar() ) {
 				remove_action( 'sydney_get_sidebar', 'sydney_get_sidebar' );
 				add_filter( 'sydney_content_area_class', function() { return 'fullwidth'; } );
-			} elseif ( ( is_post_type_archive( 'lp_course' ) || 'lp_course' == get_post_type() ) && 'sidebar-left' == $this->check_sidebar() ) {
+			} elseif ( ( is_post_type_archive( 'lp_course' ) || 'lp_course' === get_post_type() ) && 'sidebar-left' === $this->check_sidebar() ) {
 				add_filter( 'sydney_content_area_class', function() { return 'col-md-9 sidebar-left'; } );
 			}           
 		}       
@@ -74,7 +74,7 @@ if ( !class_exists( 'Sydney_LearnPress' ) ) :
 
 			if ( is_post_type_archive( 'lp_course' ) ) {
 				$sidebar = get_theme_mod( 'sydney_learnpress_course_loop_sidebar', 'sidebar-right' );
-			} elseif ( 'lp_course' == get_post_type() ) {
+			} elseif ( 'lp_course' === get_post_type() ) {
 				$sidebar = get_theme_mod( 'sydney_learnpress_single_course_sidebar', 'sidebar-right' );
 			}
 
@@ -85,7 +85,7 @@ if ( !class_exists( 'Sydney_LearnPress' ) ) :
 		 * Enqueue custom Learnpress styles
 		 */
 		public function enqueue() {
-			wp_enqueue_style( 'sydney-learnpress-css', get_template_directory_uri() . '/inc/integrations/learnpress/learnpress.css' );
+			wp_enqueue_style( 'sydney-learnpress-css', get_template_directory_uri() . '/inc/integrations/learnpress/learnpress.css', array(), '20250901' );
 		}
 	}
 

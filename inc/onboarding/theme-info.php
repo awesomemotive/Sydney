@@ -27,9 +27,7 @@ function sydney_info_page() {
 	$user = wp_get_current_user();
 ?>
 	<div class="info-container">
-		<?php
-		// translators: %s is the user's display name
-		?>
+		<?php // translators: %s is the user's display name ?>
 		<p class="hello-user"><?php printf( esc_html__( 'Hello, %s,', 'sydney' ), '<span>' . esc_html( ucfirst( $user->display_name ) ) . '</span>' ); ?></p>
 		<h1 class="info-title"><?php echo esc_html__( 'Welcome to Sydney', 'sydney' ); ?><span class="info-version"><?php echo 'v' . esc_html( wp_get_theme()->version ); ?></span></h1>
 		<p class="welcome-desc"><?php esc_html_e( 'Sydney is now installed and ready to go. To help you with the next step, we\'ve gathered together on this page all the resources you might need. We hope you enjoy using Sydney. You can always come back to this page by going to <strong>Appearance > Sydney Info</strong>.', 'sydney' ); ?>

@@ -44,7 +44,7 @@ $user   = wp_get_current_user(); // phpcs:ignore WPThemeReview.CoreFunctionality
 
 			<div class="sydney-dashboard-hero-actions">
 
-				<?php if ( in_array( $this->get_plugin_status( $this->settings['starter_plugin_path'] ), array( 'inactive', 'not_installed' ) ) ) : ?>
+				<?php if ( in_array( $this->get_plugin_status( $this->settings['starter_plugin_path'] ), array( 'inactive', 'not_installed' ), true ) ) : ?>
 					<a href="<?php echo esc_url(add_query_arg(array( 'page' => $this->settings['menu_slug'], 'section' => 'starter-sites' ), admin_url('themes.php'))); ?>" class="button button-primary sydney-dashboard-plugin-ajax-button sydney-ajax-success-redirect" data-type="install" data-path="<?php echo esc_attr($this->settings['starter_plugin_path']); ?>" data-slug="<?php echo esc_attr($this->settings['starter_plugin_slug']); ?>">
 						<?php esc_html_e('Starter Sites', 'sydney'); ?>
 					</a>
