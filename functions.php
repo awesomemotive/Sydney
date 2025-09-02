@@ -114,7 +114,8 @@ function sydney_setup() {
 	$colors = array();
 	for ( $i = 1; $i <= 9; $i++ ) {
 		$colors[] = array(
-			'name'  => sprintf( __( 'Global Color %s', 'sydney' ), $i ),
+			/* translators: %s: Color number */
+			'name'  => sprintf( esc_html__( 'Global Color %s', 'sydney' ), $i ),
 			'slug'  => 'global_color_' . $i,
 			'color' => 'var(--sydney-global-color-' . $i . ')',
 		);
@@ -254,10 +255,10 @@ function sydney_scripts() {
 	$is_amp = sydney_is_amp();
 
 	if ( null !== sydney_google_fonts_url() ) {
-		wp_enqueue_style( 'sydney-google-fonts', esc_url( sydney_google_fonts_url() ), array(), null );
+		wp_enqueue_style( 'sydney-google-fonts', esc_url( sydney_google_fonts_url() ), array(), '20250902' );
 	}
 
-	wp_enqueue_style( 'sydney-ie9', get_template_directory_uri() . '/css/ie9.css', array( 'sydney-style' ) );
+	wp_enqueue_style( 'sydney-ie9', get_template_directory_uri() . '/css/ie9.css', array( 'sydney-style' ), '20250902' );
 	wp_style_add_data( 'sydney-ie9', 'conditional', 'lte IE 9' );
 
 	if ( !$is_amp ) {
@@ -266,15 +267,15 @@ function sydney_scripts() {
 		//Enqueue hero slider script only if the slider is in use
 		$slider_home = get_theme_mod('front_header_type','nothing');
 		$slider_site = get_theme_mod('site_header_type');
-		if ( ( $slider_home == 'slider' && is_front_page() ) || ( $slider_site == 'slider' && !is_front_page() ) ) {
-			wp_enqueue_script( 'sydney-scripts', get_template_directory_uri() . '/js/scripts.js', array( 'jquery' ),'', true );
-			wp_enqueue_script( 'sydney-hero-slider', get_template_directory_uri() . '/js/hero-slider.js', array( 'jquery' ),'', true );
+		if ( ( $slider_home === 'slider' && is_front_page() ) || ( $slider_site === 'slider' && !is_front_page() ) ) {
+			wp_enqueue_script( 'sydney-scripts', get_template_directory_uri() . '/js/scripts.js', array( 'jquery' ), '20250902', true );
+			wp_enqueue_script( 'sydney-hero-slider', get_template_directory_uri() . '/js/hero-slider.js', array( 'jquery' ), '20250902', true );
 			wp_enqueue_style( 'sydney-hero-slider', get_template_directory_uri() . '/css/components/hero-slider.min.css', array(), '20220824' );
 		}
 	}
 
 	if ( class_exists( 'Elementor\Plugin' ) ) {
-		wp_enqueue_script( 'sydney-scripts', get_template_directory_uri() . '/js/scripts.js', array( 'jquery' ),'', true );       
+		wp_enqueue_script( 'sydney-scripts', get_template_directory_uri() . '/js/scripts.js', array( 'jquery' ), '20250902', true );
 
 		wp_enqueue_style( 'sydney-elementor', get_template_directory_uri() . '/css/components/elementor.min.css', array(), '20220824' );
 	}
@@ -283,20 +284,20 @@ function sydney_scripts() {
 
 		wp_enqueue_style( 'sydney-siteorigin', get_template_directory_uri() . '/css/components/siteorigin.min.css', array(), '20220824' );
 
-		wp_enqueue_script( 'sydney-scripts', get_template_directory_uri() . '/js/scripts.js', array( 'jquery' ),'', true );
+		wp_enqueue_script( 'sydney-scripts', get_template_directory_uri() . '/js/scripts.js', array( 'jquery' ), '20250902', true );
 
-		wp_enqueue_script( 'sydney-so-legacy-scripts', get_template_directory_uri() . '/js/so-legacy.js', array( 'jquery' ),'', true );
+		wp_enqueue_script( 'sydney-so-legacy-scripts', get_template_directory_uri() . '/js/so-legacy.js', array( 'jquery' ), '20250902', true );
 
-		wp_enqueue_script( 'sydney-so-legacy-main', get_template_directory_uri() . '/js/so-legacy-main.min.js', array( 'jquery' ),'', true );
+		wp_enqueue_script( 'sydney-so-legacy-main', get_template_directory_uri() . '/js/so-legacy-main.min.js', array( 'jquery' ), '20250902', true );
 
 		if( get_option( 'sydney-fontawesome-v5' ) ) {
-			wp_enqueue_style( 'sydney-font-awesome-v5', get_template_directory_uri() . '/fonts/font-awesome-v5/all.min.css' );
+			wp_enqueue_style( 'sydney-font-awesome-v5', get_template_directory_uri() . '/fonts/font-awesome-v5/all.min.css', array(), '20250902' );
 		} else {
-			wp_enqueue_style( 'sydney-font-awesome', get_template_directory_uri() . '/fonts/font-awesome.min.css' );
+			wp_enqueue_style( 'sydney-font-awesome', get_template_directory_uri() . '/fonts/font-awesome.min.css', array(), '20250902' );
 		}
 	}
 
-	if ( is_singular() && ( comments_open() || '0' != get_comments_number() ) ) {
+	if ( is_singular() && ( comments_open() || '0' !== get_comments_number() ) ) {
 		wp_enqueue_style( 'sydney-comments', get_template_directory_uri() . '/css/components/comments.min.css', array(), '20220824' );
 	}
 
@@ -355,7 +356,7 @@ function sydney_blog_layout() {
  */
 function sydney_menu_fallback() {
 	if ( current_user_can('edit_theme_options') ) {
-		echo '<a class="menu-fallback" href="' . admin_url('nav-menus.php') . '">' . __( 'Create your menu here', 'sydney' ) . '</a>';
+		echo '<a class="menu-fallback" href="' . esc_url( admin_url('nav-menus.php') ) . '">' . esc_html__( 'Create your menu here', 'sydney' ) . '</a>';
 	}
 }
 
@@ -381,7 +382,7 @@ function sydney_header_video() {
 	$front_header_type  = get_theme_mod( 'front_header_type' );
 	$site_header_type   = get_theme_mod( 'site_header_type' );
 
-	if ( ( get_theme_mod('front_header_type') == 'core-video' && is_front_page() || get_theme_mod('site_header_type') == 'core-video' && !is_front_page() ) ) {
+	if ( ( get_theme_mod('front_header_type') === 'core-video' && is_front_page() || get_theme_mod('site_header_type') === 'core-video' && !is_front_page() ) ) {
 		the_custom_header_markup();
 	}
 }
@@ -439,7 +440,7 @@ function sydney_header_clone() {
 		}
 	}
 
-	if ( ( $front_header_type == 'nothing' && is_front_page() ) || ( $site_header_type == 'nothing' && !is_front_page() ) ) {
+	if ( ( $front_header_type === 'nothing' && is_front_page() ) || ( $site_header_type === 'nothing' && !is_front_page() ) ) {
 		echo '<div class="header-clone"></div>';
 	}
 }
@@ -455,7 +456,7 @@ function sydney_get_image_alt( $image ) {
         return false;
     }
 
-    $attachment  = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE guid=%s;", strtolower( $image ) ) );
+    $attachment  = $wpdb->get_col( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE guid=%s;", strtolower( $image ) ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
     $id   = ( ! empty( $attachment ) ) ? $attachment[0] : 0;
 
     $alt = get_post_meta( $id, '_wp_attachment_image_alt', true );
@@ -489,7 +490,7 @@ add_action( 'wp_print_footer_scripts', 'sydney_skip_link_focus_fix' );
 /**
  * Get SVG code for specific theme icon
  */
-function sydney_get_svg_icon( $icon, $echo = false ) {
+function sydney_get_svg_icon( $icon, $echo = false ) { //phpcs:ignore Universal.NamingConventions.NoReservedKeywordParameterNames.echoFound
 	$svg_code = wp_kses( //From TwentTwenty. Keeps only allowed tags and attributes
 		Sydney_SVG_Icons::get_svg_icon( $icon ),
 		array(
@@ -530,7 +531,7 @@ function sydney_get_svg_icon( $icon, $echo = false ) {
 		)
 	);  
 
-	if ( $echo != false ) {
+	if ( $echo !== false ) {
 		echo $svg_code; //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	} else {
 		return $svg_code;
@@ -745,14 +746,14 @@ add_action('after_switch_theme', 'sydney_enable_fontawesome_latest_version');
 /**
  * Sydney Toolbox and fontawesome update notice
  */
-if ( defined( 'SITEORIGIN_PANELS_VERSION' ) && ( isset($pagenow) && $pagenow == 'themes.php' ) && isset( $_GET['page'] ) && $_GET['page'] == 'theme-dashboard' ) {
+if ( defined( 'SITEORIGIN_PANELS_VERSION' ) && ( isset($pagenow) && $pagenow === 'themes.php' ) && isset( $_GET['page'] ) && $_GET['page'] === 'theme-dashboard' ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	function sydney_toolbox_fa_update_admin_notice(){
 		$all_plugins    = get_plugins();
 		$active_plugins = get_option( 'active_plugins' );
 		$theme_version  = wp_get_theme( 'sydney' )->Version;
 
 		// Check if Sydney Toolbox plugin is active
-		if( ! in_array( 'sydney-toolbox/sydney-toolbox.php', $active_plugins ) ) {
+		if( ! in_array( 'sydney-toolbox/sydney-toolbox.php', $active_plugins, true ) ) {
 			return;
 		}
 
@@ -774,7 +775,10 @@ if ( defined( 'SITEORIGIN_PANELS_VERSION' ) && ( isset($pagenow) && $pagenow == 
 
 		<div class="notice notice-success thd-theme-dashboard-notice-success is-dismissible">
 			<p>
-				<?php echo wp_kses_post( sprintf( __( '<strong>Optional:</strong> Now <strong>Sydney</strong> is compatible with Font Awesome 5. For it is needed the latest version of <strong>Sydney Toolbox</strong> plugin. You can update the plugin <a href="%s">here</a>.', 'sydney' ), admin_url( 'plugins.php' ) ) ); ?><br>
+				<?php
+				/* translators: %s: URL to plugins page */
+				echo wp_kses_post( sprintf( __( '<strong>Optional:</strong> Now <strong>Sydney</strong> is compatible with Font Awesome 5. For it is needed the latest version of <strong>Sydney Toolbox</strong> plugin. You can update the plugin <a href="%s">here</a>.', 'sydney' ), admin_url( 'plugins.php' ) ) );
+				?><br>
 				<strong><?php esc_html_e( 'Important: ', 'sydney'); ?></strong> <?php esc_html_e( 'This is a global change. That means this change will affect all website icons and you will need update the icons class names in all theme widgets and post types that use Font Awesome 4 icons. For example: "fa-android" to "fab fa-android".', 'sydney' ); ?>
 			</p>
 		</div>
