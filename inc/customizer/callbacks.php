@@ -178,7 +178,7 @@ function sydney_callback_list_general_archives() {
 function sydney_callback_author_avatar() {
 	$meta = get_theme_mod( 'archive_meta_elements', array( 'post_date' ) );
 
-	if ( in_array( 'post_author', $meta ) ) {
+	if ( in_array( 'post_author', $meta, true ) ) {
 		return true;
 	} else {
 		return false;
@@ -265,7 +265,7 @@ function sydney_callback_header_elements( $element ) {
 		case 'header_layout_2':
 			$elements = get_theme_mod( 'header_components_l1', array( 'search' ) );
 
-			if ( in_array( $element, $elements ) ) {
+			if ( in_array( $element, $elements, true ) ) {
 				return true;
 			} else {
 				return false;
@@ -277,7 +277,7 @@ function sydney_callback_header_elements( $element ) {
 			$elements       = get_theme_mod( 'header_components_l3left' );
 			$elements_right = get_theme_mod( 'header_components_l3right' );
 
-			if ( in_array( $element, $elements ) || in_array( $element, $elements_right ) ) {
+			if ( in_array( $element, $elements, true ) || in_array( $element, $elements_right, true ) ) {
 				return true;
 			} else {
 				return false;
@@ -289,7 +289,7 @@ function sydney_callback_header_elements( $element ) {
 			$elements           = get_theme_mod( 'header_components_l4top' );
 			$elements_bottom    = get_theme_mod( 'header_components_l4bottom' );
 
-			if ( in_array( $element, $elements ) || in_array( $element, $elements_bottom ) ) {
+			if ( in_array( $element, $elements, true ) || in_array( $element, $elements_bottom, true ) ) {
 				return true;
 			} else {
 				return false;
@@ -302,7 +302,7 @@ function sydney_callback_header_elements( $element ) {
 			$elements_right     = get_theme_mod( 'header_components_l5topright' );
 			$elements_bottom    = get_theme_mod( 'header_components_l5bottom' );
 
-			if ( in_array( $element, $elements ) || in_array( $element, $elements_bottom ) || in_array( $element, $elements_right ) ) {
+			if ( in_array( $element, $elements, true ) || in_array( $element, $elements_bottom, true ) || in_array( $element, $elements_right, true ) ) {
 				return true;
 			} else {
 				return false;
@@ -325,7 +325,7 @@ function sydney_callback_topbar_elements( $element ) {
 	$elements_left  = get_theme_mod( 'topbar_components_left' );
 	$elements_right = get_theme_mod( 'topbar_components_right' );
 
-	if ( in_array( $element, $elements_left ) || in_array( $element, $elements_right ) ) {
+	if ( in_array( $element, $elements_left, true ) || in_array( $element, $elements_right, true ) ) {
 		return true;
 	} else {
 		return false;

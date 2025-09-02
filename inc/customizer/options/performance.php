@@ -119,6 +119,7 @@ $wp_customize->add_setting( 'perf_guide_link',
 
 $wp_customize->add_control( new Sydney_Text_Control( $wp_customize, 'perf_guide_link',
 		array(
+			/* translators: %1$s: Opening link tag, %2$s: Closing link tag */
 			'description'       => sprintf( esc_html__( 'For more information on how to improve your website\'s performance, please read our %1$sPerformance Guide%2$s.', 'sydney' ), '<a href="https://docs.athemes.com/article/how-to-speed-up-your-sydney-powered-website/" target="_blank">', '</a>' ),
 			'section'           => 'sydney_section_performance',
 			'separator'         => 'before',

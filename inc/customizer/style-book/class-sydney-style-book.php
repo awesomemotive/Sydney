@@ -28,8 +28,8 @@ if ( ! class_exists( 'Sydney_Style_Book' ) ) :
         }
 
         public function enqueue() {
-            wp_enqueue_style( 'sydney-style-book', get_stylesheet_directory_uri() . '/inc/customizer/style-book/css/styles.min.css' );
-            wp_enqueue_script( 'sydney-style-book', get_stylesheet_directory_uri() . '/inc/customizer/style-book/js/scripts.min.js', array( 'customize-controls' ), false, true );
+            wp_enqueue_style( 'sydney-style-book', get_stylesheet_directory_uri() . '/inc/customizer/style-book/css/styles.min.css', array(), '20250902' );
+            wp_enqueue_script( 'sydney-style-book', get_stylesheet_directory_uri() . '/inc/customizer/style-book/js/scripts.min.js', array( 'customize-controls' ), '20250902', true );
 
             /**
              * Dynamic CSS
@@ -67,7 +67,7 @@ if ( ! class_exists( 'Sydney_Style_Book' ) ) :
             
             /* Typography */
             //Families
-            $typography_defaults = json_encode(
+            $typography_defaults = wp_json_encode(
                 array(
                     'font'          => 'System default',
                     'regularweight' => '400',
@@ -314,7 +314,7 @@ if ( ! class_exists( 'Sydney_Style_Book' ) ) :
                 <div class="sydney-style-book-section-content">
                     <?php foreach ( $config['colors'] as $slug => $color ) : ?>
                         <a class="sydney-style-book-color sydney-style-book-customizer-link" href="javascript:wp.customize.control( 'custom_palette' ).focus();">
-                            <div class="sydney-style-book-color-value" data-color-setting="<?php echo $slug; ?>" style="background-color: <?php echo esc_attr( $color['value'] ); ?>"></div>
+                            <div class="sydney-style-book-color-value" data-color-setting="<?php echo esc_attr( $slug ); ?>" style="background-color: <?php echo esc_attr( $color['value'] ); ?>"></div>
                             <div class="sydney-style-book-color-label"><?php echo esc_html( $color['label'] ); ?></div>
                             <div class="sydney-style-book-color-tooltip"><?php echo esc_html( $color['info'] ); ?></div>
                             <?php $this->render_edit_overlay(); ?>

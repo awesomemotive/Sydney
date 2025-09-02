@@ -548,7 +548,7 @@ $wp_customize->add_control(
 );
 
 
-if ( false == get_option('sydney-update-header' ) ) {
+if ( false === get_option('sydney-update-header' ) ) {
 	$wp_customize->add_setting( 'header_old_color_title',
 		array(
 			'default'           => '',

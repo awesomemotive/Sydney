@@ -133,7 +133,7 @@ function sydney_customize_register( $wp_customize ) {
      */
     require get_template_directory() . '/inc/customizer/style-book/class-sydney-style-book.php';
 
-    if ( false == get_option( 'sydney-update-header' ) ) {
+    if ( false === get_option( 'sydney-update-header' ) ) {
     //___Menu style___//
     $wp_customize->add_section(
         'sydney_menu_style',
@@ -648,7 +648,7 @@ function sydney_sanitize_menu_style( $input ) {
 }
 //Checkboxes
 function sydney_sanitize_checkbox( $input ) {
-    if ( $input == 1 ) {
+    if ( $input == 1 ) { // phpcs:ignore Universal.Operators.StrictComparisons.LooseEqual
         return 1;
     } else {
         return '';
@@ -811,7 +811,7 @@ function sydney_partial_slider_button_text() {
 function sydney_header_custom_btn_active_callback() {
     $type = get_theme_mod( 'header_button_html' );
 
-    if ( 'button' == $type ) {
+    if ( 'button' === $type ) {
         return true;
     } else {
         return false;
@@ -821,7 +821,7 @@ function sydney_header_custom_btn_active_callback() {
 function sydney_header_custom_html_active_callback() {
     $type = get_theme_mod( 'header_button_html' );
 
-    if ( 'html' == $type ) {
+    if ( 'html' === $type ) {
         return true;
     } else {
         return false;

@@ -168,10 +168,10 @@ function sydney_google_fonts_sanitize( $input ) {
         foreach ( $val as $key => $value ) {
             $val[$key] = sanitize_text_field( $value );
         }
-        $input = json_encode( $val );
+        $input = wp_json_encode( $val );
     }
     else {
-        $input = json_encode( sanitize_text_field( $val ) );
+        $input = wp_json_encode( sanitize_text_field( $val ) );
     }
     return $input;
 }

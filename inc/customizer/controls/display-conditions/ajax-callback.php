@@ -99,7 +99,7 @@ function sydney_display_conditions_select_ajax() {
 
                 if ( ! empty( $post_types ) ) {
                     foreach ( $post_types as $post_type_key => $post_type ) {
-                        if ( in_array( $post_type_key, array( 'post', 'page' ) ) ) {
+                        if ( in_array( $post_type_key, array( 'post', 'page' ), true ) ) {
                             continue;
                         }
                         $query = new WP_Query( array(
@@ -131,7 +131,7 @@ function sydney_display_conditions_select_ajax() {
 
                 if ( ! empty( $terms ) ) {
                     foreach ( $terms as $term ) {
-                        if ( in_array( $term->taxonomy, array( 'category', 'post_tag' ) ) ) {
+                        if ( in_array( $term->taxonomy, array( 'category', 'post_tag' ), true ) ) {
                             continue;
                         }
                         $taxonomy = get_taxonomy( $term->taxonomy );
@@ -151,7 +151,7 @@ function sydney_display_conditions_select_ajax() {
 
                 if ( ! empty( $taxonomies ) ) {
                     foreach ( $taxonomies as $taxonomy_key => $taxonomy ) {
-                        if ( in_array( $taxonomy_key, array( 'category', 'post_tag', 'post_format' ) ) ) {
+                        if ( in_array( $taxonomy_key, array( 'category', 'post_tag', 'post_format' ), true ) ) {
                             continue;
                         }
                         if ( preg_match( '/'. strtolower( $term ) .'/', strtolower( $taxonomy->label ) ) ) {

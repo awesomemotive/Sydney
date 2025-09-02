@@ -90,6 +90,7 @@ class Sydney_Dashboard
      */
     public function is_sydney_dashboard_page() {
         global $pagenow;
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
         return $pagenow === 'admin.php' && ( isset( $_GET[ 'page' ] ) && $_GET[ 'page' ] === 'sydney-dashboard' );
     }
 
@@ -99,7 +100,6 @@ class Sydney_Dashboard
      */
     public function is_patcher_page() {
         global $pagenow;
-
         // phpcs:ignore WordPress.Security.NonceVerification.Recommended
         return $pagenow === 'admin.php' && ( isset( $_GET[ 'page' ] ) && $_GET[ 'page' ] === 'athemes-patcher-preview-sp' );
     }
@@ -593,7 +593,7 @@ class Sydney_Dashboard
         foreach( $all_modules_ids as $module_id ) {
 
             // Skip some modules
-            if( in_array( $module_id, array( 'hf-builder', 'schema-markup', 'adobe-typekit' ) ) ) {
+            if( in_array( $module_id, array( 'hf-builder', 'schema-markup', 'adobe-typekit' ), true ) ) {
                 $modules[ $module_id ] = $current_modules[ $module_id ];
             } else {
                 $modules[ $module_id ] = $activate;
@@ -617,7 +617,7 @@ class Sydney_Dashboard
             wp_send_json_error();
         }
     
-        $data = $_POST[ 'data' ];
+        $data = isset( $_POST['data'] ) ? $_POST['data'] : array(); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
         $data = stripslashes_deep($data);
     
@@ -697,8 +697,9 @@ class Sydney_Dashboard
 			wp_send_json_error();
 		}
 
-		$post_name      = sanitize_text_field( wp_unslash( $_POST['key'] ) ) . '-' . sanitize_text_field( wp_unslash( $_POST['part_type'] ) );
-        $page_builder   = sanitize_text_field( wp_unslash( $_POST['page_builder'] ) );
+		$post_name      = isset( $_POST['key'] ) ? sanitize_text_field( wp_unslash( $_POST['key'] ) ) : '';
+        $post_name      .= '-' . isset( $_POST['part_type'] ) ? sanitize_text_field( wp_unslash( $_POST['part_type'] ) ) : '';
+        $page_builder   = isset( $_POST['page_builder'] ) ? sanitize_text_field( wp_unslash( $_POST['page_builder'] ) ) : '';
 
 		$post_title = '';
 		$args       = array(
@@ -714,7 +715,7 @@ class Sydney_Dashboard
 
 		if ( empty( $post ) ) {
 
-			$key            = sanitize_text_field( wp_unslash( $_POST['key'] ) );
+			$key            = isset( $_POST['key'] ) ? sanitize_text_field( wp_unslash( $_POST['key'] ) ) : '';
 
 			$post_title     = 'Sydney Template Part - ' . str_replace( 'sydney-template-', '', $key ) . '-' . sanitize_text_field( wp_unslash( $_POST['part_type'] ) );
 
@@ -726,7 +727,7 @@ class Sydney_Dashboard
 				'post_status'  => 'publish',
 			);
 
-            if( $page_builder == 'elementor' ) {
+            if( $page_builder === 'elementor' ) {
                 $params['meta_input'] = array(
                     '_elementor_edit_mode' => 'builder',
                     '_wp_page_template'    => 'elementor_canvas',
@@ -740,7 +741,7 @@ class Sydney_Dashboard
 			$post_title = $post[0]->post_title;
 		}
 
-        $action = $page_builder == 'elementor' ? 'elementor' : 'edit';
+        $action = $page_builder === 'elementor' ? 'elementor' : 'edit';
 
 		$edit_url = get_admin_url() . 'post.php?post=' . $post_id . '&action=' . $action;
 
@@ -764,7 +765,7 @@ class Sydney_Dashboard
             wp_send_json_error();
         }
 
-        $post_id = sanitize_text_field( wp_unslash( $_POST['key'] ) );
+        $post_id = isset( $_POST['key'] ) ? sanitize_text_field( wp_unslash( $_POST['key'] ) ) : '';
 
         $post = get_post( $post_id );
 
@@ -904,7 +905,7 @@ class Sydney_Dashboard
 				<div class="sydney-dashboard-row">
 					<div class="sydney-dashboard-column">
 						<?php 
-						$section = ( isset( $_GET['tab'] ) ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : '';
+						$section = ( isset( $_GET['tab'] ) ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
 						foreach( $this->settings[ 'tabs' ] as $tab_id => $tab_title ) : 
 							$tab_active = (($tab && $tab === $tab_id) || (!$section && $tab_id === 'home')) ? ' active' : '';

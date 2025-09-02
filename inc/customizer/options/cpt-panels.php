@@ -22,37 +22,37 @@ $unset_types = array(
 	'athemes_hf',
 );
 
-foreach ( $unset_types as $type ) {
-	unset( $post_types[ $type ] );
+foreach ( $unset_types as $unset_type ) {
+	unset( $post_types[ $unset_type ] );
 }
 
 //Register panels and sections
-foreach ( $post_types as $post_type ) {
+foreach ( $post_types as $current_post_type ) {
 
 	//Panel
 	$wp_customize->add_panel(
-		'sydney_panel_cpt_' . $post_type->name,
+		'sydney_panel_cpt_' . $current_post_type->name,
 		array(
-			'title'     => $post_type->label,
+			'title'     => $current_post_type->label,
 			'priority'  => 50,
 		)
 	);
 
 	//Singles section
 	$wp_customize->add_section(
-		'sydney_cpt_' . $post_type->name,
+		'sydney_cpt_' . $current_post_type->name,
 		array(
 			'title'     => __( 'Singles', 'sydney' ),
-			'panel'     => 'sydney_panel_cpt_' . $post_type->name,
+			'panel'     => 'sydney_panel_cpt_' . $current_post_type->name,
 		)
 	);
 
 	//Archives section
 	$wp_customize->add_section(
-		'sydney_cpt_' . $post_type->name . '_archives',
+		'sydney_cpt_' . $current_post_type->name . '_archives',
 		array(
 			'title'     => __( 'Archives', 'sydney' ),
-			'panel'     => 'sydney_panel_cpt_' . $post_type->name,
+			'panel'     => 'sydney_panel_cpt_' . $current_post_type->name,
 		)
 	);
 }

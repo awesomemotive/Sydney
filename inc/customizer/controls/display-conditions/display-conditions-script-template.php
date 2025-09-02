@@ -246,7 +246,7 @@ function sydney_display_conditions_script_template() {
 
 	?>
 		<script type="text/javascript">
-			var sydneyDCSettings = <?php echo json_encode( $settings ); ?>;
+			var sydneyDCSettings = <?php echo wp_json_encode( $settings ); ?>;
 		</script>
 		<script type="text/template" id="tmpl-sydney-display-conditions-template">
 			<?php

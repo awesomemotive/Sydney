@@ -41,8 +41,9 @@ $wp_customize->add_setting( 'block_templates_notice',
 $wp_customize->add_control( new Sydney_Text_Control( $wp_customize, 'block_templates_notice',
 		array(
 			'label'         => __( 'How to use block templates?', 'sydney' ),
-			'description'   => 
+			'description'   =>
 				'<ol>'
+				/* translators: %s: Link to site editor */
 				. '<li>' . sprintf( __( 'Go %s and customize the templates you want to use.', 'sydney' ), '<a target="_blank" href="' . admin_url( 'site-editor.php?path=%2Fwp_template_part%2Fall' ) . '">' . __( 'here', 'sydney' ) . '</a>' ) . '</li>'
 				. '<li>' . __( 'Activate the block template you want to use below. Example: if you activate the header template, the theme\'s default header will be replaced with your header block template.', 'sydney' ) . '</li>'
 				. '<li>' . __( 'Save the changes and refresh this page.', 'sydney' ) . '</li>'

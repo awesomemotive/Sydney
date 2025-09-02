@@ -87,7 +87,7 @@ if ( ! class_exists( 'Sydney_Modules' ) ) {
 			foreach ( $modules as $module ) {
 				$param = 'activate_module_' . $module['slug'];
 
-				if ( ! isset( $_GET[ $param ] ) ) {
+				if ( ! isset( $_GET[ $param ] ) ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
 					continue;
 				}
 

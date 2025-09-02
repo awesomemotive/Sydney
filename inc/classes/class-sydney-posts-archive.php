@@ -50,7 +50,7 @@ if ( !class_exists( 'Sydney_Posts_Archive' ) ) :
 			}
 
 			$sidebar = get_theme_mod( 'sidebar_archives', 0 );
-			if ( 0 == $sidebar ) {
+			if ( 0 == $sidebar ) { // phpcs:ignore Universal.Operators.StrictComparisons.LooseEqual
 				add_filter( 'sydney_content_class', function() { return 'no-sidebar'; } );
 				add_filter( 'sydney_sidebar', '__return_false' );
 			}
@@ -223,14 +223,14 @@ if ( !class_exists( 'Sydney_Posts_Archive' ) ) :
 			?>
 			<div class="entry-post" <?php sydney_do_schema( 'entry_content' ); ?>>
 				<?php
-				if ( 'content' === $archive_content_type || ( $full_content_home == 1 && is_home() ) || ( $full_content_archives == 1 && is_archive() ) ) {
+				if ( 'content' === $archive_content_type || ( $full_content_home == 1 && is_home() ) || ( $full_content_archives == 1 && is_archive() ) ) { // phpcs:ignore Universal.Operators.StrictComparisons.LooseEqual
 					the_content();
 				} else {
 					the_excerpt();
 				}
 
 				if ( $read_more ) {
-					echo '<a class="read-more" title="' . esc_attr( strip_tags( get_the_title() ) ) . '" href="' . esc_url( get_permalink() ) . '">' . esc_html__( 'Read more', 'sydney' ) . '</a>';
+					echo '<a class="read-more" title="' . esc_attr( wp_strip_all_tags( get_the_title() ) ) . '" href="' . esc_url( get_permalink() ) . '">' . esc_html__( 'Read more', 'sydney' ) . '</a>';
 				}
 				?>
 			</div>

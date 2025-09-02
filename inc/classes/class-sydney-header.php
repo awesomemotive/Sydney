@@ -553,7 +553,7 @@ if ( !class_exists( 'Sydney_Header' ) ) :
 						echo '<div class="site-branding-text">';
 						$this->site_title_desc();
 						echo '</div>';
-					elseif ( is_home() && 'main' == $context ) : ?>
+					elseif ( is_home() && 'main' === $context ) : ?>
 						<h1 class="screen-reader-text"><?php bloginfo( 'name' ); ?></h1>
 					<?php endif; ?>
 				<?php else : ?>
@@ -604,7 +604,7 @@ if ( !class_exists( 'Sydney_Header' ) ) :
 		public function sticky( $device = 'desktop' ) {
 			$enabled    = get_theme_mod( 'enable_sticky_header', 1 );
 
-			if ( $device == 'mobile' ) {
+			if ( $device === 'mobile' ) {
 				$enabled = get_theme_mod( 'enable_sticky_header_mobile', 0 );
 			}
 

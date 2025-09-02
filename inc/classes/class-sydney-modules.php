@@ -177,11 +177,11 @@ if ( ! class_exists( 'Sydney_Modules' ) ) {
 			foreach ( $modules as $module ) {
 				$param = 'activate_module_' . $module['slug'];
 
-				if ( ! isset( $_GET[ $param ] ) ) {
+				if ( ! isset( $_GET[ $param ] ) ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
 					continue;
 				}
 
-				$value = (int) wp_unslash( $_GET[ $param ] );
+				$value = (int) wp_unslash( $_GET[ $param ] ); //phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 				if ( 1 === $value ) {
 					update_option( 'sydney-modules', array_merge( $all_modules, array( $module['slug'] => true ) ) );
 				} elseif ( 0 === $value ) {

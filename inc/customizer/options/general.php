@@ -203,8 +203,8 @@ $wp_customize->add_control(
 		array(
 			'label'                 => '',
 			'section'               => 'sydney_section_scrolltotop',
-			'controls_general'      => json_encode( array( '#customize-control-scrolltop_text', '#customize-control-enable_scrolltop', '#customize-control-scrolltop_type', '#customize-control-scrolltop_icon', '#customize-control-scrolltop_radius', '#customize-control-scrolltop_divider_1', '#customize-control-scrolltop_position', '#customize-control-scrolltop_side_offset', '#customize-control-scrolltop_bottom_offset', '#customize-control-scrolltop_divider_2', '#customize-control-scrolltop_visibility' ) ),
-			'controls_design'       => json_encode( array( '#customize-control-scrolltop_color', '#customize-control-scrolltop_bg_color', '#customize-control-scrolltop_divider_3', '#customize-control-scrolltop_color_hover', '#customize-control-scrolltop_bg_color_hover', '#customize-control-scrolltop_divider_4', '#customize-control-scrolltop_icon_size', '#customize-control-scrolltop_padding' ) ),
+			'controls_general'      => wp_json_encode( array( '#customize-control-scrolltop_text', '#customize-control-enable_scrolltop', '#customize-control-scrolltop_type', '#customize-control-scrolltop_icon', '#customize-control-scrolltop_radius', '#customize-control-scrolltop_divider_1', '#customize-control-scrolltop_position', '#customize-control-scrolltop_side_offset', '#customize-control-scrolltop_bottom_offset', '#customize-control-scrolltop_divider_2', '#customize-control-scrolltop_visibility' ) ),
+			'controls_design'      => wp_json_encode( array( '#customize-control-scrolltop_color', '#customize-control-scrolltop_bg_color', '#customize-control-scrolltop_divider_3', '#customize-control-scrolltop_color_hover', '#customize-control-scrolltop_bg_color_hover', '#customize-control-scrolltop_divider_4', '#customize-control-scrolltop_icon_size', '#customize-control-scrolltop_padding' ) ),
 		)
 	)
 );
