@@ -26,7 +26,7 @@ class Sydney_Page_Metabox {
 		
 		$types = array( 'page' );
 
-        if ( in_array( $post_type, $types ) && ( 'attachment' !== $post_type ) ) {
+        if ( in_array( $post_type, $types, true ) && ( 'attachment' !== $post_type ) ) {
 			add_meta_box(
 				'sydney_single_page_metabox'
 				,__( 'Sydney page options', 'sydney' )
@@ -44,7 +44,7 @@ class Sydney_Page_Metabox {
 		if ( ! isset( $_POST['sydney_single_page_box_nonce'] ) )
 			return $post_id;
 
-		$nonce = $_POST['sydney_single_page_box_nonce'];
+		$nonce = $_POST['sydney_single_page_box_nonce']; //phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 
 		// Verify that the nonce is valid.
 		if ( ! wp_verify_nonce( $nonce, 'sydney_single_page_box' ) )
@@ -60,21 +60,20 @@ class Sydney_Page_Metabox {
 	
 
 		//Transparent menu
-		if ( 'page' == $_POST['post_type'] ) {
+		if ( isset( $_POST['post_type'] ) && 'page' === $_POST['post_type'] ) {
 			$transparent_menu_bar = ( isset( $_POST['sydney_transparent_menu'] ) && '1' === $_POST['sydney_transparent_menu'] ) ? 1 : 0;
 			update_post_meta( $post_id, '_sydney_transparent_menu', $transparent_menu_bar );
 		}
-		
 	}
 
 	public function render_meta_box_content( $post ) {
 	
 		// Add an nonce field so we can check for it later.
 		wp_nonce_field( 'sydney_single_page_box', 'sydney_single_page_box_nonce' );
-		$merge_top_bar 		= get_post_meta( $post->ID, '_sydney_transparent_menu', true );
+		$merge_top_bar      = get_post_meta( $post->ID, '_sydney_transparent_menu', true );
 
 	?>
-	<?php if ( 'page' == get_post_type( $post ) ) : ?>
+	<?php if ( 'page' === get_post_type( $post ) ) : ?>
 	<p>
 		<label><input type="checkbox" name="sydney_transparent_menu" value="1" <?php checked( $merge_top_bar, 1 ); ?> /><?php esc_html_e( 'Transparent menu bar', 'sydney' ); ?></label>
 	</p>	
@@ -90,6 +89,6 @@ class Sydney_Page_Metabox {
 
 		$input = sanitize_key( $input );
 
-		return ( in_array( $input, $choices ) ? $input : '' );
+		return ( in_array( $input, $choices, true ) ? $input : '' );
 	}
 }

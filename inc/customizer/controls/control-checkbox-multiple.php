@@ -30,7 +30,7 @@ class Sydney_Customize_Control_Checkbox_Multiple extends WP_Customize_Control {
         <?php endif; ?>
 
         <?php if ( !empty( $this->description ) ) : ?>
-            <span class="description customize-control-description"><?php echo $this->description; ?></span>
+            <span class="description customize-control-description"><?php echo wp_kses_post( $this->description ); ?></span>
         <?php endif; ?>
 
         <?php $multi_values = !is_array( $this->value() ) ? explode( ',', $this->value() ) : $this->value(); ?>
@@ -40,7 +40,7 @@ class Sydney_Customize_Control_Checkbox_Multiple extends WP_Customize_Control {
 
                 <li>
                     <label>
-                        <input type="checkbox" value="<?php echo esc_attr( $value ); ?>" <?php checked( in_array( $value, $multi_values ) ); ?> /> 
+                        <input type="checkbox" value="<?php echo esc_attr( $value ); ?>" <?php checked( in_array( $value, $multi_values, true ) ); ?> /> 
                         <?php echo esc_html( $label ); ?>
                     </label>
                 </li>

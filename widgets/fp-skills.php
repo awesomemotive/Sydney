@@ -3,21 +3,21 @@
 class Sydney_Skills extends WP_Widget {
 
 	public function __construct() {
-		$widget_ops = array('classname' => 'sydney_skills_widget', 'description' => __( 'Show your visitors some of your skills.', 'sydney') );
+		$widget_ops = array( 'classname' => 'sydney_skills_widget', 'description' => __( 'Show your visitors some of your skills.', 'sydney') );
         parent::__construct(false, $name = __('Sydney FP: Skills', 'sydney'), $widget_ops);
 		$this->alt_option_name = 'sydney_skills_widget';
     }
 	
 	function form($instance) {
-		$title     			= isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : '';
-		$skill_one   		= isset( $instance['skill_one'] ) ? esc_html( $instance['skill_one'] ) : '';
-		$skill_one_max   	= isset( $instance['skill_one_max'] ) ? absint( $instance['skill_one_max'] ) : '';
-		$skill_two   		= isset( $instance['skill_two'] ) ? esc_attr( $instance['skill_two'] ) : '';
-		$skill_two_max   	= isset( $instance['skill_two_max'] ) ? absint( $instance['skill_two_max'] ) : '';
-		$skill_three   		= isset( $instance['skill_three'] ) ? esc_attr( $instance['skill_three'] ) : '';
-		$skill_three_max 	= isset( $instance['skill_three_max'] ) ? absint( $instance['skill_three_max'] ) : '';
-		$skill_four   		= isset( $instance['skill_four'] ) ? esc_attr( $instance['skill_four'] ) : '';		
-		$skill_four_max  	= isset( $instance['skill_four_max'] ) ? absint( $instance['skill_four_max'] ) : '';
+		$title              = isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : '';
+		$skill_one          = isset( $instance['skill_one'] ) ? esc_html( $instance['skill_one'] ) : '';
+		$skill_one_max      = isset( $instance['skill_one_max'] ) ? absint( $instance['skill_one_max'] ) : '';
+		$skill_two          = isset( $instance['skill_two'] ) ? esc_attr( $instance['skill_two'] ) : '';
+		$skill_two_max      = isset( $instance['skill_two_max'] ) ? absint( $instance['skill_two_max'] ) : '';
+		$skill_three        = isset( $instance['skill_three'] ) ? esc_attr( $instance['skill_three'] ) : '';
+		$skill_three_max    = isset( $instance['skill_three_max'] ) ? absint( $instance['skill_three_max'] ) : '';
+		$skill_four         = isset( $instance['skill_four'] ) ? esc_attr( $instance['skill_four'] ) : '';      
+		$skill_four_max     = isset( $instance['skill_four_max'] ) ? absint( $instance['skill_four_max'] ) : '';
 	?>
 
 	<p>
@@ -76,15 +76,15 @@ class Sydney_Skills extends WP_Widget {
 	// update widget
 	function update($new_instance, $old_instance) {
 		$instance = $old_instance;
-		$instance['title'] 				= strip_tags($new_instance['title']);
-		$instance['skill_one'] 			= strip_tags($new_instance['skill_one']);
-		$instance['skill_one_max'] 		= intval($new_instance['skill_one_max']);
-		$instance['skill_two'] 			= strip_tags($new_instance['skill_two']);
-		$instance['skill_two_max'] 		= intval($new_instance['skill_two_max']);
-		$instance['skill_three'] 		= strip_tags($new_instance['skill_three']);
-		$instance['skill_three_max']	= intval($new_instance['skill_three_max']);
-		$instance['skill_four'] 		= strip_tags($new_instance['skill_four']);
-		$instance['skill_four_max'] 	= intval($new_instance['skill_four_max']);
+		$instance['title']              = strip_tags($new_instance['title']);
+		$instance['skill_one']          = strip_tags($new_instance['skill_one']);
+		$instance['skill_one_max']      = intval($new_instance['skill_one_max']);
+		$instance['skill_two']          = strip_tags($new_instance['skill_two']);
+		$instance['skill_two_max']      = intval($new_instance['skill_two_max']);
+		$instance['skill_three']        = strip_tags($new_instance['skill_three']);
+		$instance['skill_three_max']    = intval($new_instance['skill_three_max']);
+		$instance['skill_four']         = strip_tags($new_instance['skill_four']);
+		$instance['skill_four_max']     = intval($new_instance['skill_four_max']);
 	  
 		return $instance;
 	}
@@ -97,15 +97,15 @@ class Sydney_Skills extends WP_Widget {
 
 		extract($args);
 
-		$title 			= ( ! empty( $instance['title'] ) ) ? $instance['title'] : '';
-		$title 			= apply_filters( 'widget_title', $title, $instance, $this->id_base );
-		$skill_one   	= isset( $instance['skill_one'] ) ? esc_html( $instance['skill_one'] ) : '';
+		$title          = ( ! empty( $instance['title'] ) ) ? $instance['title'] : '';
+		$title          = apply_filters( 'widget_title', $title, $instance, $this->id_base );
+		$skill_one      = isset( $instance['skill_one'] ) ? esc_html( $instance['skill_one'] ) : '';
 		$skill_one_max  = isset( $instance['skill_one_max'] ) ? absint( $instance['skill_one_max'] ) : '';
-		$skill_two   	= isset( $instance['skill_two'] ) ? esc_attr( $instance['skill_two'] ) : '';
+		$skill_two      = isset( $instance['skill_two'] ) ? esc_attr( $instance['skill_two'] ) : '';
 		$skill_two_max  = isset( $instance['skill_two_max'] ) ? absint( $instance['skill_two_max'] ) : '';
-		$skill_three   	= isset( $instance['skill_three'] ) ? esc_attr( $instance['skill_three'] ) : '';
+		$skill_three    = isset( $instance['skill_three'] ) ? esc_attr( $instance['skill_three'] ) : '';
 		$skill_three_max= isset( $instance['skill_three_max'] ) ? absint( $instance['skill_three_max'] ) : '';
-		$skill_four   	= isset( $instance['skill_four'] ) ? esc_attr( $instance['skill_four'] ) : '';		
+		$skill_four     = isset( $instance['skill_four'] ) ? esc_attr( $instance['skill_four'] ) : '';      
 		$skill_four_max = isset( $instance['skill_four_max'] ) ? absint( $instance['skill_four_max'] ) : '';
 
 		echo $args['before_widget'];
@@ -152,7 +152,5 @@ class Sydney_Skills extends WP_Widget {
 
 	<?php
 		echo $args['after_widget'];
-
 	}
-	
 }

@@ -4,4 +4,7 @@ node_modules/
 /playwright/.cache/
 **.code-workspace
 package-lock.json
+composer.lock
 tasks.md
+/vendor/
+!/vendor/wptt-webfont-loader/

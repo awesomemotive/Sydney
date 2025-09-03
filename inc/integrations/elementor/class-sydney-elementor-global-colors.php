@@ -12,7 +12,7 @@ if ( !class_exists( 'Sydney_Elementor_Global_Colors' ) ) :
 
 		/**
 		 * Instance
-		 */		
+		 */     
 		private static $instance;
 
 		/**
@@ -20,7 +20,7 @@ if ( !class_exists( 'Sydney_Elementor_Global_Colors' ) ) :
 		 */
 		public static function get_instance() {
 			if ( ! isset( self::$instance ) ) {
-				self::$instance = new self;
+				self::$instance = new self();
 			}
 			return self::$instance;
 		}
@@ -28,7 +28,7 @@ if ( !class_exists( 'Sydney_Elementor_Global_Colors' ) ) :
 		/**
 		 * Constructor
 		 */
-		public function __construct() {	
+		public function __construct() { 
 
 			if ( !class_exists( 'Elementor\Plugin' ) ) {
 				return;
@@ -96,8 +96,8 @@ if ( !class_exists( 'Sydney_Elementor_Global_Colors' ) ) :
 			}
 	
 			$label_map = [
-				'global_color_1'   	=> __( 'Global Color 1', 'sydney' ),
-				'global_color_2' 	=> __( 'Global Color 2', 'sydney' ),
+				'global_color_1'    => __( 'Global Color 1', 'sydney' ),
+				'global_color_2'    => __( 'Global Color 2', 'sydney' ),
 				'global_color_3'    => __( 'Global Color 3', 'sydney' ),
 				'global_color_4'    => __( 'Global Color 4', 'sydney' ),
 				'global_color_5'    => __( 'Global Color 5', 'sydney' ),
@@ -123,8 +123,6 @@ if ( !class_exists( 'Sydney_Elementor_Global_Colors' ) ) :
 	
 			return $response;
 		}
-
-
 	}
 
 	/**

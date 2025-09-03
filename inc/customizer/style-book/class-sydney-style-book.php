@@ -28,8 +28,8 @@ if ( ! class_exists( 'Sydney_Style_Book' ) ) :
         }
 
         public function enqueue() {
-            wp_enqueue_style( 'sydney-style-book', get_stylesheet_directory_uri() . '/inc/customizer/style-book/css/styles.min.css' );
-            wp_enqueue_script( 'sydney-style-book', get_stylesheet_directory_uri() . '/inc/customizer/style-book/js/scripts.min.js', array( 'customize-controls' ), false, true );
+            wp_enqueue_style( 'sydney-style-book', get_stylesheet_directory_uri() . '/inc/customizer/style-book/css/styles.min.css', array(), '20250902' );
+            wp_enqueue_script( 'sydney-style-book', get_stylesheet_directory_uri() . '/inc/customizer/style-book/js/scripts.min.js', array( 'customize-controls' ), '20250902', true );
 
             /**
              * Dynamic CSS
@@ -39,7 +39,7 @@ if ( ! class_exists( 'Sydney_Style_Book' ) ) :
             /* Images */
 			$image_border_radius = get_theme_mod('image_border_radius', 0);
 			$custom .= ".sydney-style-book-section-content img { border-radius:" . intval($image_border_radius) . "px;}" . "\n";
-            $custom .= Sydney_Custom_CSS::get_font_sizes_css('image_caption_font_size', $defaults = array('desktop' => 16, 'tablet' => 16, 'mobile' => 16), '.sydney-style-book-section-content figcaption');
+            $custom .= Sydney_Custom_CSS::get_font_sizes_css('image_caption_font_size', $defaults = array( 'desktop' => 16, 'tablet' => 16, 'mobile' => 16 ), '.sydney-style-book-section-content figcaption');
 			$custom .= Sydney_Custom_CSS::get_color_css('image_caption_color', '', '.sydney-style-book-section-content figcaption');
 
             /* Buttons */
@@ -53,12 +53,12 @@ if ( ! class_exists( 'Sydney_Style_Book' ) ) :
             $button_text_transform = get_theme_mod( 'button_text_transform', 'uppercase' );
             $custom .= ".sydney-style-book-section-content .roll-button { text-transform:" . esc_attr( $button_text_transform ) . ";}" . "\n";
 
-            $custom .= Sydney_Custom_CSS::get_background_color_css( 'button_background_color', '', '.sydney-style-book-section-content .roll-button' );			
+            $custom .= Sydney_Custom_CSS::get_background_color_css( 'button_background_color', '', '.sydney-style-book-section-content .roll-button' );         
             
-            $custom .= Sydney_Custom_CSS::get_background_color_css( 'button_background_color_hover', '', '.sydney-style-book-section-content .roll-button:hover' );			
+            $custom .= Sydney_Custom_CSS::get_background_color_css( 'button_background_color_hover', '', '.sydney-style-book-section-content .roll-button:hover' );         
 
-            $custom .= Sydney_Custom_CSS::get_color_css( 'button_color', '#ffffff', '.sydney-style-book-section-content .roll-button' );			
-            $custom .= Sydney_Custom_CSS::get_color_css( 'button_color_hover', '#ffffff', '.sydney-style-book-section-content .roll-button:hover' );			
+            $custom .= Sydney_Custom_CSS::get_color_css( 'button_color', '#ffffff', '.sydney-style-book-section-content .roll-button' );            
+            $custom .= Sydney_Custom_CSS::get_color_css( 'button_color_hover', '#ffffff', '.sydney-style-book-section-content .roll-button:hover' );            
 
             $button_border_color = get_theme_mod( 'button_border_color', '' );
             $button_border_color_hover = get_theme_mod( 'button_border_color_hover', '' );
@@ -67,18 +67,18 @@ if ( ! class_exists( 'Sydney_Style_Book' ) ) :
             
             /* Typography */
             //Families
-            $typography_defaults = json_encode(
+            $typography_defaults = wp_json_encode(
                 array(
-                    'font' 			=> 'System default',
+                    'font'          => 'System default',
                     'regularweight' => '400',
-                    'category' 		=> 'sans-serif'
+                    'category'      => 'sans-serif',
                 )
             );
-            $body_font		= get_theme_mod( 'sydney_body_font', $typography_defaults );
-            $headings_font 	= get_theme_mod( 'sydney_headings_font', $typography_defaults );
+            $body_font      = get_theme_mod( 'sydney_body_font', $typography_defaults );
+            $headings_font  = get_theme_mod( 'sydney_headings_font', $typography_defaults );
         
-            $body_font 		= json_decode( $body_font, true );
-            $headings_font 	= json_decode( $headings_font, true );
+            $body_font      = json_decode( $body_font, true );
+            $headings_font  = json_decode( $headings_font, true );
 
             $custom .= ".sydney-style-book-section-content .style-book-body { font-family:" . esc_attr( $body_font['font'] ) . ',' . esc_attr( $body_font['category'] ) . '; font-weight: ' . esc_attr( $body_font['regularweight'] ) . ';}' . "\n";
             $custom .= ".sydney-style-book-section-content h1.style-book-heading, .sydney-style-book-section-content h2.style-book-heading, .sydney-style-book-section-content h3.style-book-heading, .sydney-style-book-section-content h4.style-book-heading, .sydney-style-book-section-content h5.style-book-heading, .sydney-style-book-section-content h6.style-book-heading { font-family:" . esc_attr( $headings_font['font'] ) . ',' . esc_attr( $headings_font['category'] ) . '; font-weight: ' . esc_attr( $headings_font['regularweight'] ) . ';}' . "\n";
@@ -97,13 +97,13 @@ if ( ! class_exists( 'Sydney_Style_Book' ) ) :
             //Body styling
             $custom .= Sydney_Custom_CSS::get_font_sizes_css( 'body_font_size', $defaults = array( 'desktop' => 16, 'tablet' => 16, 'mobile' => 16 ), '.sydney-style-book-section-content .style-book-body' );            
 
-            $body_font_style 		= get_theme_mod( 'body_font_style' );
-            $body_line_height 		= get_theme_mod( 'body_line_height', 1.68 );
-            $body_letter_spacing 	= get_theme_mod( 'body_letter_spacing' );
-            $body_text_transform 	= get_theme_mod( 'body_text_transform' );
-            $body_text_decoration 	= get_theme_mod( 'body_text_decoration' );
+            $body_font_style        = get_theme_mod( 'body_font_style' );
+            $body_line_height       = get_theme_mod( 'body_line_height', 1.68 );
+            $body_letter_spacing    = get_theme_mod( 'body_letter_spacing' );
+            $body_text_transform    = get_theme_mod( 'body_text_transform' );
+            $body_text_decoration   = get_theme_mod( 'body_text_decoration' );
         
-            $custom .= ".sydney-style-book-section-content .style-book-body { text-transform:" . esc_attr( $body_text_transform ) . ";font-style:" . esc_attr( $body_font_style ) . ";line-height:" . esc_attr( $body_line_height ) . ";letter-spacing:" . esc_attr( $body_letter_spacing ) . "px;}" . "\n";	
+            $custom .= ".sydney-style-book-section-content .style-book-body { text-transform:" . esc_attr( $body_text_transform ) . ";font-style:" . esc_attr( $body_font_style ) . ";line-height:" . esc_attr( $body_line_height ) . ";letter-spacing:" . esc_attr( $body_letter_spacing ) . "px;}" . "\n";    
         
 
             wp_add_inline_style( 'sydney-style-book', $custom );
@@ -314,7 +314,7 @@ if ( ! class_exists( 'Sydney_Style_Book' ) ) :
                 <div class="sydney-style-book-section-content">
                     <?php foreach ( $config['colors'] as $slug => $color ) : ?>
                         <a class="sydney-style-book-color sydney-style-book-customizer-link" href="javascript:wp.customize.control( 'custom_palette' ).focus();">
-                            <div class="sydney-style-book-color-value" data-color-setting="<?php echo $slug; ?>" style="background-color: <?php echo esc_attr( $color['value'] ); ?>"></div>
+                            <div class="sydney-style-book-color-value" data-color-setting="<?php echo esc_attr( $slug ); ?>" style="background-color: <?php echo esc_attr( $color['value'] ); ?>"></div>
                             <div class="sydney-style-book-color-label"><?php echo esc_html( $color['label'] ); ?></div>
                             <div class="sydney-style-book-color-tooltip"><?php echo esc_html( $color['info'] ); ?></div>
                             <?php $this->render_edit_overlay(); ?>
@@ -595,5 +595,5 @@ if ( ! class_exists( 'Sydney_Style_Book' ) ) :
             }
         }
     }
-    new Sydney_Style_Book;
+    new Sydney_Style_Book();
 endif;

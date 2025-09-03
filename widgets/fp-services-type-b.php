@@ -8,19 +8,19 @@
 class Sydney_Services_Type_B extends WP_Widget {
 
 	public function __construct() {
-		$widget_ops = array('classname' => 'sydney_services_b_widget', 'description' => __( 'Show what services you are able to provide.', 'sydney') );
+		$widget_ops = array( 'classname' => 'sydney_services_b_widget', 'description' => __( 'Show what services you are able to provide.', 'sydney') );
         parent::__construct(false, $name = __('Sydney FP: Services type B', 'sydney'), $widget_ops);
-		$this->alt_option_name = 'sydney_services_b_widget';		
+		$this->alt_option_name = 'sydney_services_b_widget';        
     }
 	
 	function form($instance) {
-		$title     		= isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : '';
-		$number    		= isset( $instance['number'] ) ? intval( $instance['number'] ) : -1;
-		$category   	= isset( $instance['category'] ) ? esc_attr( $instance['category'] ) : '';
-		$see_all   		= isset( $instance['see_all'] ) ? esc_url_raw( $instance['see_all'] ) : '';		
-		$see_all_text  	= isset( $instance['see_all_text'] ) ? esc_html( $instance['see_all_text'] ) : '';
-		$cols 			= isset( $instance['cols'] ) ? esc_attr( $instance['cols'] ) : '';
-		$content_excerpt  	= isset( $instance['content_excerpt'] ) ? esc_attr( $instance['content_excerpt'] ) : '';			
+		$title          = isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : '';
+		$number         = isset( $instance['number'] ) ? intval( $instance['number'] ) : -1;
+		$category       = isset( $instance['category'] ) ? esc_attr( $instance['category'] ) : '';
+		$see_all        = isset( $instance['see_all'] ) ? esc_url_raw( $instance['see_all'] ) : '';     
+		$see_all_text   = isset( $instance['see_all_text'] ) ? esc_html( $instance['see_all_text'] ) : '';
+		$cols           = isset( $instance['cols'] ) ? esc_attr( $instance['cols'] ) : '';
+		$content_excerpt    = isset( $instance['content_excerpt'] ) ? esc_attr( $instance['content_excerpt'] ) : '';            
 
 	?>
 
@@ -41,7 +41,7 @@ class Sydney_Services_Type_B extends WP_Widget {
 	<label for="<?php echo $this->get_field_id('cols'); ?>"><?php _e( 'Number of columns:', 'sydney' ); ?></label>
 	<select name="<?php echo $this->get_field_name('cols'); ?>" id="<?php echo $this->get_field_id('cols'); ?>">
 	<?php
-	$options = array('1', '2', '3');
+	$options = array( '1', '2', '3' );
 	foreach ($options as $option) {
 	echo '<option value="' . $option . '" id="' . $option . '"', $cols == $option ? ' selected="selected"' : '', '>', esc_attr($option), '</option>';
 	}
@@ -59,13 +59,13 @@ class Sydney_Services_Type_B extends WP_Widget {
 
 	function update($new_instance, $old_instance) {
 		$instance = $old_instance;
-		$instance['title'] 			= strip_tags($new_instance['title']);
-		$instance['number'] 		= strip_tags($new_instance['number']);
-		$instance['see_all'] 		= esc_url_raw( $new_instance['see_all'] );	
-		$instance['see_all_text'] 	= strip_tags($new_instance['see_all_text']);		
-		$instance['category'] 		= strip_tags($new_instance['category']);
-		$instance['cols'] 			= strip_tags($new_instance['cols']);
-		$instance['content_excerpt'] = sanitize_text_field($new_instance['content_excerpt']);		
+		$instance['title']          = strip_tags($new_instance['title']);
+		$instance['number']         = strip_tags($new_instance['number']);
+		$instance['see_all']        = esc_url_raw( $new_instance['see_all'] );  
+		$instance['see_all_text']   = strip_tags($new_instance['see_all_text']);        
+		$instance['category']       = strip_tags($new_instance['category']);
+		$instance['cols']           = strip_tags($new_instance['cols']);
+		$instance['content_excerpt'] = sanitize_text_field($new_instance['content_excerpt']);       
   
 		return $instance;
 	}
@@ -77,23 +77,23 @@ class Sydney_Services_Type_B extends WP_Widget {
 
 		extract($args);
 
-		$title 			= ( ! empty( $instance['title'] ) ) ? $instance['title'] : '';
-		$title 			= apply_filters( 'widget_title', $title, $instance, $this->id_base );
-		$see_all 		= isset( $instance['see_all'] ) ? esc_url($instance['see_all']) : '';
-		$see_all_text 	= isset( $instance['see_all_text'] ) ? esc_html($instance['see_all_text']) : '';		
-		$number 		= ( ! empty( $instance['number'] ) ) ? intval( $instance['number'] ) : -1;
+		$title          = ( ! empty( $instance['title'] ) ) ? $instance['title'] : '';
+		$title          = apply_filters( 'widget_title', $title, $instance, $this->id_base );
+		$see_all        = isset( $instance['see_all'] ) ? esc_url($instance['see_all']) : '';
+		$see_all_text   = isset( $instance['see_all_text'] ) ? esc_html($instance['see_all_text']) : '';        
+		$number         = ( ! empty( $instance['number'] ) ) ? intval( $instance['number'] ) : -1;
 		if ( ! $number )
-			$number 	= -1;				
-		$category 		= isset( $instance['category'] ) ? esc_attr($instance['category']) : '';
-		$cols 			= isset( $instance['cols'] ) ? esc_attr($instance['cols']) : '';
+			$number     = -1;               
+		$category       = isset( $instance['category'] ) ? esc_attr($instance['category']) : '';
+		$cols           = isset( $instance['cols'] ) ? esc_attr($instance['cols']) : '';
 		$content_excerpt = isset( $instance['content_excerpt'] ) ? esc_html($instance['content_excerpt']) : 'fullcontent';
 
 		$services = new WP_Query( array(
 			'no_found_rows'       => true,
 			'post_status'         => 'publish',
-			'post_type' 		  => 'services',
-			'posts_per_page'	  => $number,
-			'category_name'		  => $category			
+			'post_type'           => 'services',
+			'posts_per_page'      => $number,
+			'category_name'       => $category,          
 		) );
 
 		if ( $cols == '1' ) {
@@ -168,5 +168,4 @@ class Sydney_Services_Type_B extends WP_Widget {
 		endif;
 		echo $args['after_widget'];
 	}
-	
 }

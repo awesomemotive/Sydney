@@ -193,7 +193,7 @@ $wp_customize->add_setting(
     'shfb_footer_widget_2_layout_title',
     array(
         'default'           => '',
-        'sanitize_callback' => 'esc_attr'
+        'sanitize_callback' => 'esc_attr',
     )
 );
 
@@ -205,7 +205,7 @@ $wp_customize->add_control(
             'label'    => esc_html__( 'Layout', 'sydney' ),
             'section'  => 'sydney_section_fb_component__widget2',
             'priority' => 70,
-            'separator' => 'before'
+            'separator' => 'before',
         )
     )
 );

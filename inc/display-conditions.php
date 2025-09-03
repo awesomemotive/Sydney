@@ -138,7 +138,7 @@ function sydney_get_display_conditions( $maybe_rules, $default = true, $mod_defa
 				$user_id    = get_current_user_id();
 				$user_roles = get_userdata( $user_id )->roles;
 
-				if ( in_array( $user_role, $user_roles ) ) {
+				if ( in_array( $user_role, $user_roles, true ) ) {
 					$result = $boolean;
 				}
 
@@ -183,5 +183,4 @@ function sydney_get_display_conditions( $maybe_rules, $default = true, $mod_defa
 	$result = apply_filters( 'sydney_display_conditions_result', $result, $rules );
 
 	return $result;
-
 }

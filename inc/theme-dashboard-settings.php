@@ -170,7 +170,7 @@ function sydney_dashboard_settings( $settings ) {
 		array(
 			'name'          => esc_html__( 'General', 'sydney' ),
 			'type'          => 'heading',
-		),		
+		),      
 		array(
 			'name'          => esc_html__( 'Color Options', 'sydney' ),
 			'type'          => 'free',
@@ -180,12 +180,12 @@ function sydney_dashboard_settings( $settings ) {
 			'name'          => esc_html__( 'Typography Options', 'sydney' ),
 			'type'          => 'free',
 			'customize_uri' => admin_url( '/customize.php?autofocus[panel]=sydney_panel_typography' ),
-		),	
+		),  
 		array(
 			'name'          => esc_html__( 'Buttons', 'sydney' ),
 			'type'          => 'free',
 			'customize_uri' => '/wp-admin/customize.php?autofocus[section]=sydney_section_buttons',
-		),	
+		),  
 	) );
 
 	$settings['tabs'][0]['data'] = array_merge( $settings['tabs'][0]['data'], Sydney_Modules::get_modules( 'general' ) );
@@ -195,7 +195,7 @@ function sydney_dashboard_settings( $settings ) {
 		array(
 			'name'          => esc_html__( 'Header', 'sydney' ),
 			'type'          => 'heading',
-		),										
+		),                                      
 		array(
 			'name'          => esc_html__( 'Change Site Title or Logo', 'sydney' ),
 			'type'          => 'free',
@@ -228,7 +228,7 @@ function sydney_dashboard_settings( $settings ) {
 		array(
 			'name'          => esc_html__( 'Blog & pages', 'sydney' ),
 			'type'          => 'heading',
-		),	
+		),  
 		array(
 			'name'          => esc_html__( 'Blog Options', 'sydney' ),
 			'type'          => 'free',
@@ -307,15 +307,15 @@ add_filter( 'thd_register_settings', 'sydney_dashboard_settings' );
 function sydney_demos_settings( $settings ) {
 
 	$settings['categories'] = array(
-		'business' 	=> 'Business',
+		'business'  => 'Business',
 		'portfolio' => 'Portfolio',
 		'ecommerce' => 'eCommerce',
-		'event' 	=> 'Events',
-	);	
+		'event'     => 'Events',
+	);  
 
 	$settings['builders'] = array(
 		'elementor' => 'Elementor',
-	);		
+	);      
 
 	// Pro.
 	$settings['pro_label'] = esc_html__( 'Get Sydney Pro', 'sydney' );

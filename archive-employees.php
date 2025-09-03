@@ -16,7 +16,7 @@ get_header(); ?>
 
 			<?php while ( have_posts() ) : the_post(); ?>
 				<?php //Get the custom field values
-					$photo 	  = get_post_meta( get_the_ID(), 'wpcf-photo', true );
+					$photo    = get_post_meta( get_the_ID(), 'wpcf-photo', true );
 					$position = get_post_meta( get_the_ID(), 'wpcf-position', true );
 					$facebook = get_post_meta( get_the_ID(), 'wpcf-facebook', true );
 					$twitter  = get_post_meta( get_the_ID(), 'wpcf-twitter', true );
@@ -33,7 +33,7 @@ get_header(); ?>
 			    </div>
 			    <div class="team-content">
 			        <div class="name">
-			        	<?php if ($emplink == '') : ?>
+			        	<?php if ($emplink === '') : ?>
 			        		<?php the_title(); ?>
 			        	<?php else : ?>
 			        		<a href="<?php echo esc_url($emplink); ?>"><?php the_title(); ?></a>
@@ -46,13 +46,13 @@ get_header(); ?>
 						$fa_prefix = sydney_get_fontawesome_prefix( 'fab ' ); ?>
 							
 						<ul class="team-social">
-							<?php if ($facebook != '') : ?>
+							<?php if ($facebook !== '') : ?>
 								<li><a class="facebook" href="<?php echo esc_url($facebook); ?>" target="_blank"><i class="<?php echo esc_attr( $fa_prefix ); ?>fa-facebook"></i></a></li>
 							<?php endif; ?>
-							<?php if ($twitter != '') : ?>
+							<?php if ($twitter !== '') : ?>
 								<li><a class="twitter" href="<?php echo esc_url($twitter); ?>" target="_blank"><i class="<?php echo esc_attr( $fa_prefix ); ?>fa-twitter"></i></a></li>
 							<?php endif; ?>
-							<?php if ($google != '') : ?>
+							<?php if ($google !== '') : ?>
 								<li><a class="google" href="<?php echo esc_url($google); ?>" target="_blank"><i class="<?php echo esc_attr( $fa_prefix ); ?>fa-google-plus"></i></a></li>
 							<?php endif; ?>
 						</ul>			        

@@ -24,22 +24,23 @@ if (!defined('ABSPATH')) {
                 <div class="sydney-dashboard-content-expand bt-mt-20px" data-bt-toggle-expand style="max-width: 700px;">
                     <div class="sydney-dashboard-content-expand-title">
                         <a href="#" class="sydney-dashboard-content-expand-link">
-                            <?php echo sydney_dashboard_get_setting_icon( 'info' ); ?>
+                            <?php echo sydney_dashboard_get_setting_icon( 'info' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                             <?php echo esc_html__( 'Instructions', 'sydney' ); ?>
                         </a>
                     </div>
                     <div class="sydney-dashboard-content-expand-content bt-toggle-expand-content">
                         <ul class="sydney-dashboard-content-expand-list">
                             <li>
-                                <?php echo sydney_dashboard_get_setting_icon( 'arrow' ); ?>
-                                <?php echo sprintf(
+                                <?php echo sydney_dashboard_get_setting_icon( 'arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+                                <?php printf(
+                                    // translators: %1$s is the link to the aThemes account, %2$s is the closing link tag
                                     esc_html__( 'To get your key, please login to your %1$saThemes account%2$s.', 'sydney' ),
                                     '<a href="https://athemes.com/your-account/" target="_blank">',
                                     '</a>'
                                 ); ?>
                             </li>
                             <li>
-                                <?php echo sydney_dashboard_get_setting_icon( 'arrow' ); ?>
+                                <?php echo sydney_dashboard_get_setting_icon( 'arrow' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                                 <?php echo esc_html__( 'In the licenses section, click on the 🔑 key icon. A license key will appear. Copy and paste the key here', 'sydney' ); ?>
                             </li>
                         </ul>

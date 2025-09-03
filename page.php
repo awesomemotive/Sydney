@@ -20,4 +20,4 @@ get_header(); ?>
 
 <?php do_action( 'sydney_get_sidebar' ); ?>
 
-<?php get_footer(); ?>
+<?php get_footer(); 

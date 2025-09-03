@@ -72,15 +72,15 @@ if ( ! defined( 'ABSPATH' ) ) {
                         ?>
 
                         <div class="sydney-dashboard-notification">
-                            <?php if( $date ) : ?>
+                            <?php if ( $date ) : ?>
                                 <span class="sydney-dashboard-notification-date" data-raw-date="<?php echo esc_attr( $date ); ?>">
-                                    <?php if( $display_version ) : ?>
-                                        <h3 class="sydney-dashboard-notification-version"><?php echo $version; ?></h3>
+                                    <?php if ( $display_version ) : ?>
+                                        <h3 class="sydney-dashboard-notification-version"><?php echo esc_html( $version ); ?></h3>
                                     <?php endif; ?>
-                                    <?php echo sprintf( '(%s)', esc_html( date_format( date_create( $date ), 'F j, Y' ) ) ); ?>
+                                    <?php printf( '(%s)', esc_html( date_format( date_create( $date ), 'F j, Y' ) ) ); ?>
                                 </span>
                             <?php endif; ?>
-                            <?php if( $content ) : ?>
+                            <?php if ( $content ) : ?>
                                 <div class="sydney-dashboard-notification-content">
                                     <?php echo wp_kses_post( $content ); ?>
                                 </div>
@@ -125,7 +125,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                                 <span class="sydney-dashboard-notification-date">
                                     <?php echo esc_html( date_format( date_create( $date ), 'F j, Y' ) ); ?>
                                     <?php if( $display_version ) : ?>
-                                        <span class="sydney-dashboard-notification-version"><?php echo sprintf( '(%s)', $version ); ?></span>
+                                        <span class="sydney-dashboard-notification-version"><?php printf( '(%s)', esc_html( $version ) ); ?></span>
                                     <?php endif; ?>
                                 </span>
                             <?php endif; ?>

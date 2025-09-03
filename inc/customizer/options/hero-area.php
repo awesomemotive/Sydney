@@ -49,7 +49,7 @@
                 'slider'    => __('Full screen slider', 'sydney'),
                 'image'     => __('Image', 'sydney'),
                 'core-video'=> __('Video', 'sydney'),
-                'nothing'   => __('No header (only menu)', 'sydney')
+                'nothing'   => __('No header (only menu)', 'sydney'),
             ),
         )
     );
@@ -72,7 +72,7 @@
                 'slider'    => __('Full screen slider', 'sydney'),
                 'image'     => __('Image', 'sydney'),
                 'core-video'=> __('Video', 'sydney'),
-                'nothing'   => __('No header (only menu)', 'sydney')
+                'nothing'   => __('No header (only menu)', 'sydney'),
             ),
         )
     );
@@ -90,7 +90,7 @@
     //Image 1   
     $wp_customize->add_setting( 'accordion_slider_image_1', 
         array(
-            'sanitize_callback' => 'esc_attr'
+            'sanitize_callback' => 'esc_attr',
         )
     );
     $wp_customize->add_control(
@@ -117,10 +117,10 @@
             $wp_customize,
             'slider_image_1',
             array(
-               'label'          => __( 'Upload your first image for the slider', 'sydney' ),
-               'type'           => 'image',
-               'section'        => 'sydney_slider',
-               'settings'       => 'slider_image_1',
+                'label'          => __( 'Upload your first image for the slider', 'sydney' ),
+                'type'           => 'image',
+                'section'        => 'sydney_slider',
+                'settings'       => 'slider_image_1',
             )
         )
     );
@@ -130,7 +130,7 @@
         array(
             'default'           => __('Click the pencil icon to change this text','sydney'),
             'sanitize_callback' => 'sydney_sanitize_text',
-            'transport'         => 'postMessage'
+            'transport'         => 'postMessage',
         )
     );
     $wp_customize->add_control(
@@ -147,7 +147,7 @@
         array(
             'default' => __('or go to the Customizer','sydney'),
             'sanitize_callback' => 'sydney_sanitize_text',
-            'transport'         => 'postMessage'
+            'transport'         => 'postMessage',
         )
     );
     $wp_customize->add_control(
@@ -161,7 +161,7 @@
     //Image 2
     $wp_customize->add_setting( 'accordion_slider_image_2', 
         array(
-            'sanitize_callback' => 'esc_attr'
+            'sanitize_callback' => 'esc_attr',
         )
     );
     $wp_customize->add_control(
@@ -188,10 +188,10 @@
             $wp_customize,
             'slider_image_2',
             array(
-               'label'          => __( 'Upload your second image for the slider', 'sydney' ),
-               'type'           => 'image',
-               'section'        => 'sydney_slider',
-               'settings'       => 'slider_image_2',
+                'label'          => __( 'Upload your second image for the slider', 'sydney' ),
+                'type'           => 'image',
+                'section'        => 'sydney_slider',
+                'settings'       => 'slider_image_2',
             )
         )
     );
@@ -201,7 +201,7 @@
         array(
             'default' => '',
             'sanitize_callback' => 'sydney_sanitize_text',
-            'transport'         => 'postMessage'            
+            'transport'         => 'postMessage',            
         )
     );
     $wp_customize->add_control(
@@ -218,7 +218,7 @@
         array(
             'default' => '',
             'sanitize_callback' => 'sydney_sanitize_text',
-            'transport'         => 'postMessage'            
+            'transport'         => 'postMessage',            
         )
     );
     $wp_customize->add_control(
@@ -232,7 +232,7 @@
     //Image 3
     $wp_customize->add_setting( 'accordion_slider_image_3', 
         array(
-            'sanitize_callback' => 'esc_attr'
+            'sanitize_callback' => 'esc_attr',
         )
     );
     $wp_customize->add_control(
@@ -251,7 +251,7 @@
         array(
             'default-image' => '',
             'sanitize_callback' => 'esc_url_raw',
-            'transport'         => 'postMessage'            
+            'transport'         => 'postMessage',            
         )
     );
     $wp_customize->add_control(
@@ -259,10 +259,10 @@
             $wp_customize,
             'slider_image_3',
             array(
-               'label'          => __( 'Upload your third image for the slider', 'sydney' ),
-               'type'           => 'image',
-               'section'        => 'sydney_slider',
-               'settings'       => 'slider_image_3',
+                'label'          => __( 'Upload your third image for the slider', 'sydney' ),
+                'type'           => 'image',
+                'section'        => 'sydney_slider',
+                'settings'       => 'slider_image_3',
             )
         )
     );
@@ -272,7 +272,7 @@
         array(
             'default' => '',
             'sanitize_callback' => 'sydney_sanitize_text',
-            'transport'         => 'postMessage'            
+            'transport'         => 'postMessage',            
         )
     );
     $wp_customize->add_control(
@@ -289,7 +289,7 @@
         array(
             'default' => '',
             'sanitize_callback' => 'sydney_sanitize_text',
-            'transport'         => 'postMessage'            
+            'transport'         => 'postMessage',            
         )
     );
     $wp_customize->add_control(
@@ -303,7 +303,7 @@
     //Image 4
     $wp_customize->add_setting( 'accordion_slider_image_4', 
         array(
-            'sanitize_callback' => 'esc_attr'
+            'sanitize_callback' => 'esc_attr',
         )
     );
     $wp_customize->add_control(
@@ -322,7 +322,7 @@
         array(
             'default-image' => '',
             'sanitize_callback' => 'esc_url_raw',
-            'transport'         => 'postMessage'            
+            'transport'         => 'postMessage',            
         )
     );
     $wp_customize->add_control(
@@ -330,10 +330,10 @@
             $wp_customize,
             'slider_image_4',
             array(
-               'label'          => __( 'Upload your fourth image for the slider', 'sydney' ),
-               'type'           => 'image',
-               'section'        => 'sydney_slider',
-               'settings'       => 'slider_image_4',
+                'label'          => __( 'Upload your fourth image for the slider', 'sydney' ),
+                'type'           => 'image',
+                'section'        => 'sydney_slider',
+                'settings'       => 'slider_image_4',
             )
         )
     );
@@ -343,7 +343,7 @@
         array(
             'default' => '',
             'sanitize_callback' => 'sydney_sanitize_text',
-            'transport'         => 'postMessage'            
+            'transport'         => 'postMessage',            
         )
     );
     $wp_customize->add_control(
@@ -360,7 +360,7 @@
         array(
             'default' => '',
             'sanitize_callback' => 'sydney_sanitize_text',
-            'transport'         => 'postMessage'            
+            'transport'         => 'postMessage',            
         )
     );
     $wp_customize->add_control(
@@ -374,7 +374,7 @@
     //Image 5
     $wp_customize->add_setting( 'accordion_slider_image_5', 
         array(
-            'sanitize_callback' => 'esc_attr'
+            'sanitize_callback' => 'esc_attr',
         )
     );
     $wp_customize->add_control(
@@ -393,7 +393,7 @@
         array(
             'default-image'     => '',
             'sanitize_callback'  => 'esc_url_raw',
-             'transport'         => 'postMessage'
+            'transport'         => 'postMessage',
         )
     );
     $wp_customize->add_control(
@@ -401,10 +401,10 @@
             $wp_customize,
             'slider_image_5',
             array(
-               'label'          => __( 'Upload your fifth image for the slider', 'sydney' ),
-               'type'           => 'image',
-               'section'        => 'sydney_slider',
-               'settings'       => 'slider_image_5',
+                'label'          => __( 'Upload your fifth image for the slider', 'sydney' ),
+                'type'           => 'image',
+                'section'        => 'sydney_slider',
+                'settings'       => 'slider_image_5',
             )
         )
     );
@@ -414,7 +414,7 @@
         array(
             'default'           => '',
             'sanitize_callback' => 'sydney_sanitize_text',
-            'transport'         => 'postMessage'            
+            'transport'         => 'postMessage',            
         )
     );
     $wp_customize->add_control(
@@ -431,7 +431,7 @@
         array(
             'default' => '',
             'sanitize_callback' => 'sydney_sanitize_text',
-            'transport'         => 'postMessage'            
+            'transport'         => 'postMessage',            
         )
     );
     $wp_customize->add_control(
@@ -446,7 +446,7 @@
 
     $wp_customize->add_setting( 'accordion_hero_slider_button', 
         array(
-            'sanitize_callback' => 'esc_attr'
+            'sanitize_callback' => 'esc_attr',
         )
     );
     $wp_customize->add_control(
@@ -459,13 +459,13 @@
                 'until'         => 'slider_button_text',
             )
         )
-    );	    
+    );      
     $wp_customize->add_setting(
         'slider_button_url',
         array(
             'default' => '#primary',
             'sanitize_callback' => 'esc_url_raw',
-            'transport'         => 'postMessage'                        
+            'transport'         => 'postMessage',                        
         )
     );
     $wp_customize->add_control(
@@ -481,7 +481,7 @@
         array(
             'default' => __('Click to begin','sydney'),
             'sanitize_callback' => 'sydney_sanitize_text',
-            'transport'         => 'postMessage'            
+            'transport'         => 'postMessage',            
         )
     );
     $wp_customize->add_control(
@@ -498,7 +498,7 @@
 	 */
     $wp_customize->add_setting( 'accordion_hero_slider_settings', 
         array(
-            'sanitize_callback' => 'esc_attr'
+            'sanitize_callback' => 'esc_attr',
         )
     );
     $wp_customize->add_control(
@@ -572,16 +572,16 @@
 
     $wp_customize->add_setting( 'hero_slider_activate_link',
         array(
-            'default' 			=> '',
-            'sanitize_callback' => 'esc_attr'
+            'default'           => '',
+            'sanitize_callback' => 'esc_attr',
         )
     );
 
     $wp_customize->add_control( new Sydney_Text_Control( $wp_customize, 'hero_slider_activate_link',
             array(
-                'description' 	=> '<a href="javascript:wp.customize.section( \'sydney_header_type\' ).focus();">' . esc_html__( 'Click here to select where you want to display the slider', 'sydney' ) . '</a>',
-                'section' 		=> 'sydney_slider',
-                'separator' 	=> 'before'
+                'description'   => '<a href="javascript:wp.customize.section( \'sydney_header_type\' ).focus();">' . esc_html__( 'Click here to select where you want to display the slider', 'sydney' ) . '</a>',
+                'section'       => 'sydney_slider',
+                'separator'     => 'before',
             )
         )
-    );	
+    );  

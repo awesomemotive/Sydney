@@ -15,7 +15,7 @@ if ( !class_exists( 'Sydney_LifterLMS' ) ) :
 
 		/**
 		 * Instance
-		 */		
+		 */     
 		private static $instance;
 
 		/**
@@ -23,7 +23,7 @@ if ( !class_exists( 'Sydney_LifterLMS' ) ) :
 		 */
 		public static function get_instance() {
 			if ( ! isset( self::$instance ) ) {
-				self::$instance = new self;
+				self::$instance = new self();
 			}
 			return self::$instance;
 		}
@@ -40,7 +40,7 @@ if ( !class_exists( 'Sydney_LifterLMS' ) ) :
 			add_action( 'customize_register', array( $this, 'customizer' ) );
 
 			//Setup
-			add_action( 'wp', array( $this, 'setup' ) );		
+			add_action( 'wp', array( $this, 'setup' ) );        
 			add_action( 'after_setup_theme', array( $this, 'theme_support' ) );
 			add_filter( 'llms_get_theme_default_sidebar', array( $this, 'return_sidebar' ) );
 
@@ -56,11 +56,10 @@ if ( !class_exists( 'Sydney_LifterLMS' ) ) :
 			add_filter( 'lifterlms_loop_columns', array( $this, 'loop_columns' ) );
 
 			//Sidebars
-			add_action( 'wp', array( $this, 'remove_loop_sidebar' ) );		
+			add_action( 'wp', array( $this, 'remove_loop_sidebar' ) );      
 
 			//Custom CSS
 			add_filter( 'sydney_custom_css', array( $this, 'custom_css' ) );
-
 		}
 
 		/**
@@ -69,7 +68,7 @@ if ( !class_exists( 'Sydney_LifterLMS' ) ) :
 		public function setup() {
 			if ( is_course() || is_lesson() || is_membership() ) {
 				add_filter( 'sydney_single_post_meta_enable', '__return_false' );
-				add_filter( 'sydney_single_post_nav_enable', '__return_false' );				
+				add_filter( 'sydney_single_post_nav_enable', '__return_false' );                
 			}
 
 			if ( is_membership() || is_llms_checkout() || is_llms_account_page() ) {
@@ -91,7 +90,7 @@ if ( !class_exists( 'Sydney_LifterLMS' ) ) :
 		 * Enqueue custom Lifter styles
 		 */
 		public function enqueue() {
-			wp_enqueue_style( 'sydney-lifter-css', get_template_directory_uri() . '/inc/integrations/lifter/lifter.min.css' );
+			wp_enqueue_style( 'sydney-lifter-css', get_template_directory_uri() . '/inc/integrations/lifter/lifter.min.css', array(), '20250901' );
 		}
 		
 		/**
@@ -102,7 +101,7 @@ if ( !class_exists( 'Sydney_LifterLMS' ) ) :
 			$sidebar = 'sidebar-1';
 		
 			return $sidebar;
-		}	
+		}   
 		
 		/**
 		 * Catalog wrapper start
@@ -115,13 +114,13 @@ if ( !class_exists( 'Sydney_LifterLMS' ) ) :
 				$cols = 'col-md-9';
 			}
 
-			echo '<div id="primary" class="content-area llms-content-area ' . $this->loop_sidebars() . ' ' . $cols . '">';
+			echo '<div id="primary" class="content-area llms-content-area ' . esc_attr( $this->loop_sidebars() ) . ' ' . esc_attr( $cols ) . '">';
 				echo '<main id="main" class="site-main" role="main">';
 		}
 
 		/**
 		 * Catalog wrapper end
-		 */		
+		 */     
 		public function catalog_wrapper_end() {
 				echo '</main>';
 			echo '</div>';
@@ -139,8 +138,8 @@ if ( !class_exists( 'Sydney_LifterLMS' ) ) :
 		 */
 		public function loop_columns( $cols ) {
 
-			$course_cols 		= get_theme_mod( 'sydney_lifter_course_cols', 3 );
-			$membership_cols 	= get_theme_mod( 'sydney_lifter_membership_cols', 3 );
+			$course_cols        = get_theme_mod( 'sydney_lifter_course_cols', 3 );
+			$membership_cols    = get_theme_mod( 'sydney_lifter_membership_cols', 3 );
 
 			if ( is_post_type_archive( 'course' ) ) {
 				return $course_cols;
@@ -165,7 +164,7 @@ if ( !class_exists( 'Sydney_LifterLMS' ) ) :
 			}
 
 			return $sidebar;
-		}		
+		}       
 
 		/**
 		 * Remove sidebar from course/membership loops
@@ -193,17 +192,17 @@ if ( !class_exists( 'Sydney_LifterLMS' ) ) :
 			$custom .= "@media (min-width:991px) { .llms-loop-item .llms-loop-title { font-size:" . esc_attr( $sydney_lifter_loop_title_size ) . "px;} }"."\n";
 
 			$sydney_lifter_course_title_color = get_theme_mod( 'sydney_lifter_course_title_color' );
-			$custom .= ".single-course .hentry .title-post { color:" . esc_attr( $sydney_lifter_course_title_color ) . ";}"."\n";	
+			$custom .= ".single-course .hentry .title-post { color:" . esc_attr( $sydney_lifter_course_title_color ) . ";}"."\n";   
 			
 			$sydney_lifter_course_title_size = get_theme_mod( 'sydney_lifter_course_title_size', 36 );
-			$custom .= "@media (min-width:991px) { .single-course .hentry .title-post { font-size:" . esc_attr( $sydney_lifter_course_title_size ) . "px;} }"."\n";			
+			$custom .= "@media (min-width:991px) { .single-course .hentry .title-post { font-size:" . esc_attr( $sydney_lifter_course_title_size ) . "px;} }"."\n";         
 			
 			$sydney_lifter_course_accent_color = get_theme_mod( 'sydney_lifter_course_accent_color' );
 			$custom .= "div.llms-syllabus-wrapper h3,.llms-access-plan-title,.llms-instructor-info .llms-instructors .llms-author .avatar { background-color:" . esc_attr( $sydney_lifter_course_accent_color ) . ";}"."\n";
 			$custom .= "div.llms-instructor-info .llms-instructors .llms-author .avatar,.llms-instructor-info .llms-instructors .llms-author { border-color:" . esc_attr( $sydney_lifter_course_accent_color ) . ";}"."\n";
 
 			$sydney_lifter_lesson_title_color = get_theme_mod( 'sydney_lifter_lesson_title_color' );
-			$custom .= ".single-lesson .hentry .title-post { color:" . esc_attr( $sydney_lifter_lesson_title_color ) . ";}"."\n";	
+			$custom .= ".single-lesson .hentry .title-post { color:" . esc_attr( $sydney_lifter_lesson_title_color ) . ";}"."\n";   
 			
 			$sydney_lifter_lesson_title_size = get_theme_mod( 'sydney_lifter_lesson_title_size', 36 );
 			$custom .= "@media (min-width:991px) { .single-lesson .hentry .title-post { font-size:" . esc_attr( $sydney_lifter_lesson_title_size ) . "px;} }"."\n";

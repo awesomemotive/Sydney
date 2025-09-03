@@ -8,18 +8,18 @@
 class Sydney_List extends WP_Widget {
 
 	public function __construct() {
-		$widget_ops = array('classname' => 'widget_list', 'description' => __('A simple list widget', 'sydney'));
-		$control_ops = array('width' => 400, 'height' => 350);
+		$widget_ops = array( 'classname' => 'widget_list', 'description' => __('A simple list widget', 'sydney') );
+		$control_ops = array( 'width' => 400, 'height' => 350 );
 		parent::__construct('list', __('Sydney FP: List','sydney'), $widget_ops, $control_ops);
 	}
 
 	public function widget( $args, $instance ) {
 
-		$title 		= apply_filters( 'widget_title', empty( $instance['title'] ) ? '' : $instance['title'], $instance, $this->id_base );
-		$text 		= isset( $instance['text'] ) ? $instance['text'] : '';
-		$list 		= isset( $instance['list'] ) ? $instance['list'] : '';
-		$list 		= preg_replace( "/\^+(.*)?/i", "<ul class='roll-list'><li>$1</li></ul>", $list );
-		$list 		= preg_replace( "/(\<\/ul\>\n(.*)\<ul class='roll-list'\>*)+/", "", $list );
+		$title      = apply_filters( 'widget_title', empty( $instance['title'] ) ? '' : $instance['title'], $instance, $this->id_base );
+		$text       = isset( $instance['text'] ) ? $instance['text'] : '';
+		$list       = isset( $instance['list'] ) ? $instance['list'] : '';
+		$list       = preg_replace( "/\^+(.*)?/i", "<ul class='roll-list'><li>$1</li></ul>", $list );
+		$list       = preg_replace( "/(\<\/ul\>\n(.*)\<ul class='roll-list'\>*)+/", "", $list );
 		$button_url = isset( $instance['button_url'] ) ? esc_url($instance['button_url']) : '';
 		$button_text= isset( $instance['button_text'] ) ? esc_html($instance['button_text']) : '';
 
@@ -39,9 +39,9 @@ class Sydney_List extends WP_Widget {
 
 	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
-		$instance['title'] 			= strip_tags($new_instance['title']);
-		$instance['button_url'] 	= esc_url_raw($new_instance['button_url']);
-		$instance['button_text'] 	= strip_tags($new_instance['button_text']);
+		$instance['title']          = strip_tags($new_instance['title']);
+		$instance['button_url']     = esc_url_raw($new_instance['button_url']);
+		$instance['button_text']    = strip_tags($new_instance['button_text']);
 		if ( current_user_can('unfiltered_html') ) {
 			$instance['list'] =  $new_instance['list'];
 			$instance['text'] =  $new_instance['text'];
@@ -53,12 +53,12 @@ class Sydney_List extends WP_Widget {
 	}
 
 	public function form( $instance ) {
-		$instance 	= wp_parse_args( (array) $instance, array( 'title' => '', 'list' => '', 'text' => '', 'button_url' => '', 'button_text' => '' ) );
-		$title 		= strip_tags($instance['title']);
+		$instance   = wp_parse_args( (array) $instance, array( 'title' => '', 'list' => '', 'text' => '', 'button_url' => '', 'button_text' => '' ) );
+		$title      = strip_tags($instance['title']);
 		$button_url = esc_url($instance['button_url']);
 		$button_text= esc_html($instance['button_text']);
-		$text 		= esc_textarea($instance['text']);
-		$list 		= esc_textarea($instance['list']);
+		$text       = esc_textarea($instance['text']);
+		$list       = esc_textarea($instance['list']);
 ?>
 		<p><label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:', 'sydney'); ?></label>
 		<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr($title); ?>" /></p>

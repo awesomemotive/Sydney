@@ -3,16 +3,15 @@
 class Sydney_Latest_News extends WP_Widget {
 
 	public function __construct() {
-		$widget_ops = array('classname' => 'sydney_latest_news_widget', 'description' => __( 'Show the latest news from your blog.', 'sydney') );
+		$widget_ops = array( 'classname' => 'sydney_latest_news_widget', 'description' => __( 'Show the latest news from your blog.', 'sydney') );
         parent::__construct(false, $name = __('Sydney FP: Latest News', 'sydney'), $widget_ops);
 		$this->alt_option_name = 'sydney_latest_news_widget';
-		
     }
 	
 	function form($instance) {
-		$title     		= isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : '';
-		$category  		= isset( $instance['category'] ) ? esc_attr( $instance['category'] ) : '';
-		$see_all_text  	= isset( $instance['see_all_text'] ) ? esc_html( $instance['see_all_text'] ) : '';											
+		$title          = isset( $instance['title'] ) ? esc_attr( $instance['title'] ) : '';
+		$category       = isset( $instance['category'] ) ? esc_attr( $instance['category'] ) : '';
+		$see_all_text   = isset( $instance['see_all_text'] ) ? esc_html( $instance['see_all_text'] ) : '';                                          
 	?>
 
 	<p>
@@ -31,9 +30,9 @@ class Sydney_Latest_News extends WP_Widget {
 
 	function update($new_instance, $old_instance) {
 		$instance = $old_instance;
-		$instance['title'] 			= strip_tags($new_instance['title']);
-		$instance['category'] 		= strip_tags($new_instance['category']);
-		$instance['see_all_text'] 	= strip_tags($new_instance['see_all_text']);						
+		$instance['title']          = strip_tags($new_instance['title']);
+		$instance['category']       = strip_tags($new_instance['category']);
+		$instance['see_all_text']   = strip_tags($new_instance['see_all_text']);                        
 
 		return $instance;
 	}
@@ -56,8 +55,8 @@ class Sydney_Latest_News extends WP_Widget {
 		$r = new WP_Query( array(
 			'no_found_rows'       => true,
 			'post_status'         => 'publish',
-			'posts_per_page'	  => 3,
-			'category_name'		  => $category
+			'posts_per_page'      => 3,
+			'category_name'       => $category,
 		) );
 
 		echo $args['before_widget'];
@@ -92,5 +91,4 @@ class Sydney_Latest_News extends WP_Widget {
 
 		endif;
 	}
-	
 }

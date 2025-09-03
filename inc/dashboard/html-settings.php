@@ -27,14 +27,14 @@ if  ( empty( $this->settings['settings'] ) ) {
                         <nav class="sydney-dashboard-tabs-nav sydney-dashboard-tabs-nav-vertical sydney-dashboard-tabs-nav-with-icons sydney-dashboard-tabs-nav-no-negative-margin" data-tab-wrapper-id="settings-tab">
                             <ul>
                                 <?php foreach ( $this->settings['settings'] as $tab_id => $tab_title ) : 
-                                    $current_tab = (isset($_GET['current_tab'])) ? sanitize_text_field(wp_unslash($_GET['current_tab'])) : key(array_slice($this->settings['settings'], 0, 1)); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+                                    $current_tab = (isset($_GET['current_tab'])) ? sanitize_text_field(wp_unslash($_GET['current_tab'])) : key(array_slice($this->settings['settings'], 0, 1)); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited, WordPress.Security.NonceVerification.Recommended
                                     $tab_active  = ( ($current_tab && $current_tab === $tab_id) || (!$current_tab && $tab_id === 'general' ) ) ? ' active' : '';
 
                                     ?>
 
                                     <li class="sydney-dashboard-tabs-nav-item<?php echo esc_attr( $tab_active ); ?>">
                                         <a href="#" class="sydney-dashboard-tabs-nav-link" data-tab-to="settings-tab-<?php echo esc_attr( $tab_id ); ?>">
-                                            <?php echo sydney_dashboard_get_setting_icon( $tab_id ); ?>
+                                            <?php echo sydney_dashboard_get_setting_icon( $tab_id ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
                                             <?php echo esc_html( $tab_title ); ?>
                                         </a>
                                     </li>
@@ -47,7 +47,7 @@ if  ( empty( $this->settings['settings'] ) ) {
                     <div class="sydney-dashboard-column sydney-dashboard-column-10">
 
                         <?php 
-						$current_tab = ( isset( $_GET['current_tab'] ) ) ? sanitize_text_field( wp_unslash( $_GET['current_tab'] ) ) : '';
+						$current_tab = ( isset( $_GET['current_tab'] ) ) ? sanitize_text_field( wp_unslash( $_GET['current_tab'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
 						foreach( $this->settings[ 'settings' ] as $tab_id => $tab_title ) : 
 							$tab_active = ( ($current_tab && $current_tab === $tab_id) || (!$current_tab && $tab_id === 'general') ) ? ' active' : '';

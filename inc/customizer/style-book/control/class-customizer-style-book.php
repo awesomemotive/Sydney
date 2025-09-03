@@ -19,7 +19,7 @@ final class Sydney_Customizer_Style_Book {
 		static $instance = null;
 
 		if ( is_null( $instance ) ) {
-			$instance = new self;
+			$instance = new self();
 			$instance->setup_actions();
 		}
 
@@ -88,7 +88,7 @@ final class Sydney_Customizer_Style_Book {
 	 * @return void
 	 */
 	public function enqueue_control_scripts() {
-		wp_enqueue_script( 'sydney-stylebook-customize-controls', trailingslashit( get_template_directory_uri() ) . 'inc/customizer/style-book/control/customize-controls.js', array( 'customize-controls' ) );
+		wp_enqueue_script( 'sydney-stylebook-customize-controls', trailingslashit( get_template_directory_uri() ) . 'inc/customizer/style-book/control/customize-controls.js', array( 'customize-controls' ), '20250902', true );
 	}
 }
 
