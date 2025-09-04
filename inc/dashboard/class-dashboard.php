@@ -908,7 +908,7 @@ class Sydney_Dashboard
 						$section = ( isset( $_GET['tab'] ) ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
 						foreach( $this->settings[ 'tabs' ] as $tab_id => $tab_title ) : 
-							$tab_active = (($tab && $tab === $tab_id) || (!$section && $tab_id === 'home')) ? ' active' : '';
+							$tab_active = (($section && $section === $tab_id) || (!$section && $tab_id === 'home')) ? ' active' : '';
 
 							?>	
                             <div class="sydney-dashboard-tab-content-wrapper" data-tab-wrapper-id="main">					
