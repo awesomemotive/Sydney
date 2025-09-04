@@ -271,15 +271,18 @@ function sydney_dashboard_settings()
 	);
 	//Start Pro Features
 
-	$settings['features'][] = array(
-		'category'   => 'header',
-		'type'       => 'pro',
-		'title'      => esc_html__('Top bar', 'sydney'),
-		'desc'       => esc_html__('Customize the top bar of your theme.', 'sydney'),
-		'link_label' => esc_html__('Customize', 'sydney'),
-		'docs_link'   => 'https://docs.athemes.com/article/pro-how-to-configure-the-top-bar/',
-		'link_url'   => add_query_arg('autofocus[section]', 'sydney_section_top_bar', admin_url('customize.php')),
-	);
+	// Add top bar option only if header/footer builder is NOT active
+	if ( ! Sydney_Modules::is_module_active( 'hf-builder' ) ) {
+		$settings['features'][] = array(
+			'category'   => 'header',
+			'type'       => 'pro',
+			'title'      => esc_html__('Top bar', 'sydney'),
+			'desc'       => esc_html__('Customize the top bar of your theme.', 'sydney'),
+			'link_label' => esc_html__('Customize', 'sydney'),
+			'docs_link'   => 'https://docs.athemes.com/article/pro-how-to-configure-the-top-bar/',
+			'link_url'   => add_query_arg('autofocus[section]', 'sydney_section_top_bar', admin_url('customize.php')),
+		);
+	}
 	$settings['features'][] = array(
 		'category'    => 'general',
 		'module'      => 'templates',
