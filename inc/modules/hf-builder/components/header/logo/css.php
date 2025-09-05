@@ -43,7 +43,7 @@ $css .= Sydney_Custom_CSS::get_responsive_css(
 
 if( sydney_callback_sticky_header() ) {
     // Sticky Header - Site TItle Color
-    $css .= Sydney_Custom_CSS::get_color_css( 'site_title_sticky_color', '', '.sticky-header-active .shfb .site-title a' );
+    $css .= Sydney_Custom_CSS::get_color_css( 'site_title_sticky_color', '', '.sticky-header-active .shfb .site-branding .site-title a' );
     
     // Sticky Header - Site Description Color
     $css .= Sydney_Custom_CSS::get_color_css( 'site_description_sticky_color', '', '.sticky-header-active .shfb .site-description' );
