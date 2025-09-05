@@ -519,7 +519,7 @@ function sydney_hf_mobile_offcanvas_background() {
         'mobile_offcanvas_menu_submenu_color',
         'mobile_offcanvas_menu_submenu_color_hover',
         'shfb_mobile_offcanvas_close_text_color',
-        'shfb_mobile_offcanvas_close_text_color_hover'
+        'shfb_mobile_offcanvas_close_text_color_hover',
     );
 
     foreach ( $settings as $setting ) {
