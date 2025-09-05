@@ -490,3 +490,50 @@ function sydney_hf_border_opacity_defaults() {
     set_theme_mod( 'sydney_hf_border_opacity_defaults', true );
 }
 add_action( 'after_switch_theme', 'sydney_hf_border_opacity_defaults' );
+
+/**
+ * Set mobile offcanvas background color defaults
+ * 
+ * The goal here is to change the offcanvas background color to #00102E if it is not set or is #FFF.
+ * 
+ * @since 2.57
+ */
+function sydney_hf_mobile_offcanvas_background() {
+    $flag = get_theme_mod( 'sydney_hf_mobile_offcanvas_background_flag', false );
+
+    if ( true === $flag ) {
+        return;
+    }
+
+    // Only update colors if offcanvas background is white/light or not set
+    $offcanvas_background = get_theme_mod( 'offcanvas_menu_background' );
+    
+    if ( '#FFF' !== $offcanvas_background && false !== $offcanvas_background ) {
+        set_theme_mod( 'sydney_hf_mobile_offcanvas_background_flag', true );
+        return;
+    }
+
+    $settings = array(
+        'mobile_offcanvas_menu_color',
+        'mobile_offcanvas_menu_color_hover',
+        'mobile_offcanvas_menu_submenu_color',
+        'mobile_offcanvas_menu_submenu_color_hover',
+        'shfb_mobile_offcanvas_close_text_color',
+        'shfb_mobile_offcanvas_close_text_color_hover'
+    );
+
+    foreach ( $settings as $setting ) {
+        // return if any of the settings is not #ffffff
+        if ( '#ffffff' !== get_theme_mod( $setting ) && false !== get_theme_mod( $setting ) ) {
+            set_theme_mod( 'sydney_hf_mobile_offcanvas_background_flag', true );
+            return;
+        }
+    }
+
+    // Set the offcanvas background to #00102E
+    set_theme_mod( 'offcanvas_menu_background', '#00102E' );
+
+    // Set flag
+    set_theme_mod( 'sydney_hf_mobile_offcanvas_background_flag', true );
+}
+add_action( 'init', 'sydney_hf_mobile_offcanvas_background' );
