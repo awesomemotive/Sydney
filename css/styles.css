@@ -431,18 +431,12 @@ Repeatable Patterns
 	textarea,
 	input[type="text"],
 	input[type="password"],
-	input[type="datetime"],
-	input[type="datetime-local"],
 	input[type="date"],
-	input[type="month"],
-	input[type="time"],
-	input[type="week"],
 	input[type="number"],
 	input[type="email"],
 	input[type="url"],
 	input[type="search"],
 	input[type="tel"],
-	input[type="color"],
 	div.wpforms-container-full:not(.wpforms-block) .wpforms-form input[type=date], div.wpforms-container-full:not(.wpforms-block) .wpforms-form input[type=datetime], div.wpforms-container-full:not(.wpforms-block) .wpforms-form input[type=datetime-local], div.wpforms-container-full:not(.wpforms-block) .wpforms-form input[type=email], div.wpforms-container-full:not(.wpforms-block) .wpforms-form input[type=month], div.wpforms-container-full:not(.wpforms-block) .wpforms-form input[type=number], div.wpforms-container-full:not(.wpforms-block) .wpforms-form input[type=password], div.wpforms-container-full:not(.wpforms-block) .wpforms-form input[type=range], div.wpforms-container-full:not(.wpforms-block) .wpforms-form input[type=search], div.wpforms-container-full:not(.wpforms-block) .wpforms-form input[type=tel], div.wpforms-container-full:not(.wpforms-block) .wpforms-form input[type=text], div.wpforms-container-full:not(.wpforms-block) .wpforms-form input[type=time], div.wpforms-container-full:not(.wpforms-block) .wpforms-form input[type=url], div.wpforms-container-full:not(.wpforms-block) .wpforms-form input[type=week], div.wpforms-container-full:not(.wpforms-block) .wpforms-form select, div.wpforms-container-full:not(.wpforms-block) .wpforms-form textarea {
 		color: var(--sydney-grey-color);
 		border: 1px solid var(--sydney-border-color);
@@ -454,18 +448,12 @@ Repeatable Patterns
 	textarea:focus,
 	input[type="text"]:focus,
 	input[type="password"]:focus,
-	input[type="datetime"]:focus,
-	input[type="datetime-local"]:focus,
 	input[type="date"]:focus,
-	input[type="month"]:focus,
-	input[type="time"]:focus,
-	input[type="week"]:focus,
 	input[type="number"]:focus,
 	input[type="email"]:focus,
 	input[type="url"]:focus,
 	input[type="search"]:focus,
-	input[type="tel"]:focus,
-	input[type="color"]:focus {
+	input[type="tel"]:focus {
 		box-shadow: none;
 	}
 	textarea {
@@ -2222,18 +2210,12 @@ div.wpforms-container-full:not(.wpforms-block) .wpforms-form .wpforms-page-butto
 textarea:focus,
 input[type="text"]:focus,
 input[type="password"]:focus,
-input[type="datetime"]:focus,
-input[type="datetime-local"]:focus,
 input[type="date"]:focus,
-input[type="month"]:focus,
-input[type="time"]:focus,
-input[type="week"]:focus,
 input[type="number"]:focus,
 input[type="email"]:focus,
 input[type="url"]:focus,
 input[type="search"]:focus,
-input[type="tel"]:focus,
-input[type="color"]:focus {
+input[type="tel"]:focus {
 	border: 1px solid var(--sydney-global-color-1);
 }
 #mainnav > ul > li > a.active,
