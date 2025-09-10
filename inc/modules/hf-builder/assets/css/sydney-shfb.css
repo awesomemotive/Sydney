@@ -445,6 +445,14 @@
   width: 100%
 }
 
+.sydney-dropdown li ul li .sydney-dropdown-ul {
+  visibility: hidden;
+}
+
+.sydney-dropdown li ul li:hover > .sydney-dropdown-ul {
+  visibility: visible;
+}
+
 .sydney-dropdown.main-navigation>div#primary-menu>ul {
   list-style: none;
   padding: 0
