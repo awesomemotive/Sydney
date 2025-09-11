@@ -39,7 +39,7 @@ class Sydney_Typography_Control extends WP_Customize_Control {
 			}
 			// Get the list of Google fonts
 			if ( isset( $this->input_attrs['font_count'] ) ) {
-				if ( 'all' != strtolower( $this->input_attrs['font_count'] ) ) {
+				if ( 'all' !== strtolower( $this->input_attrs['font_count'] ) ) {
 					$this->fontCount = ( abs( (int) $this->input_attrs['font_count'] ) > 0 ? abs( (int) $this->input_attrs['font_count'] ) : 'all' );
 				}
 			}
@@ -108,7 +108,7 @@ class Sydney_Typography_Control extends WP_Customize_Control {
 
 					<div class="range-slider-wrapper cols2-control">
 					<div class="font-control-title w50"><strong><?php esc_html_e( 'Font weight', 'sydney' ) ?></strong></div>
-					<?php if ( $this->input_attrs['disableRegular'] == false ) : ?>
+					<?php if ( $this->input_attrs['disableRegular'] === false ) : ?>
 						<select class="google-fonts-regularweight-style w50">
 							<?php
 								foreach( $this->fontList[$this->fontListIndex]->variants as $key => $value ) {
@@ -130,7 +130,7 @@ class Sydney_Typography_Control extends WP_Customize_Control {
 		 */
 		public function get_font_index( $haystack, $needle ) {
 			foreach( $haystack as $key => $value ) {
-				if( $value->family == $needle ) {
+				if( $value->family === $needle ) {
 					return $key;
 				}
 			}

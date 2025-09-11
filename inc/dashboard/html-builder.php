@@ -13,10 +13,10 @@ if (!defined('ABSPATH')) {
 $existing_parts = $this->get_template_parts();
 
 $parts = array( 
-	'header' 		=> __( 'Header', 'sydney' ),
-	'page_title' 	=> __( 'Page Title', 'sydney' ),
-	'content' 		=> __( 'Content', 'sydney' ),
-	'footer' 		=> __( 'Footer', 'sydney' ),
+	'header'        => __( 'Header', 'sydney' ),
+	'page_title'    => __( 'Page Title', 'sydney' ),
+	'content'       => __( 'Content', 'sydney' ),
+	'footer'        => __( 'Footer', 'sydney' ),
 );
 
 //disabled links in free
@@ -48,13 +48,13 @@ $disabled = !$this->settings['has_pro'] ? 'style="pointer-events:none;"' : '';
 
 				if ( !is_array( $custom_templates ) && empty( $custom_templates ) ) {
 					$templates['global'] = array(
-						'id' 			=> 'global',
+						'id'            => 'global',
 						'template_name' => 'Global',
-						'conditions' 	=> '',
-						'header' 		=> '',
-						'page_title' 	=> '',
-						'content' 		=> '',
-						'footer' 		=> '',
+						'conditions'    => '',
+						'header'        => '',
+						'page_title'    => '',
+						'content'       => '',
+						'footer'        => '',
 					);
 				} else {
 					$templates = $custom_templates;
@@ -91,8 +91,8 @@ $disabled = !$this->settings['has_pro'] ? 'style="pointer-events:none;"' : '';
 								<h4 style="margin-top:12px;margin-bottom:0;"><?php echo esc_html__('Global Template', 'sydney'); ?></h4>
 								<?php endif; ?>
 
-								<div class="template-options" style="display: <?php echo ( isset( $template['id'] ) && 'global' == $template['id'] ) ? 'none' : 'block'; ?>">
-									<div class="sydney-display-conditions-control" data-condition-settings="<?php echo esc_attr( json_encode( $settings ) ); ?>">
+								<div class="template-options" style="display: <?php echo ( isset( $template['id'] ) && 'global' === $template['id'] ) ? 'none' : 'block'; ?>">
+									<div class="sydney-display-conditions-control" data-condition-settings="<?php echo esc_attr( wp_json_encode( $settings ) ); ?>">
 										<a href="#" title="<?php esc_attr_e( 'Display conditions', 'sydney' ); ?>" class="sydney-display-conditions-modal-toggle"><span class="dashicons dashicons-admin-generic"></span><span style="min-width:120px;margin-left:-60px;" class="tooltip"><?php esc_html_e( 'Display conditions', 'sydney' ); ?></span></a>
 										<div class="sydney-display-conditions-modal">
 										<!-- Modal content goes here -->
@@ -105,12 +105,20 @@ $disabled = !$this->settings['has_pro'] ? 'style="pointer-events:none;"' : '';
 							</div>
 
 							<?php 
-							foreach ( $parts as $type => $part ) : ?>
-							<div class="template-part <?php echo esc_attr( $type ); ?>" data-page-builder="<?php echo !empty( $template[$type . '_builder'] ) ? $template[$type . '_builder'] : ''; ?>" data-part-type="<?php echo esc_attr( $type ); ?>" data-part-active="<?php echo !empty( $template[$type] ) ? 'active' : 'inactive'; ?>">
+							foreach ( $parts as $template_type => $part ) : ?>
+							<div class="template-part <?php echo esc_attr( $template_type ); ?>" data-page-builder="<?php echo !empty( $template[$template_type . '_builder'] ) ? esc_attr( $template[$template_type . '_builder'] ) : ''; ?>" data-part-type="<?php echo esc_attr( $template_type ); ?>" data-part-active="<?php echo !empty( $template[$template_type] ) ? 'active' : 'inactive'; ?>">
 								<div class="template-part-inner">
 									<span class="part-title">
-										<span class="not-selected" style="display:<?php echo !empty( $template[$type] ) ? 'none' : 'block'; ?>;"><?php echo sprintf( __( 'Select %s', 'sydney' ), $part ); ?></span>
-										<span class="selected" style="display:<?php echo !empty( $template[$type] ) ? 'block' : 'none'; ?>;"><span class="dashicons dashicons-yes-alt"></span><?php echo sprintf( __( '%s Selected', 'sydney' ), $part ); ?></span>
+										<span class="not-selected" style="display:<?php echo !empty( $template[$template_type] ) ? 'none' : 'block'; ?>;">
+											<?php 
+											// translators: %s is the template type
+											printf( esc_html__( 'Select %s', 'sydney' ), esc_attr( $part ) ); ?>
+										</span>
+										<span class="selected" style="display:<?php echo !empty( $template[$template_type] ) ? 'block' : 'none'; ?>;"><span class="dashicons dashicons-yes-alt"></span>
+										<?php 
+										// translators: %s is the template type
+										printf( esc_html__( '%s Selected', 'sydney' ), esc_attr( $part ) ); ?>
+									</span>
 									</span>
 									<div class="part-options" style="display:none;">
 										<span class="select-existing"><?php esc_html_e( 'Select Existing', 'sydney' ); ?></span>
@@ -119,18 +127,18 @@ $disabled = !$this->settings['has_pro'] ? 'style="pointer-events:none;"' : '';
 										<span class="reset"><?php esc_html_e( 'Reset', 'sydney' ); ?></span>
 									</div>
 
-									<input class="part-id" type="hidden" name="<?php echo esc_attr( $type ); ?>" value="<?php echo isset( $template[$type] ) ? esc_attr( $template[$type] ) : ''; ?>">
+									<input class="part-id" type="hidden" name="<?php echo esc_attr( $template_type ); ?>" value="<?php echo isset( $template[$template_type] ) ? esc_attr( $template[$template_type] ) : ''; ?>">
 								</div>
 								<div class="part-options-toggle">
 									<span class="dashicons dashicons-ellipsis"></span>
 								</div>
-								<?php echo $this->existing_parts_select( $existing_parts ); ?>
+								<?php echo $this->existing_parts_select( $existing_parts ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 								<div class="page-builder-wrapper" style="display:none;">
 									<span class="page-builder-title"><?php esc_html_e( 'Choose your builder:', 'sydney' ); ?></span>
 									<?php if ( class_exists( 'Elementor\Plugin' ) ) : ?>
-									<span class="elementor"><span <?php echo $disabled; ?> class="create-new" data-page-builder="elementor"><?php sydney_get_svg_icon( 'icon-elementor', true ); ?><?php esc_html_e( 'Elementor', 'sydney' ); ?></span></span>
+									<span class="elementor"><span <?php echo $disabled;  // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> class="create-new" data-page-builder="elementor"><?php sydney_get_svg_icon( 'icon-elementor', true ); ?><?php esc_html_e( 'Elementor', 'sydney' ); ?></span></span>
 									<?php endif; ?>
-									<span class="editor"><span <?php echo $disabled; ?> class="create-new" data-page-builder="editor"><?php sydney_get_svg_icon( 'icon-wordpress', true ); ?><?php esc_html_e( 'WordPress Editor', 'sydney' ); ?></span></span>
+									<span class="editor"><span <?php echo $disabled;  // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> class="create-new" data-page-builder="editor"><?php sydney_get_svg_icon( 'icon-wordpress', true ); ?><?php esc_html_e( 'WordPress Editor', 'sydney' ); ?></span></span>
 								</div>						
 							</div>
 							<?php endforeach; ?>
@@ -153,7 +161,7 @@ $disabled = !$this->settings['has_pro'] ? 'style="pointer-events:none;"' : '';
 			</div>
 			
 			<div class="buttons" style="display:flex;">
-				<button class="button button-primary" id="save-templates" <?php echo $disabled; ?>><?php esc_html_e( 'Save', 'sydney' ); ?></button>
+				<button class="button button-primary" id="save-templates" <?php echo $disabled;  // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>><?php esc_html_e( 'Save', 'sydney' ); ?></button>
 			</div>
 
 			<div class="sydney-elementor-iframe-wrapper" style="display:none;">

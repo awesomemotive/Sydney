@@ -111,7 +111,9 @@ function sydney_header_update_notice_1_8_1() {
             <?php esc_html_e( 'Note 4: Please take a full backup of your website before upgrading.', 'sydney' ); ?>
         </p>             
         <p>
-            <?php echo sprintf( esc_html__( 'Want to see the new header options before upgrading? Check out our %s.', 'sydney' ), '<a target="_blank" href="https://docs.athemes.com/collection/370-sydney">documentation</a>' ); ?>
+            <?php
+            /* translators: %s: Documentation link */
+            printf( esc_html__( 'Want to see the new header options before upgrading? Check out our %s.', 'sydney' ), '<a target="_blank" href="https://docs.athemes.com/collection/370-sydney">documentation</a>' ); ?>
         </p>
         <a href="#" class="button sydney-update-header" data-nonce="<?php echo esc_attr( wp_create_nonce( 'sydney-update-header-nonce' ) ); ?>" style="margin-top: 15px;"><?php esc_html_e( 'Upgrade Theme Header', 'sydney' ); ?></a>
         <a href="#" class="button sydney-update-header-dismiss" data-nonce="<?php echo esc_attr( wp_create_nonce( 'sydney-update-header-dismiss-nonce' ) ); ?>" style="margin-top: 15px;"><?php esc_html_e( 'Continue to use the old header', 'sydney' ); ?></a> 
@@ -132,7 +134,7 @@ function sydney_header_update_notice_1_8_1_callback() {
 	update_option( 'sydney-update-header', true );
 
 	wp_send_json( array(
-		'success' => true
+		'success' => true,
 	) );
 }
 add_action( 'wp_ajax_sydney_header_update_notice_1_8_1_callback', 'sydney_header_update_notice_1_8_1_callback' );
@@ -148,7 +150,7 @@ function sydney_header_update_dismiss_notice_1_8_2_callback() {
 	update_option( 'sydney-update-header-dismiss', true );
 
 	wp_send_json( array(
-		'success' => true
+		'success' => true,
 	) );
 }
 add_action( 'wp_ajax_sydney_header_update_dismiss_notice_1_8_2_callback', 'sydney_header_update_dismiss_notice_1_8_2_callback' );
@@ -171,11 +173,11 @@ function sydney_migrate_typography() {
 
     if ( 'Raleway' !== $body_font ) {
 
-        $body_font_family = json_encode(
+        $body_font_family = wp_json_encode(
             array(
-                'font' 			=> $body_font,
+                'font'          => $body_font,
                 'regularweight' => 'regular',
-                'category' 		=> 'sans-serif'
+                'category'      => 'sans-serif',
             )
         );        
         
@@ -187,11 +189,11 @@ function sydney_migrate_typography() {
 
     if ( 'Raleway' !== $headings_font ) {
 
-        $headings_font_family = json_encode(
+        $headings_font_family = wp_json_encode(
             array(
-                'font' 			=> $headings_font,
+                'font'          => $headings_font,
                 'regularweight' => '600',
-                'category' 		=> 'sans-serif'
+                'category'      => 'sans-serif',
             )
         );        
         
@@ -393,8 +395,12 @@ function sydney_hf_update_notice_2_52() {
         </p>            
         <p>
             <?php 
-            /* translators: 1: documentation link. */
-            printf( esc_html__( 'Want to see the new header and footer builder before upgrading? Check out our %s.', 'sydney' ), '<a target="_blank" href="https://docs.athemes.com/article/header-footer-builder-2/">documentation</a>' ); ?>
+            printf(
+                /* translators: %s: Documentation link */
+                esc_html__( 'Want to see the new header and footer builder before upgrading? Check out our %s.', 'sydney' ),
+                '<a target="_blank" href="https://docs.athemes.com/article/header-footer-builder-2/">documentation</a>'
+            );
+            ?>
         </p>
         <a href="#" class="button sydney-update-hf" data-nonce="<?php echo esc_attr( wp_create_nonce( 'sydney-update-hf-nonce' ) ); ?>" style="margin-top: 15px;"><?php esc_html_e( 'Update theme header and footer', 'sydney' ); ?></a>
         <a href="#" class="button sydney-update-hf-dismiss" data-nonce="<?php echo esc_attr( wp_create_nonce( 'sydney-update-hf-dismiss-nonce' ) ); ?>" style="margin-top: 15px;"><?php esc_html_e( 'Continue to use the old header and footer system', 'sydney' ); ?></a> 
@@ -484,3 +490,50 @@ function sydney_hf_border_opacity_defaults() {
     set_theme_mod( 'sydney_hf_border_opacity_defaults', true );
 }
 add_action( 'after_switch_theme', 'sydney_hf_border_opacity_defaults' );
+
+/**
+ * Set mobile offcanvas background color defaults
+ * 
+ * The goal here is to change the offcanvas background color to #00102E if it is not set or is #FFF.
+ * 
+ * @since 2.57
+ */
+function sydney_hf_mobile_offcanvas_background() {
+    $flag = get_theme_mod( 'sydney_hf_mobile_offcanvas_background_flag', false );
+
+    if ( true === $flag ) {
+        return;
+    }
+
+    // Only update colors if offcanvas background is white/light or not set
+    $offcanvas_background = get_theme_mod( 'offcanvas_menu_background' );
+    
+    if ( '#FFF' !== $offcanvas_background && false !== $offcanvas_background ) {
+        set_theme_mod( 'sydney_hf_mobile_offcanvas_background_flag', true );
+        return;
+    }
+
+    $settings = array(
+        'mobile_offcanvas_menu_color',
+        'mobile_offcanvas_menu_color_hover',
+        'mobile_offcanvas_menu_submenu_color',
+        'mobile_offcanvas_menu_submenu_color_hover',
+        'shfb_mobile_offcanvas_close_text_color',
+        'shfb_mobile_offcanvas_close_text_color_hover',
+    );
+
+    foreach ( $settings as $setting ) {
+        // return if any of the settings is not #ffffff
+        if ( '#ffffff' !== get_theme_mod( $setting ) && false !== get_theme_mod( $setting ) ) {
+            set_theme_mod( 'sydney_hf_mobile_offcanvas_background_flag', true );
+            return;
+        }
+    }
+
+    // Set the offcanvas background to #00102E
+    set_theme_mod( 'offcanvas_menu_background', '#00102E' );
+
+    // Set flag
+    set_theme_mod( 'sydney_hf_mobile_offcanvas_background_flag', true );
+}
+add_action( 'init', 'sydney_hf_mobile_offcanvas_background' );

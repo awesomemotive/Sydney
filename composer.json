@@ -1,0 +1,32 @@
+{
+  "name": "athemes/sydney",
+  "description": "Sydney is a modern, clean, and responsive theme that is perfect for any website.",
+  "license": "GPL-3.0-or-later",
+  "homepage": "https://athemes.com/theme/sydney",
+  "authors": [
+    {
+      "name": "Vlad",
+      "email": "vlad@athemes.com",
+      "homepage": "https://athemes.com"
+    }
+  ],
+  "scripts": {
+    "phpcs": "@php ./vendor/bin/phpcs",
+    "phpcs:fix": "@php ./vendor/bin/phpcbf",
+    "run-tests": [
+      "@phpcs:fix",
+      "@phpcs"
+    ]
+  },
+  "require-dev": {
+    "dealerdirect/phpcodesniffer-composer-installer": "1.1.2",
+    "wp-coding-standards/wpcs": "3.2.0",
+    "woocommerce/woocommerce-sniffs": "1.0",
+    "phpcompatibility/phpcompatibility-wp": "2.1.7"
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  }
+}

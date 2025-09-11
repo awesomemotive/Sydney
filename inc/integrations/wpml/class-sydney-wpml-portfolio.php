@@ -10,14 +10,14 @@ class Sydney_Pro_WPML_Elementor_Portfolio extends WPML_Elementor_Module_With_Ite
 	 * @return string
 	 */
 	public function get_items_field() {
-	   return 'portfolio_list';
+		return 'portfolio_list';
 	}
    
 	/**
 	 * @return array
 	 */
 	public function get_fields() {
-	   return array( 'title', 'term', 'link' => array( 'url' ), );
+		return array( 'title', 'term', 'link' => array( 'url' ) );
 	}
    
 	/**
@@ -26,7 +26,7 @@ class Sydney_Pro_WPML_Elementor_Portfolio extends WPML_Elementor_Module_With_Ite
 	 * @return string
 	 */
 	protected function get_title( $field ) {
-	   switch( $field ) {
+		switch( $field ) {
 			case 'title':
 				return esc_html__( '[aThemes Portfolio] Title', 'sydney' );
    
@@ -38,7 +38,7 @@ class Sydney_Pro_WPML_Elementor_Portfolio extends WPML_Elementor_Module_With_Ite
    
 			default:
 				return '';
-	   }
+		}
 	}
    
 	/**
@@ -47,15 +47,14 @@ class Sydney_Pro_WPML_Elementor_Portfolio extends WPML_Elementor_Module_With_Ite
 	 * @return string
 	 */
 	protected function get_editor_type( $field ) {
-	   switch( $field ) {
+		switch( $field ) {
 			case 'title':
 			case 'term':
-			case 'link':	
+			case 'link':    
 				return 'LINE';
    
 			default:
 				return '';
-	   }
+		}
 	}
-
 }

@@ -11,7 +11,7 @@ if ( !class_exists( 'Sydney_Posts_Archive' ) ) :
 
 		/**
 		 * Instance
-		 */		
+		 */     
 		private static $instance;
 
 		/**
@@ -19,7 +19,7 @@ if ( !class_exists( 'Sydney_Posts_Archive' ) ) :
 		 */
 		public static function get_instance() {
 			if ( ! isset( self::$instance ) ) {
-				self::$instance = new self;
+				self::$instance = new self();
 			}
 			return self::$instance;
 		}
@@ -50,7 +50,7 @@ if ( !class_exists( 'Sydney_Posts_Archive' ) ) :
 			}
 
 			$sidebar = get_theme_mod( 'sidebar_archives', 0 );
-			if ( 0 == $sidebar ) {
+			if ( 0 == $sidebar ) { // phpcs:ignore Universal.Operators.StrictComparisons.LooseEqual
 				add_filter( 'sydney_content_class', function() { return 'no-sidebar'; } );
 				add_filter( 'sydney_sidebar', '__return_false' );
 			}
@@ -60,9 +60,9 @@ if ( !class_exists( 'Sydney_Posts_Archive' ) ) :
 
 		public function post_classes( $classes ) {
 			$text_align = get_theme_mod( 'archive_text_align', 'left' );
-			$columns 	= get_theme_mod( 'archives_grid_columns', '3' );
-			$columns	= 'col-lg-' . 12/$columns . ' col-md-' . 12/$columns;
-			$classes[] 	= 'post-align-' . esc_attr( $text_align );
+			$columns    = get_theme_mod( 'archives_grid_columns', '3' );
+			$columns    = 'col-lg-' . 12/$columns . ' col-md-' . 12/$columns;
+			$classes[]  = 'post-align-' . esc_attr( $text_align );
 
 			$vertical_align = get_theme_mod( 'archives_list_vertical_alignment', 'middle' );
 			$classes[] = 'post-vertical-align-' . esc_attr( $vertical_align );
@@ -98,9 +98,9 @@ if ( !class_exists( 'Sydney_Posts_Archive' ) ) :
 		 */
 		public function post_markup() {
 
-			$layout 			= $this->blog_layout();
-			$image_placement 	= get_theme_mod( 'archive_list_image_placement', 'left' );
-			$meta_position 		= get_theme_mod( 'archive_meta_position', 'above-title' );
+			$layout             = $this->blog_layout();
+			$image_placement    = get_theme_mod( 'archive_list_image_placement', 'left' );
+			$meta_position      = get_theme_mod( 'archive_meta_position', 'above-title' );
 
 			switch ( $layout ) {
 				case 'layout3':
@@ -117,33 +117,33 @@ if ( !class_exists( 'Sydney_Posts_Archive' ) ) :
 
 					break;
 
-				case 'layout1':	
+				case 'layout1': 
 					$this->post_image();
 					if ( 'above-title' === $meta_position ) {
 						$this->post_meta( $meta_position );
 					}
 					$this->post_title();
-					$this->post_excerpt();	
+					$this->post_excerpt();  
 					if ( 'below-excerpt' === $meta_position ) {
 						$this->post_meta( $meta_position );
 					}
 
 					break;
 
-				case 'layout2':	
+				case 'layout2': 
 					if ( 'above-title' === $meta_position ) {
 						$this->post_meta( $meta_position );
 					}
 					$this->post_title();
 					$this->post_image();
-					$this->post_excerpt();	
+					$this->post_excerpt();  
 					if ( 'below-excerpt' === $meta_position ) {
 						$this->post_meta( $meta_position );
 					}
 
-					break;	
+					break;  
 					
-				case 'layout4':	
+				case 'layout4': 
 				case 'layout6':
 					echo '<div class="list-image image-' . esc_attr( $image_placement ) . '">';
 					$this->post_image();
@@ -157,10 +157,10 @@ if ( !class_exists( 'Sydney_Posts_Archive' ) ) :
 					$this->post_excerpt();
 					if ( 'below-excerpt' === $meta_position ) {
 						$this->post_meta( $meta_position );
-					}					
-					echo '</div>';	
+					}                   
+					echo '</div>';  
 					
-					break;						
+					break;                      
 			}
 		}
 
@@ -182,7 +182,7 @@ if ( !class_exists( 'Sydney_Posts_Archive' ) ) :
 		 */
 		public function post_meta( $position ) {
 
-			$elements 				= get_theme_mod( 'archive_meta_elements', $this->default_meta_elements() );
+			$elements               = get_theme_mod( 'archive_meta_elements', $this->default_meta_elements() );
 			$archive_meta_delimiter = get_theme_mod( 'archive_meta_delimiter', 'dot' );
 
 			if ( 'post' !== get_post_type() || empty( $elements ) ) {
@@ -192,9 +192,9 @@ if ( !class_exists( 'Sydney_Posts_Archive' ) ) :
 			echo '<div class="entry-meta ' . esc_attr( $position ) . ' delimiter-' . esc_attr( $archive_meta_delimiter ) . '">';
 			foreach( $elements as $element ) {
 				call_user_func( array( $this, $element ) );
-			}			
+			}           
 			echo '</div>';
-		}	
+		}   
 		
 		/**
 		 * Post title
@@ -205,17 +205,17 @@ if ( !class_exists( 'Sydney_Posts_Archive' ) ) :
 				<?php the_title( sprintf( '<h2 class="title-post entry-title" ' . sydney_get_schema( "headline" ) . '><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
 			</header><!-- .entry-header -->
 			<?php
-		}	
+		}   
 
 		/**
 		 * Post excerpt
 		 */
 		public function post_excerpt() {
-			$excerpt 				= get_theme_mod( 'show_excerpt', 1 );
-			$read_more 				= get_theme_mod( 'read_more_link', 0 );
-			$full_content_home 		= get_theme_mod('full_content_home', 0 );		//Legacy option
-			$full_content_archives 	= get_theme_mod('full_content_archives', 0 );	//Legacy option
-			$archive_content_type	= get_theme_mod( 'archive_content_type', 'excerpt' );
+			$excerpt                = get_theme_mod( 'show_excerpt', 1 );
+			$read_more              = get_theme_mod( 'read_more_link', 0 );
+			$full_content_home      = get_theme_mod('full_content_home', 0 );       //Legacy option
+			$full_content_archives  = get_theme_mod('full_content_archives', 0 );   //Legacy option
+			$archive_content_type   = get_theme_mod( 'archive_content_type', 'excerpt' );
 
 			if ( !$excerpt ) {
 				return;
@@ -223,14 +223,14 @@ if ( !class_exists( 'Sydney_Posts_Archive' ) ) :
 			?>
 			<div class="entry-post" <?php sydney_do_schema( 'entry_content' ); ?>>
 				<?php
-				if ( 'content' === $archive_content_type || ( $full_content_home == 1 && is_home() ) || ( $full_content_archives == 1 && is_archive() ) ) {
+				if ( 'content' === $archive_content_type || ( $full_content_home == 1 && is_home() ) || ( $full_content_archives == 1 && is_archive() ) ) { // phpcs:ignore Universal.Operators.StrictComparisons.LooseEqual
 					the_content();
 				} else {
 					the_excerpt();
 				}
 
 				if ( $read_more ) {
-					echo '<a class="read-more" title="' . esc_attr( strip_tags( get_the_title() ) ) . '" href="' . esc_url( get_permalink() ) . '">' . esc_html__( 'Read more', 'sydney' ) . '</a>';
+					echo '<a class="read-more" title="' . esc_attr( wp_strip_all_tags( get_the_title() ) ) . '" href="' . esc_url( get_permalink() ) . '">' . esc_html__( 'Read more', 'sydney' ) . '</a>';
 				}
 				?>
 			</div>
@@ -249,7 +249,7 @@ if ( !class_exists( 'Sydney_Posts_Archive' ) ) :
 		 */
 		public function post_author() {
 			sydney_posted_by();
-		}	
+		}   
 		
 		/**
 		 * Post categories
@@ -263,7 +263,7 @@ if ( !class_exists( 'Sydney_Posts_Archive' ) ) :
 		 */
 		public function post_comments() {
 			sydney_entry_comments();
-		}		
+		}       
 
 		/**
 		 * Post tags

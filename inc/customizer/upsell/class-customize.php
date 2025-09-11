@@ -19,7 +19,7 @@ final class Sydney_Customize_Upsell {
 		static $instance = null;
 
 		if ( is_null( $instance ) ) {
-			$instance = new self;
+			$instance = new self();
 			$instance->setup_actions();
 		}
 
@@ -91,9 +91,20 @@ final class Sydney_Customize_Upsell {
 	 */
 	public function enqueue_control_scripts() {
 
-		wp_enqueue_script( 'sydney-upsell-customize-controls', trailingslashit( get_template_directory_uri() ) . 'inc/customizer/upsell/customize-controls.js', array( 'customize-controls' ) );
+		wp_enqueue_script(
+			'sydney-upsell-customize-controls',
+			trailingslashit( get_template_directory_uri() ) . 'inc/customizer/upsell/customize-controls.js',
+			array( 'customize-controls' ),
+			'20250902',
+			true
+		);
 
-		wp_enqueue_style( 'sydney-upsell-customize-controls', trailingslashit( get_template_directory_uri() ) . 'inc/customizer/upsell/customize-controls.css' );
+		wp_enqueue_style(
+			'sydney-upsell-customize-controls',
+			trailingslashit( get_template_directory_uri() ) . 'inc/customizer/upsell/customize-controls.css',
+			array(),
+			'20250902'
+		);
 	}
 }
 

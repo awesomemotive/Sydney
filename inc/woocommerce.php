@@ -14,7 +14,7 @@ if ( !class_exists('WooCommerce') )
  */
 function sydney_wc_support() {
 
-    $enable_zoom 	= get_theme_mod( 'single_zoom_effects', 1 );
+    $enable_zoom    = get_theme_mod( 'single_zoom_effects', 1 );
     $enable_gallery = get_theme_mod( 'single_gallery_slider', 1 );
 
 	add_theme_support(
@@ -46,10 +46,10 @@ function sydney_woo_actions() {
     add_action('woocommerce_before_main_content', 'sydney_wrapper_start', 10);
     add_action('woocommerce_after_main_content', 'sydney_wrapper_end', 10);
 
-	$layout			   		= get_theme_mod( 'shop_archive_layout', 'product-grid' );	
-	$button_layout     		= get_theme_mod( 'shop_product_add_to_cart_layout', 'layout2' );
-	$quick_view_layout 		= get_theme_mod( 'shop_product_quickview_layout', 'layout1' );
-	$wishlist_layout 		= get_theme_mod( 'shop_product_wishlist_layout', 'layout1' );
+	$layout                 = get_theme_mod( 'shop_archive_layout', 'product-grid' );   
+	$button_layout          = get_theme_mod( 'shop_product_add_to_cart_layout', 'layout2' );
+	$quick_view_layout      = get_theme_mod( 'shop_product_quickview_layout', 'layout1' );
+	$wishlist_layout        = get_theme_mod( 'shop_product_wishlist_layout', 'layout1' );
 
 	//Loop image wrapper extra class
 	$loop_image_wrap_extra_class = 'sydney-add-to-cart-button-'. $button_layout;
@@ -60,7 +60,7 @@ function sydney_woo_actions() {
 	//Remove button
 	if( 'layout1' === $button_layout ) {
 		remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart' );
-	}	
+	}   
 
 	if( 'layout1' !== $wishlist_layout ) {
 		$loop_image_wrap_extra_class .= ' sydney-wishlist-button-'. $wishlist_layout;
@@ -84,7 +84,7 @@ function sydney_woo_actions() {
 	}
 
     //Archive layout
-	if ( is_shop() || is_product_category() || is_product_tag()	) {
+	if ( is_shop() || is_product_category() || is_product_tag() ) {
 
 		if ( 'product-list' === $layout ) {
 			add_action( 'woocommerce_before_shop_loop_item', function() use ($loop_image_wrap_extra_class) { echo '<div class="row valign"><div class="col-md-4"><div class="loop-image-wrap '. esc_attr( $loop_image_wrap_extra_class ) .'">'; }, 1 );
@@ -92,9 +92,9 @@ function sydney_woo_actions() {
 			add_action( 'woocommerce_after_shop_loop_item', function() { echo '</div>'; }, PHP_INT_MAX );
 		}
 
-		$page_title 		= get_theme_mod( 'shop_page_title', 1 );
-		$page_desc 			= get_theme_mod( 'shop_page_description', 1);
-		$shop_breadcrumbs 	= get_theme_mod( 'shop_breadcrumbs', 1 );
+		$page_title         = get_theme_mod( 'shop_page_title', 1 );
+		$page_desc          = get_theme_mod( 'shop_page_description', 1);
+		$shop_breadcrumbs   = get_theme_mod( 'shop_breadcrumbs', 1 );
 
 		if ( !$page_title ) {
 			add_filter( 'woocommerce_show_page_title', '__return_false' );
@@ -112,8 +112,8 @@ function sydney_woo_actions() {
 		
 		
 		//Results and sorting
-		$shop_results_count 	= get_theme_mod( 'shop_results_count', 1 );
-		$shop_product_sorting 	= get_theme_mod( 'shop_product_sorting', 1 );
+		$shop_results_count     = get_theme_mod( 'shop_results_count', 1 );
+		$shop_product_sorting   = get_theme_mod( 'shop_product_sorting', 1 );
 
 		if ( !$shop_product_sorting ) {
 			remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
@@ -121,7 +121,7 @@ function sydney_woo_actions() {
 
 		if ( !$shop_results_count ) {
 			remove_action( 'woocommerce_before_shop_loop', 'woocommerce_result_count', 20 );
-		}	
+		}   
 
 		//Cart cross sell
 		$cart_layout               = get_theme_mod( 'shop_cart_layout', 'layout1' );
@@ -142,7 +142,7 @@ function sydney_woo_actions() {
 
 		if( $shop_cart_sticky_totals_box && $cart_layout === 'layout2' ) {
 			add_action( 'woocommerce_before_cart', function(){ echo '<div class="cart-totals-sticky"></div>'; }, 999 );
-		}		
+		}       
 
 		/**
 		 * Loop product structure
@@ -165,12 +165,9 @@ function sydney_woo_actions() {
 				remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart' );
 				add_action( 'woocommerce_before_shop_loop_item_title', function() { sydney_wrap_loop_button_start(); woocommerce_template_loop_add_to_cart(); echo '</div>'; } );
 			}
-		} else {
-			//Move button inside image wrap
-			if ( 'layout4' === $button_layout && 'layout3' !== $quick_view_layout || 'layout3' === $button_layout && 'layout2' !== $quick_view_layout ) {
-				remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart' );
-				add_action( 'woocommerce_before_shop_loop_item_title', function() { sydney_wrap_loop_button_start(); woocommerce_template_loop_add_to_cart(); echo '</div>'; } );
-			}
+		} elseif ( 'layout4' === $button_layout && 'layout3' !== $quick_view_layout || 'layout3' === $button_layout && 'layout2' !== $quick_view_layout ) {
+			remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart' );
+			add_action( 'woocommerce_before_shop_loop_item_title', function() { sydney_wrap_loop_button_start(); woocommerce_template_loop_add_to_cart(); echo '</div>'; } );
 		}
 
 		//Remove product title, rating, price
@@ -185,11 +182,11 @@ function sydney_woo_actions() {
 
 	//Single product settings
 	if ( is_product() ) {
-		$single_breadcrumbs 			= get_theme_mod( 'single_breadcrumbs', 1 );
-		$single_tabs					= get_theme_mod( 'single_product_tabs', 1 );
-		$single_related					= get_theme_mod( 'single_related_products', 1 );
-		$single_upsell					= get_theme_mod( 'single_upsell_products', 1 );
-		$single_sticky_add_to_cart		= get_theme_mod( 'single_sticky_add_to_cart', 0 );
+		$single_breadcrumbs             = get_theme_mod( 'single_breadcrumbs', 1 );
+		$single_tabs                    = get_theme_mod( 'single_product_tabs', 1 );
+		$single_related                 = get_theme_mod( 'single_related_products', 1 );
+		$single_upsell                  = get_theme_mod( 'single_upsell_products', 1 );
+		$single_sticky_add_to_cart      = get_theme_mod( 'single_sticky_add_to_cart', 0 );
 		$single_product_gallery         = get_theme_mod( 'single_product_gallery', 'gallery-default' );
 
 		add_action( 'woocommerce_before_add_to_cart_button', 'sydney_single_addtocart_wrapper_open' );
@@ -230,12 +227,12 @@ function sydney_woo_actions() {
 		//Related products
 		if ( !$single_related ) {
 			remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
-		}	
+		}   
 		
 		//Upsell products
 		if ( !$single_upsell ) {
 			remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_upsell_display', 15 );
-		}	
+		}   
 		add_filter( 'woocommerce_upsells_columns', function() { return 3; } );
 		add_filter( 'woocommerce_upsells_total', function() { return -1; } );
 		
@@ -256,9 +253,9 @@ function sydney_woo_actions() {
 	}   
 
 	$shop_cart_show_cross_sell = get_theme_mod( 'shop_cart_show_cross_sell', 1 );
-	$button_layout     			= get_theme_mod( 'shop_product_add_to_cart_layout', 'layout2' );
-	$quick_view_layout 			= get_theme_mod( 'shop_product_quickview_layout', 'layout1' );
-	$wishlist_layout 			= get_theme_mod( 'shop_product_wishlist_layout', 'layout1' );
+	$button_layout              = get_theme_mod( 'shop_product_add_to_cart_layout', 'layout2' );
+	$quick_view_layout          = get_theme_mod( 'shop_product_quickview_layout', 'layout1' );
+	$wishlist_layout            = get_theme_mod( 'shop_product_wishlist_layout', 'layout1' );
 
 	//Quick view and wishlist buttons
 	if ( is_shop() || is_product_category() || is_product_tag() || is_product() || is_cart() && $shop_cart_show_cross_sell ) {
@@ -286,12 +283,11 @@ function sydney_woo_actions() {
 		if( 'layout1' !== $wishlist_layout ) {
 			add_action( 'woocommerce_before_shop_loop_item_title', 'sydney_wishlist_button', 10 );
 		}
-	}	
+	}   
 				
 	//Move cart collaterals
 	remove_action( 'woocommerce_cart_collaterals', 'woocommerce_cart_totals' );
 	add_action( 'woocommerce_before_cart_collaterals', 'woocommerce_cart_totals' );
-
 }
 add_action('wp','sydney_woo_actions');
 
@@ -337,19 +333,19 @@ function sydney_woocommerce_css() {
 			if ( current_theme_supports( 'wc-product-gallery-slider' ) ) {
 				$register_scripts['flexslider'] = array(
 					'src'     => plugins_url( 'assets/js/flexslider/jquery.flexslider.min.js', WC_PLUGIN_FILE ),
-					'deps'    => array( 'jquery' )
+					'deps'    => array( 'jquery' ),
 				);
 			}
 			if ( current_theme_supports( 'wc-product-gallery-lightbox' ) ) {
 				$register_styles = array(
 					'photoswipe' => array(
 						'src'     => plugins_url( 'assets/css/photoswipe/photoswipe.min.css', WC_PLUGIN_FILE ),
-						'deps'    => array()
+						'deps'    => array(),
 					),
 					'photoswipe-default-skin' => array(
 						'src'     => plugins_url( 'assets/css/photoswipe/default-skin/default-skin.min.css', WC_PLUGIN_FILE ),
-						'deps'    => array( 'photoswipe' )
-					)
+						'deps'    => array( 'photoswipe' ),
+					),
 				);
 				foreach ( $register_styles as $name => $props ) {
 					wp_enqueue_style( $name, $props['src'], $props['deps'], '20211020' );
@@ -357,39 +353,38 @@ function sydney_woocommerce_css() {
 
 				$register_scripts['photoswipe'] = array(
 					'src'     => plugins_url( 'assets/js/photoswipe/photoswipe.min.js', WC_PLUGIN_FILE ),
-					'deps'    => array()
+					'deps'    => array(),
 				);
 				$register_scripts['photoswipe-ui-default'] = array(
 					'src'     => plugins_url( 'assets/js/photoswipe/photoswipe-ui-default.min.js', WC_PLUGIN_FILE ),
-					'deps'    => array( 'photoswipe' )
+					'deps'    => array( 'photoswipe' ),
 				);
 			}
 
 			$register_scripts['wc-single-product'] = array(
 				'src'     => plugins_url( 'assets/js/frontend/single-product.min.js', WC_PLUGIN_FILE ),
-				'deps'    => array( 'jquery' )
+				'deps'    => array( 'jquery' ),
 			);
 
 			if ( current_theme_supports( 'wc-product-gallery-zoom' ) ) {
 				$register_scripts['zoom'] = array(
 					'src'     => plugins_url( 'assets/js/zoom/jquery.zoom.min.js', WC_PLUGIN_FILE ),
-					'deps'    => array( 'jquery' )
+					'deps'    => array( 'jquery' ),
 				);
 			}
 
 			// Enqueue variation scripts.
 			$register_scripts['wc-add-to-cart-variation'] = array(
 				'src'     => plugins_url( 'assets/js/frontend/add-to-cart-variation.min.js', WC_PLUGIN_FILE ),
-				'deps'    => array( 'jquery', 'wp-util', 'jquery-blockui' )
+				'deps'    => array( 'jquery', 'wp-util', 'jquery-blockui' ),
 			);
 
 			foreach ( $register_scripts as $name => $props ) {
-				wp_enqueue_script( $name, $props['src'], $props['deps'], '20211020' );
+				wp_enqueue_script( $name, $props['src'], $props['deps'], '20211020', true );
 			}
 
 		}
 	}
-
 }
 add_action( 'wp_enqueue_scripts', 'sydney_woocommerce_css', 1 );
 
@@ -424,7 +419,7 @@ function sydney_single_variation_add_to_cart_button() {
 			array(
 				'min_value'   => apply_filters( 'woocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product ),
 				'max_value'   => apply_filters( 'woocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product ),
-				'input_value' => isset( $_POST['quantity'] ) ? wc_stock_amount( wp_unslash( $_POST['quantity'] ) ) : $product->get_min_purchase_quantity(), // WPCS: CSRF ok, input var ok.
+				'input_value' => isset( $_POST['quantity'] ) ? wc_stock_amount( wp_unslash( $_POST['quantity'] ) ) : $product->get_min_purchase_quantity(), // phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 			)
 		);
 
@@ -440,7 +435,7 @@ function sydney_single_variation_add_to_cart_button() {
 		<input type="hidden" name="variation_id" class="variation_id" value="0" />
 	</div>
 
-     <?php
+    <?php
 }
 add_action( 'woocommerce_single_variation', 'sydney_single_variation_add_to_cart_button', 21 );
 
@@ -492,8 +487,8 @@ if ( ! function_exists( 'sydney_woocommerce_header_cart' ) ) {
 	 * @return void
 	 */
 	function sydney_woocommerce_header_cart( $hf_builder_active = false ) {
-		$show_cart 		= get_theme_mod( 'enable_header_cart', 1 );
-		$show_account 	= get_theme_mod( 'enable_header_account', 1 );
+		$show_cart      = get_theme_mod( 'enable_header_cart', 1 );
+		$show_account   = get_theme_mod( 'enable_header_account', 1 );
 
 		if ( !$hf_builder_active ) {
 			echo '<div class="header-item header-woo">';
@@ -536,7 +531,7 @@ if ( ! function_exists( 'sydney_woocommerce_header_cart' ) ) {
 function sydney_shop_descriptions() { 
     $number = get_theme_mod( 'swc_columns_number', 3 );
 
-    if ( $number == 1 ) {
+    if ( $number === 1 ) {
         the_excerpt(); 
     }
 } 
@@ -576,7 +571,7 @@ function sydney_add_loop_cart_icon( $icon, $product, $args ) {
 
     $type = $product->get_type();
     
-    if ( 'simple' == $type ) {
+    if ( 'simple' === $type ) {
         $icon = '<span><i class="sydney-svg-icon">' . sydney_get_svg_icon( 'icon-add-cart', false ) . '</i></span> ';
     } else {
         $icon = '';
@@ -590,7 +585,6 @@ function sydney_add_loop_cart_icon( $icon, $product, $args ) {
 		isset( $args['attributes'] ) ? wc_implode_html_attributes( $args['attributes'] ) : '',
 		esc_html( $product->add_to_cart_text() )
     );  
-
 }
 if ( !function_exists( 'tutor' ) ) {
 	add_filter( 'woocommerce_loop_add_to_cart_link', 'sydney_add_loop_cart_icon', 10, 3 );
@@ -659,7 +653,7 @@ function sydney_header_add_to_cart_fragment( $fragments ) {
 
     ob_start();
     ?>
-    <a class="cart-contents" href="<?php echo wc_get_cart_url(); ?>"><i class="sydney-svg-icon"><?php sydney_get_svg_icon( 'icon-cart', true ); ?></i><span class="cart-amount"><?php echo WC()->cart->cart_contents_count; ?></span></a>
+    <a class="cart-contents" href="<?php echo esc_url( wc_get_cart_url() ); ?>"><i class="sydney-svg-icon"><?php sydney_get_svg_icon( 'icon-cart', true ); ?></i><span class="cart-amount"><?php echo esc_html( WC()->cart->cart_contents_count ); ?></span></a>
     <?php
     
     $fragments['a.cart-contents'] = ob_get_clean();
@@ -679,8 +673,8 @@ function sydney_nav_cart ( $items, $args ) {
 
     $swc_show_cart_menu = get_theme_mod('swc_show_cart_menu');
     if ( $swc_show_cart_menu ) {
-        if ( $args -> theme_location == 'primary' ) {
-            $items .= '<li class="nav-cart"><a class="cart-contents" href="' . wc_get_cart_url() . '"><i class="sydney-svg-icon">' . sydney_get_svg_icon( 'icon-cart', false ) . '</i><span class="cart-amount">' . WC()->cart->cart_contents_count . '</span></a></li>';
+        if ( $args -> theme_location === 'primary' ) {
+            $items .= '<li class="nav-cart"><a class="cart-contents" href="' . esc_url( wc_get_cart_url() ) . '"><i class="sydney-svg-icon">' . sydney_get_svg_icon( 'icon-cart', false ) . '</i><span class="cart-amount">' . esc_html( WC()->cart->cart_contents_count ) . '</span></a></li>';
         }
     }
     return $items;
@@ -697,7 +691,7 @@ function sydney_woocommerce_account_link( $items, $args ) {
 	}
 
     $swc_show_cart_menu = get_theme_mod('swc_show_cart_menu');
-    if ( $swc_show_cart_menu && ( $args -> theme_location == 'primary' ) ) {
+    if ( $swc_show_cart_menu && ( $args -> theme_location === 'primary' ) ) {
         if ( is_user_logged_in() ) {
             $account = __( 'My Account', 'sydney' );
         } else {
@@ -764,7 +758,7 @@ function sydney_single_addtocart_wrapper_close() {
  */
 function sydney_wc_archive_layout() {
 
-	$archive_sidebar 	    = get_theme_mod( 'shop_archive_sidebar', 'no-sidebar' );
+	$archive_sidebar        = get_theme_mod( 'shop_archive_sidebar', 'no-sidebar' );
 	$shop_categories_layout = get_theme_mod( 'shop_categories_layout', 'layout1' );
 
 	if ( 'no-sidebar' === $archive_sidebar ) {
@@ -779,7 +773,7 @@ function sydney_wc_archive_layout() {
 
 	$archive_sidebar .= ' product-category-item-' . $shop_categories_layout;
 	
-	$layout = get_theme_mod( 'shop_archive_layout', 'product-grid' );	
+	$layout = get_theme_mod( 'shop_archive_layout', 'product-grid' );   
 
 	return $archive_sidebar . ' ' . $layout;
 }
@@ -788,11 +782,11 @@ function sydney_wc_archive_layout() {
  * Loop product structure
  */
 function sydney_loop_product_structure() {
-	$elements 	= get_theme_mod( 'shop_card_elements', array( 'woocommerce_template_loop_product_title', 'woocommerce_template_loop_rating', 'woocommerce_template_loop_price' ) );
+	$elements   = get_theme_mod( 'shop_card_elements', array( 'woocommerce_template_loop_product_title', 'woocommerce_template_loop_rating', 'woocommerce_template_loop_price' ) );
 
 	foreach ( $elements as $element ) {
 
-		if ( 'woocommerce_template_loop_product_title' == $element ) { //wrap product title in link
+		if ( 'woocommerce_template_loop_product_title' === $element ) { //wrap product title in link
 			echo '<a href="' . esc_url( get_the_permalink() ) . '">';
 				call_user_func( $element );
 			echo '</a>';
@@ -825,8 +819,8 @@ function sydney_filter_loop_add_to_cart( $button, $product, $args ) {
 	global $product;
 
 	//Return if not button layout 4
-	$button_layout 	= get_theme_mod( 'shop_product_add_to_cart_layout', 'layout2' );
-	$layout 		= get_theme_mod( 'shop_archive_layout', 'product-grid' );	
+	$button_layout  = get_theme_mod( 'shop_product_add_to_cart_layout', 'layout2' );
+	$layout         = get_theme_mod( 'shop_archive_layout', 'product-grid' );   
 
 	if ( 'layout4' !== $button_layout ) {
 		return $button;
@@ -864,26 +858,26 @@ function sydney_wrap_loop_button_start() {
 /**
  * Quick view button
  */
-function sydney_quick_view_button( $product = false, $echo = true ) {
-	if( $product == false ) {
+function sydney_quick_view_button( $product = false, $echo = true ) { // phpcs:ignore Universal.NamingConventions.NoReservedKeywordParameterNames.echoFound
+	if( $product == false ) { // phpcs:ignore Universal.Operators.StrictComparisons.LooseEqual
 		global $product; 
 	}
 
 	$product_id        = $product->get_id(); 
 	$quick_view_layout = get_theme_mod( 'shop_product_quickview_layout', 'layout1' ); 
-	if( 'layout1' == $quick_view_layout ) {
+	if( 'layout1' === $quick_view_layout ) {
 		return '';
 	} 
 	
-	if( $echo == false ) {
+	if( $echo === false ) {
 		ob_start();
 	} ?>
 
-	<a href="#" class="button sydney-quick-view-show-on-hover sydney-quick-view sydney-quick-view-<?php echo esc_attr( $quick_view_layout ); ?>" aria-label="<?php /* translators: %s: quick view product title */ echo sprintf( esc_attr__( 'Quick view the %s product', 'sydney' ), get_the_title( $product_id ) ); ?>" data-product-id="<?php echo absint( $product_id ); ?>" data-nonce="<?php echo esc_attr( wp_create_nonce( 'sydney-qview-nonce' ) ); ?>">
+	<a href="#" class="button sydney-quick-view-show-on-hover sydney-quick-view sydney-quick-view-<?php echo esc_attr( $quick_view_layout ); ?>" aria-label="<?php /* translators: %s: quick view product title */ printf( esc_attr__( 'Quick view the %s product', 'sydney' ), esc_html( get_the_title( $product_id ) ) ); ?>" data-product-id="<?php echo absint( $product_id ); ?>" data-nonce="<?php echo esc_attr( wp_create_nonce( 'sydney-qview-nonce' ) ); ?>">
 		<?php esc_html_e( 'Quick View', 'sydney' ); ?>
 	</a>
 	<?php
-	if( $echo == false ) {
+	if( $echo === false ) {
 		$output = ob_get_clean();
 		return $output;
 	}
@@ -927,7 +921,7 @@ function sydney_quick_view_content_callback_function() {
 	}
 
 	$args = array(
-		'product_id' => absint( $_POST['product_id'] )
+		'product_id' => absint( $_POST['product_id'] ),
 	);
 	
 	sydney_get_template_part( 'content', 'quick-view', $args );
@@ -962,7 +956,7 @@ function sydney_simple_add_to_cart( $product, $hook_prefix = '' ) {
 				array(
 					'min_value'   => apply_filters( "sydney_{$hook_prefix}_quantity_input_min", $product->get_min_purchase_quantity(), $product ),
 					'max_value'   => apply_filters( "sydney_{$hook_prefix}_quantity_input_max", $product->get_max_purchase_quantity(), $product ),
-					'input_value' => isset( $_POST['quantity'] ) ? wc_stock_amount( absint( $_POST['quantity'] ) ) : $product->get_min_purchase_quantity()
+					'input_value' => isset( $_POST['quantity'] ) ? wc_stock_amount( absint( $_POST['quantity'] ) ) : $product->get_min_purchase_quantity(), // phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 				)
 			);
 	
@@ -1043,7 +1037,7 @@ function sydney_grouped_add_to_cart( $product, $hook_prefix = '' ) {
 										woocommerce_quantity_input(
 											array(
 												'input_name'  => 'quantity[' . $grouped_product_child->get_id() . ']',
-												'input_value' => isset( $_POST['quantity'][ $grouped_product_child->get_id() ] ) ? wc_stock_amount( wc_clean( wp_unslash( $_POST['quantity'][ $grouped_product_child->get_id() ] ) ) ) : '', // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+												'input_value' => isset( $_POST['quantity'][ $grouped_product_child->get_id() ] ) ? wc_stock_amount( wc_clean( wp_unslash( $_POST['quantity'][ $grouped_product_child->get_id() ] ) ) ) : '', // phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 												'min_value'   => apply_filters( "sydney_{$hook_prefix}_quantity_input_min", 0, $grouped_product_child ),
 												'max_value'   => apply_filters( "sydney_{$hook_prefix}_quantity_input_max", $grouped_product_child->get_max_purchase_quantity(), $grouped_product_child ),
 												'placeholder' => '0',
@@ -1165,7 +1159,7 @@ function sydney_variable_add_to_cart( $product, $hook_prefix = '' ) {
 							array(
 								'min_value'   => apply_filters( "sydney_{$hook_prefix}_quantity_input_min", $product->get_min_purchase_quantity(), $product ),
 								'max_value'   => apply_filters( "sydney_{$hook_prefix}_quantity_input_max", $product->get_max_purchase_quantity(), $product ),
-								'input_value' => isset( $_POST['quantity'] ) ? wc_stock_amount( wp_unslash( $_POST['quantity'] ) ) : $product->get_min_purchase_quantity(), // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+								'input_value' => isset( $_POST['quantity'] ) ? wc_stock_amount( wp_unslash( $_POST['quantity'] ) ) : $product->get_min_purchase_quantity(), // phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 							)
 						);
 
@@ -1246,9 +1240,9 @@ function sydney_sale_badge( $html, $post, $product ) {
 
 	if ( !$product->is_on_sale() ) {
 		return;
-	}	
+	}   
 
-	$text 			= get_theme_mod( 'sale_badge_text', esc_html__( 'Sale!', 'sydney' ) );
+	$text           = get_theme_mod( 'sale_badge_text', esc_html__( 'Sale!', 'sydney' ) );
 	$badge = '<span class="onsale">' . esc_html( $text ) . '</span>';
 
 	return $badge;

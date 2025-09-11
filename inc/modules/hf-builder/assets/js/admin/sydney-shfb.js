@@ -341,16 +341,14 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         _this.builderGridContent();
       });
       $('#customize-preview iframe').on('mouseup', function (e) {
-        if (!_this.currentBuilder) {
-          return false;
+        if (_this.currentBuilder) {
+          _this.closeElementsPopup(e);
         }
-        _this.closeElementsPopup(e);
       });
       $(document).on('mouseup', function (e) {
-        if (!_this.currentBuilder) {
-          return false;
+        if (_this.currentBuilder) {
+          _this.closeElementsPopup(e);
         }
-        _this.closeElementsPopup(e);
       });
     },
     closeElementsPopup: function closeElementsPopup(e) {
@@ -376,7 +374,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       elementsWrapper.html('');
       mobileElementsWrapper.html('');
       var cprefix = 'hb';
-      if (_this.currentBuilderType && _this.currentBuilderType === 'footer') {
+      if (_this.currentBuilderType === 'footer') {
         cprefix = 'fb';
       }
       if (elements.desktop.length) {
@@ -429,18 +427,54 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     updateAvailableComponents: function updateAvailableComponents() {
       var _this = this;
       if (_this.currentBuilderType === 'header') {
-        // Header Desktop Components.
-        $('.sydney-header-builder-available-components').html('');
-        $('.sydney-header-builder-available-components').html($('.sydney-shfb-header .sydney-shfb-elements-desktop').html());
+        // Header Desktop Components - regenerate instead of copying
+        const headerElements = _this.getElementsUnused();
+        let headerDesktopHTML = '';
 
-        // Header Mobile Components.
-        $('.sydney-header-builder-available-mobile-components').html('');
-        $('.sydney-header-builder-available-mobile-components').html($('.sydney-shfb-header .sydney-shfb-elements-mobile').html());
+        if( headerElements.desktop.length ) {
+          for( const element of headerElements.desktop ) {
+            headerDesktopHTML += '<div class="sydney-shfb-element sydney-shfb-element-desktop">' +
+              '<a href="#" class="shfb-button" data-shfb-id="'+ element.id +'" data-shfb-focus-section="sydney_section_hb_component__'+ element.id +'">'+ element.label +'</a>' +
+              '</div>';
+          }
+        } else {
+          headerDesktopHTML = '<p class="shfb-elements-message">'+ sydney_hfb.i18n.elementsMessage +'</p>';
+        }
+
+        $('.sydney-header-builder-available-components').html( headerDesktopHTML );
+
+        // Header Mobile Components - regenerate instead of copying
+        let headerMobileHTML = '';
+
+        if( headerElements.mobile.length ) {
+          for( const element of headerElements.mobile ) {
+            headerMobileHTML += '<div class="sydney-shfb-element sydney-shfb-element-mobile">' +
+              '<a href="#" class="shfb-button" data-shfb-id="'+ element.id +'" data-shfb-focus-section="sydney_section_hb_component__'+ element.id +'">'+ element.label +'</a>' +
+              '</div>';
+          }
+        } else {
+          headerMobileHTML = '<p class="shfb-elements-message">'+ sydney_hfb.i18n.elementsMessage +'</p>';
+        }
+
+        $('.sydney-header-builder-available-mobile-components').html( headerMobileHTML );
       }
       if (_this.currentBuilderType === 'footer') {
-        // Footer Components.
-        $('.sydney-footer-builder-available-footer-components').html('');
-        $('.sydney-footer-builder-available-footer-components').html($('.sydney-shfb-footer .sydney-shfb-elements-desktop').html());
+        // Footer Components - regenerate instead of copying
+        const footerElements = _this.getElementsUnused();
+        let footerHTML = '';
+
+        if( footerElements.desktop.length ) {
+          for( const element of footerElements.desktop ) {
+            footerHTML += '<div class="sydney-shfb-element sydney-shfb-element-desktop">' +
+              '<a href="#" class="shfb-button" data-shfb-id="'+ element.id +'" data-shfb-focus-section="sydney_section_fb_component__'+ element.id +'">'+ element.label +'</a>' +
+              '</div>';
+          }
+        } else {
+          footerHTML = '<p class="shfb-elements-message">'+ sydney_hfb.i18n.elementsMessage +'</p>';
+        }
+
+        $('.sydney-footer-builder-available-footer-components').html( footerHTML );
+
       }
     },
     addUpsellComponents: function addUpsellComponents() {
@@ -614,7 +648,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var _this = this,
         fields = ['#_customize-input-sydney_header_row__above_header_row', '#_customize-input-sydney_header_row__main_header_row', '#_customize-input-sydney_header_row__below_header_row', '#_customize-input-sydney_header_row__mobile_offcanvas'],
         cprefix = 'hb';
-      if (_this.currentBuilderType && _this.currentBuilderType === 'footer') {
+      if (_this.currentBuilderType === 'footer') {
         fields = ['#_customize-input-sydney_footer_row__above_footer_row', '#_customize-input-sydney_footer_row__main_footer_row', '#_customize-input-sydney_footer_row__below_footer_row'];
         cprefix = 'fb';
       }

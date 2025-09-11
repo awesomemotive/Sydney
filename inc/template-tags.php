@@ -20,7 +20,7 @@ function the_posts_navigation() {
 	}
 	?>
 	<nav class="navigation posts-navigation" role="navigation">
-		<h2 class="screen-reader-text"><?php _e( 'Posts navigation', 'sydney' ); ?></h2>
+		<h2 class="screen-reader-text"><?php esc_html_e( 'Posts navigation', 'sydney' ); ?></h2>
 		<div class="nav-links clearfix">
 
 			<?php if ( get_next_posts_link() ) : ?>
@@ -42,7 +42,7 @@ function sydney_post_navigation() {
 
 	if ( !apply_filters( 'sydney_single_post_nav_enable', true ) ) {
 		return;
-	}	
+	}   
 
 	$single_post_show_post_nav = get_theme_mod( 'single_post_show_post_nav', 1 );
 	if ( !$single_post_show_post_nav ) {
@@ -58,7 +58,7 @@ function sydney_post_navigation() {
 	}
 	?>
 	<nav class="navigation post-navigation" role="navigation">
-		<h2 class="screen-reader-text"><?php _e( 'Post navigation', 'sydney' ); ?></h2>
+		<h2 class="screen-reader-text"><?php esc_html_e( 'Post navigation', 'sydney' ); ?></h2>
 		<div class="nav-links clearfix">
 		<?php
 				previous_post_link( '<div class="nav-previous"><span><svg width="6" height="9" viewBox="0 0 6 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.19643 0.741072C5.19643 0.660715 5.16071 0.589286 5.10714 0.535715L4.66071 0.0892859C4.60714 0.0357151 4.52679 0 4.45536 0C4.38393 0 4.30357 0.0357151 4.25 0.0892859L0.0892857 4.25C0.0357143 4.30357 0 4.38393 0 4.45536C0 4.52679 0.0357143 4.60714 0.0892857 4.66072L4.25 8.82143C4.30357 8.875 4.38393 8.91072 4.45536 8.91072C4.52679 8.91072 4.60714 8.875 4.66071 8.82143L5.10714 8.375C5.16071 8.32143 5.19643 8.24107 5.19643 8.16964C5.19643 8.09822 5.16071 8.01786 5.10714 7.96429L1.59821 4.45536L5.10714 0.946429C5.16071 0.892858 5.19643 0.8125 5.19643 0.741072Z" fill="#6d7685"/></svg></span>%link</div>', '%title' );
@@ -85,8 +85,7 @@ function sydney_posts_navigation() {
 		'mid_size'  => 1,
 		'prev_text' => '&lt;',
 		'next_text' => '&gt;',
-	) );	
-
+	) );    
 }
 endif;
 
@@ -131,7 +130,8 @@ if ( ! function_exists( 'sydney_posted_by' ) ) :
 		}
 
 		$byline .= sprintf(
-			_x( 'By %1$s %2$s', 'post author', 'sydney' ),
+			/* translators: %1$s: avatar, %2$s: author name. */
+			esc_html_x( 'By %1$s %2$s', 'post author', 'sydney' ),
 			$avatar,
 			'<a class="url fn n" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . esc_html( get_the_author() ) . '</a>'
 		);
@@ -155,11 +155,10 @@ function sydney_entry_footer() {
 	}
 
 	// Hide category and tag text for pages.
-	if ( 'post' == get_post_type() ) {
-		/* translators: used between list items, there is a space after the comma */
-		$tags_list = get_the_tag_list( '', __( '', 'sydney' ) );
+	if ( 'post' === get_post_type() ) {
+		$tags_list = get_the_tag_list( '', '' );
 		if ( $tags_list && is_single() ) {
-			printf( '<span class="tags-links">' . __( ' %1$s', 'sydney' ) . '</span>', $tags_list );
+			printf( '<span class="tags-links">' . ' %1$s' . '</span>', $tags_list ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 	}
 	edit_post_link( __( 'Edit', 'sydney' ), '<span class="edit-link">', '</span>' );
@@ -175,7 +174,7 @@ if ( ! function_exists( 'sydney_post_categories' ) ) :
 				/* translators: 1: list of categories. */
 				printf( '<span class="cat-links">' . '%1$s' . '</span>', $categories_list ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			}
-		}		
+		}       
 	}
 endif;
 
@@ -185,7 +184,7 @@ if ( ! function_exists( 'sydney_entry_comments' ) ) :
 			echo '<span class="comments-link">';
 			comments_popup_link( esc_html__( '0 comments', 'sydney' ), esc_html__( '1 comment', 'sydney' ), esc_html__( '% comments', 'sydney' ) );
 			echo '</span>';
-		}		
+		}       
 	}
 endif;
 
@@ -202,17 +201,17 @@ if ( ! function_exists( 'the_archive_title' ) ) :
  */
 function the_archive_title( $before = '', $after = '' ) {
 	if ( is_category() ) {
-		$title = sprintf( __( 'Category: %s', 'sydney' ), single_cat_title( '', false ) );
+		$title = sprintf( /* translators: %s: category title. */ esc_html__( 'Category: %s', 'sydney' ), single_cat_title( '', false ) );
 	} elseif ( is_tag() ) {
-		$title = sprintf( __( 'Tag: %s', 'sydney' ), single_tag_title( '', false ) );
+		$title = sprintf( /* translators: %s: tag title. */ esc_html__( 'Tag: %s', 'sydney' ), single_tag_title( '', false ) );
 	} elseif ( is_author() ) {
-		$title = sprintf( __( 'Author: %s', 'sydney' ), '<span class="vcard">' . get_the_author() . '</span>' );
+		$title = sprintf( /* translators: %s: author name. */ esc_html__( 'Author: %s', 'sydney' ), '<span class="vcard">' . get_the_author() . '</span>' );
 	} elseif ( is_year() ) {
-		$title = sprintf( __( 'Year: %s', 'sydney' ), get_the_date( _x( 'Y', 'yearly archives date format', 'sydney' ) ) );
+		$title = sprintf( /* translators: %s: year. */ esc_html__( 'Year: %s', 'sydney' ), get_the_date( _x( 'Y', 'yearly archives date format', 'sydney' ) ) );
 	} elseif ( is_month() ) {
-		$title = sprintf( __( 'Month: %s', 'sydney' ), get_the_date( _x( 'F Y', 'monthly archives date format', 'sydney' ) ) );
+		$title = sprintf( /* translators: %s: month. */ esc_html__( 'Month: %s', 'sydney' ), get_the_date( _x( 'F Y', 'monthly archives date format', 'sydney' ) ) );
 	} elseif ( is_day() ) {
-		$title = sprintf( __( 'Day: %s', 'sydney' ), get_the_date( _x( 'F j, Y', 'daily archives date format', 'sydney' ) ) );
+		$title = sprintf( /* translators: %s: day. */ esc_html__( 'Day: %s', 'sydney' ), get_the_date( _x( 'F j, Y', 'daily archives date format', 'sydney' ) ) );
 	} elseif ( is_tax( 'post_format' ) ) {
 		if ( is_tax( 'post_format', 'post-format-aside' ) ) {
 			$title = _x( 'Asides', 'post format archive title', 'sydney' );
@@ -234,11 +233,10 @@ function the_archive_title( $before = '', $after = '' ) {
 			$title = _x( 'Chats', 'post format archive title', 'sydney' );
 		}
 	} elseif ( is_post_type_archive() ) {
-		$title = sprintf( __( 'Archives: %s', 'sydney' ), post_type_archive_title( '', false ) );
+		$title = sprintf( /* translators: %s: post type archive title. */ esc_html__( 'Archives: %s', 'sydney' ), post_type_archive_title( '', false ) );
 	} elseif ( is_tax() ) {
 		$tax = get_taxonomy( get_queried_object()->taxonomy );
-		/* translators: 1: Taxonomy singular name, 2: Current taxonomy term */
-		$title = sprintf( __( '%1$s: %2$s', 'sydney' ), $tax->labels->singular_name, single_term_title( '', false ) );
+		$title = sprintf( /* translators: %1$s: Taxonomy singular name, %2$s: Current taxonomy term. */ esc_html__( '%1$s: %2$s', 'sydney' ), $tax->labels->singular_name, single_term_title( '', false ) );
 	} else {
 		$title = __( 'Archives', 'sydney' );
 	}
@@ -251,7 +249,7 @@ function the_archive_title( $before = '', $after = '' ) {
 	$title = apply_filters( 'get_the_archive_title', $title );
 
 	if ( ! empty( $title ) ) {
-		echo $before . $title . $after;
+		echo $before . $title . $after; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 }
 endif;
@@ -278,7 +276,7 @@ function the_archive_description( $before = '', $after = '' ) {
 		 *
 		 * @param string $description Archive description to be displayed.
 		 */
-		echo $before . $description . $after;
+		echo $before . $description . $after; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 }
 endif;
@@ -341,7 +339,7 @@ function sydney_post_date( $notext = false ) {
 		esc_attr( get_the_modified_date( 'c' ) ),
 		esc_html( get_the_modified_date() )
 	);
-	if ( $notext == false ) {
+	if ( $notext === false ) {
 		$posted_on = sprintf(
 			/* translators: %s: post date. */
 			esc_html_x( 'Posted on %s', 'post date', 'sydney' ),
@@ -351,7 +349,7 @@ function sydney_post_date( $notext = false ) {
 		$posted_on = '<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">' . $time_string . '</a>';
 	}
 
-	echo '<span class="posted-on">' . $posted_on . '</span>'; // WPCS: XSS OK.
+	echo '<span class="posted-on">' . $posted_on . '</span>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 }
 
 /**
@@ -401,14 +399,14 @@ if ( ! function_exists( 'sydney_single_post_meta' ) ) :
 			return;
 		}
 
-		$elements 				= get_theme_mod( 'single_post_meta_elements', array( 'sydney_posted_by', 'sydney_posted_on', 'sydney_post_categories' ) );
+		$elements               = get_theme_mod( 'single_post_meta_elements', array( 'sydney_posted_by', 'sydney_posted_on', 'sydney_post_categories' ) );
 		$archive_meta_delimiter = get_theme_mod( 'archive_meta_delimiter', 'dot' );
 
 		echo '<div class="entry-meta ' . esc_attr( $location ) . ' delimiter-' . esc_attr( $archive_meta_delimiter ) . '">';
 		foreach( $elements as $element ) {
 			call_user_func( $element );
-		}			
-		echo '</div>';		
+		}           
+		echo '</div>';      
 	}
 endif;
 
@@ -418,7 +416,7 @@ if ( ! function_exists( 'sydney_single_post_thumbnail' ) ) :
 	/**
 	 * Single post featured image
 	 */
-	function sydney_single_post_thumbnail( $disable, $class = false ) {
+	function sydney_single_post_thumbnail( $disable, $class = false ) { // phpcs:ignore Universal.NamingConventions.NoReservedKeywordParameterNames.classFound
 
 		$show_mods = get_theme_mod( 'single_post_show_featured', 1 );
 
@@ -445,6 +443,6 @@ if ( ! function_exists( 'sydney_post_tags' ) ) :
 				/* translators: 1: list of tags. */
 				printf( '<span>' . '%1$s' . '</span>', $tags_list ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			}
-		}		
+		}       
 	}
 endif;

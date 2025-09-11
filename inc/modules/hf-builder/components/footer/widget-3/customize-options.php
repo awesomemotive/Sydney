@@ -194,7 +194,7 @@ $wp_customize->add_setting(
     'shfb_footer_widget_3_layout_title',
     array(
         'default'           => '',
-        'sanitize_callback' => 'esc_attr'
+        'sanitize_callback' => 'esc_attr',
     )
 );
 

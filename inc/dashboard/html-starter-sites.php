@@ -17,7 +17,7 @@ if (!defined('ABSPATH')) {
         <div class="sydney-dashboard-card sydney-dashboard-card-top-spacing sydney-dashboard-card-tabs-divider">
             <div class="sydney-dashboard-card-body">
                 
-                <?php if ( in_array( $this->get_plugin_status( $this->settings['starter_plugin_path'] ), array( 'inactive', 'not_installed' ) ) ) : ?>
+                <?php if ( in_array( $this->get_plugin_status( $this->settings['starter_plugin_path'] ), array( 'inactive', 'not_installed' ), true ) ) : ?>
 
                 <div class="sydney-dashboard-row">
 
@@ -26,9 +26,9 @@ if (!defined('ABSPATH')) {
                             <div class="sydney-dashboard-starter-sites-notice">
                                 <div class="sydney-dashboard-starter-sites-notice-text"><?php esc_html_e('In order to be able to import any starter sites for Sydney you need to have the aThemes demo importer plugin active.', 'sydney'); ?></div>
                                 <?php if ('not_installed' === $this->get_plugin_status($this->settings['starter_plugin_path'])) : ?>
-                                    <a href="<?php echo esc_url(add_query_arg(array('page' => $this->settings['menu_slug'], 'section' => 'starter-sites'), admin_url('themes.php'))); ?>" class="button button-primary sydney-dashboard-plugin-ajax-button sydney-ajax-success-redirect" data-type="install" data-path="<?php echo esc_attr($this->settings['starter_plugin_path']); ?>" data-slug="<?php echo esc_attr($this->settings['starter_plugin_slug']); ?>"><?php esc_html_e('Install and Activate', 'sydney'); ?></a>
+                                    <a href="<?php echo esc_url(add_query_arg(array( 'page' => $this->settings['menu_slug'], 'tab' => 'starter-sites' ), admin_url('themes.php'))); ?>" class="button button-primary sydney-dashboard-plugin-ajax-button sydney-ajax-success-redirect" data-type="install" data-path="<?php echo esc_attr($this->settings['starter_plugin_path']); ?>" data-slug="<?php echo esc_attr($this->settings['starter_plugin_slug']); ?>"><?php esc_html_e('Install and Activate', 'sydney'); ?></a>
                                 <?php else : ?>
-                                    <a href="<?php echo esc_url(add_query_arg(array('page' => $this->settings['menu_slug'], 'section' => 'starter-sites'), admin_url('themes.php'))); ?>" class="button button-primary sydney-dashboard-plugin-ajax-button sydney-ajax-success-redirect" data-type="activate" data-path="<?php echo esc_attr($this->settings['starter_plugin_path']); ?>" data-slug="<?php echo esc_attr($this->settings['starter_plugin_slug']); ?>"><?php esc_html_e('Activate', 'sydney'); ?></a>
+                                    <a href="<?php echo esc_url(add_query_arg(array( 'page' => $this->settings['menu_slug'], 'tab' => 'starter-sites' ), admin_url('themes.php'))); ?>" class="button button-primary sydney-dashboard-plugin-ajax-button sydney-ajax-success-redirect" data-type="activate" data-path="<?php echo esc_attr($this->settings['starter_plugin_path']); ?>" data-slug="<?php echo esc_attr($this->settings['starter_plugin_slug']); ?>"><?php esc_html_e('Activate', 'sydney'); ?></a>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -46,8 +46,8 @@ if (!defined('ABSPATH')) {
                     if (has_action('atss_starter_sites')) {
                         do_action('atss_starter_sites'); // phpcs:ignore WPThemeReview.CoreFunctionality.PrefixAllGlobals.NonPrefixedHooknameFound
                     } else {
-                       ?>
-                       <a href="<?php echo esc_url(add_query_arg(array('page' => 'starter-sites'), admin_url('themes.php'))); ?>" class="button button-primary"><?php esc_html_e('Go to Starter Sites', 'sydney'); ?></a>
+                        ?>
+                        <a href="<?php echo esc_url(add_query_arg(array( 'page' => 'starter-sites' ), admin_url('themes.php'))); ?>" class="button button-primary"><?php esc_html_e('Go to Starter Sites', 'sydney'); ?></a>
                         <?php
                     }
                     ?>

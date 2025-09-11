@@ -48,8 +48,8 @@ function sydney_body_classes( $classes ) {
 	$menu_style = get_theme_mod( 'menu_style', 'inline' );
 	$classes[] = 'menu-' . esc_attr( $menu_style );
 
-	$sidebar_archives 		= get_theme_mod( 'sidebar_archives', 1 );
-	$sidebar_single_post 	= get_theme_mod( 'sidebar_single_post', 1 );
+	$sidebar_archives       = get_theme_mod( 'sidebar_archives', 1 );
+	$sidebar_single_post    = get_theme_mod( 'sidebar_single_post', 1 );
 
 	if ( ( !is_singular() && !$sidebar_archives ) || ( is_singular( 'post' ) && !$sidebar_single_post ) ) {
 		$classes[] = 'no-sidebar';
@@ -97,9 +97,9 @@ function sydney_page_content_classes() {
 	global $post;
 
 	if ( class_exists( 'Woocommerce' ) && is_woocommerce() ) {
-		$archive_check 			= sydney_wc_archive_check();
-		$shop_single_sidebar	= get_theme_mod( 'swc_sidebar_products', 0 );  
-		$archive_sidebar 		= get_theme_mod( 'shop_archive_sidebar', 'sidebar-left' );
+		$archive_check          = sydney_wc_archive_check();
+		$shop_single_sidebar    = get_theme_mod( 'swc_sidebar_products', 0 );  
+		$archive_sidebar        = get_theme_mod( 'shop_archive_sidebar', 'sidebar-left' );
 	
 		if ( is_product() ) {
 			if ( $shop_single_sidebar ) {
@@ -125,14 +125,14 @@ function sydney_page_content_classes() {
 		
 			$archive_sidebar .= ' product-category-item-' . $shop_categories_layout;
 			
-			$layout = get_theme_mod( 'shop_archive_layout', 'product-grid' );	
+			$layout = get_theme_mod( 'shop_archive_layout', 'product-grid' );   
 		
 			$cols = $archive_sidebar . ' ' . $layout . ' ' . $columns;
 		}
 
 		
 		return $cols;
-	}	
+	}   
 
 	$sidebar_archives = get_theme_mod( 'sidebar_archives', 1 );
 
@@ -140,13 +140,13 @@ function sydney_page_content_classes() {
 		return 'col-md-12';
 	} 
 	
-	$disable_sidebar_pages 	= get_theme_mod( 'fullwidth_pages', 0 );
+	$disable_sidebar_pages  = get_theme_mod( 'fullwidth_pages', 0 );
 
 	if ( is_page() && $disable_sidebar_pages ) {
 		return 'no-sidebar';
 	} elseif ( is_singular( 'post' ) ) {
-		$disable_sidebar 		= get_post_meta( $post->ID, '_sydney_page_disable_sidebar', true );
-		$sidebar_single_post 	= get_theme_mod( 'sidebar_single_post', 1 );
+		$disable_sidebar        = get_post_meta( $post->ID, '_sydney_page_disable_sidebar', true );
+		$sidebar_single_post    = get_theme_mod( 'sidebar_single_post', 1 );
 
 		if ( $disable_sidebar || !$sidebar_single_post ) {
 			return 'no-sidebar';
@@ -159,10 +159,9 @@ function sydney_page_content_classes() {
 		if ( !$enable ) {
 			return 'no-sidebar';
 		}
-	}	
+	}   
 
 	return 'col-md-9'; //default
-
 }
 add_filter( 'sydney_content_area_class', 'sydney_page_content_classes' );
 
@@ -173,7 +172,7 @@ add_filter( 'sydney_content_area_class', 'sydney_page_content_classes' );
  */
 function sydney_get_sidebar() {
 
-	if ( false == apply_filters( 'sydney_show_sidebar', true ) ) {
+	if ( false === apply_filters( 'sydney_show_sidebar', true ) ) {
 		return;
 	}
 
@@ -183,9 +182,9 @@ function sydney_get_sidebar() {
 
 	global $post;
 
-	$sidebar_archives 		= get_theme_mod( 'sidebar_archives', 1 );
+	$sidebar_archives       = get_theme_mod( 'sidebar_archives', 1 );
 
-	$disable_sidebar_pages 	= get_theme_mod( 'fullwidth_pages', 0 );
+	$disable_sidebar_pages  = get_theme_mod( 'fullwidth_pages', 0 );
 
 	if ( is_page() && $disable_sidebar_pages ) {
 		return;
@@ -194,7 +193,7 @@ function sydney_get_sidebar() {
 	if ( !is_singular() && !$sidebar_archives ) {
 		return;
 	} elseif ( is_singular() && isset( $post ) ) {
-		$disable_sidebar 			= get_post_meta( $post->ID, '_sydney_page_disable_sidebar', true );
+		$disable_sidebar            = get_post_meta( $post->ID, '_sydney_page_disable_sidebar', true );
 		
 		if ( is_singular( 'post' ) ) {
 			$sidebar_customizer = get_theme_mod( 'sidebar_single_post', 1 );
@@ -208,7 +207,6 @@ function sydney_get_sidebar() {
 	}
 
 	get_sidebar();
-
 }
 add_action( 'sydney_get_sidebar', 'sydney_get_sidebar' );
 
@@ -219,14 +217,14 @@ function sydney_add_header_menu_button( $items, $args ) {
 
     if ( get_option( 'sydney-update-header' ) ) {
         return $items;
-    }	
+    }   
 
 	$type = get_theme_mod( 'header_button_html', 'nothing' );
 
-    if ( $args -> theme_location == 'primary' ) {
-		if ( 'button' == $type ) {
-			$link 	= get_theme_mod( 'header_custom_item_btn_link', 'https://example.org/' );
-			$text 	= get_theme_mod( 'header_custom_item_btn_text', __( 'Get in touch', 'sydney' ) );
+    if ( $args -> theme_location === 'primary' ) {
+		if ( 'button' === $type ) {
+			$link   = get_theme_mod( 'header_custom_item_btn_link', 'https://example.org/' );
+			$text   = get_theme_mod( 'header_custom_item_btn_text', __( 'Get in touch', 'sydney' ) );
 			$target = get_theme_mod( 'header_custom_item_btn_target', 1 );
 			if ( $target ) {
 				$target = '_blank';
@@ -235,7 +233,7 @@ function sydney_add_header_menu_button( $items, $args ) {
 			}
 
 			$items .= '<li class="header-custom-item"><a class="header-button roll-button" target="' . $target . '" href="' . esc_url( $link ) . '" title="' . esc_attr( $text ) . '">' . esc_html( $text ) . '</a></li>';
-		} elseif ( 'html' == $type ) {
+		} elseif ( 'html' === $type ) {
 			$content = get_theme_mod( 'header_custom_item_html' );
 
 			$items .= '<li class="header-custom-item">' . wp_kses_post( $content ) . '</li>';
@@ -261,8 +259,8 @@ if ( !function_exists( 'sydney_menu_container' ) ) {
  */
 function sydney_image_alt( $image ) {
 	
-	$id 	= attachment_url_to_postid( $image );
-	$alt 	= get_post_meta( $id, '_wp_attachment_image_alt', true) ;
+	$id     = attachment_url_to_postid( $image );
+	$alt    = get_post_meta( $id, '_wp_attachment_image_alt', true) ;
 
 	if ( $alt ) {
 		return $alt;
@@ -285,7 +283,7 @@ function sydney_update_fontawesome_callback() {
 	update_option( 'sydney-fontawesome-v5', true );
 
 	wp_send_json( array(
-		'success' => true
+		'success' => true,
 	) );
 }
 add_action( 'wp_ajax_sydney_update_fontawesome_callback', 'sydney_update_fontawesome_callback' );
@@ -315,19 +313,18 @@ function sydney_append_gotop_html() {
 		return;
 	}
 
-	$type 		= get_theme_mod( 'scrolltop_type', 'icon' );			
-	$text 		= get_theme_mod( 'scrolltop_text', esc_html__( 'Back to top', 'sydney' ) );	
-	$icon		= get_theme_mod( 'scrolltop_icon', 'icon2' );
+	$type       = get_theme_mod( 'scrolltop_type', 'icon' );            
+	$text       = get_theme_mod( 'scrolltop_text', esc_html__( 'Back to top', 'sydney' ) ); 
+	$icon       = get_theme_mod( 'scrolltop_icon', 'icon2' );
 	$visibility = get_theme_mod( 'scrolltop_visibility', 'all' );
-	$position 	= get_theme_mod( 'scrolltop_position', 'right' );
+	$position   = get_theme_mod( 'scrolltop_position', 'right' );
 
 	echo '<a on="tap:toptarget.scrollTo(duration=200)" class="go-top visibility-' . esc_attr( $visibility ) . ' position-' . esc_attr( $position ) . '">';
 	if ( 'text' === $type ) {
 		echo '<span>' . esc_html( $text ) . '</span>';
 	}
-	echo 	'<i class="sydney-svg-icon">' . sydney_get_svg_icon( 'icon-btt-' . $icon, false ) . '</i>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	echo    '<i class="sydney-svg-icon">' . sydney_get_svg_icon( 'icon-btt-' . $icon, false ) . '</i>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	echo '</a>';
-
 }
 add_action('wp_footer', 'sydney_append_gotop_html', 1);
 
@@ -336,7 +333,7 @@ add_action('wp_footer', 'sydney_append_gotop_html', 1);
  */
 function sydney_get_social_network( $social ) {
 
-	$networks = array( 'bsky', 'bluesky', 'threads', 'mastodon', 'feed','maps', 'facebook', 'twitter', 'x.com', 'instagram', 'github', 'linkedin', 'youtube', 'xing', 'flickr', 'dribbble', 'vk', 'weibo', 'vimeo', 'mix', 'behance', 'spotify', 'soundcloud', 'twitch', 'bandcamp', 'etsy', 'pinterest', 'amazon', 'tiktok', 'telegram', 'whatsapp', 'wa.me', 't.me', 'discord', 'goodreads' );
+	$networks = array( 'bsky', 'bluesky', 'threads', 'mastodon', 'feed', 'maps', 'facebook', 'twitter', 'x.com', 'instagram', 'github', 'linkedin', 'youtube', 'xing', 'flickr', 'dribbble', 'vk', 'weibo', 'vimeo', 'mix', 'behance', 'spotify', 'soundcloud', 'twitch', 'bandcamp', 'etsy', 'pinterest', 'amazon', 'tiktok', 'telegram', 'whatsapp', 'wa.me', 't.me', 'discord', 'goodreads' );
 
 	foreach ( $networks as $network ) {
 		$found = strpos( $social, $network );
@@ -364,7 +361,8 @@ function sydney_social_profile( $location ) {
 	foreach ( $social_links as $social ) {
 		$network = sydney_get_social_network( $social );
 		if ( $network ) {
-			$aria_label = sprintf( __( '%s link, opens in a new tab', 'sydney' ), esc_html( $network ) );
+			// translators: %s is the social network name
+			$aria_label = sprintf( esc_html__( '%s link, opens in a new tab', 'sydney' ), esc_html( $network ) );
 			$items .= '<a target="_blank" href="' . esc_url( $social ) . '" aria-label="' . esc_attr( $aria_label )  . '"><i class="sydney-svg-icon">' . sydney_get_svg_icon( 'icon-' . esc_html( $network ), false ) . '</i></a>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped		
 		}
 	}
@@ -379,14 +377,14 @@ function sydney_social_profile( $location ) {
 function sydney_footer_credits() {
 
 	/* translators: %1$1s, %2$2s theme copyright tags*/
-	$credits 	= get_theme_mod( 'footer_credits', sprintf( esc_html__( '%1$1s. Proudly powered by %2$2s', 'sydney' ), '{copyright} {year} {site_title}', '{theme_author}' ) );
+	$credits    = get_theme_mod( 'footer_credits', sprintf( esc_html__( '%1$1s. Proudly powered by %2$2s', 'sydney' ), '{copyright} {year} {site_title}', '{theme_author}' ) );
 
-	$tags 		= array( '{theme_author}', '{site_title}', '{copyright}', '{year}' );
-	$replace 	= array( '<a rel="nofollow" href="https://athemes.com/theme/sydney/">' . esc_html__( 'Sydney', 'sydney' ) . '</a>', get_bloginfo( 'name' ), '&copy;', date('Y') );
+	$tags       = array( '{theme_author}', '{site_title}', '{copyright}', '{year}' );
+	$replace    = array( '<a rel="nofollow" href="https://athemes.com/theme/sydney/">' . esc_html__( 'Sydney', 'sydney' ) . '</a>', get_bloginfo( 'name' ), '&copy;', gmdate('Y') );
 
-	$credits 	= str_replace( $tags, $replace, $credits );
+	$credits    = str_replace( $tags, $replace, $credits );
 
-	$credits	= '<div class="sydney-credits">' . $credits . '</div>';
+	$credits    = '<div class="sydney-credits">' . $credits . '</div>';
 
 	return $credits;
 }
@@ -415,7 +413,7 @@ function sydney_sidebar_position() {
 	$class = '';
 
 	if ( !is_singular() ) {
-		$sidebar_archives_position 	= get_theme_mod( 'sidebar_archives_position', 'sidebar-right' );
+		$sidebar_archives_position  = get_theme_mod( 'sidebar_archives_position', 'sidebar-right' );
 		$class = $sidebar_archives_position;
 	} elseif ( is_singular() ) {
 		global $post;
@@ -424,8 +422,8 @@ function sydney_sidebar_position() {
 			return;
 		}
 
-		$post_type 			= get_post_type();
-		$sidebar_position 	= get_theme_mod( 'sidebar_single_' . $post_type . '_position', 'sidebar-right' );
+		$post_type          = get_post_type();
+		$sidebar_position   = get_theme_mod( 'sidebar_single_' . $post_type . '_position', 'sidebar-right' );
 
 		$class = $sidebar_position;
 	}
@@ -487,22 +485,22 @@ function sydney_related_posts() {
 		return;
 	}
 
-	$related_title 	= get_theme_mod( 'related_posts_title', esc_html__( 'You might also like:', 'sydney' ) );
-    $post_id 		= get_the_ID();
-    $cat_ids 		= array();
-    $categories 	= get_the_category( $post_id );
+	$related_title  = get_theme_mod( 'related_posts_title', esc_html__( 'You might also like:', 'sydney' ) );
+    $post_id        = get_the_ID();
+    $cat_ids        = array();
+    $categories     = get_the_category( $post_id );
 
-    if(	!empty($categories) && !is_wp_error( $categories ) ):
+    if( !empty($categories) && !is_wp_error( $categories ) ):
         foreach ( $categories as $category ):
             array_push( $cat_ids, $category->term_id );
         endforeach;
     endif;
 
     $query_args = array( 
-        'category__in'   	=> $cat_ids,
-        'post__not_in'    	=> array( $post_id ),
-        'posts_per_page'  	=> '3',
-     );
+        'category__in'      => $cat_ids,
+        'post__not_in'      => array( $post_id ),
+        'posts_per_page'    => '3',
+    );
 
     $related_cats_post = new WP_Query( $query_args );
 
@@ -530,8 +528,7 @@ function sydney_related_posts() {
 		echo '</div>';
 
         wp_reset_postdata();
-     endif;
-
+    endif;
 }
 add_action( 'sydney_after_single_entry', 'sydney_related_posts', 31 );
 
@@ -540,16 +537,16 @@ add_action( 'sydney_after_single_entry', 'sydney_related_posts', 31 );
  */
 function sydney_get_default_header_components() {
 	$components = array(
-		'l1'		=> array( 'search', 'woocommerce_icons' ),
-		'l3left'	=> array( 'search' ),
-		'l3right'	=> array( 'woocommerce_icons' ),
-		'l4top'		=> array( 'search' ),
-		'l4bottom'	=> array( 'woocommerce_icons' ),
-		'l5topleft'	=> array(),
+		'l1'        => array( 'search', 'woocommerce_icons' ),
+		'l3left'    => array( 'search' ),
+		'l3right'   => array( 'woocommerce_icons' ),
+		'l4top'     => array( 'search' ),
+		'l4bottom'  => array( 'woocommerce_icons' ),
+		'l5topleft' => array(),
 		'l5topright'=> array( 'woocommerce_icons' ),
-		'l5bottom'	=> array( 'search' ),
-		'mobile'	=> array( 'search' ),
-		'offcanvas'	=> array()
+		'l5bottom'  => array( 'search' ),
+		'mobile'    => array( 'search' ),
+		'offcanvas' => array(),
 	);
 
 	return apply_filters( 'sydney_default_header_components', $components );
@@ -559,26 +556,26 @@ function sydney_get_default_header_components() {
  * Header layouts
  */
 function sydney_header_layouts() {
-	$choices = array(			
+	$choices = array(           
 		'header_layout_1' => array(
 			'label' => esc_html__( 'Layout 1', 'sydney' ),
-			'url'   => '%s/images/customizer/hl1.svg'
+			'url'   => '%s/images/customizer/hl1.svg',
 		),
 		'header_layout_2' => array(
 			'label' => esc_html__( 'Layout 2', 'sydney' ),
-			'url'   => '%s/images/customizer/hl2.svg'
-		),		
+			'url'   => '%s/images/customizer/hl2.svg',
+		),      
 		'header_layout_3' => array(
 			'label' => esc_html__( 'Layout 3', 'sydney' ),
-			'url'   => '%s/images/customizer/hl3.svg'
-		),				
+			'url'   => '%s/images/customizer/hl3.svg',
+		),              
 		'header_layout_4' => array(
 			'label' => esc_html__( 'Layout 4', 'sydney' ),
-			'url'   => '%s/images/customizer/hl4.svg'
+			'url'   => '%s/images/customizer/hl4.svg',
 		),
 		'header_layout_5' => array(
 			'label' => esc_html__( 'Layout 5', 'sydney' ),
-			'url'   => '%s/images/customizer/hl5.svg'
+			'url'   => '%s/images/customizer/hl5.svg',
 		),
 	);
 
@@ -589,18 +586,18 @@ function sydney_header_layouts() {
  * Mobile header layouts
  */
 function sydney_mobile_header_layouts() {
-	$choices = array(			
+	$choices = array(           
 		'header_mobile_layout_1' => array(
 			'label' => esc_html__( 'Layout 1', 'sydney' ),
-			'url'   => '%s/images/customizer/mhl1.svg'
+			'url'   => '%s/images/customizer/mhl1.svg',
 		),
 		'header_mobile_layout_2' => array(
 			'label' => esc_html__( 'Layout 2', 'sydney' ),
-			'url'   => '%s/images/customizer/mhl2.svg'
-		),		
+			'url'   => '%s/images/customizer/mhl2.svg',
+		),      
 		'header_mobile_layout_3' => array(
 			'label' => esc_html__( 'Layout 3', 'sydney' ),
-			'url'   => '%s/images/customizer/mhl3.svg'
+			'url'   => '%s/images/customizer/mhl3.svg',
 		),
 	);
 
@@ -613,11 +610,11 @@ function sydney_mobile_header_layouts() {
 function sydney_header_elements() {
 
 	$elements = array(
-		'search' 			=> esc_html__( 'Search', 'sydney' ),
+		'search'            => esc_html__( 'Search', 'sydney' ),
 		'woocommerce_icons' => esc_html__( 'Cart &amp; account icons', 'sydney' ),
-		'button' 			=> esc_html__( 'Button', 'sydney' ),
-		'contact_info' 		=> esc_html__( 'Contact info', 'sydney' ),
-		'social' 			=> esc_html__( 'Social', 'sydney' ),
+		'button'            => esc_html__( 'Button', 'sydney' ),
+		'contact_info'      => esc_html__( 'Contact info', 'sydney' ),
+		'social'            => esc_html__( 'Social', 'sydney' ),
 	);
 
 	return apply_filters( 'sydney_header_elements', $elements );
@@ -628,7 +625,7 @@ function sydney_header_elements() {
  */
 function sydney_add_submenu_icons( $item_output, $item, $depth, $args ) {
 
-	if ( false == get_option( 'sydney-update-header' ) ) {
+	if ( false === get_option( 'sydney-update-header' ) ) {
 		return $item_output;
 	}
 	
@@ -636,7 +633,7 @@ function sydney_add_submenu_icons( $item_output, $item, $depth, $args ) {
 		return $item_output;
 	}
 
-	if ( ! empty( $item->classes ) && in_array( 'menu-item-has-children', $item->classes ) ) {
+	if ( ! empty( $item->classes ) && in_array( 'menu-item-has-children', $item->classes, true ) ) {
 		$item_output = preg_replace('/<a /', '<a aria-haspopup="true" aria-expanded="false" ', $item_output, 1);
 		return $item_output . '<span tabindex=0 class="dropdown-symbol"><i class="sydney-svg-icon">' . sydney_get_svg_icon( 'icon-down', false ) . '</i></span>';
 	}
@@ -649,25 +646,25 @@ add_filter( 'walker_nav_menu_start_el', 'sydney_add_submenu_icons', 10, 4 );
  * Google Fonts URL
  */
 function sydney_google_fonts_url() {
-	$fonts_url 	= '';
-	$subsets 	= 'latin';
+	$fonts_url  = '';
+	$subsets    = 'latin';
 
-	$defaults = json_encode(
+	$defaults = wp_json_encode(
 		array(
-			'font' 			=> 'System default',
+			'font'          => 'System default',
 			'regularweight' => '400',
-			'category' 		=> 'sans-serif'
+			'category'      => 'sans-serif',
 		)
 	);
 
 	//Get and decode options
-	$body_font		= get_theme_mod( 'sydney_body_font', $defaults );
-	$headings_font 	= get_theme_mod( 'sydney_headings_font', $defaults );
-	$menu_font 		= get_theme_mod( 'sydney_menu_font', $defaults );
+	$body_font      = get_theme_mod( 'sydney_body_font', $defaults );
+	$headings_font  = get_theme_mod( 'sydney_headings_font', $defaults );
+	$menu_font      = get_theme_mod( 'sydney_menu_font', $defaults );
 
-	$body_font 		= json_decode( $body_font, true );
-	$headings_font 	= json_decode( $headings_font, true );
-	$menu_font 		= json_decode( $menu_font, true );
+	$body_font      = json_decode( $body_font, true );
+	$headings_font  = json_decode( $headings_font, true );
+	$menu_font      = json_decode( $menu_font, true );
 
 	if ( 'System default' === $body_font['font'] && 'System default' === $headings_font['font'] && 'System default' === $menu_font['font'] ) {
 		return; //return early if defaults are active
@@ -690,19 +687,19 @@ function sydney_google_fonts_url() {
 		}
 				
 		$font_families[] = $menu_font['font'] . ':wght@' . $menu_font['regularweight'];
-	}	
+	}   
 
 	if ( 'System default' !== $headings_font['font'] ) {
 
 		$old_weights = get_theme_mod( 'headings_font_weights' );
 		
-		if ( is_array( $old_weights ) && in_array( '400', $old_weights ) ) {
+		if ( is_array( $old_weights ) && in_array( '400', $old_weights, true ) ) {
 			$headings_font['regularweight'] = '400';
 		}
 
 		if ( 'regular' === $headings_font['regularweight'] ) {
 			$headings_font['regularweight'] = '400';
-		}		
+		}       
 
 		$font_families[] = $headings_font['font'] . ':wght@' . $headings_font['regularweight'];
 	}
@@ -715,7 +712,7 @@ function sydney_google_fonts_url() {
 	// Load google fonts locally
 	$load_locally = get_theme_mod( 'perf_google_fonts_local', 0 );
 	if( $load_locally ) {
-		require_once get_theme_file_path( 'vendor/wptt-webfont-loader/wptt-webfont-loader.php' ); // phpcs:ignore WPThemeReview.CoreFunctionality.FileInclude.FileIncludeFound
+		require_once get_theme_file_path( 'inc/vendor/wptt-webfont-loader/wptt-webfont-loader.php' ); // phpcs:ignore WPThemeReview.CoreFunctionality.FileInclude.FileIncludeFound
 
 		return wptt_get_webfont_url( $fonts_url );
 	}
@@ -728,7 +725,7 @@ function sydney_google_fonts_url() {
  */
 function sydney_preconnect_google_fonts() {
 
-	$load_locally  		= get_theme_mod( 'perf_google_fonts_local', 0 );
+	$load_locally       = get_theme_mod( 'perf_google_fonts_local', 0 );
 	$disable_preconnect = get_theme_mod( 'perf_disable_preconnect', 0 );
 	if ( $load_locally || $disable_preconnect ) {
 		return;
@@ -739,19 +736,19 @@ function sydney_preconnect_google_fonts() {
 		return;
 	}
 
-	$defaults = json_encode(
+	$defaults = wp_json_encode(
 		array(
-			'font' 			=> 'System default',
+			'font'          => 'System default',
 			'regularweight' => 'regular',
-			'category' 		=> 'sans-serif'
+			'category'      => 'sans-serif',
 		)
-	);	
+	);  
 
-	$body_font		= get_theme_mod( 'sydney_body_font', $defaults );
-	$headings_font 	= get_theme_mod( 'sydney_headings_font', $defaults );
+	$body_font      = get_theme_mod( 'sydney_body_font', $defaults );
+	$headings_font  = get_theme_mod( 'sydney_headings_font', $defaults );
 
-	$body_font 		= json_decode( $body_font, true );
-	$headings_font 	= json_decode( $headings_font, true );
+	$body_font      = json_decode( $body_font, true );
+	$headings_font  = json_decode( $headings_font, true );
 
 	if ( 'System default' === $body_font['font'] && 'System default' === $headings_font['font'] ) {
 		return;
@@ -769,11 +766,11 @@ function sydney_404_page_content() {
 	?>
 	<section class="error-404 not-found">
 		<header class="page-header">
-			<h1 class="page-title"><?php _e( 'Oops! That page can&rsquo;t be found.', 'sydney' ); ?></h1>
+			<h1 class="page-title"><?php esc_html_e( 'Oops! That page can&rsquo;t be found.', 'sydney' ); ?></h1>
 		</header><!-- .page-header -->
 
 		<div class="page-content">
-			<p><?php _e( 'It looks like nothing was found at this location. Maybe try one of the links below or a search?', 'sydney' ); ?></p>
+			<p><?php esc_html_e( 'It looks like nothing was found at this location. Maybe try one of the links below or a search?', 'sydney' ); ?></p>
 
 			<?php get_search_form(); ?>
 
@@ -797,7 +794,7 @@ function sydney_single_container_layout() {
 	$layout = get_theme_mod( $post_type . '_container_layout', 'normal' );
 
 	//Add container type class
-	add_filter( 'sydney_content_area_class', function( $class ) use ( $layout ) {
+	add_filter( 'sydney_content_area_class', function( $class ) use ( $layout ) { // phpcs:ignore Universal.NamingConventions.NoReservedKeywordParameterNames.classFound
 		$class .= ' container-' . $layout;
 
 		return $class;
@@ -823,10 +820,10 @@ add_action( 'wp', 'sydney_single_container_layout' );
  * Archive template
  */
 function sydney_archive_template() {
-	$layout 		= sydney_blog_layout();
-	$sidebar_pos 	= sydney_sidebar_position();
-	$archive_title_layout 	= get_theme_mod( 'archive_title_layout', 'layout1' );	
-	$post_type 				= get_post_type();
+	$layout         = sydney_blog_layout();
+	$sidebar_pos    = sydney_sidebar_position();
+	$archive_title_layout   = get_theme_mod( 'archive_title_layout', 'layout1' );   
+	$post_type              = get_post_type();
 	?>
 	<div id="primary" class="content-area <?php echo esc_attr( $sidebar_pos ); ?> <?php echo esc_attr( $layout ); ?> <?php echo esc_attr( apply_filters( 'sydney_content_area_class', 'col-md-9' ) ); ?>">
 		<main id="main" class="post-wrap" role="main">
@@ -834,7 +831,7 @@ function sydney_archive_template() {
 		<?php if ( have_posts() ) : ?>
 
 			<?php if ( !is_home() && apply_filters( 'sydney_display_archive_title', true ) ) : ?>
-				<?php if ( ( !is_category() && !is_tag() && !is_author() ) || ( 'post' == $post_type && 'layout1' === $archive_title_layout ) ) : ?>
+				<?php if ( ( !is_category() && !is_tag() && !is_author() ) || ( 'post' === $post_type && 'layout1' === $archive_title_layout ) ) : ?>
 				<header class="page-header">
 					<?php
 						do_action( 'sydney_before_title' );
@@ -873,7 +870,7 @@ add_action( 'sydney_archive_content', 'sydney_archive_template' );
  * Single template
  */
 function sydney_single_template() {
-	$sidebar_pos 	= sydney_sidebar_position();
+	$sidebar_pos    = sydney_sidebar_position();
 
 	if (get_theme_mod('fullwidth_single')) {
 		$width = 'fullwidth';
@@ -951,8 +948,8 @@ function sydney_footer_area() {
 		<?php get_sidebar('footer'); ?>
 	<?php endif; ?>
 
-	<?php $container 	= get_theme_mod( 'footer_credits_container', 'container' ); ?>
-	<?php $credits 		= sydney_footer_credits(); ?>
+	<?php $container    = get_theme_mod( 'footer_credits_container', 'container' ); ?>
+	<?php $credits      = sydney_footer_credits(); ?>
 
 	<footer id="colophon" class="site-footer">
 		<div class="<?php echo esc_attr( $container ); ?>">
@@ -1014,8 +1011,8 @@ add_action( 'sydney_page_content', 'sydney_single_page_template' );
  */
 function sydney_search_template() {
 	
-	$layout 		= sydney_blog_layout();
-	$sidebar_pos 	= sydney_sidebar_position();
+	$layout         = sydney_blog_layout();
+	$sidebar_pos    = sydney_sidebar_position();
 	$archive_title_layout = get_theme_mod( 'archive_title_layout', 'layout1' );
 	?>
 
@@ -1025,7 +1022,8 @@ function sydney_search_template() {
 		<?php if ( have_posts() ) : ?>
 
 			<header class="page-header">
-				<h3><?php printf( __( 'Search Results for: %s', 'sydney' ), '<span>' . get_search_query() . '</span>' ); ?></h3>
+				<?php // translators: %s is the search query ?>
+				<h3><?php printf( esc_html__( 'Search Results for: %s', 'sydney' ), '<span>' . get_search_query() . '</span>' ); ?></h3>
 			</header><!-- .page-header -->
 
 			<div class="posts-layout">

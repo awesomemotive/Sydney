@@ -615,9 +615,9 @@ class Sydney_Header_Footer_Builder {
         switch ( $row ) {
             case 'main_header_row':
                 if( class_exists( 'Woocommerce' ) ) {
-                    $default = '{ "desktop": [["logo"], ["menu", "search", "woo_icons"]], "mobile": [["search"], ["logo"], ["woo_icons", "mobile_hamburger"]] }';
+                    $default = '{ "desktop": [["logo"], ["menu", "search", "woo_icons"]], "mobile": [["logo"], ["search", "woo_icons", "mobile_hamburger"]] }';
                 } else {
-                    $default = '{ "desktop": [["logo"], ["menu", "search"]], "mobile": [["search"], ["logo"], ["mobile_hamburger"]] }';
+                    $default = '{ "desktop": [["logo"], ["menu", "search"]], "mobile": [["logo"], ["search", "mobile_hamburger"]] }';
                 }
                 break;
 

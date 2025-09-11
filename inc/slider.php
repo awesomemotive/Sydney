@@ -15,7 +15,7 @@ function sydney_slider_template() {
         $front_header = get_theme_mod('front_header_type','nothing');
     }
 
-    if ( ($front_header == 'slider' && is_front_page()) || (get_theme_mod('site_header_type') == 'slider' && !is_front_page()) ) {
+    if ( ($front_header === 'slider' && is_front_page()) || (get_theme_mod('site_header_type') === 'slider' && !is_front_page()) ) {
 
     //Get the slider options
     $text_slide = get_theme_mod('textslider_slide', 0);
@@ -35,7 +35,7 @@ function sydney_slider_template() {
         'slider_subtitle_2' => get_theme_mod('slider_subtitle_2', 'Feel free to look around'),
         'slider_subtitle_3' => get_theme_mod('slider_subtitle_3'),
         'slider_subtitle_4' => get_theme_mod('slider_subtitle_4'),
-        'slider_subtitle_5' => get_theme_mod('slider_subtitle_5'),    		
+        'slider_subtitle_5' => get_theme_mod('slider_subtitle_5'),          
     );
     $images = array(
         'slider_image_1' => get_theme_mod('slider_image_1'),
@@ -46,12 +46,12 @@ function sydney_slider_template() {
     );
 
 
-    if ( $images['slider_image_1'] == '' ) {
+    if ( $images['slider_image_1'] === '' ) {
         return;
     }
 
     //If the second slide is empty, stop the slider
-    if ( $images['slider_image_2'] != '' ) {
+    if ( $images['slider_image_2'] !== '' ) {
         $speed = get_theme_mod('slider_speed', '4000');
     } else {
         $speed = 0;
@@ -69,14 +69,14 @@ function sydney_slider_template() {
 
                 $image_alt = sydney_image_alt( $image );
         		?>
-                <div class="slide-item slide-item-<?php echo $c; ?>" style="background-image:url('<?php echo esc_url( $image ); ?>');">
+                <div class="slide-item slide-item-<?php echo $c; ?>" style="background-image:url('<?php echo esc_url( $image ); // phpcs:ignore WordPress.Security.EscapeOutput ?>');">
                     <img class="mobile-slide preserve" src="<?php echo esc_url( $image ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>"/>
                     <div class="slide-inner">
                         <div class="contain animated fadeInRightBig text-slider">
                         <h2 class="maintitle"><?php echo wp_kses_post( $titles['slider_title_' . $c] ); ?></h2>
                         <p class="subtitle"><?php echo esc_html( $subtitles['slider_subtitle_' . $c] ); ?></p>
                         </div>
-                        <?php echo $button; ?>
+                        <?php echo $button; // phpcs:ignore WordPress.Security.EscapeOutput ?>
                     </div>
                 </div>
                 <?php
@@ -87,7 +87,7 @@ function sydney_slider_template() {
 
         </div>  
         <?php if ( $text_slide ) : ?>
-            <?php echo sydney_stop_text(); ?>
+            <?php echo sydney_stop_text(); // phpcs:ignore WordPress.Security.EscapeOutput ?>
         <?php endif; ?>
     </div>
 
@@ -102,14 +102,14 @@ function sydney_slider_template() {
 
                     $image_alt = sydney_image_alt( $image );
                     ?>
-                    <div class="slide-item slide-item-<?php echo $c; ?>" style="background-image:url('<?php echo esc_url( $image ); ?>');">
+                    <div class="slide-item slide-item-<?php echo $c; // phpcs:ignore WordPress.Security.EscapeOutput ?>" style="background-image:url('<?php echo esc_url( $image ); ?>');">
                         <img class="mobile-slide preserve" src="<?php echo esc_url( $image ); ?>" alt="<?php echo esc_attr( $image_alt ); ?>"/>
                         <div class="slide-inner">
                             <div class="contain animated fadeInRightBig text-slider">
                             <h2 class="maintitle"><?php echo wp_kses_post( $titles['slider_title_' . $c] ); ?></h2>
                             <p class="subtitle"><?php echo esc_html( $subtitles['slider_subtitle_' . $c] ); ?></p>
                             </div>
-                            <?php echo $button; ?>
+                            <?php echo $button; // phpcs:ignore WordPress.Security.EscapeOutput ?>
                         </div>
                     </div>
                     <?php
@@ -136,7 +136,6 @@ function sydney_slider_button() {
     if ($slider_button) {
         return '<a href="' . esc_url($slider_button_url) . '" class="roll-button button-slider">' . esc_html($slider_button) . '</a>';
     }
-
 }
 
 function sydney_stop_text() {
@@ -150,7 +149,7 @@ function sydney_stop_text() {
             <h2 class="maintitle"><?php echo esc_html($slider_title_1); ?></h2>
             <p class="subtitle"><?php echo esc_html($slider_subtitle_1); ?></p>
         </div>
-        <?php echo sydney_slider_button(); ?>
+        <?php echo sydney_slider_button(); // phpcs:ignore WordPress.Security.EscapeOutput ?>
     </div>   
     <?php 
 }

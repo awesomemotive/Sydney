@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Class to display the theme review notice after certain period.
  *
-  */
+ */
 class Sydney_Theme_Review_Notice {
 
 	/**
@@ -66,12 +66,12 @@ class Sydney_Theme_Review_Notice {
 			<p>
 				<a href="https://wordpress.org/support/theme/sydney/reviews/?filter=5#new-post" class="btn button-primary" target="_blank"><?php esc_html_e( 'Sure', 'sydney' ); ?></a>
 
-				<a href="?delay_sydney_disable_review_notice_partially=0" class="btn button-secondary"><?php esc_html_e( 'Maybe later', 'sydney' ); ?></a>
+				<a href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'delay_sydney_disable_review_notice_partially', '0' ), 'sydney_review_notice_nonce' ) ); ?>" class="btn button-secondary"><?php esc_html_e( 'Maybe later', 'sydney' ); ?></a>
 
-				<a href="?nag_sydney_disable_review_notice=0" class="btn button-secondary"><?php esc_html_e( 'I already did', 'sydney' ); ?></a>
+				<a href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'nag_sydney_disable_review_notice', '0' ), 'sydney_review_notice_nonce' ) ); ?>" class="btn button-secondary"><?php esc_html_e( 'I already did', 'sydney' ); ?></a>
 			</p>
 
-			<a class="notice-dismiss" href="?nag_sydney_disable_review_notice=0" style="text-decoration:none;"></a>
+			<a class="notice-dismiss" href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'nag_sydney_disable_review_notice', '0' ), 'sydney_review_notice_nonce' ) ); ?>" style="text-decoration:none;"></a>
 		</div>
 		<?php
 	}
@@ -80,7 +80,11 @@ class Sydney_Theme_Review_Notice {
 	 * Disable review notice permanently
 	 */
 	public function ignore_theme_review_notice() {
-		if ( isset( $_GET['nag_sydney_disable_review_notice'] ) && '0' == $_GET['nag_sydney_disable_review_notice'] ) {
+		if ( isset( $_GET['nag_sydney_disable_review_notice'] ) && '0' === $_GET['nag_sydney_disable_review_notice'] ) {
+			// Verify nonce for security
+			if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'sydney_review_notice_nonce' ) ) {
+				return;
+			}
 			add_user_meta( get_current_user_id(), 'sydney_disable_review_notice', 'true', true );
 		}
 	}
@@ -89,7 +93,11 @@ class Sydney_Theme_Review_Notice {
 	 * Delay review notice
 	 */
 	public function ignore_theme_review_notice_partially() {
-		if ( isset( $_GET['delay_sydney_disable_review_notice_partially'] ) && '0' == $_GET['delay_sydney_disable_review_notice_partially'] ) {
+		if ( isset( $_GET['delay_sydney_disable_review_notice_partially'] ) && '0' === $_GET['delay_sydney_disable_review_notice_partially'] ) {
+			// Verify nonce for security
+			if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'sydney_review_notice_nonce' ) ) {
+				return;
+			}
 			update_user_meta( get_current_user_id(), 'delay_sydney_disable_review_notice_partially', time() );
 		}
 	}

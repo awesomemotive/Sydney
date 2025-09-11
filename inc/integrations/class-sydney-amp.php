@@ -15,7 +15,7 @@ if ( !class_exists( 'Sydney_AMP' ) ) :
 
 		/**
 		 * Instance
-		 */		
+		 */     
 		private static $instance;
 
 		/**
@@ -23,7 +23,7 @@ if ( !class_exists( 'Sydney_AMP' ) ) :
 		 */
 		public static function get_instance() {
 			if ( ! isset( self::$instance ) ) {
-				self::$instance = new self;
+				self::$instance = new self();
 			}
 			return self::$instance;
 		}
@@ -31,7 +31,7 @@ if ( !class_exists( 'Sydney_AMP' ) ) :
 		/**
 		 * Constructor
 		 */
-		public function __construct() {	
+		public function __construct() { 
 			add_filter( 'walker_nav_menu_start_el', array( $this, 'add_nav_sub_menu_buttons' ), 10, 2 );
 			add_filter( 'sydney_nav_data_attrs', array( $this, 'add_nav_attrs' ) );
 			add_filter( 'sydney_nav_toggle_data_attrs', array( $this, 'add_nav_toggle_attrs' ) );
@@ -60,7 +60,7 @@ if ( !class_exists( 'Sydney_AMP' ) ) :
 			$input .= ' [aria-expanded]="SydneyMenuExpanded ? \'true\' : \'false\'" ';
 
 			return $input;
-		}	
+		}   
 		
 		public function add_nav_sub_menu_buttons( $item_output, $item ) {
 
@@ -112,8 +112,7 @@ if ( !class_exists( 'Sydney_AMP' ) ) :
 			$item_output .= $dropdown_button;
 
 			return $item_output;
-		}		
-
+		}
 	}
 
 	/**

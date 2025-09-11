@@ -29,7 +29,7 @@ function sydney_custom_header_setup() {
 		'width'                  => 1920,
 		'height'                 => 1080,
 		'flex-height'            => true,
-		'video'					 => true,
+		'video'                  => true,
 		'video-active-callback'  => '',
 		'wp-head-callback'       => 'sydney_header_style',
 		'admin-head-callback'    => 'sydney_admin_header_style',
@@ -42,10 +42,10 @@ add_action( 'after_setup_theme', 'sydney_custom_header_setup' );
  * Video header settings
  */
 function sydney_video_settings( $settings ) {
-	$settings['l10n']['play'] 	= '';
-	$settings['l10n']['pause'] 	= '';
-	$settings['minWidth'] 		= '100';
-	$settings['minHeight'] 		= '100';	
+	$settings['l10n']['play']   = '';
+	$settings['l10n']['pause']  = '';
+	$settings['minWidth']       = '100';
+	$settings['minHeight']      = '100';    
 	
 	return $settings;
 }
@@ -64,11 +64,11 @@ function sydney_header_style() {
         $site_header = get_theme_mod('site_header_type','nothing');
     }
 
-	if ( get_header_image() && ( get_theme_mod('front_header_type') == 'image' && is_front_page() || $site_header == 'image' && !is_front_page() ) ) {
+	if ( get_header_image() && ( get_theme_mod('front_header_type') === 'image' && is_front_page() || $site_header === 'image' && !is_front_page() ) ) {
 	?>
 	<style type="text/css">
 		.header-image {
-			background-image: url(<?php echo get_header_image(); ?>);
+			background-image: url(<?php echo esc_url( get_header_image() ); ?>);
 			display: block;
 		}
 		@media only screen and (max-width: 1024px) {
@@ -121,11 +121,11 @@ if ( ! function_exists( 'sydney_admin_header_image' ) ) :
  * @see sydney_custom_header_setup().
  */
 function sydney_admin_header_image() {
-	$style = sprintf( ' style="color:#%s;"', get_header_textcolor() );
+	$style = sprintf( ' style="color:#%s;"', esc_attr( get_header_textcolor() ) );
 ?>
 	<div id="headimg">
-		<h1 class="displaying-header-text"><a id="name"<?php echo $style; ?> onclick="return false;" href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php bloginfo( 'name' ); ?></a></h1>
-		<div class="displaying-header-text" id="desc"<?php echo $style; ?>><?php bloginfo( 'description' ); ?></div>
+		<h1 class="displaying-header-text"><a id="name"<?php echo $style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> onclick="return false;" href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php bloginfo( 'name' ); ?></a></h1>
+		<div class="displaying-header-text" id="desc"<?php echo $style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>><?php bloginfo( 'description' ); ?></div>
 		<?php if ( get_header_image() ) : ?>
 		<img src="<?php header_image(); ?>" alt="">
 		<?php endif; ?>

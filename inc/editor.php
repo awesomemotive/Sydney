@@ -7,7 +7,7 @@
 function sydney_editor_styles() {
 	wp_enqueue_style( 'sydney-block-editor-styles', get_theme_file_uri( '/sydney-gutenberg-editor-styles.css' ), '', '20220208', 'all' );
 
-	wp_enqueue_style( 'sydney-fonts', esc_url( sydney_google_fonts_url() ), array(), null );
+	wp_enqueue_style( 'sydney-fonts', esc_url( sydney_google_fonts_url() ), array(), '20250901' );
 
 
 	//Dynamic styles
@@ -25,19 +25,19 @@ function sydney_editor_styles() {
 	$custom .= "}" . "\n";
 
 	//Fonts
-	$typography_defaults = json_encode(
+	$typography_defaults = wp_json_encode(
 		array(
-			'font' 			=> 'System default',
+			'font'          => 'System default',
 			'regularweight' => '400',
-			'category' 		=> 'sans-serif'
+			'category'      => 'sans-serif',
 		)
 	);
 
-	$body_font		= get_theme_mod( 'sydney_body_font', $typography_defaults );
-	$headings_font 	= get_theme_mod( 'sydney_headings_font', $typography_defaults );
+	$body_font      = get_theme_mod( 'sydney_body_font', $typography_defaults );
+	$headings_font  = get_theme_mod( 'sydney_headings_font', $typography_defaults );
 
-	$body_font 		= json_decode( $body_font, true );
-	$headings_font 	= json_decode( $headings_font, true );
+	$body_font      = json_decode( $body_font, true );
+	$headings_font  = json_decode( $headings_font, true );
 
 	$custom .= ".editor-styles-wrapper, .editor-styles-wrapper .editor-block-list__block { font-family:" . esc_attr( $body_font['font'] ) . ',' . esc_attr( $body_font['category'] ) . '; font-weight: ' . esc_attr( $body_font['regularweight'] ) . ';}' . "\n";
 	$custom .= ".editor-post-title__block .editor-post-title__input, .editor-styles-wrapper .editor-post-title__input, .editor-styles-wrapper h1, .editor-styles-wrapper h2, .editor-styles-wrapper h3, .editor-styles-wrapper h4, .editor-styles-wrapper h5, .editor-styles-wrapper h6 { font-family:" . esc_attr( $headings_font['font'] ) . ',' . esc_attr( $headings_font['category'] ) . '; font-weight: ' . esc_attr( $headings_font['regularweight'] ) . ';}' . "\n";
@@ -60,23 +60,23 @@ function sydney_editor_styles() {
 
 	$custom .= Sydney_Custom_CSS::get_font_sizes_css( 'body_font_size', $defaults = array( 'desktop' => 16, 'tablet' => 16, 'mobile' => 16 ), '.editor-styles-wrapper, .editor-styles-wrapper p' );            
 	
-	$body_font_style 		= get_theme_mod( 'body_font_style' );
-	$body_line_height 		= get_theme_mod( 'body_line_height', 1.68 );
-	$body_letter_spacing 	= get_theme_mod( 'body_letter_spacing' );
-	$body_text_transform 	= get_theme_mod( 'body_text_transform' );
-	$body_text_decoration 	= get_theme_mod( 'body_text_decoration' );
+	$body_font_style        = get_theme_mod( 'body_font_style' );
+	$body_line_height       = get_theme_mod( 'body_line_height', 1.68 );
+	$body_letter_spacing    = get_theme_mod( 'body_letter_spacing' );
+	$body_text_transform    = get_theme_mod( 'body_text_transform' );
+	$body_text_decoration   = get_theme_mod( 'body_text_decoration' );
 
-	$custom .= ".editor-styles-wrapper > *:not(.wp-block-heading) { text-transform:" . esc_attr( $body_text_transform ) . ";font-style:" . esc_attr( $body_font_style ) . ";line-height:" . esc_attr( $body_line_height ) . ";letter-spacing:" . esc_attr( $body_letter_spacing ) . "px;}" . "\n";	
+	$custom .= ".editor-styles-wrapper > *:not(.wp-block-heading) { text-transform:" . esc_attr( $body_text_transform ) . ";font-style:" . esc_attr( $body_font_style ) . ";line-height:" . esc_attr( $body_line_height ) . ";letter-spacing:" . esc_attr( $body_letter_spacing ) . "px;}" . "\n";  
 
 	//Single post title
 	$custom .= Sydney_Custom_CSS::get_font_sizes_css( 'single_post_title_size', $defaults = array( 'desktop' => 48, 'tablet' => 32, 'mobile' => 32 ), '.editor-post-title__block .editor-post-title__input, .editor-styles-wrapper .editor-post-title__input' );
 
 	//Headings
-	$headings_font_style 		= get_theme_mod( 'headings_font_style', 'normal' );
-	$headings_line_height 		= get_theme_mod( 'headings_line_height', 1.2 );
-	$headings_letter_spacing 	= get_theme_mod( 'headings_letter_spacing' );
-	$headings_text_transform 	= get_theme_mod( 'headings_text_transform' );
-	$headings_text_decoration 	= get_theme_mod( 'headings_text_decoration' );
+	$headings_font_style        = get_theme_mod( 'headings_font_style', 'normal' );
+	$headings_line_height       = get_theme_mod( 'headings_line_height', 1.2 );
+	$headings_letter_spacing    = get_theme_mod( 'headings_letter_spacing' );
+	$headings_text_transform    = get_theme_mod( 'headings_text_transform' );
+	$headings_text_decoration   = get_theme_mod( 'headings_text_decoration' );
 
 	$custom .= ".editor-styles-wrapper .wp-block-heading { font-style:" . esc_attr( $headings_font_style ) . ";line-height:" . esc_attr( $headings_line_height ) . ";letter-spacing:" . esc_attr( $headings_letter_spacing ) . "px;text-transform:" . esc_attr( $headings_text_transform ) . ";text-decoration:" . esc_attr( $headings_text_decoration ) . ";}" . "\n";
 	
@@ -102,12 +102,12 @@ function sydney_editor_styles() {
 	$button_text_transform = get_theme_mod( 'button_text_transform', 'uppercase' );
 	$custom .= ".editor-styles-wrapper .wp-block-button__link { text-transform:" . esc_attr( $button_text_transform ) . ";}" . "\n";
 
-	$custom .= Sydney_Custom_CSS::get_background_color_css( 'button_background_color', '', '.editor-styles-wrapper .wp-block-button:not(.is-style-outline) .wp-block-button__link' );			
+	$custom .= Sydney_Custom_CSS::get_background_color_css( 'button_background_color', '', '.editor-styles-wrapper .wp-block-button:not(.is-style-outline) .wp-block-button__link' );           
 	
-	$custom .= Sydney_Custom_CSS::get_background_color_css( 'button_background_color_hover', '', '.editor-styles-wrapper .wp-block-button:not(.is-style-outline) .wp-block-button__link:hover' );			
+	$custom .= Sydney_Custom_CSS::get_background_color_css( 'button_background_color_hover', '', '.editor-styles-wrapper .wp-block-button:not(.is-style-outline) .wp-block-button__link:hover' );           
 
-	$custom .= Sydney_Custom_CSS::get_color_css( 'button_color', '#ffffff', '.editor-styles-wrapper .wp-block-button__link' );			
-	$custom .= Sydney_Custom_CSS::get_color_css( 'button_color_hover', '#ffffff', '.editor-styles-wrapper .wp-block-button__link:hover' );			
+	$custom .= Sydney_Custom_CSS::get_color_css( 'button_color', '#ffffff', '.editor-styles-wrapper .wp-block-button__link' );          
+	$custom .= Sydney_Custom_CSS::get_color_css( 'button_color_hover', '#ffffff', '.editor-styles-wrapper .wp-block-button__link:hover' );          
 
 	$button_border_color = get_theme_mod( 'button_border_color', '' );
 	$button_border_color_hover = get_theme_mod( 'button_border_color_hover', '' );
@@ -116,7 +116,6 @@ function sydney_editor_styles() {
 
 	
 	//Output all the styles
-	wp_add_inline_style( 'sydney-block-editor-styles', $custom );	
-
+	wp_add_inline_style( 'sydney-block-editor-styles', $custom );   
 }
 add_action( 'enqueue_block_editor_assets', 'sydney_editor_styles' );

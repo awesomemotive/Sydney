@@ -5,10 +5,10 @@
 ?>
 
 <?php 
-$disable_title 					= get_post_meta( $post->ID, '_sydney_page_disable_title', true );
-$disable_featured 				= get_post_meta( $post->ID, '_sydney_page_disable_post_featured', true );
-$single_post_image_placement 	= get_theme_mod( 'single_post_image_placement', 'below' );
-$single_post_meta_position		= get_theme_mod( 'single_post_meta_position', 'below-title' );
+$disable_title                  = get_post_meta( $post->ID, '_sydney_page_disable_title', true );
+$disable_featured               = get_post_meta( $post->ID, '_sydney_page_disable_post_featured', true );
+$single_post_image_placement    = get_theme_mod( 'single_post_image_placement', 'below' );
+$single_post_meta_position      = get_theme_mod( 'single_post_meta_position', 'below-title' );
 ?>
 
 <?php do_action( 'sydney_before_single_entry' ); ?>

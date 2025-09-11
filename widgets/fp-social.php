@@ -1,5 +1,5 @@
 <?php
- class Sydney_Social_Profile extends WP_Widget {
+class Sydney_Social_Profile extends WP_Widget {
 
 	function __construct() {
 		$widget_ops = array( 'description' => __('Display your social profile on your front page', 'sydney') );
@@ -8,7 +8,7 @@
 
 	function widget($args, $instance) {
 		// Get menu
-		$nav_menu = ! empty( $instance['nav_menu'] ) ? wp_get_nav_menu_object( $instance['nav_menu'] ) : false;		
+		$nav_menu = ! empty( $instance['nav_menu'] ) ? wp_get_nav_menu_object( $instance['nav_menu'] ) : false;     
 
 		if ( !$nav_menu )
 			return;
@@ -23,12 +23,12 @@
 		?>
 				<?php wp_nav_menu(
 					array( 
-						'fallback_cb' 		=> false,
-						'menu' 				=> $nav_menu,
-						'theme_location' 	=> 'placeholderlocation',
-						'link_before' 		=> '<span class="screen-reader-text">',
-						'link_after' 		=> '</span>',
-						'menu_class' 		=> 'menu social-menu-widget clearfix'
+						'fallback_cb'       => false,
+						'menu'              => $nav_menu,
+						'theme_location'    => 'placeholderlocation',
+						'link_before'       => '<span class="screen-reader-text">',
+						'link_after'        => '</span>',
+						'menu_class'        => 'menu social-menu-widget clearfix',
 						) 
 				); ?>	
 		<?php

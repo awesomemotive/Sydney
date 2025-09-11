@@ -15,7 +15,7 @@ if ( !class_exists( 'Sydney_Learndash' ) ) :
 
 		/**
 		 * Instance
-		 */		
+		 */     
 		private static $instance;
 
 		/**
@@ -23,7 +23,7 @@ if ( !class_exists( 'Sydney_Learndash' ) ) :
 		 */
 		public static function get_instance() {
 			if ( ! isset( self::$instance ) ) {
-				self::$instance = new self;
+				self::$instance = new self();
 			}
 			return self::$instance;
 		}
@@ -65,7 +65,7 @@ if ( !class_exists( 'Sydney_Learndash' ) ) :
 			if ( ( is_singular( 'sfwd-lessons' ) || is_singular( 'sfwd-topic' ) || is_singular( 'sfwd-quiz' ) || is_singular( 'sfwd-certificates' ) || is_singular( 'sfwd-assignment' ) ) && 'no-sidebar' === $course_sidebar ) {
 				remove_action( 'sydney_get_sidebar', 'sydney_get_sidebar' );
 				add_filter( 'sydney_content_area_class', function() { return 'fullwidth'; } );
-			}			
+			}           
 		}
 
 		/**
@@ -102,7 +102,6 @@ if ( !class_exists( 'Sydney_Learndash' ) ) :
 
 			return $custom;
 		}
-
 	}
 
 	/**

@@ -3,9 +3,9 @@
 class Sydney_Contact_Info extends WP_Widget {
 
 	public function __construct() {
-		$widget_ops = array('classname' => 'sydney_contact_info_widget', 'description' => __( 'Display your contact info', 'sydney') );
+		$widget_ops = array( 'classname' => 'sydney_contact_info_widget', 'description' => __( 'Display your contact info', 'sydney') );
         parent::__construct(false, $name = __('Sydney: Contact info', 'sydney'), $widget_ops);
-		$this->alt_option_name = 'sydney_contact_info';	
+		$this->alt_option_name = 'sydney_contact_info'; 
     }
 	
 	function form($instance) {
@@ -49,11 +49,11 @@ class Sydney_Contact_Info extends WP_Widget {
 		}
 		extract($args);
 
-		$title 		= ( ! empty( $instance['title'] ) ) ? $instance['title'] : '';
-		$title 		= apply_filters( 'widget_title', $title, $instance, $this->id_base );
-		$address   	= isset( $instance['address'] ) ? esc_html( $instance['address'] ) : '';
-		$phone   	= isset( $instance['phone'] ) ? esc_html( $instance['phone'] ) : '';
-		$email   	= isset( $instance['email'] ) ? antispambot(esc_html( $instance['email'] )) : '';
+		$title      = ( ! empty( $instance['title'] ) ) ? $instance['title'] : '';
+		$title      = apply_filters( 'widget_title', $title, $instance, $this->id_base );
+		$address    = isset( $instance['address'] ) ? esc_html( $instance['address'] ) : '';
+		$phone      = isset( $instance['phone'] ) ? esc_html( $instance['phone'] ) : '';
+		$email      = isset( $instance['email'] ) ? antispambot(esc_html( $instance['email'] )) : '';
 
 		echo $before_widget;
 		
@@ -73,10 +73,8 @@ class Sydney_Contact_Info extends WP_Widget {
 			echo '<div class="contact-email">';
 			echo '<span><i class="sydney-svg-icon">' . sydney_get_svg_icon( 'icon-mail', false ) . '</i></span>' . '<a href="mailto:' . $email . '">' . $email . '</a>';
 			echo '</div>';
-		}				
+		}               
 
 		echo $after_widget;
-
 	}
-	
-}	
+}   

@@ -27,7 +27,7 @@ function sydney_callback_sidebar_archives() {
 		return true;
 	} else {
 		return false;
-	}   	
+	}       
 }
 
 /**
@@ -40,7 +40,7 @@ function sydney_callback_sidebar_single_post() {
 		return true;
 	} else {
 		return false;
-	}   	
+	}       
 }
 
 /**
@@ -92,7 +92,7 @@ function sydney_callback_excerpt() {
 		return true;
 	} else {
 		return false;
-	} 	
+	}   
 }
 
 /**
@@ -105,12 +105,12 @@ function sydney_callback_scrolltop() {
 		return true;
 	} else {
 		return false;
-	}	
+	}   
 }
 
 function sydney_callback_scrolltop_text() {
     $enable = get_theme_mod( 'enable_scrolltop', 1 );
-	$type 	= get_theme_mod( 'scrolltop_type', 'icon' );
+	$type   = get_theme_mod( 'scrolltop_type', 'icon' );
 
 	if ( $enable && 'text' === $type ) {
 		return true;
@@ -129,7 +129,7 @@ function sydney_callback_read_more() {
 		return true;
 	} else {
 		return false;
-	} 	
+	}   
 }
 
 /**
@@ -178,12 +178,11 @@ function sydney_callback_list_general_archives() {
 function sydney_callback_author_avatar() {
 	$meta = get_theme_mod( 'archive_meta_elements', array( 'post_date' ) );
 
-	if ( in_array( 'post_author', $meta ) ) {
+	if ( in_array( 'post_author', $meta, true ) ) {
 		return true;
 	} else {
 		return false;
 	}
-
 }
 
 /**
@@ -266,7 +265,7 @@ function sydney_callback_header_elements( $element ) {
 		case 'header_layout_2':
 			$elements = get_theme_mod( 'header_components_l1', array( 'search' ) );
 
-			if ( in_array( $element, $elements ) ) {
+			if ( in_array( $element, $elements, true ) ) {
 				return true;
 			} else {
 				return false;
@@ -275,46 +274,46 @@ function sydney_callback_header_elements( $element ) {
 			break;
 
 		case 'header_layout_3':
-			$elements 		= get_theme_mod( 'header_components_l3left' );
+			$elements       = get_theme_mod( 'header_components_l3left' );
 			$elements_right = get_theme_mod( 'header_components_l3right' );
 
-			if ( in_array( $element, $elements ) || in_array( $element, $elements_right ) ) {
+			if ( in_array( $element, $elements, true ) || in_array( $element, $elements_right, true ) ) {
 				return true;
 			} else {
 				return false;
 			}
 
-			break;	
+			break;  
 			
 		case 'header_layout_4':
-			$elements 			= get_theme_mod( 'header_components_l4top' );
-			$elements_bottom 	= get_theme_mod( 'header_components_l4bottom' );
+			$elements           = get_theme_mod( 'header_components_l4top' );
+			$elements_bottom    = get_theme_mod( 'header_components_l4bottom' );
 
-			if ( in_array( $element, $elements ) || in_array( $element, $elements_bottom ) ) {
+			if ( in_array( $element, $elements, true ) || in_array( $element, $elements_bottom, true ) ) {
 				return true;
 			} else {
 				return false;
 			}
 
-			break;	
+			break;  
 			
 		case 'header_layout_5':
-			$elements 			= get_theme_mod( 'header_components_l5topleft' );
-			$elements_right 	= get_theme_mod( 'header_components_l5topright' );
-			$elements_bottom 	= get_theme_mod( 'header_components_l5bottom' );
+			$elements           = get_theme_mod( 'header_components_l5topleft' );
+			$elements_right     = get_theme_mod( 'header_components_l5topright' );
+			$elements_bottom    = get_theme_mod( 'header_components_l5bottom' );
 
-			if ( in_array( $element, $elements ) || in_array( $element, $elements_bottom ) || in_array( $element, $elements_right ) ) {
+			if ( in_array( $element, $elements, true ) || in_array( $element, $elements_bottom, true ) || in_array( $element, $elements_right, true ) ) {
 				return true;
 			} else {
 				return false;
 			}
 
-			break;				
+			break;              
 
 		default:
 			return false;
 
-			break;			
+			break;          
 	}
 }
 
@@ -323,10 +322,10 @@ function sydney_callback_header_elements( $element ) {
  */
 function sydney_callback_topbar_elements( $element ) {
 	
-	$elements_left 	= get_theme_mod( 'topbar_components_left' );
+	$elements_left  = get_theme_mod( 'topbar_components_left' );
 	$elements_right = get_theme_mod( 'topbar_components_right' );
 
-	if ( in_array( $element, $elements_left ) || in_array( $element, $elements_right ) ) {
+	if ( in_array( $element, $elements_left, true ) || in_array( $element, $elements_right, true ) ) {
 		return true;
 	} else {
 		return false;
@@ -334,14 +333,14 @@ function sydney_callback_topbar_elements( $element ) {
 }
 
 function sydney_callback_topbar_center_contents() {
-	$elements_left 	= get_theme_mod( 'topbar_components_left' );
-	$elements_right = get_theme_mod( 'topbar_components_right' );	
+	$elements_left  = get_theme_mod( 'topbar_components_left' );
+	$elements_right = get_theme_mod( 'topbar_components_right' );   
 
 	if ( empty( $elements_left ) || empty( $elements_right ) ) {
 		return true;
 	} else {
 		return false;
-	}	
+	}   
 }
 
 function sydney_callback_related_post_title() {
@@ -351,7 +350,7 @@ function sydney_callback_related_post_title() {
 		return true;
 	} else {
 		return false;
-	}		
+	}       
 }
 
 function sydney_callback_menu_position() {
@@ -361,7 +360,7 @@ function sydney_callback_menu_position() {
 		return true;
 	} else {
 		return false;
-	}		
+	}       
 }
 
 function sydney_callback_menu_typography() {
@@ -371,7 +370,7 @@ function sydney_callback_menu_typography() {
 		return true;
 	} else {
 		return false;
-	}		
+	}       
 }
 
 function sydney_callback_offcanvas_link_separator() {

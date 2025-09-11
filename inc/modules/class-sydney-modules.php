@@ -16,7 +16,7 @@ if ( ! class_exists( 'Sydney_Modules' ) ) {
 		 */
 		public function __construct() {
 			add_action( 'admin_init', array( $this, 'activate_modules' ) );
-		}		
+		}       
 
 		/**
 		 * All modules registered in Sydney
@@ -27,15 +27,15 @@ if ( ! class_exists( 'Sydney_Modules' ) ) {
 
 			$modules['general'] = array(
 				array(
-					'slug'			=> 'block-templates',
+					'slug'          => 'block-templates',
 					'name'          => esc_html__( 'Block Templates', 'sydney' ),
 					'type'          => 'pro',
-					'link' 			=> admin_url( 'site-editor.php?path=%2Fwp_template_part%2Fall' ),
-					'link_label'	=> esc_html__( 'Build templates', 'sydney' ),
-					'activate_uri' 	=> '&amp;activate_module_block-templates', //param is added in dashboard class
-					'text'			=> __( 'Build headers, footers etc. with the site editor.', 'sydney' ) . '<div><a target="_blank" href="#">' . __( 'Documentation article', 'sydney' ) . '</a></div>',
-					'keywords'		=> array( 'header', 'footer', 'template', 'templates', 'builder' ),
-				)
+					'link'          => admin_url( 'site-editor.php?path=%2Fwp_template_part%2Fall' ),
+					'link_label'    => esc_html__( 'Build templates', 'sydney' ),
+					'activate_uri'  => '&amp;activate_module_block-templates', //param is added in dashboard class
+					'text'          => __( 'Build headers, footers etc. with the site editor.', 'sydney' ) . '<div><a target="_blank" href="#">' . __( 'Documentation article', 'sydney' ) . '</a></div>',
+					'keywords'      => array( 'header', 'footer', 'template', 'templates', 'builder' ),
+				),
 			);
 
 			if ( $category ) {
@@ -74,6 +74,11 @@ if ( ! class_exists( 'Sydney_Modules' ) ) {
 				return;
 			}
 
+			// Verify nonce for security
+			if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'sydney_modules_nonce' ) ) {
+				return;
+			}
+
 			$modules = $this->get_modules();
 
 			$all_modules = get_option( 'sydney-modules' );
@@ -82,11 +87,14 @@ if ( ! class_exists( 'Sydney_Modules' ) ) {
 			foreach ( $modules as $module ) {
 				$param = 'activate_module_' . $module['slug'];
 
-				if ( ! isset( $_GET[ $param ] ) ) {
+				if ( ! isset( $_GET[ $param ] ) ) { //phpcs:ignore WordPress.Security.NonceVerification.Recommended
 					continue;
 				}
 
-				$value = (int) wp_unslash( $_GET[ $param ] );
+				// Sanitize the parameter name and value
+				$sanitized_param = sanitize_key( $param );
+				$value = (int) wp_unslash( sanitize_text_field( $_GET[ $param ] ) );
+				
 				if ( 1 === $value ) {
 					update_option( 'sydney-modules', array_merge( $all_modules, array( $module['slug'] => true ) ) );
 				} elseif ( 0 === $value ) {
@@ -94,7 +102,7 @@ if ( ! class_exists( 'Sydney_Modules' ) ) {
 				}
 			}
 		}
-	}	
+	}   
 }
 
 new Sydney_Modules();

@@ -28,7 +28,7 @@ class Sydney_WPML {
 			'conditions' => [ 'widgetType' => 'athemes-portfolio' ],
 			'fields'     => [],
 			'integration-class' => 'Sydney_WPML_Elementor_Portfolio',
-		];		
+		];      
 
 		$widgets[ 'athemes-posts' ] = [
 			'conditions' => [ 'widgetType' => 'athemes-posts' ],
@@ -36,8 +36,8 @@ class Sydney_WPML {
 				[
 					'field'       => 'see_all_text',
 					'type'        => __( '[aThemes Posts] See all button text', 'sydney' ),
-					'editor_type' => 'LINE'
-				],			 		  
+					'editor_type' => 'LINE',
+				],                    
 			],
 		];
 					

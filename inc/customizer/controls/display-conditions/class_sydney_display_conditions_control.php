@@ -58,7 +58,7 @@ class Sydney_Display_Conditions_Control extends WP_Customize_Control {
 			);
 
 		?>
-		<div class="sydney-display-conditions-control" data-condition-settings="<?php echo esc_attr( json_encode( $settings ) ); ?>">
+		<div class="sydney-display-conditions-control" data-condition-settings="<?php echo esc_attr( wp_json_encode( $settings ) ); ?>">
 			<?php if( ! empty( $this->label ) ) { ?>
 				<span class="customize-control-title"><?php echo wp_kses_post( $this->label ); ?></span>
 			<?php } ?>
@@ -66,7 +66,7 @@ class Sydney_Display_Conditions_Control extends WP_Customize_Control {
 				<span class="customize-control-description"><?php echo wp_kses_post( $this->description ); ?></span>
 			<?php } ?>
 			<a href="#" class="button button-primary sydney-display-conditions-modal-button sydney-display-conditions-modal-toggle"><?php esc_html_e( 'Add/Edit Conditions', 'sydney' ); ?></a>
-			<textarea id="<?php echo esc_attr( $this->id ); ?>" name="<?php echo esc_attr( $this->id ); ?>" class="sydney-display-conditions-textarea hidden" <?php $this->link(); ?>><?php echo sanitize_textarea_field( $this->value() ); ?></textarea>
+			<textarea id="<?php echo esc_attr( $this->id ); ?>" name="<?php echo esc_attr( $this->id ); ?>" class="sydney-display-conditions-textarea hidden" <?php $this->link(); ?>><?php echo esc_textarea( $this->value() ); ?></textarea>
 		</div>
 		<?php
 	}
@@ -87,34 +87,31 @@ class Sydney_Display_Conditions_Control extends WP_Customize_Control {
 
 			case 'tag-id':
 			case 'category-id':
-			
         $term = get_term( $value['id'] );
 
         if ( ! empty( $term ) ) {
 					return $term->name;
         }
 
-			break;
+			    break;
 
 			case 'cpt-term-id':
-			
         $term = get_term( $value['id'] );
         
         if ( ! empty( $term ) ) {
 					return $term->name;
         }
 
-			break;
+			    break;
 
 			case 'cpt-taxonomy-id':
-			
         $taxonomy = get_taxonomy( $value['id'] );
         
         if ( ! empty( $taxonomy ) ) {
 					return $taxonomy->label;
         }
 
-			break;
+			    break;
 
 			case 'author':
 			case 'author-id':
@@ -132,7 +129,5 @@ class Sydney_Display_Conditions_Control extends WP_Customize_Control {
 		}
 
 		return $value['id'];
-
 	}
-
 }

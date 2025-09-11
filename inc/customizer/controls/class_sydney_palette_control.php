@@ -27,7 +27,7 @@ class Sydney_Palette_Control extends WP_Customize_Control {
 	/**
 	 * Add support for showing the opacity value on the slider handle.
 	 */
-	public $show_opacity;	
+	public $show_opacity;   
 	
 	/**
 	 * Constructor
@@ -60,6 +60,5 @@ class Sydney_Palette_Control extends WP_Customize_Control {
 				</div>
 			</div>
         <?php
-
 	}
 }

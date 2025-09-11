@@ -10,7 +10,7 @@ if ( !class_exists( 'Sydney_Header' ) ) :
 
 		/**
 		 * Instance
-		 */		
+		 */     
 		private static $instance;
 
 		/**
@@ -18,7 +18,7 @@ if ( !class_exists( 'Sydney_Header' ) ) :
 		 */
 		public static function get_instance() {
 			if ( ! isset( self::$instance ) ) {
-				self::$instance = new self;
+				self::$instance = new self();
 			}
 			return self::$instance;
 		}
@@ -53,7 +53,7 @@ if ( !class_exists( 'Sydney_Header' ) ) :
 		public function header_markup() {
 			$layout = get_theme_mod( 'header_layout_desktop', 'header_layout_2' );
 			
-			$template 	= apply_filters( 'sydney_header_layout', array( $this, $layout ) );
+			$template   = apply_filters( 'sydney_header_layout', array( $this, $layout ) );
 
 			if ( is_callable( $template ) ) {
 				call_user_func( $template );
@@ -62,11 +62,11 @@ if ( !class_exists( 'Sydney_Header' ) ) :
 
 		/**
 		 * Mobile header markup
-		 */		
+		 */     
 		public function header_mobile_markup() {
 			$layout = get_theme_mod( 'header_layout_mobile', 'header_mobile_layout_1' );
-			$offcanvas_header 				= get_theme_mod( 'offcanvas_header', 'branding' );
-			$offcanvas_header_custom_text 	= get_theme_mod( 'offcanvas_header_custom_text', esc_html__( 'Menu', 'sydney' ) );
+			$offcanvas_header               = get_theme_mod( 'offcanvas_header', 'branding' );
+			$offcanvas_header_custom_text   = get_theme_mod( 'offcanvas_header_custom_text', esc_html__( 'Menu', 'sydney' ) );
 			?>
 
 			<div class="sydney-offcanvas-menu">
@@ -106,8 +106,8 @@ if ( !class_exists( 'Sydney_Header' ) ) :
 		 * Desktop: header layout 1
 		 */
 		public function header_layout_1() {
-			$layout 	= get_theme_mod( 'header_layout_desktop', 'header_layout_2' );
-			$container 	= get_theme_mod( 'header_container', 'container' );
+			$layout     = get_theme_mod( 'header_layout_desktop', 'header_layout_2' );
+			$container  = get_theme_mod( 'header_container', 'container' );
 			?>
 				<header id="masthead" class="main-header <?php echo esc_attr( $layout ); ?> <?php echo esc_attr( $this->sticky() ); ?>">
 					<div class="<?php echo esc_attr( $container ); ?>">
@@ -134,9 +134,9 @@ if ( !class_exists( 'Sydney_Header' ) ) :
 		 * Desktop: header layout 2
 		 */
 		public function header_layout_2() {
-			$layout 		= get_theme_mod( 'header_layout_desktop', 'header_layout_2' );
-			$container 		= get_theme_mod( 'header_container', 'container' );
-			$menu_position 	= get_theme_mod( 'main_header_menu_position', 'right' );
+			$layout         = get_theme_mod( 'header_layout_desktop', 'header_layout_2' );
+			$container      = get_theme_mod( 'header_container', 'container' );
+			$menu_position  = get_theme_mod( 'main_header_menu_position', 'right' );
 			?>
 				<header id="masthead" class="main-header <?php echo esc_attr( $layout ); ?> <?php echo esc_attr( $this->sticky() ); ?>">
 					<div class="<?php echo esc_attr( $container ); ?>">
@@ -163,8 +163,8 @@ if ( !class_exists( 'Sydney_Header' ) ) :
 		 * Desktop: header layout 3
 		 */
 		public function header_layout_3() {
-			$layout 	= get_theme_mod( 'header_layout_desktop', 'header_layout_2' );
-			$container 	= get_theme_mod( 'header_container', 'container' );
+			$layout     = get_theme_mod( 'header_layout_desktop', 'header_layout_2' );
+			$container  = get_theme_mod( 'header_container', 'container' );
 
 			global $post;
 			$transparent_menu = '';
@@ -217,14 +217,14 @@ if ( !class_exists( 'Sydney_Header' ) ) :
 		 * Desktop: header layout 4
 		 */
 		public function header_layout_4() {
-			$layout 	= get_theme_mod( 'header_layout_desktop', 'header_layout_2' );
-			$container 	= get_theme_mod( 'header_container', 'container' );
+			$layout     = get_theme_mod( 'header_layout_desktop', 'header_layout_2' );
+			$container  = get_theme_mod( 'header_container', 'container' );
 
 			global $post;
 			$transparent_menu = '';
 			if ( isset( $post ) ) {
 				$transparent_menu = get_post_meta( $post->ID, '_sydney_transparent_menu', true );
-			}			
+			}           
 			$transparent_header = sydney_get_display_conditions( 'transparent_header', false );
 
 			?>
@@ -265,21 +265,21 @@ if ( !class_exists( 'Sydney_Header' ) ) :
 				</div>
 				<?php endif; ?>						
 			<?php
-		}	
+		}   
 		
 		/**
 		 * Desktop: header layout 5
 		 */
 		public function header_layout_5() {
-			$layout 	= get_theme_mod( 'header_layout_desktop', 'header_layout_2' );
-			$container 	= get_theme_mod( 'header_container', 'container' );
+			$layout     = get_theme_mod( 'header_layout_desktop', 'header_layout_2' );
+			$container  = get_theme_mod( 'header_container', 'container' );
 
 			global $post;
 			$transparent_menu = '';
 			if ( isset( $post ) ) {
 				$transparent_menu = get_post_meta( $post->ID, '_sydney_transparent_menu', true );
-			}		
-			$transparent_header = sydney_get_display_conditions( 'transparent_header', false );		
+			}       
+			$transparent_header = sydney_get_display_conditions( 'transparent_header', false );     
 			?>
 				<?php if ( $transparent_menu || $transparent_header ) : ?>
 				<div class="header-wrapper">
@@ -320,12 +320,12 @@ if ( !class_exists( 'Sydney_Header' ) ) :
 				</div>
 				<?php endif; ?>							
 			<?php
-		}			
+		}           
 
 
 		/**
 		 * Mobile: layout 1
-		 */		
+		 */     
 		public function header_mobile_layout_1() {
 			$container = get_theme_mod( 'header_container', 'container-fluid' );
 			?>
@@ -344,11 +344,11 @@ if ( !class_exists( 'Sydney_Header' ) ) :
 					<?php $this->search_form(); ?>
 				</header>
 			<?php
-		}	
+		}   
 
 		/**
 		 * Mobile: layout 2
-		 */		
+		 */     
 		public function header_mobile_layout_2() {
 			$container = get_theme_mod( 'header_container', 'container-fluid' );
 			?>
@@ -369,11 +369,11 @@ if ( !class_exists( 'Sydney_Header' ) ) :
 					<?php $this->search_form(); ?>
 				</header>
 			<?php
-		}	
+		}   
 
 		/**
 		 * Mobile: layout 3
-		 */		
+		 */     
 		public function header_mobile_layout_3() {
 			$container = get_theme_mod( 'header_container', 'container-fluid' );
 			?>
@@ -394,13 +394,13 @@ if ( !class_exists( 'Sydney_Header' ) ) :
 					<?php $this->search_form(); ?>
 				</header>
 			<?php
-		}			
+		}           
 				
 		/**
 		 * Render header components
 		 */
 		public function render_components( $location ) {
-			$defaults 	= sydney_get_default_header_components();
+			$defaults   = sydney_get_default_header_components();
 			$components = get_theme_mod( 'header_components_' . $location, $defaults[$location] );
 
 			foreach ( $components as $component ) {
@@ -422,7 +422,7 @@ if ( !class_exists( 'Sydney_Header' ) ) :
 		 */
 		public function menu() {
 			if ( function_exists('max_mega_menu_is_enabled') && max_mega_menu_is_enabled( 'primary' ) ) : ?>
-				<?php wp_nav_menu( array( 'theme_location' => 'primary') ); ?>
+				<?php wp_nav_menu( array( 'theme_location' => 'primary' ) ); ?>
 			<?php else: ?>	
 			<nav id="mainnav" class="mainnav">
 				<?php
@@ -443,27 +443,27 @@ if ( !class_exists( 'Sydney_Header' ) ) :
 		public function mobile_menu() {
 			?>
 			<nav id="mainnav" class="mainnav">
-				<?php			
+				<?php	      
 				wp_nav_menu(
 					array(
 						'theme_location' => 'mobile',
 						'menu_id'        => 'primary-menu',
-						'walker'         => apply_filters( 'sydney_primary_wp_nav_menu_walker', '' )
+						'walker'         => apply_filters( 'sydney_primary_wp_nav_menu_walker', '' ),
 					)
 				);
 				?>
 			</nav>
 			<?php
-		}		
+		}       
 
 		/**
 		 * Button
 		 */
 		public function button() {
-			$text 	= get_theme_mod( 'header_button_text', esc_html__( 'Click me', 'sydney' ) );
-			$url	= get_theme_mod( 'header_button_link', '#' );
+			$text   = get_theme_mod( 'header_button_text', esc_html__( 'Click me', 'sydney' ) );
+			$url    = get_theme_mod( 'header_button_link', '#' );
 			$newtab = get_theme_mod( 'header_button_newtab', 0 );
-			$open	= '';
+			$open   = '';
 			if ( $newtab ) {
 				$open = 'target="_blank"';
 			}
@@ -477,8 +477,8 @@ if ( !class_exists( 'Sydney_Header' ) ) :
 		 * Contact info
 		 */
 		public function contact_info() {
-			$email 	= get_theme_mod( 'header_contact_mail', esc_html__( 'office@example.org', 'sydney' ) );
-			$phone	= get_theme_mod( 'header_contact_phone', esc_html__( '111222333', 'sydney' ) );
+			$email  = get_theme_mod( 'header_contact_mail', esc_html__( 'office@example.org', 'sydney' ) );
+			$phone  = get_theme_mod( 'header_contact_phone', esc_html__( '111222333', 'sydney' ) );
 
 			?>
 				<div class="header-item header-contact">
@@ -490,7 +490,7 @@ if ( !class_exists( 'Sydney_Header' ) ) :
 					<?php endif; ?>					
 				</div>
 			<?php
-		}		
+		}       
 
 		/**
 		 * Woocommerce icons
@@ -502,7 +502,7 @@ if ( !class_exists( 'Sydney_Header' ) ) :
 			}
 			
 			echo sydney_woocommerce_header_cart(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		}		
+		}       
 
 		/**
 		 * Search icon
@@ -536,15 +536,15 @@ if ( !class_exists( 'Sydney_Header' ) ) :
 
 		/**
 		 * Site branding
-		*/		
+		*/      
 		public function logo( $context = false ) {
-			$logo_site_title	= get_theme_mod('logo_site_title', 0);
+			$logo_site_title    = get_theme_mod('logo_site_title', 0);
 			?>
 			<div class="site-branding">
 
 				<?php if ( get_theme_mod('site_logo') ) : ?>
 					<?php
-						$logo_id 	= attachment_url_to_postid( get_theme_mod( 'site_logo' ) );
+						$logo_id    = attachment_url_to_postid( get_theme_mod( 'site_logo' ) );
 						$logo_attrs = wp_get_attachment_image_src( $logo_id, 'large' );
 					?>						
 					<a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php bloginfo('name'); ?>"><img width="<?php echo esc_attr( $logo_attrs[1] ); ?>" height="<?php echo esc_attr( $logo_attrs[2] ); ?>" class="site-logo" src="<?php echo esc_url(get_theme_mod('site_logo')); ?>" alt="<?php bloginfo('name'); ?>" <?php sydney_do_schema( 'logo' ); ?> /></a>
@@ -553,7 +553,7 @@ if ( !class_exists( 'Sydney_Header' ) ) :
 						echo '<div class="site-branding-text">';
 						$this->site_title_desc();
 						echo '</div>';
-					elseif ( is_home() && 'main' == $context ) : ?>
+					elseif ( is_home() && 'main' === $context ) : ?>
 						<h1 class="screen-reader-text"><?php bloginfo( 'name' ); ?></h1>
 					<?php endif; ?>
 				<?php else : ?>
@@ -581,14 +581,14 @@ if ( !class_exists( 'Sydney_Header' ) ) :
 				?>
 				<p class="site-description"><?php echo $sydney_description; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
 			<?php endif;
-		}		
+		}       
 
 		/**
 		 * Mobile menu trigger
 		 */
 		public function trigger() { ?>
 			<?php if ( function_exists('max_mega_menu_is_enabled') && max_mega_menu_is_enabled( 'primary' ) ) : ?>
-				<?php wp_nav_menu( array( 'theme_location' => 'primary') ); ?>
+				<?php wp_nav_menu( array( 'theme_location' => 'primary' ) ); ?>
 			<?php else: ?>	
 				<?php $icon = get_theme_mod( 'mobile_menu_icon', 'mobile-icon2' ); ?>
 				<a href="#" class="menu-toggle">
@@ -602,14 +602,14 @@ if ( !class_exists( 'Sydney_Header' ) ) :
 		 * Sticky mode
 		 */
 		public function sticky( $device = 'desktop' ) {
-			$enabled 	= get_theme_mod( 'enable_sticky_header', 1 );
+			$enabled    = get_theme_mod( 'enable_sticky_header', 1 );
 
-			if ( $device == 'mobile' ) {
+			if ( $device === 'mobile' ) {
 				$enabled = get_theme_mod( 'enable_sticky_header_mobile', 0 );
 			}
 
-			$type 		= get_theme_mod( 'sticky_header_type', 'always' );
-			$sticky		= '';
+			$type       = get_theme_mod( 'sticky_header_type', 'always' );
+			$sticky     = '';
 
 			if ( $enabled ) {
 				$sticky = 'sticky-header sticky-' . esc_html( $type );
@@ -630,7 +630,7 @@ if ( !class_exists( 'Sydney_Header' ) ) :
 							<div class="col-md-4 col-sm-8 col-xs-12">
 							<?php if ( get_theme_mod('site_logo') ) : ?>
 								<?php
-									$logo_id 	= attachment_url_to_postid( get_theme_mod( 'site_logo' ) );
+									$logo_id    = attachment_url_to_postid( get_theme_mod( 'site_logo' ) );
 									$logo_attrs = wp_get_attachment_image_src( $logo_id );
 								?>						
 								<a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php bloginfo('name'); ?>"><img width="<?php echo esc_attr( $logo_attrs[1] ); ?>" height="<?php echo esc_attr( $logo_attrs[2] ); ?>" class="site-logo" src="<?php echo esc_url(get_theme_mod('site_logo')); ?>" alt="<?php bloginfo('name'); ?>" <?php sydney_do_schema( 'logo' ); ?> /></a>

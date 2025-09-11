@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <script type="text/template" id="template-sydney-templateLibrary-header-back">
 	<i class="eicon-" aria-hidden="true"></i>
-	<span><?php echo __( 'Back to Library', 'sydney' ); ?></span>
+	<span><?php echo esc_html__( 'Back to Library', 'sydney' ); ?></span>
 </script>
 
 <script type="text/template" id="template-sydney-TemplateLibrary_header-menu">
@@ -77,8 +77,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 				<?php
 					$cats = SydneyPro\Elementor\Template_Library_Source::get_library_data()['categories'];
-					foreach ( $cats as $cat  ) : ?>
-						<option class="sydney-templateLibrary-category-filter-item" value="<?php echo esc_html( $cat['slug'] ); ?>" data-tag="<?php echo $cat['slug']; ?>"><?php echo esc_html( $cat['name'] ); ?></option>
+					foreach ( $cats as $category  ) : ?>
+						<option class="sydney-templateLibrary-category-filter-item" value="<?php echo esc_html( $category['slug'] ); ?>" data-tag="<?php echo esc_attr( $category['slug'] ); ?>"><?php echo esc_html( $category['name'] ); ?></option>
 					<?php endforeach;
 				?>
 			</select>

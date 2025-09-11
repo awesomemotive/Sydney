@@ -16,7 +16,6 @@ function sydney_sanitize_select( $input, $setting ){
     $choices = $setting->manager->get_control( $setting->id )->choices;
                       
     return ( array_key_exists( $input, $choices ) ? $input : $setting->default );                
-      
 }
 
 /**
@@ -132,8 +131,7 @@ function sydney_sanitize_hex_rgba( $input, $setting ) {
 
     if ( false === strpos( $input, 'rgb' ) ) {
         $input = sanitize_hex_color( $input );
-    } else {
-        if ( false === strpos( $input, 'rgba' ) ) {
+    } elseif ( false === strpos( $input, 'rgba' ) ) {
             // Sanitize as RGB color
             $input = str_replace( ' ', '', $input );
             sscanf( $input, 'rgb(%d,%d,%d)', $red, $green, $blue );
@@ -144,7 +142,6 @@ function sydney_sanitize_hex_rgba( $input, $setting ) {
             $input = str_replace( ' ', '', $input );
             sscanf( $input, 'rgba(%d,%d,%d,%f)', $red, $green, $blue, $alpha );
             $input = 'rgba(' . sydney_in_range( $red, 0, 255 ) . ',' . sydney_in_range( $green, 0, 255 ) . ',' . sydney_in_range( $blue, 0, 255 ) . ',' . sydney_in_range( $alpha, 0, 1 ) . ')';
-        }
     }
     return $input;
 }
@@ -171,10 +168,10 @@ function sydney_google_fonts_sanitize( $input ) {
         foreach ( $val as $key => $value ) {
             $val[$key] = sanitize_text_field( $value );
         }
-        $input = json_encode( $val );
+        $input = wp_json_encode( $val );
     }
     else {
-        $input = json_encode( sanitize_text_field( $val ) );
+        $input = wp_json_encode( sanitize_text_field( $val ) );
     }
     return $input;
 }

@@ -18,7 +18,7 @@ class Sydney_Alpha_Color extends WP_Customize_Control {
 	/**
 	 * Add support for showing the opacity value on the slider handle.
 	 */
-	public $show_opacity;	
+	public $show_opacity;   
 
 	public $remove_bordertop = false;
 

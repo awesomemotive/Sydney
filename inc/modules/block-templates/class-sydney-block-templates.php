@@ -13,7 +13,7 @@ if ( !class_exists('Sydney_Block_Templates') ) {
 	class Sydney_Block_Templates {
 		/**
 		 * Instance
-		 */		
+		 */     
 		private static $instance;
 
 		/**
@@ -21,7 +21,7 @@ if ( !class_exists('Sydney_Block_Templates') ) {
 		 */
 		public static function get_instance() {
 			if ( ! isset( self::$instance ) ) {
-				self::$instance = new self;
+				self::$instance = new self();
 			}
 			return self::$instance;
 		}    
@@ -48,13 +48,13 @@ if ( !class_exists('Sydney_Block_Templates') ) {
 		public function setup() {
 			$config = array(
 				//template type => action
-				'header' 	=> 'sydney_header',
-				'footer' 	=> 'sydney_footer',
-				'single' 	=> 'sydney_single_content',
-				'page' 		=> 'sydney_page_content',
-				'archive' 	=> 'sydney_archive_content',
-				'search' 	=> 'sydney_search_content',
-				'404' 		=> 'sydney_404_content',
+				'header'    => 'sydney_header',
+				'footer'    => 'sydney_footer',
+				'single'    => 'sydney_single_content',
+				'page'      => 'sydney_page_content',
+				'archive'   => 'sydney_archive_content',
+				'search'    => 'sydney_search_content',
+				'404'       => 'sydney_404_content',
 			);
 
 			foreach ( $config as $type => $action ) {
@@ -77,7 +77,7 @@ if ( !class_exists('Sydney_Block_Templates') ) {
 				}
 
 				add_action( $action, function() use ( $type ) {
-					echo $this->do_block_template_part( $type );
+					echo $this->do_block_template_part( $type ); // phpcs:ignore WordPress.Security.EscapeOutput
 				}, 10 );
 			}
 		}
@@ -95,5 +95,5 @@ if ( !class_exists('Sydney_Block_Templates') ) {
 	/**
 	 * Initialize class
 	 */
-	Sydney_Block_Templates::get_instance();	
+	Sydney_Block_Templates::get_instance(); 
 }

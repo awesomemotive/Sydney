@@ -27,7 +27,7 @@ $wp_customize->add_setting(
 	'sydney_blog_archive_tabs',
 	array(
 		'default'           => '',
-		'sanitize_callback'	=> 'esc_attr'
+		'sanitize_callback' => 'esc_attr',
 	)
 );
 $wp_customize->add_control(
@@ -35,10 +35,10 @@ $wp_customize->add_control(
 		$wp_customize,
 		'sydney_blog_archive_tabs',
 		array(
-			'label' 				=> '',
-			'section'       		=> 'sydney_section_blog_archives',
-			'controls_general'		=> json_encode( array( '#customize-control-post_elements_title','#customize-control-accordion_blog_archive_1','#customize-control-accordion_blog_archive_2','#customize-control-accordion_blog_archive_3','#customize-control-archives_sidebar_title','#customize-control-main_content_title','#customize-control-archive_content_type','#customize-control-sydney_upsell_blog_archives','#customize-control-blog_divider_4','#customize-control-archive_nav_title','#customize-control-disable_archive_post_nav','#customize-control-index_feat_image','#customize-control-show_avatar', '#customize-control-archives_list_vertical_alignment','#customize-control-archive_featured_image_size','#customize-control-archive_list_image_placement','#customize-control-archives_grid_columns', '#customize-control-blog_layout','#customize-control-sidebar_archives','#customize-control-sidebar_archives_position','#customize-control-blog_divider_1','#customize-control-archive_featured_image_title','#customize-control-archive_featured_image_spacing','#customize-control-blog_divider_2','#customize-control-archive_text_title','#customize-control-archive_text_align','#customize-control-archive_title_spacing','#customize-control-show_excerpt','#customize-control-exc_lenght','#customize-control-read_more_link','#customize-control-read_more_spacing','#customize-control-blog_divider_3','#customize-control-archive_meta_title','#customize-control-archive_meta_position','#customize-control-archive_meta_elements','#customize-control-archive_meta_spacing','#customize-control-archive_meta_delimiter' ) ),
-			'controls_design'		=> json_encode( array( '#customize-control-loop_post_text_size', '#customize-control-loop_post_text_color','#customize-control-loop_post_meta_size', '#customize-control-loop_post_meta_color','#customize-control-loop_post_title_size', '#customize-control-loop_post_title_color', '#customize-control-loop_posts_divider_1', '#customize-control-loop_posts_divider_2' ) ),
+			'label'                 => '',
+			'section'               => 'sydney_section_blog_archives',
+			'controls_general'      => wp_json_encode( array( '#customize-control-post_elements_title', '#customize-control-accordion_blog_archive_1', '#customize-control-accordion_blog_archive_2', '#customize-control-accordion_blog_archive_3', '#customize-control-archives_sidebar_title', '#customize-control-main_content_title', '#customize-control-archive_content_type', '#customize-control-sydney_upsell_blog_archives', '#customize-control-blog_divider_4', '#customize-control-archive_nav_title', '#customize-control-disable_archive_post_nav', '#customize-control-index_feat_image', '#customize-control-show_avatar', '#customize-control-archives_list_vertical_alignment', '#customize-control-archive_featured_image_size', '#customize-control-archive_list_image_placement', '#customize-control-archives_grid_columns', '#customize-control-blog_layout', '#customize-control-sidebar_archives', '#customize-control-sidebar_archives_position', '#customize-control-blog_divider_1', '#customize-control-archive_featured_image_title', '#customize-control-archive_featured_image_spacing', '#customize-control-blog_divider_2', '#customize-control-archive_text_title', '#customize-control-archive_text_align', '#customize-control-archive_title_spacing', '#customize-control-show_excerpt', '#customize-control-exc_lenght', '#customize-control-read_more_link', '#customize-control-read_more_spacing', '#customize-control-blog_divider_3', '#customize-control-archive_meta_title', '#customize-control-archive_meta_position', '#customize-control-archive_meta_elements', '#customize-control-archive_meta_spacing', '#customize-control-archive_meta_delimiter' ) ),
+			'controls_design'      => wp_json_encode( array( '#customize-control-loop_post_text_size', '#customize-control-loop_post_text_color', '#customize-control-loop_post_meta_size', '#customize-control-loop_post_meta_color', '#customize-control-loop_post_title_size', '#customize-control-loop_post_title_color', '#customize-control-loop_posts_divider_1', '#customize-control-loop_posts_divider_2' ) ),
 		)
 	)
 );
@@ -46,15 +46,15 @@ $wp_customize->add_control(
 //Layout
 $wp_customize->add_setting( 'main_content_title',
 	array(
-		'default' 			=> '',
-		'sanitize_callback' => 'esc_attr'
+		'default'           => '',
+		'sanitize_callback' => 'esc_attr',
 	)
 );
 
 $wp_customize->add_control( new Sydney_Text_Control( $wp_customize, 'main_content_title',
 		array(
-			'label'			=> esc_html__( 'Main content area', 'sydney' ),
-			'section' 		=> 'sydney_section_blog_archives',
+			'label'         => esc_html__( 'Main content area', 'sydney' ),
+			'section'       => 'sydney_section_blog_archives',
 		)
 	)
 );
@@ -63,7 +63,7 @@ $wp_customize->add_setting(
 	array(
 		'default'           => 'layout2',
 		'sanitize_callback' => 'sanitize_key',
-		'transport'			=> 'postMessage',
+		'transport'         => 'postMessage',
 	)
 );
 $wp_customize->add_control(
@@ -73,31 +73,31 @@ $wp_customize->add_control(
 		array(
 			'label'    => esc_html__( 'Blog layout', 'sydney' ),
 			'section'  => 'sydney_section_blog_archives',
-			'cols' 		=> 3,
+			'cols'      => 3,
 			'choices'  => array(
 				'layout1' => array(
 					'label' => esc_html__( 'Classic', 'sydney' ),
-					'url'   => '%s/images/customizer/bl1.svg'
+					'url'   => '%s/images/customizer/bl1.svg',
 				),
 				'layout2' => array(
 					'label' => esc_html__( 'Classic 2', 'sydney' ),
-					'url'   => '%s/images/customizer/bl2.svg'
-				),		
+					'url'   => '%s/images/customizer/bl2.svg',
+				),      
 				'layout3' => array(
 					'label' => esc_html__( 'Grid', 'sydney' ),
-					'url'   => '%s/images/customizer/bl3.svg'
-				),				
+					'url'   => '%s/images/customizer/bl3.svg',
+				),              
 				'layout4' => array(
 					'label' => esc_html__( 'List', 'sydney' ),
-					'url'   => '%s/images/customizer/bl4.svg'
+					'url'   => '%s/images/customizer/bl4.svg',
 				),
 				'layout5' => array(
 					'label' => esc_html__( 'Masonry', 'sydney' ),
-					'url'   => '%s/images/customizer/bl5.svg'
-				),	
+					'url'   => '%s/images/customizer/bl5.svg',
+				),  
 				'layout6' => array(
 					'label' => esc_html__( 'List zig-zag', 'sydney' ),
-					'url'   => '%s/images/customizer/bl6.svg'
+					'url'   => '%s/images/customizer/bl6.svg',
 				),
 			),
 			'show_labels' => true,
@@ -106,13 +106,13 @@ $wp_customize->add_control(
 ); 
 
 $wp_customize->selective_refresh->add_partial( 'blog_layout', array(
-	'selector' 				=> '.archive-wrapper',
-	'settings' 				=> 'blog_layout',
-	'render_callback' 		=> function() {
+	'selector'              => '.archive-wrapper',
+	'settings'              => 'blog_layout',
+	'render_callback'       => function() {
 		sydney_archive_template();
 
 		$layout = get_theme_mod( 'blog_layout', 'layout2' );
-		if ( $layout == 'layout5' ) {
+		if ( $layout === 'layout5' ) {
 			?>
 			<script>
 				jQuery(document).ready(function($){
@@ -125,37 +125,37 @@ $wp_customize->selective_refresh->add_partial( 'blog_layout', array(
 			<?php
 		}
 	},
-	'container_inclusive' 	=> true,
+	'container_inclusive'   => true,
 ) );
 
 $wp_customize->add_setting( 'archives_grid_columns',
 	array(
-		'default' 			=> '3',
+		'default'           => '3',
 		'sanitize_callback' => 'sydney_sanitize_text',
-		'transport' 		=> 'postMessage'
+		'transport'         => 'postMessage',
 	)
 );
 $wp_customize->add_control( new Sydney_Radio_Buttons( $wp_customize, 'archives_grid_columns',
 	array(
-		'label' 	=> esc_html__( 'Columns', 'sydney' ),
-		'section' 	=> 'sydney_section_blog_archives',
-		'choices' 	=> array(
-			'2' 		=> esc_html__( '2', 'sydney' ),
-			'3' 		=> esc_html__( '3', 'sydney' ),
-			'4' 		=> esc_html__( '4', 'sydney' ),
+		'label'     => esc_html__( 'Columns', 'sydney' ),
+		'section'   => 'sydney_section_blog_archives',
+		'choices'   => array(
+			'2'         => esc_html__( '2', 'sydney' ),
+			'3'         => esc_html__( '3', 'sydney' ),
+			'4'         => esc_html__( '4', 'sydney' ),
 		),
-		'active_callback' 	=> 'sydney_callback_grid_archives'
+		'active_callback'   => 'sydney_callback_grid_archives',
 	)
 ) );
 
 $wp_customize->selective_refresh->add_partial( 'archives_grid_columns', array(
-	'selector' 				=> '.archive-wrapper',
-	'settings' 				=> 'archives_grid_columns',
-	'render_callback' 		=> function() {
+	'selector'              => '.archive-wrapper',
+	'settings'              => 'archives_grid_columns',
+	'render_callback'       => function() {
 		sydney_archive_template();
 
 		$layout = get_theme_mod( 'blog_layout', 'layout2' );
-		if ( $layout == 'layout5' ) {
+		if ( $layout === 'layout5' ) {
 			?>
 			<script>
 				jQuery(document).ready(function($){
@@ -168,29 +168,29 @@ $wp_customize->selective_refresh->add_partial( 'archives_grid_columns', array(
 			<?php
 		}
 	},
-	'container_inclusive' 	=> true,
+	'container_inclusive'   => true,
 ) );
 
 //Featured image
 $wp_customize->add_setting( 'post_elements_title',
 	array(
-		'default' 			=> '',
-		'sanitize_callback' => 'esc_attr'
+		'default'           => '',
+		'sanitize_callback' => 'esc_attr',
 	)
 );
 
 $wp_customize->add_control( new Sydney_Text_Control( $wp_customize, 'post_elements_title',
 		array(
-			'label'			=> esc_html__( 'Post elements', 'sydney' ),
-			'section' 		=> 'sydney_section_blog_archives',
-			'separator'		=> 'before'
+			'label'         => esc_html__( 'Post elements', 'sydney' ),
+			'section'       => 'sydney_section_blog_archives',
+			'separator'     => 'before',
 		)
 	)
 );
 
 $wp_customize->add_setting( 'accordion_blog_archive_1', 
 	array(
-		'sanitize_callback' => 'esc_attr'
+		'sanitize_callback' => 'esc_attr',
 	)
 );
 $wp_customize->add_control(
@@ -210,7 +210,7 @@ $wp_customize->add_setting(
 	array(
 		'default'           => 1,
 		'sanitize_callback' => 'sydney_sanitize_checkbox',
-		'transport' 		=> 'postMessage'
+		'transport'         => 'postMessage',
 	)
 );
 $wp_customize->add_control(
@@ -218,85 +218,85 @@ $wp_customize->add_control(
 		$wp_customize,
 		'index_feat_image',
 		array(
-			'label'         	=> esc_html__( 'Enable featured image', 'sydney' ),
-			'section'       	=> 'sydney_section_blog_archives',
+			'label'             => esc_html__( 'Enable featured image', 'sydney' ),
+			'section'           => 'sydney_section_blog_archives',
 		)
 	)
 );
 
 $wp_customize->selective_refresh->add_partial( 'index_feat_image', array(
-	'selector' 				=> '.archive-wrapper',
-	'settings' 				=> 'index_feat_image',
-	'render_callback' 		=> 'sydney_archive_template',
-	'container_inclusive' 	=> true,
+	'selector'              => '.archive-wrapper',
+	'settings'              => 'index_feat_image',
+	'render_callback'       => 'sydney_archive_template',
+	'container_inclusive'   => true,
 ) );
 
 $wp_customize->add_setting( 'archive_list_image_placement',
 	array(
-		'default' 			=> 'left',
-		'sanitize_callback' => 'sydney_sanitize_text'
+		'default'           => 'left',
+		'sanitize_callback' => 'sydney_sanitize_text',
 	)
 );
 $wp_customize->add_control( new Sydney_Radio_Buttons( $wp_customize, 'archive_list_image_placement',
 	array(
-		'label' 	=> esc_html__( 'Image placement', 'sydney' ),
-		'section' 	=> 'sydney_section_blog_archives',
-		'choices' 	=> array(
-			'left' 		=> esc_html__( 'Left', 'sydney' ),
-			'right' 	=> esc_html__( 'Right', 'sydney' ),
+		'label'     => esc_html__( 'Image placement', 'sydney' ),
+		'section'   => 'sydney_section_blog_archives',
+		'choices'   => array(
+			'left'      => esc_html__( 'Left', 'sydney' ),
+			'right'     => esc_html__( 'Right', 'sydney' ),
 		),
-		'active_callback' 	=> 'sydney_callback_list_archives'
+		'active_callback'   => 'sydney_callback_list_archives',
 	)
 ) );
 
 $wp_customize->add_setting( 'archive_featured_image_size_desktop', array(
-	'default'   		=> 35,
-	'transport'			=> 'postMessage',
+	'default'           => 35,
+	'transport'         => 'postMessage',
 	'sanitize_callback' => 'absint',
-) );			
+) );            
 
 $wp_customize->add_control( new Sydney_Responsive_Slider( $wp_customize, 'archive_featured_image_size',
 	array(
-		'label' 		=> esc_html__( 'Image size', 'sydney' ),
-		'section' 		=> 'sydney_section_blog_archives',
-		'is_responsive'	=> 0,
-		'settings' 		=> array (
-			'size_desktop' 		=> 'archive_featured_image_size_desktop',
+		'label'         => esc_html__( 'Image size', 'sydney' ),
+		'section'       => 'sydney_section_blog_archives',
+		'is_responsive' => 0,
+		'settings'      => array(
+			'size_desktop'      => 'archive_featured_image_size_desktop',
 		),
-		'input_attrs' => array (
-			'min'	=> 0,
-			'max'	=> 60,
-			'step'  => 1
+		'input_attrs' => array(
+			'min'   => 0,
+			'max'   => 60,
+			'step'  => 1,
 		),
-		'active_callback' 	=> 'sydney_callback_list_general_archives'
+		'active_callback'   => 'sydney_callback_list_general_archives',
 	)
 ) );
 
 
 $wp_customize->add_setting( 'archive_featured_image_spacing_desktop', array(
-	'default'   		=> 24,
+	'default'           => 24,
 	'sanitize_callback' => 'absint',
-) );			
+) );            
 
 $wp_customize->add_control( new Sydney_Responsive_Slider( $wp_customize, 'archive_featured_image_spacing',
 	array(
-		'label' 		=> esc_html__( 'Spacing', 'sydney' ),
-		'section' 		=> 'sydney_section_blog_archives',
-		'is_responsive'	=> 0,
-		'settings' 		=> array (
-			'size_desktop' 		=> 'archive_featured_image_spacing_desktop',
+		'label'         => esc_html__( 'Spacing', 'sydney' ),
+		'section'       => 'sydney_section_blog_archives',
+		'is_responsive' => 0,
+		'settings'      => array(
+			'size_desktop'      => 'archive_featured_image_spacing_desktop',
 		),
-		'input_attrs' => array (
-			'min'	=> 0,
-			'max'	=> 60,
-			'step'  => 1
-		)
+		'input_attrs' => array(
+			'min'   => 0,
+			'max'   => 60,
+			'step'  => 1,
+		),
 	)
 ) );
 
 $wp_customize->add_setting( 'accordion_blog_archive_2', 
 	array(
-		'sanitize_callback' => 'esc_attr'
+		'sanitize_callback' => 'esc_attr',
 	)
 );
 $wp_customize->add_control(
@@ -313,9 +313,9 @@ $wp_customize->add_control(
 
 $wp_customize->add_setting( 'archive_text_align',
 	array(
-		'default' 			=> 'left',
+		'default'           => 'left',
 		'sanitize_callback' => 'sydney_sanitize_text',
-		'transport' 		=> 'postMessage'
+		'transport'         => 'postMessage',
 	)
 );
 $wp_customize->add_control( new Sydney_Radio_Buttons( $wp_customize, 'archive_text_align',
@@ -323,50 +323,50 @@ $wp_customize->add_control( new Sydney_Radio_Buttons( $wp_customize, 'archive_te
 		'label'   => esc_html__( 'Text alignment', 'sydney' ),
 		'section' => 'sydney_section_blog_archives',
 		'choices' => array(
-			'left' 		=> '<svg width="16" height="13" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h10v1H0zM0 4h16v1H0zM0 8h10v1H0zM0 12h16v1H0z"/></svg>',
-			'center' 	=> '<svg width="16" height="13" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 0h10v1H3zM0 4h16v1H0zM3 8h10v1H3zM0 12h16v1H0z"/></svg>',
-			'right' 	=> '<svg width="16" height="13" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 0h10v1H6zM0 4h16v1H0zM6 8h10v1H6zM0 12h16v1H0z"/></svg>',
-		)
+			'left'      => '<svg width="16" height="13" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h10v1H0zM0 4h16v1H0zM0 8h10v1H0zM0 12h16v1H0z"/></svg>',
+			'center'    => '<svg width="16" height="13" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 0h10v1H3zM0 4h16v1H0zM3 8h10v1H3zM0 12h16v1H0z"/></svg>',
+			'right'     => '<svg width="16" height="13" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 0h10v1H6zM0 4h16v1H0zM6 8h10v1H6zM0 12h16v1H0z"/></svg>',
+		),
 	)
 ) );
 
 $wp_customize->add_setting( 'archives_list_vertical_alignment',
 	array(
-		'default' 			=> 'middle',
-		'sanitize_callback' => 'sydney_sanitize_text'
+		'default'           => 'middle',
+		'sanitize_callback' => 'sydney_sanitize_text',
 	)
 );
 $wp_customize->add_control( new Sydney_Radio_Buttons( $wp_customize, 'archives_list_vertical_alignment',
 	array(
-		'label' 	=> esc_html__( 'Vertical alignment', 'sydney' ),
-		'section' 	=> 'sydney_section_blog_archives',
-		'choices' 	=> array(
-			'top' 		=> esc_html__( 'Top', 'sydney' ),
-			'middle' 	=> esc_html__( 'Middle', 'sydney' ),
-			'bottom' 	=> esc_html__( 'Bottom', 'sydney' ),
+		'label'     => esc_html__( 'Vertical alignment', 'sydney' ),
+		'section'   => 'sydney_section_blog_archives',
+		'choices'   => array(
+			'top'       => esc_html__( 'Top', 'sydney' ),
+			'middle'    => esc_html__( 'Middle', 'sydney' ),
+			'bottom'    => esc_html__( 'Bottom', 'sydney' ),
 		),
-		'active_callback' 	=> 'sydney_callback_list_general_archives'
+		'active_callback'   => 'sydney_callback_list_general_archives',
 	)
 ) );
 
 $wp_customize->add_setting( 'archive_title_spacing', array(
-	'default'   		=> 24,
+	'default'           => 24,
 	'sanitize_callback' => 'absint',
-	'transport'			=> 'postMessage',
-) );			
+	'transport'         => 'postMessage',
+) );            
 
 $wp_customize->add_control( new Sydney_Responsive_Slider( $wp_customize, 'archive_title_spacing',
 	array(
-		'label' 		=> esc_html__( 'Title spacing', 'sydney' ),
-		'section' 		=> 'sydney_section_blog_archives',
-		'is_responsive'	=> 0,
-		'settings' 		=> array (
-			'size_desktop' 		=> 'archive_title_spacing',
+		'label'         => esc_html__( 'Title spacing', 'sydney' ),
+		'section'       => 'sydney_section_blog_archives',
+		'is_responsive' => 0,
+		'settings'      => array(
+			'size_desktop'      => 'archive_title_spacing',
 		),
-		'input_attrs' => array (
-			'min'	=> 0,
-			'max'	=> 60,
-			'step'  => 1
+		'input_attrs' => array(
+			'min'   => 0,
+			'max'   => 60,
+			'step'  => 1,
 		),
 	)
 ) );
@@ -376,7 +376,7 @@ $wp_customize->add_setting(
 	array(
 		'default'           => 1,
 		'sanitize_callback' => 'sydney_sanitize_checkbox',
-		'transport' 		=> 'postMessage'
+		'transport'         => 'postMessage',
 	)
 );
 $wp_customize->add_control(
@@ -384,8 +384,8 @@ $wp_customize->add_control(
 		$wp_customize,
 		'show_excerpt',
 		array(
-			'label'         	=> esc_html__( 'Show post content', 'sydney' ),
-			'section'       	=> 'sydney_section_blog_archives',
+			'label'             => esc_html__( 'Show post content', 'sydney' ),
+			'section'           => 'sydney_section_blog_archives',
 		)
 	)
 );
@@ -395,43 +395,43 @@ $wp_customize->add_setting(
 	array(
 		'default'           => 'excerpt',
 		'sanitize_callback' => 'sydney_sanitize_selects',
-		'transport' 		=> 'postMessage'
+		'transport'         => 'postMessage',
 	)
 );
 $wp_customize->add_control(
 	'archive_content_type',
 	array(
-		'type' 			=> 'select',
-		'label' 		=> esc_html__( 'Content type', 'sydney' ),
-		'section' 		=> 'sydney_section_blog_archives',
+		'type'          => 'select',
+		'label'         => esc_html__( 'Content type', 'sydney' ),
+		'section'       => 'sydney_section_blog_archives',
 		'choices' => array(
-			'excerpt'   	=> esc_html__( 'Excerpt', 'sydney' ),
-			'content'   	=> esc_html__( 'Full-content', 'sydney' ),
+			'excerpt'       => esc_html__( 'Excerpt', 'sydney' ),
+			'content'       => esc_html__( 'Full-content', 'sydney' ),
 		),
-		'active_callback' => 'sydney_callback_excerpt'
+		'active_callback' => 'sydney_callback_excerpt',
 	)
 );
 
 $wp_customize->add_setting( 'exc_lenght', array(
-	'default'   		=> 22,
+	'default'           => 22,
 	'sanitize_callback' => 'absint',
-	'transport'			=> 'postMessage',
-) );			
+	'transport'         => 'postMessage',
+) );            
 
 $wp_customize->add_control( new Sydney_Responsive_Slider( $wp_customize, 'exc_lenght',
 	array(
-		'label' 		=> esc_html__( 'Excerpt length', 'sydney' ),
-		'section' 		=> 'sydney_section_blog_archives',
-		'is_responsive'	=> 0,
-		'settings' 		=> array (
-			'size_desktop' 		=> 'exc_lenght',
+		'label'         => esc_html__( 'Excerpt length', 'sydney' ),
+		'section'       => 'sydney_section_blog_archives',
+		'is_responsive' => 0,
+		'settings'      => array(
+			'size_desktop'      => 'exc_lenght',
 		),
-		'input_attrs' => array (
-			'min'	=> 0,
-			'max'	=> 120,
-			'step'  => 1
+		'input_attrs' => array(
+			'min'   => 0,
+			'max'   => 120,
+			'step'  => 1,
 		),
-		'active_callback' => 'sydney_callback_excerpt'
+		'active_callback' => 'sydney_callback_excerpt',
 	)
 ) );
 
@@ -447,9 +447,9 @@ $wp_customize->add_control(
 		$wp_customize,
 		'read_more_link',
 		array(
-			'label'         	=> esc_html__( 'Read more link', 'sydney' ),
-			'section'       	=> 'sydney_section_blog_archives',
-			'active_callback' => 'sydney_callback_excerpt'
+			'label'             => esc_html__( 'Read more link', 'sydney' ),
+			'section'           => 'sydney_section_blog_archives',
+			'active_callback' => 'sydney_callback_excerpt',
 		)
 	)
 );
@@ -457,7 +457,7 @@ $wp_customize->add_control(
 //Meta
 $wp_customize->add_setting( 'accordion_blog_archive_3', 
 	array(
-		'sanitize_callback' => 'esc_attr'
+		'sanitize_callback' => 'esc_attr',
 	)
 );
 $wp_customize->add_control(
@@ -474,36 +474,36 @@ $wp_customize->add_control(
 
 $wp_customize->add_setting( 'archive_meta_position',
 	array(
-		'default' 			=> 'above-title',
+		'default'           => 'above-title',
 		'sanitize_callback' => 'sydney_sanitize_text',
 	)
 );
 $wp_customize->add_control( new Sydney_Radio_Buttons( $wp_customize, 'archive_meta_position',
 	array(
-		'label' 	=> esc_html__( 'Position', 'sydney' ),
-		'section' 	=> 'sydney_section_blog_archives',
-		'choices' 	=> array(
-			'above-title' 		=> esc_html__( 'Above title', 'sydney' ),
-			'below-excerpt' 	=> esc_html__( 'Below excerpt', 'sydney' ),
+		'label'     => esc_html__( 'Position', 'sydney' ),
+		'section'   => 'sydney_section_blog_archives',
+		'choices'   => array(
+			'above-title'       => esc_html__( 'Above title', 'sydney' ),
+			'below-excerpt'     => esc_html__( 'Below excerpt', 'sydney' ),
 		),
 	)
 ) );
 
 $wp_customize->add_setting( 'archive_meta_elements', array(
-	'default'  			=> array( 'post_date', 'post_categories' ),
-	'sanitize_callback'	=> 'sydney_sanitize_blog_meta_elements',
-	'transport' 		=> 'postMessage',
+	'default'           => array( 'post_date', 'post_categories' ),
+	'sanitize_callback' => 'sydney_sanitize_blog_meta_elements',
+	'transport'         => 'postMessage',
 ) );
 
 $wp_customize->add_control( new \Kirki\Control\Sortable( $wp_customize, 'archive_meta_elements', array(
-	'label'   		=> esc_html__( 'Meta elements', 'sydney' ),
+	'label'         => esc_html__( 'Meta elements', 'sydney' ),
 	'section' => 'sydney_section_blog_archives',
 	'choices' => array(
-		'post_date' 		=> esc_html__( 'Post date', 'sydney' ),
-		'post_author' 		=> esc_html__( 'Post author', 'sydney' ),
-		'post_categories'	=> esc_html__( 'Post categories', 'sydney' ),
-		'post_comments' 	=> esc_html__( 'Post comments', 'sydney' ),
-		'post_tags' 		=> esc_html__( 'Post tags', 'sydney' ),
+		'post_date'         => esc_html__( 'Post date', 'sydney' ),
+		'post_author'       => esc_html__( 'Post author', 'sydney' ),
+		'post_categories'   => esc_html__( 'Post categories', 'sydney' ),
+		'post_comments'     => esc_html__( 'Post comments', 'sydney' ),
+		'post_tags'         => esc_html__( 'Post tags', 'sydney' ),
 	),
 ) ) );
 
@@ -512,7 +512,7 @@ $wp_customize->add_setting(
 	array(
 		'default'           => '',
 		'sanitize_callback' => 'sydney_sanitize_checkbox',
-		'transport' 		=> 'postMessage',
+		'transport'         => 'postMessage',
 	)
 );
 $wp_customize->add_control(
@@ -520,78 +520,78 @@ $wp_customize->add_control(
 		$wp_customize,
 		'show_avatar',
 		array(
-			'label'         	=> esc_html__( 'Show author avatar', 'sydney' ),
-			'section'       	=> 'sydney_section_blog_archives',
-			'active_callback' 	=> 'sydney_callback_author_avatar'
+			'label'             => esc_html__( 'Show author avatar', 'sydney' ),
+			'section'           => 'sydney_section_blog_archives',
+			'active_callback'   => 'sydney_callback_author_avatar',
 		)
 	)
 );
 
 
 $wp_customize->add_setting( 'archive_meta_spacing', array(
-	'default'   		=> 15,
+	'default'           => 15,
 	'sanitize_callback' => 'absint',
-	'transport'			=> 'postMessage',
-) );			
+	'transport'         => 'postMessage',
+) );            
 
 $wp_customize->add_control( new Sydney_Responsive_Slider( $wp_customize, 'archive_meta_spacing',
 	array(
-		'label' 		=> esc_html__( 'Spacing', 'sydney' ),
-		'section' 		=> 'sydney_section_blog_archives',
-		'is_responsive'	=> 0,
-		'settings' 		=> array (
-			'size_desktop' 		=> 'archive_meta_spacing',
+		'label'         => esc_html__( 'Spacing', 'sydney' ),
+		'section'       => 'sydney_section_blog_archives',
+		'is_responsive' => 0,
+		'settings'      => array(
+			'size_desktop'      => 'archive_meta_spacing',
 		),
-		'input_attrs' => array (
-			'min'	=> 0,
-			'max'	=> 60,
-			'step'  => 1
+		'input_attrs' => array(
+			'min'   => 0,
+			'max'   => 60,
+			'step'  => 1,
 		),
 	)
 ) );
 
 $wp_customize->add_setting( 'archive_meta_delimiter',
 	array(
-		'default' 			=> 'dot',
+		'default'           => 'dot',
 		'sanitize_callback' => 'sydney_sanitize_text',
-		'transport' 		=> 'postMessage'
+		'transport'         => 'postMessage',
 	)
 );
 $wp_customize->add_control( new Sydney_Radio_Buttons( $wp_customize, 'archive_meta_delimiter',
 	array(
-		'label' 	=> esc_html__( 'Delimiter style', 'sydney' ),
-		'section' 	=> 'sydney_section_blog_archives',
-		'choices' 	=> array(
-			'none' 		=> esc_html__( 'None', 'sydney' ),
-			'dot' 		=> '&middot;',
-			'vertical' 	=> '&#124;',
-			'horizontal'=> '&#x23AF;'
+		'label'     => esc_html__( 'Delimiter style', 'sydney' ),
+		'section'   => 'sydney_section_blog_archives',
+		'choices'   => array(
+			'none'      => esc_html__( 'None', 'sydney' ),
+			'dot'       => '&middot;',
+			'vertical'  => '&#124;',
+			'horizontal'=> '&#x23AF;',
 		),
 	)
 ) );
 
-$blog_options = array('show_excerpt','archive_content_type','exc_lenght','read_more_link','archive_meta_elements','show_avatar','archive_meta_delimiter');
+$blog_options = array( 'show_excerpt', 'archive_content_type', 'exc_lenght', 'read_more_link', 'archive_meta_elements', 'show_avatar', 'archive_meta_delimiter' );
 foreach ($blog_options as $option) {
 	$wp_customize->selective_refresh->add_partial( $option, array(
-		'selector' 				=> '.archive-wrapper',
-		'settings' 				=> $option,
-		'render_callback' 		=> 'sydney_archive_template',
-		'container_inclusive' 	=> true,
+		'selector'              => '.archive-wrapper',
+		'settings'              => $option,
+		'render_callback'       => 'sydney_archive_template',
+		'container_inclusive'   => true,
 	) );
 }
 
 $wp_customize->add_setting( 'archives_sidebar_title',
 	array(
-		'default' 			=> '',
-		'sanitize_callback' => 'esc_attr'
+		'default'           => '',
+		'sanitize_callback' => 'esc_attr',
 	)
 );
 
 $wp_customize->add_control( new Sydney_Text_Control( $wp_customize, 'archives_sidebar_title',
 		array(
-			'label'			=> esc_html__( 'Sidebar', 'sydney' ),
-			'section' 		=> 'sydney_section_blog_archives',
-			'separator'		=> 'before'
+			'label'         => esc_html__( 'Sidebar', 'sydney' ),
+			'section'       => 'sydney_section_blog_archives',
+			'separator'     => 'before',
 		)
 	)
 );
@@ -608,28 +608,28 @@ $wp_customize->add_control(
 		$wp_customize,
 		'sidebar_archives',
 		array(
-			'label'         	=> esc_html__( 'Enable sidebar', 'sydney' ),
-			'section'       	=> 'sydney_section_blog_archives',
+			'label'             => esc_html__( 'Enable sidebar', 'sydney' ),
+			'section'           => 'sydney_section_blog_archives',
 		)
 	)
 );
 
 $wp_customize->add_setting( 'sidebar_archives_position',
 	array(
-		'default' 			=> 'sidebar-right',
+		'default'           => 'sidebar-right',
 		'sanitize_callback' => 'sydney_sanitize_text',
-		'transport' 		=> 'postMessage'
+		'transport'         => 'postMessage',
 	)
 );
 $wp_customize->add_control( new Sydney_Radio_Buttons( $wp_customize, 'sidebar_archives_position',
 	array(
-		'label' 	=> esc_html__( 'Sidebar position', 'sydney' ),
-		'section' 	=> 'sydney_section_blog_archives',
-		'choices' 	=> array(
-			'sidebar-left' 		=> esc_html__( 'Left', 'sydney' ),
-			'sidebar-right' 	=> esc_html__( 'Right', 'sydney' ),
+		'label'     => esc_html__( 'Sidebar position', 'sydney' ),
+		'section'   => 'sydney_section_blog_archives',
+		'choices'   => array(
+			'sidebar-left'      => esc_html__( 'Left', 'sydney' ),
+			'sidebar-right'     => esc_html__( 'Right', 'sydney' ),
 		),
-		'active_callback' 	=> 'sydney_callback_sidebar_archives'
+		'active_callback'   => 'sydney_callback_sidebar_archives',
 	)
 ) );
 
@@ -637,38 +637,38 @@ $wp_customize->add_control( new Sydney_Radio_Buttons( $wp_customize, 'sidebar_ar
  * Styling
  */
 $wp_customize->add_setting( 'loop_post_title_size_desktop', array(
-	'default'   		=> 32,
-	'transport'			=> 'postMessage',
+	'default'           => 32,
+	'transport'         => 'postMessage',
 	'sanitize_callback' => 'absint',
-) );			
+) );            
 
 $wp_customize->add_setting( 'loop_post_title_size_tablet', array(
-	'default'   		=> 32,
-	'transport'			=> 'postMessage',
+	'default'           => 32,
+	'transport'         => 'postMessage',
 	'sanitize_callback' => 'absint',
 ) );
 
 $wp_customize->add_setting( 'loop_post_title_size_mobile', array(
-	'default'   		=> 32,
-	'transport'			=> 'postMessage',
+	'default'           => 32,
+	'transport'         => 'postMessage',
 	'sanitize_callback' => 'absint',
-) );			
+) );            
 
 
 $wp_customize->add_control( new Sydney_Responsive_Slider( $wp_customize, 'loop_post_title_size',
 	array(
-		'label' 		=> esc_html__( 'Post title font size', 'sydney' ),
-		'section' 		=> 'sydney_section_blog_archives',
-		'is_responsive'	=> 1,
-		'settings' 		=> array (
-			'size_desktop' 		=> 'loop_post_title_size_desktop',
-			'size_tablet' 		=> 'loop_post_title_size_tablet',
-			'size_mobile' 		=> 'loop_post_title_size_mobile',
+		'label'         => esc_html__( 'Post title font size', 'sydney' ),
+		'section'       => 'sydney_section_blog_archives',
+		'is_responsive' => 1,
+		'settings'      => array(
+			'size_desktop'      => 'loop_post_title_size_desktop',
+			'size_tablet'       => 'loop_post_title_size_tablet',
+			'size_mobile'       => 'loop_post_title_size_mobile',
 		),
-		'input_attrs' => array (
-			'min'	=> 0,
-			'max'	=> 200
-		)		
+		'input_attrs' => array(
+			'min'   => 0,
+			'max'   => 200,
+		),       
 	)
 ) );
 
@@ -677,7 +677,7 @@ $wp_customize->add_setting(
     array(
         'default'           => 'global_color_4',
         'sanitize_callback' => 'wp_kses_post',
-        'transport'         => 'postMessage'
+        'transport'         => 'postMessage',
     )
 );
 $wp_customize->add_setting(
@@ -685,7 +685,7 @@ $wp_customize->add_setting(
 	array(
 		'default'           => '#00102E',
 		'sanitize_callback' => 'sydney_sanitize_hex_rgba',
-		'transport'         => 'postMessage'
+		'transport'         => 'postMessage',
 	)
 );
 $wp_customize->add_control(
@@ -693,8 +693,8 @@ $wp_customize->add_control(
 		$wp_customize,
 		'loop_post_title_color',
 		array(
-			'label'         	=> esc_html__( 'Title color', 'sydney' ),
-			'section'       	=> 'sydney_section_blog_archives',
+			'label'             => esc_html__( 'Title color', 'sydney' ),
+			'section'           => 'sydney_section_blog_archives',
 			'settings'       => array(
                 'global'  => 'global_loop_post_title_color',
                 'setting' => 'loop_post_title_color',
@@ -704,39 +704,39 @@ $wp_customize->add_control(
 );
 
 $wp_customize->add_setting( 'loop_post_meta_size_desktop', array(
-	'default'   		=> 12,
-	'transport'			=> 'postMessage',
+	'default'           => 12,
+	'transport'         => 'postMessage',
 	'sanitize_callback' => 'absint',
-) );			
+) );            
 
 $wp_customize->add_setting( 'loop_post_meta_size_tablet', array(
-	'default'   		=> 12,
-	'transport'			=> 'postMessage',
+	'default'           => 12,
+	'transport'         => 'postMessage',
 	'sanitize_callback' => 'absint',
 ) );
 
 $wp_customize->add_setting( 'loop_post_meta_size_mobile', array(
-	'default'   		=> 12,
-	'transport'			=> 'postMessage',
+	'default'           => 12,
+	'transport'         => 'postMessage',
 	'sanitize_callback' => 'absint',
-) );			
+) );            
 
 
 $wp_customize->add_control( new Sydney_Responsive_Slider( $wp_customize, 'loop_post_meta_size',
 	array(
-		'label' 		=> esc_html__( 'Meta font size', 'sydney' ),
-		'section' 		=> 'sydney_section_blog_archives',
-		'is_responsive'	=> 1,
-		'settings' 		=> array (
-			'size_desktop' 		=> 'loop_post_meta_size_desktop',
-			'size_tablet' 		=> 'loop_post_meta_size_tablet',
-			'size_mobile' 		=> 'loop_post_meta_size_mobile',
+		'label'         => esc_html__( 'Meta font size', 'sydney' ),
+		'section'       => 'sydney_section_blog_archives',
+		'is_responsive' => 1,
+		'settings'      => array(
+			'size_desktop'      => 'loop_post_meta_size_desktop',
+			'size_tablet'       => 'loop_post_meta_size_tablet',
+			'size_mobile'       => 'loop_post_meta_size_mobile',
 		),
-		'input_attrs' => array (
-			'min'	=> 0,
-			'max'	=> 200
+		'input_attrs' => array(
+			'min'   => 0,
+			'max'   => 200,
 		),
-		'separator' 	=> 'before'
+		'separator'     => 'before',
 	)
 ) );
 
@@ -745,7 +745,7 @@ $wp_customize->add_setting(
     array(
         'default'           => 'global_color_5',
         'sanitize_callback' => 'wp_kses_post',
-        'transport'         => 'postMessage'
+        'transport'         => 'postMessage',
     )
 );
 $wp_customize->add_setting(
@@ -753,7 +753,7 @@ $wp_customize->add_setting(
 	array(
 		'default'           => '#6d7685',
 		'sanitize_callback' => 'sydney_sanitize_hex_rgba',
-		'transport'         => 'postMessage'
+		'transport'         => 'postMessage',
 	)
 );
 $wp_customize->add_control(
@@ -761,8 +761,8 @@ $wp_customize->add_control(
 		$wp_customize,
 		'loop_post_meta_color',
 		array(
-			'label'         	=> esc_html__( 'Meta color', 'sydney' ),
-			'section'       	=> 'sydney_section_blog_archives',
+			'label'             => esc_html__( 'Meta color', 'sydney' ),
+			'section'           => 'sydney_section_blog_archives',
 			'settings'       => array(
                 'global'  => 'global_loop_post_meta_color',
                 'setting' => 'loop_post_meta_color',
@@ -772,39 +772,39 @@ $wp_customize->add_control(
 );
 
 $wp_customize->add_setting( 'loop_post_text_size_desktop', array(
-	'default'   		=> 16,
-	'transport'			=> 'postMessage',
+	'default'           => 16,
+	'transport'         => 'postMessage',
 	'sanitize_callback' => 'absint',
-) );			
+) );            
 
 $wp_customize->add_setting( 'loop_post_text_size_tablet', array(
-	'default'   		=> 16,
-	'transport'			=> 'postMessage',
+	'default'           => 16,
+	'transport'         => 'postMessage',
 	'sanitize_callback' => 'absint',
 ) );
 
 $wp_customize->add_setting( 'loop_post_text_size_mobile', array(
-	'default'   		=> 16,
-	'transport'			=> 'postMessage',
+	'default'           => 16,
+	'transport'         => 'postMessage',
 	'sanitize_callback' => 'absint',
-) );			
+) );            
 
 
 $wp_customize->add_control( new Sydney_Responsive_Slider( $wp_customize, 'loop_post_text_size',
 	array(
-		'label' 		=> esc_html__( 'Excerpt font size', 'sydney' ),
-		'section' 		=> 'sydney_section_blog_archives',
-		'is_responsive'	=> 1,
-		'settings' 		=> array (
-			'size_desktop' 		=> 'loop_post_text_size_desktop',
-			'size_tablet' 		=> 'loop_post_text_size_tablet',
-			'size_mobile' 		=> 'loop_post_text_size_mobile',
+		'label'         => esc_html__( 'Excerpt font size', 'sydney' ),
+		'section'       => 'sydney_section_blog_archives',
+		'is_responsive' => 1,
+		'settings'      => array(
+			'size_desktop'      => 'loop_post_text_size_desktop',
+			'size_tablet'       => 'loop_post_text_size_tablet',
+			'size_mobile'       => 'loop_post_text_size_mobile',
 		),
-		'input_attrs' => array (
-			'min'	=> 0,
-			'max'	=> 200
+		'input_attrs' => array(
+			'min'   => 0,
+			'max'   => 200,
 		),
-		'separator' 	=> 'before'	
+		'separator'     => 'before', 
 	)
 ) );
 
@@ -813,7 +813,7 @@ $wp_customize->add_setting(
     array(
         'default'           => 'global_color_3',
         'sanitize_callback' => 'wp_kses_post',
-        'transport'         => 'postMessage'
+        'transport'         => 'postMessage',
     )
 );
 $wp_customize->add_setting(
@@ -821,7 +821,7 @@ $wp_customize->add_setting(
 	array(
 		'default'           => '#233452',
 		'sanitize_callback' => 'sydney_sanitize_hex_rgba',
-		'transport'         => 'postMessage'
+		'transport'         => 'postMessage',
 	)
 );
 $wp_customize->add_control(
@@ -829,8 +829,8 @@ $wp_customize->add_control(
 		$wp_customize,
 		'loop_post_text_color',
 		array(
-			'label'         	=> esc_html__( 'Excerpt color', 'sydney' ),
-			'section'       	=> 'sydney_section_blog_archives',
+			'label'             => esc_html__( 'Excerpt color', 'sydney' ),
+			'section'           => 'sydney_section_blog_archives',
 			'settings'       => array(
                 'global'  => 'global_loop_post_text_color',
                 'setting' => 'loop_post_text_color',

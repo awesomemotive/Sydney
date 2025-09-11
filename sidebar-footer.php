@@ -5,9 +5,9 @@
  */
 
 //Footer widgets options
-$container 	= get_theme_mod( 'footer_container', 'container' );
-$layout 	= get_theme_mod( 'footer_widget_areas', '3' );
-$alignment 	= get_theme_mod( 'footer_widgets_alignment', 'top' );
+$container  = get_theme_mod( 'footer_container', 'container' );
+$layout     = get_theme_mod( 'footer_widget_areas', '3' );
+$alignment  = get_theme_mod( 'footer_widgets_alignment', 'top' );
 $visibility = get_theme_mod( 'footer_widgets_visibility', 'all' );
 
 if ( !is_active_sidebar( 'footer-1' ) || 'disabled' === $layout ) {
@@ -18,7 +18,7 @@ switch ($layout) {
 
 	case '4':
 	case 'col4-bigleft':
-	case 'col4-bigright':	
+	case 'col4-bigright':   
 		$column_no  = 4;
 		break;
 
