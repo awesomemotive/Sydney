@@ -13,11 +13,8 @@
   "scripts": {
     "phpcs": "@php ./vendor/bin/phpcs",
     "phpcs:fix": "@php ./vendor/bin/phpcbf",
-    "run-tests": [
-      "@phpcs:fix",
-      "@phpcs"
-    ],
-    "unit-tests": "@php vendor/bin/phpunit --testsuite unit"
+    "test": "@php vendor/bin/phpunit",
+    "test:unit": "@php vendor/bin/phpunit --testsuite unit"
   },
   "require-dev": {
     "dealerdirect/phpcodesniffer-composer-installer": "1.1.2",
@@ -26,6 +23,11 @@
     "phpcompatibility/phpcompatibility-wp": "2.1.7",
     "10up/wp_mock": "^1.1",
     "phpunit/phpunit": "^9.6"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Sydney\\Tests\\": "tests/unit/"
+    }
   },
   "config": {
     "allow-plugins": {

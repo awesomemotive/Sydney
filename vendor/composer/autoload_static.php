@@ -18,6 +18,10 @@ class ComposerStaticInit4df50f989ecb0efc97fcfe88333df300
         array (
             'WP_Mock\\' => 8,
         ),
+        'S' => 
+        array (
+            'Sydney\\Tests\\' => 13,
+        ),
         'P' => 
         array (
             'PhpParser\\' => 10,
@@ -38,6 +42,10 @@ class ComposerStaticInit4df50f989ecb0efc97fcfe88333df300
         'WP_Mock\\' => 
         array (
             0 => __DIR__ . '/..' . '/10up/wp_mock/php/WP_Mock',
+        ),
+        'Sydney\\Tests\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/tests/unit',
         ),
         'PhpParser\\' => 
         array (
