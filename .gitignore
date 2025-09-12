@@ -8,3 +8,4 @@ composer.lock
 tasks.md
 /vendor/
 !/vendor/wptt-webfont-loader/
+.phpunit.result.cache
