@@ -16,7 +16,8 @@
     "run-tests": [
       "@phpcs:fix",
       "@phpcs"
-    ]
+    ],
+    "unit-tests": "@php vendor/bin/phpunit --testsuite unit"
   },
   "require-dev": {
     "dealerdirect/phpcodesniffer-composer-installer": "1.1.2",
