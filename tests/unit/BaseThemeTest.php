@@ -36,7 +36,7 @@ abstract class BaseThemeTest extends WPTestCase {
      * @since 1.0.0
      * @return void
      */
-    protected function setUp(): void {
+    public function setUp(): void {
         parent::setUp();
         M::setUp();
 
@@ -57,7 +57,7 @@ abstract class BaseThemeTest extends WPTestCase {
      * @since 1.0.0
      * @return void
      */
-    protected function tearDown(): void {
+    public function tearDown(): void {
         M::tearDown();
         parent::tearDown();
     }
