@@ -23,7 +23,8 @@
     "wp-coding-standards/wpcs": "3.2.0",
     "woocommerce/woocommerce-sniffs": "1.0",
     "phpcompatibility/phpcompatibility-wp": "2.1.7",
-    "10up/wp_mock": "^1.1"
+    "10up/wp_mock": "^1.1",
+    "phpunit/phpunit": "^9.6"
   },
   "config": {
     "allow-plugins": {
