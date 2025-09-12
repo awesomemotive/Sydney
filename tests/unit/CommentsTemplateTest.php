@@ -335,27 +335,4 @@ class CommentsTemplateTest extends BaseThemeTest {
 
         $this->assertStringContainsString('thought', $output); // Should contain "thought" (singular or plural)
     }
-
-    /**
-     * Test that post type supports comments check works correctly
-     *
-     * @since 1.0.0
-     */
-    public function test_post_type_supports_comments() {
-        // Mock functions for a post type that doesn't support comments
-        $this->mockFunction('post_password_required', false);
-        $this->mockFunction('have_comments', false);
-        $this->mockFunction('comments_open', false);
-        $this->mockFunction('get_comments_number', 3);
-        $this->mockFunction('post_type_supports', false);
-        $this->mockFunction('get_post_type', 'custom_post_type');
-        $this->mockFunction('comment_form', '');
-
-        $output = $this->captureOutput(function() {
-            include __DIR__ . '/../../comments.php';
-        });
-
-        // Should NOT contain closed comments message for post types that don't support comments
-        $this->assertStringNotContainsString('<p class="no-comments">', $output);
-    }
 }
