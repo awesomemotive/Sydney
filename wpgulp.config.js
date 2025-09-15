@@ -173,7 +173,9 @@ const zipIgnoreGlob = [
 	'!../@(Sydney|sydney)/**/*assets/img/raw/**/*',
 	'!../@(Sydney|sydney)/**/*assets/img/raw',
 	'!../@(Sydney|sydney)/**/*assets/js/src/**/*',
-	'!../@(Sydney|sydney)/**/*assets/js/src'
+	'!../@(Sydney|sydney)/**/*assets/js/src',
+	'!../@(Sydney|sydney)/**/*playwright-mcp/**/*',
+	'!../@(Sydney|sydney)/**/*.temporary.json',
 ];
 
 // >>>>> Translation options.
