@@ -19,17 +19,15 @@ use WP_Mock as M;
 class HFBuilderTest extends BaseThemeTest {
 
     /**
-     * Set up the test environment before each test method.
+     * Get the theme dependencies that this test class requires.
      *
      * @since 1.0.0
-     * @return void
+     * @return array Array of dependency types to load.
      */
-    public function setUp(): void {
-        parent::setUp();
-
-        // Note: We don't load hf-builder dependency here by default
-        // Individual tests will load what they need
-        $this->loadThemeDependencies(['modules']);
+    protected function getRequiredDependencies(): array {
+        // Note: We only load 'modules' by default, not 'hf-builder'
+        // Individual tests can load hf-builder using setUpWithHFBuilder()
+        return ['modules'];
     }
 
     /**
@@ -43,13 +41,7 @@ class HFBuilderTest extends BaseThemeTest {
         $this->loadThemeDependencies(['hf-builder']);
 
         // Reset the singleton instance after including the class
-        if (class_exists('Sydney_Header_Footer_Builder')) {
-            $reflection = new \ReflectionClass('Sydney_Header_Footer_Builder');
-            $instance = $reflection->getProperty('instance');
-            $instance->setAccessible(true);
-            $instance->setValue(null, null);
-            $instance->setAccessible(false);
-        }
+        $this->resetSingleton('Sydney_Header_Footer_Builder');
     }
 
     /**
@@ -65,13 +57,7 @@ class HFBuilderTest extends BaseThemeTest {
      */
     public function test_module_activation_check(): void {
         // Reset any existing class instances
-        if (class_exists('Sydney_Header_Footer_Builder')) {
-            $reflection = new \ReflectionClass('Sydney_Header_Footer_Builder');
-            $instance = $reflection->getProperty('instance');
-            $instance->setAccessible(true);
-            $instance->setValue(null, null);
-            $instance->setAccessible(false);
-        }
+        $this->resetSingleton('Sydney_Header_Footer_Builder');
 
         // Test scenario 1: Module explicitly set to false
         $this->mockOptions(['sydney-modules' => ['hf-builder' => false]]);
@@ -698,42 +684,12 @@ class HFBuilderTest extends BaseThemeTest {
         $this->setUpWithHFBuilder();
 
         // Mock required WordPress functions
-        $this->mockFunction('get_template_directory', __DIR__ . '/../../');
-        $this->mockFunction('home_url', function($path = '/') {
-            return 'https://example.com' . $path;
-        });
-        $this->mockFunction('bloginfo', function($show = '') {
-            switch ($show) {
-                case 'name':
-                    echo 'Test Site Name';
-                    break;
-                default:
-                    echo 'Test Site Name';
-                    break;
-            }
-        });
-        $this->mockFunction('get_bloginfo', function($show = '', $filter = 'raw') {
-            switch ($show) {
-                case 'name':
-                    return 'Test Site Name';
-                case 'description':
-                    return 'Test Site Description';
-                default:
-                    return 'Test Site Name';
-            }
-        });
-        $this->mockFunction('sydney_get_schema', function($type) {
-            echo 'itemscope itemtype="https://schema.org/Organization"';
-        });
-        $this->mockFunction('sydney_do_schema', function($type) {
-            echo 'itemprop="logo"';
-        });
-        $this->mockFunction('sydney_get_svg_icon', function($icon) {
-            return '<svg class="' . $icon . '"><use xlink:href="#' . $icon . '"></use></svg>';
-        });
-        $this->mockFunction('esc_attr_e', function($text, $domain) {
-            echo $text;
-        });
+        $this->mockSiteInfoFunctions([
+            'site_name' => 'Test Site Name',
+            'site_description' => 'Test Site Description'
+        ]);
+        $this->mockSydneyThemeFunctions();
+        $this->mockTranslationFunctions();
 
         // Get HF Builder instance
         $instance = \Sydney_Header_Footer_Builder::get_instance();
@@ -743,14 +699,15 @@ class HFBuilderTest extends BaseThemeTest {
             'site_logo' => 'https://example.com/logo.png',
             'logo_site_title' => 0, // Don't show title alongside logo
         ]);
-        $this->mockFunction('attachment_url_to_postid', function($url) {
-            return $url === 'https://example.com/logo.png' ? 123 : 0;
-        });
-        $this->mockFunction('wp_get_attachment_image_src', function($id, $size) {
-            return $id === 123 ? ['https://example.com/logo.png', 200, 100] : false;
-        });
-        $this->mockFunction('is_front_page', false);
-        $this->mockFunction('is_customize_preview', false);
+        $this->mockMediaFunctions([
+            'attachments' => [
+                'https://example.com/logo.png' => [123, 200, 100]
+            ]
+        ]);
+        $this->mockConditionalFunctions([
+            'is_front_page' => false,
+            'is_customize_preview' => false
+        ]);
 
         // Test logo component rendering with image
         $params = [
@@ -762,27 +719,30 @@ class HFBuilderTest extends BaseThemeTest {
             $instance->logo($params);
         });
 
-        // Verify basic structure
-        $this->assertStringContainsString('<div class="shfb-builder-item shfb-component-logo" data-component-id="logo">', $output, 'Logo component should have correct wrapper classes');
-        $this->assertStringContainsString('<div class="site-branding"', $output, 'Should contain site-branding div');
-        $this->assertStringContainsString('itemscope itemtype="https://schema.org/Organization"', $output, 'Should contain schema markup');
-        
-        // Verify logo image
-        $this->assertStringContainsString('<img', $output, 'Should contain logo image');
-        $this->assertStringContainsString('class="site-logo"', $output, 'Logo image should have site-logo class');
-        $this->assertStringContainsString('src="https://example.com/logo.png"', $output, 'Should contain correct logo URL');
-        $this->assertStringContainsString('width="200"', $output, 'Should contain logo width');
-        $this->assertStringContainsString('height="100"', $output, 'Should contain logo height');
-        $this->assertStringContainsString('alt="Test Site Name"', $output, 'Logo alt text should be site name');
-        $this->assertStringContainsString('itemprop="logo"', $output, 'Logo should have schema itemprop');
-        
-        // Verify link
-        $this->assertStringContainsString('href="https://example.com/"', $output, 'Logo should link to home URL');
-        $this->assertStringContainsString('title="Test Site Name"', $output, 'Logo link should have title attribute');
+        // Verify logo component structure
+        $this->assertValidComponentStructure($output, [
+            'component_id' => 'logo',
+            'wrapper_class' => 'shfb-builder-item shfb-component-logo',
+            'schema_type' => 'Organization',
+            'required_elements' => [
+                '<div class="site-branding"',
+                '<img',
+                'class="site-logo"',
+                'src="https://example.com/logo.png"',
+                'width="200"',
+                'height="100"',
+                'alt="Test Site Name"',
+                'itemprop="logo"',
+                'href="https://example.com/"',
+                'title="Test Site Name"'
+            ]
+        ]);
 
         // Should NOT contain site title when logo is present and logo_site_title is false
-        $this->assertStringNotContainsString('<h1 class="site-title"', $output, 'Should not contain h1 site title when logo is present');
-        $this->assertStringNotContainsString('<p class="site-title"', $output, 'Should not contain p site title when logo is present');
+        $this->assertHtmlContainsNone($output, [
+            '<h1 class="site-title"',
+            '<p class="site-title"'
+        ]);
 
         // SCENARIO 2: Test without site logo (text only)
         // Reset WP_Mock to clear previous mocks
@@ -832,11 +792,7 @@ class HFBuilderTest extends BaseThemeTest {
         $this->mockFunction('is_customize_preview', false);
 
         // Reset singleton to clear any cached state
-        $reflection = new \ReflectionClass('Sydney_Header_Footer_Builder');
-        $instance_property = $reflection->getProperty('instance');
-        $instance_property->setAccessible(true);
-        $instance_property->setValue(null, null);
-        $instance_property->setAccessible(false);
+        $this->resetSingleton('Sydney_Header_Footer_Builder');
 
         // Mock theme mods for text-only scenario - NO LOGO
         $this->mockThemeMods([
@@ -851,14 +807,14 @@ class HFBuilderTest extends BaseThemeTest {
             $instance->logo($params);
         });
 
-        // Should contain site title as text
-        $this->assertStringContainsString('<p class="site-title"', $output_text_only, 'Should contain site title paragraph when no logo');
-        $this->assertStringContainsString('Test Site Name', $output_text_only, 'Should contain site name');
-        $this->assertStringContainsString('rel="home"', $output_text_only, 'Site title link should have rel="home"');
-        
-        // Should contain site description
-        $this->assertStringContainsString('<p class="site-description">', $output_text_only, 'Should contain site description');
-        $this->assertStringContainsString('Test Site Description', $output_text_only, 'Should contain actual site description');
+        // Should contain site title as text and site description
+        $this->assertHtmlContainsAll($output_text_only, [
+            '<p class="site-title"',
+            'Test Site Name',
+            'rel="home"',
+            '<p class="site-description">',
+            'Test Site Description'
+        ]);
 
         // Should NOT contain logo image
         $this->assertStringNotContainsString('<img', $output_text_only, 'Should not contain logo image when no logo set');
@@ -917,11 +873,7 @@ class HFBuilderTest extends BaseThemeTest {
         ]);
 
         // Reset singleton
-        $reflection = new \ReflectionClass('Sydney_Header_Footer_Builder');
-        $instance_property = $reflection->getProperty('instance');
-        $instance_property->setAccessible(true);
-        $instance_property->setValue(null, null);
-        $instance_property->setAccessible(false);
+        $this->resetSingleton('Sydney_Header_Footer_Builder');
 
         $instance = \Sydney_Header_Footer_Builder::get_instance();
 
@@ -992,11 +944,7 @@ class HFBuilderTest extends BaseThemeTest {
         ]);
 
         // Reset singleton
-        $reflection = new \ReflectionClass('Sydney_Header_Footer_Builder');
-        $instance_property = $reflection->getProperty('instance');
-        $instance_property->setAccessible(true);
-        $instance_property->setValue(null, null);
-        $instance_property->setAccessible(false);
+        $this->resetSingleton('Sydney_Header_Footer_Builder');
 
         $instance = \Sydney_Header_Footer_Builder::get_instance();
 
@@ -1005,9 +953,11 @@ class HFBuilderTest extends BaseThemeTest {
         });
 
         // Should contain both logo image and site title
-        $this->assertStringContainsString('<img', $output_logo_and_title, 'Should contain logo image');
-        $this->assertStringContainsString('class="site-logo"', $output_logo_and_title, 'Should contain logo image');
-        $this->assertStringContainsString('<p class="site-title"', $output_logo_and_title, 'Should also contain site title when logo_site_title is enabled');
+        $this->assertHtmlContainsAll($output_logo_and_title, [
+            '<img',
+            'class="site-logo"',
+            '<p class="site-title"'
+        ]);
 
         // SCENARIO 5: Test customizer edit button in preview mode
         // Reset WP_Mock for scenario 5
@@ -1068,11 +1018,7 @@ class HFBuilderTest extends BaseThemeTest {
         ]);
 
         // Reset singleton
-        $reflection = new \ReflectionClass('Sydney_Header_Footer_Builder');
-        $instance_property = $reflection->getProperty('instance');
-        $instance_property->setAccessible(true);
-        $instance_property->setValue(null, null);
-        $instance_property->setAccessible(false);
+        $this->resetSingleton('Sydney_Header_Footer_Builder');
 
         $instance = \Sydney_Header_Footer_Builder::get_instance();
 
@@ -1080,11 +1026,14 @@ class HFBuilderTest extends BaseThemeTest {
             $instance->logo($params);
         });
 
-        $this->assertStringContainsString('<div class="customize-partial-edit-shortcut"', $output_preview, 'Should contain customizer edit button in preview');
-        $this->assertStringContainsString('data-id="shfb"', $output_preview, 'Edit button should have correct data-id');
-        $this->assertStringContainsString('class="customize-partial-edit-shortcut-button', $output_preview, 'Should contain edit button');
-        $this->assertStringContainsString('aria-label="Click to edit this element."', $output_preview, 'Edit button should have accessibility label');
-        $this->assertStringContainsString('<svg class="icon-edit"', $output_preview, 'Edit button should contain edit icon');
+        // Should contain customizer edit button in preview mode
+        $this->assertHtmlContainsAll($output_preview, [
+            '<div class="customize-partial-edit-shortcut"',
+            'data-id="shfb"',
+            'class="customize-partial-edit-shortcut-button',
+            'aria-label="Click to edit this element."',
+            '<svg class="icon-edit"'
+        ]);
 
         // SCENARIO 6: Test mobile device parameter
         // Reset WP_Mock for scenario 6
@@ -1139,11 +1088,7 @@ class HFBuilderTest extends BaseThemeTest {
         ]);
 
         // Reset singleton
-        $reflection = new \ReflectionClass('Sydney_Header_Footer_Builder');
-        $instance_property = $reflection->getProperty('instance');
-        $instance_property->setAccessible(true);
-        $instance_property->setValue(null, null);
-        $instance_property->setAccessible(false);
+        $this->resetSingleton('Sydney_Header_Footer_Builder');
 
         $instance = \Sydney_Header_Footer_Builder::get_instance();
 
@@ -1213,11 +1158,7 @@ class HFBuilderTest extends BaseThemeTest {
         ]);
 
         // Reset singleton
-        $reflection = new \ReflectionClass('Sydney_Header_Footer_Builder');
-        $instance_property = $reflection->getProperty('instance');
-        $instance_property->setAccessible(true);
-        $instance_property->setValue(null, null);
-        $instance_property->setAccessible(false);
+        $this->resetSingleton('Sydney_Header_Footer_Builder');
 
         $instance = \Sydney_Header_Footer_Builder::get_instance();
 
@@ -1290,16 +1231,19 @@ class HFBuilderTest extends BaseThemeTest {
             $instance->menu($params);
         });
 
-        // Verify basic structure
-        $this->assertStringContainsString('<div class="shfb-builder-item shfb-component-menu" data-component-id="menu">', $output, 'Menu component should have correct wrapper classes');
-        $this->assertStringContainsString('<nav id="site-navigation"', $output, 'Should contain navigation element');
-        $this->assertStringContainsString('class="sydney-dropdown main-navigation with-hover-delay"', $output, 'Should have hover delay class when enabled');
-        $this->assertStringContainsString('itemscope itemtype="https://schema.org/SiteNavigationElement"', $output, 'Should contain schema markup');
-        
-        // Verify menu structure
-        $this->assertStringContainsString('<ul id="primary-menu" class="sydney-dropdown-ul menu">', $output, 'Should contain menu ul with correct classes');
-        $this->assertStringContainsString('<li><a href="#">Home</a></li>', $output, 'Should contain menu items');
-        $this->assertStringContainsString('<li><a href="#">About</a></li>', $output, 'Should contain menu items');
+        // Verify menu component structure
+        $this->assertValidComponentStructure($output, [
+            'component_id' => 'menu',
+            'wrapper_class' => 'shfb-builder-item shfb-component-menu',
+            'schema_type' => 'SiteNavigationElement',
+            'required_elements' => [
+                '<nav id="site-navigation"',
+                'class="sydney-dropdown main-navigation with-hover-delay"',
+                '<ul id="primary-menu" class="sydney-dropdown-ul menu">',
+                '<li><a href="#">Home</a></li>',
+                '<li><a href="#">About</a></li>'
+            ]
+        ]);
 
         // Should NOT contain customizer edit button when not in preview
         $this->assertStringNotContainsString('<div class="customize-partial-edit-shortcut"', $output, 'Should not contain customizer edit button when not in preview');
@@ -1341,11 +1285,7 @@ class HFBuilderTest extends BaseThemeTest {
         $this->mockFunction('is_customize_preview', true); // Enable preview mode
 
         // Reset singleton
-        $reflection = new \ReflectionClass('Sydney_Header_Footer_Builder');
-        $instance_property = $reflection->getProperty('instance');
-        $instance_property->setAccessible(true);
-        $instance_property->setValue(null, null);
-        $instance_property->setAccessible(false);
+        $this->resetSingleton('Sydney_Header_Footer_Builder');
 
         $instance = \Sydney_Header_Footer_Builder::get_instance();
 
@@ -1353,11 +1293,14 @@ class HFBuilderTest extends BaseThemeTest {
             $instance->menu($params);
         });
 
-        $this->assertStringContainsString('<div class="customize-partial-edit-shortcut"', $output_preview, 'Should contain customizer edit button in preview');
-        $this->assertStringContainsString('data-id="shfb"', $output_preview, 'Edit button should have correct data-id');
-        $this->assertStringContainsString('class="customize-partial-edit-shortcut-button', $output_preview, 'Should contain edit button');
-        $this->assertStringContainsString('aria-label="Click to edit this element."', $output_preview, 'Edit button should have accessibility label');
-        $this->assertStringContainsString('<svg class="icon-edit"', $output_preview, 'Edit button should contain edit icon');
+        // Should contain customizer edit button in preview mode
+        $this->assertHtmlContainsAll($output_preview, [
+            '<div class="customize-partial-edit-shortcut"',
+            'data-id="shfb"',
+            'class="customize-partial-edit-shortcut-button',
+            'aria-label="Click to edit this element."',
+            '<svg class="icon-edit"'
+        ]);
     }
 
     /**
@@ -1413,13 +1356,16 @@ class HFBuilderTest extends BaseThemeTest {
             $instance->search($params);
         });
 
-        // Verify basic structure
-        $this->assertStringContainsString('<div class="shfb-builder-item shfb-component-search" data-component-id="search">', $output, 'Search component should have correct wrapper classes');
-        
-        // Verify hidden search layout (default)
-        $this->assertStringContainsString('<a href="#" class="header-search"', $output, 'Should contain search link for hidden layout');
-        $this->assertStringContainsString('title="Search for a product"', $output, 'Should have correct title attribute');
-        $this->assertStringContainsString('<svg class="search-icon"', $output, 'Should contain search icon');
+        // Verify search component structure
+        $this->assertValidComponentStructure($output, [
+            'component_id' => 'search',
+            'wrapper_class' => 'shfb-builder-item shfb-component-search',
+            'required_elements' => [
+                '<a href="#" class="header-search"',
+                'title="Search for a product"',
+                '<svg class="search-icon"'
+            ]
+        ]);
 
         // Should NOT contain customizer edit button when not in preview
         $this->assertStringNotContainsString('<div class="customize-partial-edit-shortcut"', $output, 'Should not contain customizer edit button when not in preview');
@@ -1453,11 +1399,7 @@ class HFBuilderTest extends BaseThemeTest {
         ]);
 
         // Reset singleton
-        $reflection = new \ReflectionClass('Sydney_Header_Footer_Builder');
-        $instance_property = $reflection->getProperty('instance');
-        $instance_property->setAccessible(true);
-        $instance_property->setValue(null, null);
-        $instance_property->setAccessible(false);
+        $this->resetSingleton('Sydney_Header_Footer_Builder');
 
         $instance = \Sydney_Header_Footer_Builder::get_instance();
 
@@ -1465,11 +1407,14 @@ class HFBuilderTest extends BaseThemeTest {
             $instance->search($params);
         });
 
-        $this->assertStringContainsString('<div class="customize-partial-edit-shortcut"', $output_preview, 'Should contain customizer edit button in preview');
-        $this->assertStringContainsString('data-id="shfb"', $output_preview, 'Edit button should have correct data-id');
-        $this->assertStringContainsString('class="customize-partial-edit-shortcut-button', $output_preview, 'Should contain edit button');
-        $this->assertStringContainsString('aria-label="Click to edit this element."', $output_preview, 'Edit button should have accessibility label');
-        $this->assertStringContainsString('<svg class="icon-edit"', $output_preview, 'Edit button should contain edit icon');
+        // Should contain customizer edit button in preview mode
+        $this->assertHtmlContainsAll($output_preview, [
+            '<div class="customize-partial-edit-shortcut"',
+            'data-id="shfb"',
+            'class="customize-partial-edit-shortcut-button',
+            'aria-label="Click to edit this element."',
+            '<svg class="icon-edit"'
+        ]);
     }
 
     /**
@@ -1518,13 +1463,16 @@ class HFBuilderTest extends BaseThemeTest {
             $instance->social($params);
         });
 
-        // Verify basic structure
-        $this->assertStringContainsString('<div class="shfb-builder-item shfb-component-social" data-component-id="social">', $output, 'Social component should have correct wrapper classes');
-        
-        // Verify social profiles are rendered
-        $this->assertStringContainsString('<div class="social-profile-links">', $output, 'Should contain social profile links container');
-        $this->assertStringContainsString('<a href="https://facebook.com" class="social-link facebook">Facebook</a>', $output, 'Should contain Facebook link');
-        $this->assertStringContainsString('<a href="https://twitter.com" class="social-link twitter">Twitter</a>', $output, 'Should contain Twitter link');
+        // Verify social component structure
+        $this->assertValidComponentStructure($output, [
+            'component_id' => 'social',
+            'wrapper_class' => 'shfb-builder-item shfb-component-social',
+            'required_elements' => [
+                '<div class="social-profile-links">',
+                '<a href="https://facebook.com" class="social-link facebook">Facebook</a>',
+                '<a href="https://twitter.com" class="social-link twitter">Twitter</a>'
+            ]
+        ]);
 
         // Should NOT contain customizer edit button when not in preview
         $this->assertStringNotContainsString('<div class="customize-partial-edit-shortcut"', $output, 'Should not contain customizer edit button when not in preview');
@@ -1549,11 +1497,7 @@ class HFBuilderTest extends BaseThemeTest {
         $this->mockFunction('is_customize_preview', true); // Enable preview mode
 
         // Reset singleton
-        $reflection = new \ReflectionClass('Sydney_Header_Footer_Builder');
-        $instance_property = $reflection->getProperty('instance');
-        $instance_property->setAccessible(true);
-        $instance_property->setValue(null, null);
-        $instance_property->setAccessible(false);
+        $this->resetSingleton('Sydney_Header_Footer_Builder');
 
         $instance = \Sydney_Header_Footer_Builder::get_instance();
 
@@ -1561,11 +1505,14 @@ class HFBuilderTest extends BaseThemeTest {
             $instance->social($params);
         });
 
-        $this->assertStringContainsString('<div class="customize-partial-edit-shortcut"', $output_preview, 'Should contain customizer edit button in preview');
-        $this->assertStringContainsString('data-id="shfb"', $output_preview, 'Edit button should have correct data-id');
-        $this->assertStringContainsString('class="customize-partial-edit-shortcut-button', $output_preview, 'Should contain edit button');
-        $this->assertStringContainsString('aria-label="Click to edit this element."', $output_preview, 'Edit button should have accessibility label');
-        $this->assertStringContainsString('<svg class="icon-edit"', $output_preview, 'Edit button should contain edit icon');
+        // Should contain customizer edit button in preview mode
+        $this->assertHtmlContainsAll($output_preview, [
+            '<div class="customize-partial-edit-shortcut"',
+            'data-id="shfb"',
+            'class="customize-partial-edit-shortcut-button',
+            'aria-label="Click to edit this element."',
+            '<svg class="icon-edit"'
+        ]);
     }
 
     /**
@@ -1627,14 +1574,17 @@ class HFBuilderTest extends BaseThemeTest {
             $instance->button($params);
         });
 
-        // Verify basic structure
-        $this->assertStringContainsString('<div class="shfb-builder-item shfb-component-button" data-component-id="button">', $output, 'Button component should have correct wrapper classes');
-        
-        // Verify button attributes
-        $this->assertStringContainsString('href="https://example.com"', $output, 'Should contain correct button URL');
-        $this->assertStringContainsString('class="button btn-primary"', $output, 'Should contain correct button classes');
-        $this->assertStringContainsString('target="_blank"', $output, 'Should have target="_blank" when newtab is enabled');
-        $this->assertStringContainsString('Get Started', $output, 'Should contain button text');
+        // Verify button component structure
+        $this->assertValidComponentStructure($output, [
+            'component_id' => 'button',
+            'wrapper_class' => 'shfb-builder-item shfb-component-button',
+            'required_elements' => [
+                'href="https://example.com"',
+                'class="button btn-primary"',
+                'target="_blank"',
+                'Get Started'
+            ]
+        ]);
 
         // Should NOT contain customizer edit button when not in preview
         $this->assertStringNotContainsString('<div class="customize-partial-edit-shortcut"', $output, 'Should not contain customizer edit button when not in preview');
@@ -1674,11 +1624,7 @@ class HFBuilderTest extends BaseThemeTest {
         ]);
 
         // Reset singleton
-        $reflection = new \ReflectionClass('Sydney_Header_Footer_Builder');
-        $instance_property = $reflection->getProperty('instance');
-        $instance_property->setAccessible(true);
-        $instance_property->setValue(null, null);
-        $instance_property->setAccessible(false);
+        $this->resetSingleton('Sydney_Header_Footer_Builder');
 
         $instance = \Sydney_Header_Footer_Builder::get_instance();
 
@@ -1809,11 +1755,7 @@ class HFBuilderTest extends BaseThemeTest {
         ]);
 
         // Reset singleton
-        $reflection = new \ReflectionClass('Sydney_Header_Footer_Builder');
-        $instance_property = $reflection->getProperty('instance');
-        $instance_property->setAccessible(true);
-        $instance_property->setValue(null, null);
-        $instance_property->setAccessible(false);
+        $this->resetSingleton('Sydney_Header_Footer_Builder');
 
         $instance = \Sydney_Header_Footer_Builder::get_instance();
 

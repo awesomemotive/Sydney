@@ -23,13 +23,25 @@ use WP_Mock as M;
 class CommentsTemplateTest extends BaseThemeTest {
 
     /**
+     * Get the theme dependencies that this test class requires.
+     *
+     * Comments template tests don't require any special theme dependencies.
+     *
+     * @since 1.0.0
+     * @return array Array of dependency types to load.
+     */
+    protected function getRequiredDependencies(): array {
+        return []; // No special dependencies needed for comment template tests
+    }
+
+    /**
      * Test that comments template is not displayed for password-protected posts
      *
      * @since 1.0.0
      */
     public function test_comments_template_not_displayed_for_password_protected_posts() {
-        // Mock post_password_required to return true
-        $this->mockFunction('post_password_required', true);
+        // Set up password protected scenario
+        $this->setupCommentScenario('password_protected');
 
         // Capture output from comments.php
         $output = $this->captureOutput(function() {
@@ -46,31 +58,11 @@ class CommentsTemplateTest extends BaseThemeTest {
      * @since 1.0.0
      */
     public function test_comments_template_displays_when_comments_exist() {
-        // Mock functions for a post with comments
-        $this->mockFunction('post_password_required', false);
-        $this->mockFunction('have_comments', true);
-        $this->mockFunction('get_comments_number', 3);
-        $this->mockFunction('get_the_title', 'Test Post Title');
-        $this->mockFunction('get_comment_pages_count', 1);
-        M::userFunction('get_option', [
-            'return' => function($option, $default = null) {
-                if ($option === 'page_comments') return false;
-                return $default;
-            }
+        // Set up scenario with comments
+        $this->setupCommentScenario('multiple_comments', [
+            'get_comments_number' => 3,
+            'get_the_title' => 'Test Post Title'
         ]);
-        
-        // Mock translation functions
-        M::userFunction('_nx', [
-            'return' => function($single, $plural, $number, $context, $domain) {
-                return $number == 1 ? $single : $plural;
-            }
-        ]);
-        M::userFunction('number_format_i18n', ['return_arg' => 0]);
-        $this->mockFunction('wp_list_comments', '');
-        $this->mockFunction('comments_open', true);
-        $this->mockFunction('post_type_supports', true);
-        $this->mockFunction('get_post_type', 'post');
-        $this->mockFunction('comment_form', '');
 
         // Capture output from comments.php
         $output = $this->captureOutput(function() {
@@ -78,10 +70,12 @@ class CommentsTemplateTest extends BaseThemeTest {
         });
 
         // Should contain comments area
-        $this->assertStringContainsString('<div id="comments" class="comments-area">', $output);
-        $this->assertStringContainsString('thoughts on', $output);
-        $this->assertStringContainsString('Test Post Title', $output);
-        $this->assertStringContainsString('<ol class="comments-list">', $output);
+        $this->assertHtmlContainsAll($output, [
+            '<div id="comments" class="comments-area">',
+            'thoughts on',
+            'Test Post Title',
+            '<ol class="comments-list">'
+        ]);
     }
 
     /**
@@ -90,35 +84,12 @@ class CommentsTemplateTest extends BaseThemeTest {
      * @since 1.0.0
      */
     public function test_comment_navigation_displays_with_multiple_pages() {
-        // Mock functions for a post with paginated comments
-        $this->mockFunction('post_password_required', false);
-        $this->mockFunction('have_comments', true);
-        $this->mockFunction('get_comments_number', 15);
-        $this->mockFunction('get_the_title', 'Test Post Title');
-        $this->mockFunction('get_comment_pages_count', 3);
-        M::userFunction('get_option', [
-            'return' => function($option, $default = null) {
-                if ($option === 'page_comments') return true;
-                return $default;
-            }
+        // Set up scenario with paginated comments
+        $this->setupCommentScenario('comments_with_pagination', [
+            '_nx_override' => true // Prevent default _nx override
         ]);
-        
-        // Mock translation and navigation functions
+        // Override _nx for this specific test
         $this->mockFunction('_nx', '15 thoughts on "Test Post Title"');
-        M::userFunction('number_format_i18n', ['return_arg' => 0]);
-        M::userFunction('esc_html_e', [
-            'return' => function($text, $domain) {
-                echo $text;
-            }
-        ]);
-        M::userFunction('__', ['return_arg' => 0]);
-        $this->mockFunction('previous_comments_link', '');
-        $this->mockFunction('next_comments_link', '');
-        $this->mockFunction('wp_list_comments', '');
-        $this->mockFunction('comments_open', true);
-        $this->mockFunction('post_type_supports', true);
-        $this->mockFunction('get_post_type', 'post');
-        $this->mockFunction('comment_form', '');
 
         // Capture output from comments.php
         $output = $this->captureOutput(function() {
@@ -126,10 +97,12 @@ class CommentsTemplateTest extends BaseThemeTest {
         });
 
         // Should contain comment navigation elements
-        $this->assertStringContainsString('id="comment-nav-above"', $output);
-        $this->assertStringContainsString('id="comment-nav-below"', $output);
-        $this->assertStringContainsString('class="comment-navigation"', $output);
-        $this->assertStringContainsString('Comment navigation', $output);
+        $this->assertHtmlContainsAll($output, [
+            'id="comment-nav-above"',
+            'id="comment-nav-below"',
+            'class="comment-navigation"',
+            'Comment navigation'
+        ]);
     }
 
     /**
@@ -138,7 +111,7 @@ class CommentsTemplateTest extends BaseThemeTest {
      * @since 1.0.0
      */
     public function test_comment_form_is_displayed() {
-        // Mock basic functions
+        // Mock basic functions for comments open but none exist
         $this->mockFunction('post_password_required', false);
         $this->mockFunction('have_comments', false);
         $this->mockFunction('comments_open', true);
@@ -147,14 +120,12 @@ class CommentsTemplateTest extends BaseThemeTest {
         $this->mockFunction('get_post_type', 'post');
         
         // Mock comment_form function to return specific output
-        M::userFunction('comment_form', [
-            'return' => function($args) {
-                echo '<form id="commentform" class="comment-form">';
-                echo '<textarea name="comment"></textarea>';
-                echo '<input type="submit" value="Post Comment">';
-                echo '</form>';
-            }
-        ]);
+        $this->mockFunction('comment_form', function($args) {
+            echo '<form id="commentform" class="comment-form">';
+            echo '<textarea name="comment"></textarea>';
+            echo '<input type="submit" value="Post Comment">';
+            echo '</form>';
+        });
 
         // Capture output from comments.php
         $output = $this->captureOutput(function() {
@@ -162,10 +133,12 @@ class CommentsTemplateTest extends BaseThemeTest {
         });
 
         // Should contain comment form elements
-        $this->assertStringContainsString('<div id="comments" class="comments-area">', $output);
-        $this->assertStringContainsString('<form id="commentform" class="comment-form">', $output);
-        $this->assertStringContainsString('<textarea name="comment"></textarea>', $output);
-        $this->assertStringContainsString('<input type="submit" value="Post Comment">', $output);
+        $this->assertHtmlContainsAll($output, [
+            '<div id="comments" class="comments-area">',
+            '<form id="commentform" class="comment-form">',
+            '<textarea name="comment"></textarea>',
+            '<input type="submit" value="Post Comment">'
+        ]);
     }
 
     /**
@@ -181,11 +154,7 @@ class CommentsTemplateTest extends BaseThemeTest {
         $this->mockFunction('get_comments_number', 5);
         $this->mockFunction('post_type_supports', true);
         $this->mockFunction('get_post_type', 'post');
-        M::userFunction('esc_html_e', [
-            'return' => function($text, $domain) {
-                echo $text;
-            }
-        ]);
+        $this->mockTranslationFunctions();
         $this->mockFunction('comment_form', '');
 
         // Capture output from comments.php
@@ -194,8 +163,10 @@ class CommentsTemplateTest extends BaseThemeTest {
         });
 
         // Should contain closed comments message
-        $this->assertStringContainsString('<p class="no-comments">', $output);
-        $this->assertStringContainsString('Comments are closed.', $output);
+        $this->assertHtmlContainsAll($output, [
+            '<p class="no-comments">',
+            'Comments are closed.'
+        ]);
     }
 
     /**
@@ -219,8 +190,10 @@ class CommentsTemplateTest extends BaseThemeTest {
         });
 
         // Should NOT contain closed comments message when no comments exist (string '0' means no comments)
-        $this->assertStringNotContainsString('<p class="no-comments">', $output);
-        $this->assertStringNotContainsString('Comments are closed.', $output);
+        $this->assertHtmlContainsNone($output, [
+            '<p class="no-comments">',
+            'Comments are closed.'
+        ]);
     }
 
     /**
@@ -313,12 +286,7 @@ class CommentsTemplateTest extends BaseThemeTest {
 
         // Test single comment
         $this->mockFunction('get_comments_number', 1);
-        M::userFunction('_nx', [
-            'return' => function($single, $plural, $number, $context, $domain) {
-                return $number == 1 ? $single : $plural;
-            }
-        ]);
-        M::userFunction('number_format_i18n', ['return_arg' => 0]);
+        $this->mockTranslationFunctions();
 
         $output = $this->captureOutput(function() {
             include __DIR__ . '/../../comments.php';
