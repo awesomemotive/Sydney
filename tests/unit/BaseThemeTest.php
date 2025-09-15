@@ -46,6 +46,12 @@ abstract class BaseThemeTest extends WPTestCase {
         M::userFunction('esc_attr',     ['return_arg' => 0]);
         M::userFunction('esc_html',     ['return_arg' => 0]);
         M::userFunction('wp_kses_post', ['return_arg' => 0]);
+
+        // Mock common WordPress functions used across themes
+        M::userFunction('is_customize_preview', ['return' => false]);
+        M::userFunction('add_action', ['return' => true]);
+        M::userFunction('add_filter', ['return' => true]);
+        M::userFunction('remove_all_actions', ['return' => true]);
     }
 
     /**
@@ -139,5 +145,45 @@ abstract class BaseThemeTest extends WPTestCase {
      */
     protected function mockFunction(string $name, $return): void {
         M::userFunction($name, ['return' => $return]);
+    }
+
+    /**
+     * Load Sydney theme dependencies safely for testing.
+     *
+     * This method ensures that required theme classes and dependencies are loaded
+     * in the correct order for testing purposes. It handles conditional loading
+     * to prevent duplicate class declarations.
+     *
+     * @since 1.0.0
+     * @param array $dependencies Array of dependency types to load.
+     *                           Supported types: 'modules', 'hf-builder'
+     * @return void
+     */
+    protected function loadThemeDependencies(array $dependencies = []): void {
+        // Load Sydney_Modules class first if needed
+        if (in_array('modules', $dependencies) && !class_exists('Sydney_Modules')) {
+            // Load the modules class (prefer the one from /inc/modules as it's loaded first in functions.php)
+            require_once __DIR__ . '/../../inc/modules/class-sydney-modules.php';
+        }
+
+        // Load Header/Footer Builder if needed
+        if (in_array('hf-builder', $dependencies)) {
+            // Mock the module activation check to return true for testing
+            if (class_exists('Sydney_Modules')) {
+                M::userFunction('get_option', [
+                    'return' => function($option_name, $default = null) {
+                        if ($option_name === 'sydney-modules') {
+                            return ['hf-builder' => true];
+                        }
+                        return $default;
+                    }
+                ]);
+            }
+
+            // Load the header-footer builder class if not already loaded
+            if (!class_exists('Sydney_Header_Footer_Builder')) {
+                require_once __DIR__ . '/../../inc/modules/hf-builder/class-header-footer-builder.php';
+            }
+        }
     }
 }
