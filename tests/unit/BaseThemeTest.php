@@ -35,7 +35,7 @@ abstract class BaseThemeTest extends WPTestCase {
      *
      * @since 1.0.0
      * @return array Array of dependency types to load.
-     *               Supported types: 'modules', 'hf-builder', 'styles'
+     *               Supported types: 'modules', 'hf-builder', 'styles', 'posts-archive'
      */
     protected function getRequiredDependencies(): array {
         return [];
@@ -770,6 +770,11 @@ abstract class BaseThemeTest extends WPTestCase {
         // Load Sydney_Custom_CSS class if needed
         if (in_array('styles', $dependencies) && !class_exists('Sydney_Custom_CSS')) {
             require_once __DIR__ . '/../../inc/styles.php';
+        }
+
+        // Load Sydney_Posts_Archive class if needed
+        if (in_array('posts-archive', $dependencies) && !class_exists('Sydney_Posts_Archive')) {
+            require_once __DIR__ . '/../../inc/classes/class-sydney-posts-archive.php';
         }
     }
 }
