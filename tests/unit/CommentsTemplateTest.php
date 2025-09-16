@@ -197,73 +197,79 @@ class CommentsTemplateTest extends BaseThemeTest {
     }
 
     /**
-     * Test comments template loading condition in single post template
+     * Data provider for comments template loading condition scenarios.
+     *
+     * Tests the boolean logic: (comments_open() || get_comments_number())
+     * This determines whether the comments template should be loaded in templates.
      *
      * @since 1.0.0
+     * @return array Test scenarios with [comments_open, comments_number, expected_result, description]
      */
-    public function test_comments_template_loading_condition_single_post() {
-        // Test when comments are open
-        $this->mockFunction('comments_open', true);
-        $this->mockFunction('get_comments_number', 0);
-        
-        $should_load = (comments_open() || get_comments_number());
-        $this->assertTrue($should_load, 'Comments template should load when comments are open');
+    public function commentsTemplateLoadingConditionProvider(): array {
+        return [
+            'comments_open_none_exist' => [
+                'comments_open' => true,
+                'comments_number' => 0,
+                'expected_result' => true,
+                'description' => 'Comments template should load when comments are open'
+            ],
+            'comments_closed_but_exist' => [
+                'comments_open' => false,
+                'comments_number' => 3,
+                'expected_result' => true,
+                'description' => 'Comments template should load when comments exist even if closed'
+            ],
+            'comments_closed_none_exist' => [
+                'comments_open' => false,
+                'comments_number' => 0,
+                'expected_result' => false,
+                'description' => 'Comments template should not load when comments are closed and none exist'
+            ],
+            'page_comments_enabled' => [
+                'comments_open' => true,
+                'comments_number' => 2,
+                'expected_result' => true,
+                'description' => 'Comments template should load on pages when comments are enabled'
+            ],
+            'page_comments_disabled' => [
+                'comments_open' => false,
+                'comments_number' => 0,
+                'expected_result' => false,
+                'description' => 'Comments template should not load on pages when comments are disabled'
+            ],
+            'comments_open_with_existing' => [
+                'comments_open' => true,
+                'comments_number' => 5,
+                'expected_result' => true,
+                'description' => 'Comments template should load when comments are open and comments exist'
+            ],
+        ];
     }
 
     /**
-     * Test comments template loading condition when comments exist but are closed
+     * Test comments template loading condition logic with various scenarios.
      *
-     * @since 1.0.0
-     */
-    public function test_comments_template_loading_condition_comments_exist_but_closed() {
-        // Test when comments are closed but comments exist
-        $this->mockFunction('comments_open', false);
-        $this->mockFunction('get_comments_number', 3);
-        
-        $should_load = (comments_open() || get_comments_number());
-        $this->assertTrue($should_load, 'Comments template should load when comments exist even if closed');
-    }
-
-    /**
-     * Test comments template loading condition when comments are closed and none exist
+     * Tests the boolean expression used in templates: (comments_open() || get_comments_number())
+     * This determines whether comments.php should be loaded.
      *
+     * @dataProvider commentsTemplateLoadingConditionProvider
      * @since 1.0.0
+     * @param bool $comments_open Whether comments are open for the post
+     * @param int $comments_number Number of existing comments
+     * @param bool $expected_result Expected result of the loading condition
+     * @param string $description Test scenario description
+     * @return void
      */
-    public function test_comments_template_loading_condition_comments_closed_none_exist() {
-        // Test when comments are closed and no comments exist
-        $this->mockFunction('comments_open', false);
-        $this->mockFunction('get_comments_number', 0);
+    public function test_comments_template_loading_condition(bool $comments_open, int $comments_number, bool $expected_result, string $description): void {
+        // Mock WordPress functions with test scenario values
+        $this->mockFunction('comments_open', $comments_open);
+        $this->mockFunction('get_comments_number', $comments_number);
         
+        // Test the actual loading condition logic used in templates
         $should_load = (comments_open() || get_comments_number());
-        $this->assertFalse($should_load, 'Comments template should not load when comments are closed and none exist');
-    }
-
-    /**
-     * Test comments template loading condition in page template
-     *
-     * @since 1.0.0
-     */
-    public function test_comments_template_loading_condition_page_enabled() {
-        // Test page with comments enabled
-        $this->mockFunction('comments_open', true);
-        $this->mockFunction('get_comments_number', 2);
         
-        $should_load = (comments_open() || get_comments_number());
-        $this->assertTrue($should_load, 'Comments template should load on pages when comments are enabled');
-    }
-
-    /**
-     * Test comments template loading condition in page template when disabled
-     *
-     * @since 1.0.0
-     */
-    public function test_comments_template_loading_condition_page_disabled() {
-        // Test page with comments disabled
-        $this->mockFunction('comments_open', false);
-        $this->mockFunction('get_comments_number', 0);
-        
-        $should_load = (comments_open() || get_comments_number());
-        $this->assertFalse($should_load, 'Comments template should not load on pages when comments are disabled');
+        // Assert the result matches expectations
+        $this->assertEquals($expected_result, $should_load, $description);
     }
 
     /**
