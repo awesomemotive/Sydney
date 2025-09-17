@@ -22,6 +22,12 @@ use WP_Mock as M;
  * required for most theme tests and provides helper methods for common testing
  * scenarios.
  *
+ * ISOLATION GUIDANCE:
+ * - Use BaseThemeTest for most tests that don't have conflicts
+ * - If tests fail in full suite but pass individually, extend WP_Mock\Tools\TestCase directly
+ * - Prefer simple mocking methods (mockThemeModSimple, mockOptionSimple) for isolation
+ * - Use forceCleanSlate() in setUp() for problematic test classes
+ *
  * @since 1.0.0
  */
 abstract class BaseThemeTest extends WPTestCase {
@@ -119,6 +125,9 @@ abstract class BaseThemeTest extends WPTestCase {
      * from the provided map. This allows tests to simulate different theme
      * customizer settings without actually modifying the database.
      *
+     * WARNING: This method uses complex closures that can cause conflicts between tests.
+     * Consider using mockThemeModSimple() for better test isolation.
+     *
      * @since 1.0.0
      * @param array $map Associative array mapping theme mod names to their values.
      *                   Format: ['mod_name' => 'mod_value', ...]
@@ -133,11 +142,29 @@ abstract class BaseThemeTest extends WPTestCase {
     }
 
     /**
+     * Mock a single theme modification with simple return value.
+     *
+     * This is an isolation-friendly alternative to mockThemeMods() that avoids
+     * complex closures and reduces the risk of conflicts between tests.
+     *
+     * @since 1.0.0
+     * @param string $name The theme mod name
+     * @param mixed $value The value to return
+     * @return void
+     */
+    protected function mockThemeModSimple(string $name, $value): void {
+        M::userFunction('get_theme_mod')->andReturn($value);
+    }
+
+    /**
      * Mock WordPress options functions.
      *
      * Sets up a mock for the get_option() function that returns values
      * from the provided map. This allows tests to simulate different
      * WordPress options without actually modifying the database.
+     *
+     * WARNING: This method uses complex closures that can cause conflicts between tests.
+     * Consider using mockOptionSimple() for better test isolation.
      *
      * @since 1.0.0
      * @param array $map Associative array mapping option names to their values.
@@ -150,6 +177,21 @@ abstract class BaseThemeTest extends WPTestCase {
                 return array_key_exists($name, $map) ? $map[$name] : $default;
             }
         ]);
+    }
+
+    /**
+     * Mock a single WordPress option with simple return value.
+     *
+     * This is an isolation-friendly alternative to mockOptions() that avoids
+     * complex closures and reduces the risk of conflicts between tests.
+     *
+     * @since 1.0.0
+     * @param string $name The option name
+     * @param mixed $value The value to return
+     * @return void
+     */
+    protected function mockOptionSimple(string $name, $value): void {
+        M::userFunction('get_option')->andReturn($value);
     }
 
     /**
@@ -166,6 +208,61 @@ abstract class BaseThemeTest extends WPTestCase {
      */
     protected function mockFunction(string $name, $return): void {
         M::userFunction($name, ['return' => $return]);
+    }
+
+    /**
+     * Force a complete clean slate for test isolation.
+     *
+     * This method performs aggressive mock reset and re-initialization to ensure
+     * complete isolation between tests. Use this in setUp() for test classes that
+     * experience conflicts when run in the full suite.
+     *
+     * @since 1.0.0
+     * @return void
+     */
+    protected function forceCleanSlate(): void {
+        M::tearDown();
+        M::setUp();
+        
+        // Re-establish essential WordPress function mocks
+        $this->mockEssentialsOnly();
+    }
+
+    /**
+     * Mock only essential WordPress functions for minimal setup.
+     *
+     * This method sets up only the most basic WordPress function mocks needed
+     * for most tests to run. Use this for maximum isolation when complex helper
+     * methods cause conflicts.
+     *
+     * @since 1.0.0
+     * @return void
+     */
+    protected function mockEssentialsOnly(): void {
+        // Identity-mock escaping functions
+        M::userFunction('esc_url',      ['return_arg' => 0]);
+        M::userFunction('esc_attr',     ['return_arg' => 0]);
+        M::userFunction('esc_html',     ['return_arg' => 0]);
+        M::userFunction('wp_kses_post', ['return_arg' => 0]);
+        
+        // Basic WordPress functions
+        M::userFunction('is_customize_preview', ['return' => false]);
+        M::userFunction('add_action', ['return' => true]);
+        M::userFunction('add_filter', ['return' => true]);
+    }
+
+    /**
+     * Reset all WP_Mock expectations and start fresh.
+     *
+     * This is a utility method that can be called between test scenarios
+     * within a single test method to prevent mock conflicts.
+     *
+     * @since 1.0.0
+     * @return void
+     */
+    protected function resetAllMocks(): void {
+        M::tearDown();
+        M::setUp();
     }
 
     /**
@@ -726,6 +823,46 @@ abstract class BaseThemeTest extends WPTestCase {
             
             $this->fail($errorMessage);
         }
+    }
+
+    /**
+     * Debug helper to log current active WP_Mock expectations.
+     *
+     * This method can help identify conflicting mocks when debugging
+     * test isolation issues. Call this method in tests that are failing
+     * to see what mocks are currently active.
+     *
+     * @since 1.0.0
+     * @return void
+     */
+    protected function debugCurrentMocks(): void {
+        // Note: WP_Mock doesn't provide a direct way to inspect active mocks
+        // This is a placeholder for debugging output
+        error_log('=== DEBUG: Current test method: ' . $this->getName() . ' ===');
+        error_log('=== If you see mock conflicts, consider using forceCleanSlate() ===');
+    }
+
+    /**
+     * Validate test isolation by checking for common issues.
+     *
+     * This method performs basic checks to identify potential isolation
+     * issues and provides guidance on resolving them.
+     *
+     * @since 1.0.0
+     * @return array Array of potential issues found
+     */
+    protected function validateTestIsolation(): array {
+        $issues = [];
+        
+        // Check if we're extending BaseThemeTest (might need direct WPTestCase)
+        if (get_class($this) !== 'Sydney\\Tests\\BaseThemeTest' && is_subclass_of($this, 'Sydney\\Tests\\BaseThemeTest')) {
+            $issues[] = 'Consider extending WP_Mock\\Tools\\TestCase directly if experiencing suite failures';
+        }
+        
+        // Check for complex helper method usage patterns that might cause conflicts
+        // This is a basic implementation - could be expanded with more sophisticated checks
+        
+        return $issues;
     }
 
     /**
