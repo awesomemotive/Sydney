@@ -167,6 +167,7 @@ const zipIgnoreGlob = [
 	'!../@(Sydney|sydney)/**/*.eslintignore',
 	'!../@(Sydney|sydney)/**/*.editorconfig',
 	'!../@(Sydney|sydney)/**/*phpcs.xml.dist',
+	'!../@(Sydney|sydney)/**/*phpunit.xml.dist',
 	'!../@(Sydney|sydney)/**/*vscode',
 	'!../@(Sydney|sydney)/**/*package.json',
 	'!../@(Sydney|sydney)/**/*package-lock.json',
