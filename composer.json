@@ -13,16 +13,21 @@
   "scripts": {
     "phpcs": "@php ./vendor/bin/phpcs",
     "phpcs:fix": "@php ./vendor/bin/phpcbf",
-    "run-tests": [
-      "@phpcs:fix",
-      "@phpcs"
-    ]
+    "test": "@php vendor/bin/phpunit",
+    "test:unit": "@php vendor/bin/phpunit --testsuite unit"
   },
   "require-dev": {
     "dealerdirect/phpcodesniffer-composer-installer": "1.1.2",
     "wp-coding-standards/wpcs": "3.2.0",
     "woocommerce/woocommerce-sniffs": "1.0",
-    "phpcompatibility/phpcompatibility-wp": "2.1.7"
+    "phpcompatibility/phpcompatibility-wp": "2.1.7",
+    "10up/wp_mock": "^1.1",
+    "phpunit/phpunit": "^9.6"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Sydney\\Tests\\": "tests/unit/"
+    }
   },
   "config": {
     "allow-plugins": {

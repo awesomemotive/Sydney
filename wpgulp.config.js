@@ -167,13 +167,16 @@ const zipIgnoreGlob = [
 	'!../@(Sydney|sydney)/**/*.eslintignore',
 	'!../@(Sydney|sydney)/**/*.editorconfig',
 	'!../@(Sydney|sydney)/**/*phpcs.xml.dist',
+	'!../@(Sydney|sydney)/**/*phpunit.xml.dist',
 	'!../@(Sydney|sydney)/**/*vscode',
 	'!../@(Sydney|sydney)/**/*package.json',
 	'!../@(Sydney|sydney)/**/*package-lock.json',
 	'!../@(Sydney|sydney)/**/*assets/img/raw/**/*',
 	'!../@(Sydney|sydney)/**/*assets/img/raw',
 	'!../@(Sydney|sydney)/**/*assets/js/src/**/*',
-	'!../@(Sydney|sydney)/**/*assets/js/src'
+	'!../@(Sydney|sydney)/**/*assets/js/src',
+	'!../@(Sydney|sydney)/**/*playwright-mcp/**/*',
+	'!../@(Sydney|sydney)/**/*.temporary.json',
 ];
 
 // >>>>> Translation options.
