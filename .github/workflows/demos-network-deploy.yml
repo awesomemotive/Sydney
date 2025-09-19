@@ -9,7 +9,7 @@ on:
 
 jobs:
   create-project-build:
-    uses: awesomemotive/Sydney/.github/workflows/build.yml@main
+    uses: awesomemotive/Sydney/.github/workflows/build.yml@master
 
   deploy:
     runs-on: self-hosted

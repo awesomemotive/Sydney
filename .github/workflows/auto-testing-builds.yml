@@ -11,7 +11,7 @@ env:
 # Defines the jobs that will be executed as part of this workflow.
 jobs:
   create-testing-build:
-    uses: awesomemotive/Sydney/.github/workflows/build.yml@main
+    uses: awesomemotive/Sydney/.github/workflows/build.yml@master
 
   upload-testing-build:
     name: Prepare and upload builds in hub.wpforms.com/builds
