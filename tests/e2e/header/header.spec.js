@@ -1,0 +1,461 @@
+import { test, expect } from '@playwright/test';
+import { SITE_CONFIG, VIEWPORTS } from '../utils/constants.js';
+
+test.describe('Desktop Header', () => {
+	test.beforeEach(async ({ page }) => {
+		// Set desktop viewport
+		await page.setViewportSize(VIEWPORTS.DESKTOP);
+	});
+
+	test('should be transparent on homepage and normal on other pages', async ({ page }) => {
+		// Test homepage - header should be transparent and absolutely positioned
+		await page.goto(SITE_CONFIG.BASE_URL);
+		await page.waitForLoadState('networkidle');
+
+		// Get the header element
+		const header = page.locator('header').first();
+		await expect(header).toBeVisible();
+
+		// Check header wrapper and inner row styles on homepage
+		const homepageStyles = await header.evaluate((el) => {
+			const headerStyles = window.getComputedStyle(el);
+			const rowWrapper = el.querySelector('.shfb-row-wrapper.shfb-main_header_row');
+			const rowStyles = rowWrapper ? window.getComputedStyle(rowWrapper) : null;
+			
+			return {
+				header: {
+					backgroundColor: headerStyles.backgroundColor,
+					position: headerStyles.position,
+					zIndex: headerStyles.zIndex
+				},
+				rowWrapper: rowStyles ? {
+					backgroundColor: rowStyles.backgroundColor,
+					hasRowWrapper: true
+				} : { hasRowWrapper: false }
+			};
+		});
+
+		// On homepage, header wrapper should be transparent and absolutely positioned
+		const headerIsTransparent = homepageStyles.header.backgroundColor === 'rgba(0, 0, 0, 0)' || 
+									 homepageStyles.header.backgroundColor === 'rgba(255, 255, 255, 0)' ||
+									 homepageStyles.header.backgroundColor === 'transparent' ||
+									 homepageStyles.header.backgroundColor === '';
+		
+		expect(headerIsTransparent).toBe(true);
+		expect(homepageStyles.header.position).toBe('absolute');
+		
+		// On homepage, there should be no row wrapper with background color (transparent header)
+		if (homepageStyles.rowWrapper.hasRowWrapper) {
+			const rowIsTransparent = homepageStyles.rowWrapper.backgroundColor === 'rgba(0, 0, 0, 0)' || 
+									 homepageStyles.rowWrapper.backgroundColor === 'rgba(255, 255, 255, 0)' ||
+									 homepageStyles.rowWrapper.backgroundColor === 'transparent' ||
+									 homepageStyles.rowWrapper.backgroundColor === '';
+			expect(rowIsTransparent).toBe(true);
+		}
+
+		// Navigate to blog page to test normal header behavior
+		await page.goto(SITE_CONFIG.BASE_URL + 'my-blog-page/');
+		await page.waitForLoadState('networkidle');
+
+		// Get header and row wrapper styles on blog page
+		const blogStyles = await header.evaluate((el) => {
+			const headerStyles = window.getComputedStyle(el);
+			const rowWrapper = el.querySelector('.shfb-row-wrapper.shfb-main_header_row');
+			const rowStyles = rowWrapper ? window.getComputedStyle(rowWrapper) : null;
+			
+			return {
+				header: {
+					backgroundColor: headerStyles.backgroundColor,
+					position: headerStyles.position
+				},
+				rowWrapper: rowStyles ? {
+					backgroundColor: rowStyles.backgroundColor,
+					hasRowWrapper: true
+				} : { hasRowWrapper: false }
+			};
+		});
+
+		// On blog page, header wrapper should be positioned normally (relative, not absolute)
+		expect(blogStyles.header.position).toBe('relative');
+		
+		// On blog page, the row wrapper should have a background color (not transparent)
+		expect(blogStyles.rowWrapper.hasRowWrapper).toBe(true);
+		const rowIsTransparent = blogStyles.rowWrapper.backgroundColor === 'rgba(0, 0, 0, 0)' || 
+								 blogStyles.rowWrapper.backgroundColor === 'rgba(255, 255, 255, 0)' ||
+								 blogStyles.rowWrapper.backgroundColor === 'transparent' ||
+								 blogStyles.rowWrapper.backgroundColor === '';
+		expect(rowIsTransparent).toBe(false);
+		
+		// Verify the row wrapper has the expected dark blue background
+		expect(blogStyles.rowWrapper.backgroundColor).toBe('rgb(0, 16, 46)');
+	});
+
+	test('should have working sticky functionality on both pages', async ({ page }) => {
+		// Test sticky functionality on homepage
+		await page.goto(SITE_CONFIG.BASE_URL);
+		await page.waitForLoadState('networkidle');
+
+		const header = page.locator('header').first();
+		await expect(header).toBeVisible();
+
+		// Check initial state on homepage (before scroll)
+		const homepageBeforeScroll = await header.evaluate((el) => {
+			const headerStyles = window.getComputedStyle(el);
+			const rowWrapper = el.querySelector('.shfb-row-wrapper.shfb-main_header_row');
+			const rowStyles = rowWrapper ? window.getComputedStyle(rowWrapper) : null;
+			
+			return {
+				scrollY: window.scrollY,
+				header: {
+					position: headerStyles.position,
+					className: el.className
+				},
+				rowWrapper: rowStyles ? {
+					backgroundColor: rowStyles.backgroundColor,
+					className: rowWrapper.className,
+					hasStickyActive: rowWrapper.className.includes('sticky-active')
+				} : null
+			};
+		});
+
+		// Before scroll on homepage: header absolute, row wrapper transparent, no sticky-active
+		expect(homepageBeforeScroll.scrollY).toBe(0);
+		expect(homepageBeforeScroll.header.position).toBe('absolute');
+		expect(homepageBeforeScroll.header.className).toContain('has-sticky-header');
+		expect(homepageBeforeScroll.rowWrapper.hasStickyActive).toBe(false);
+
+		// Scroll down on homepage to activate sticky
+		await page.evaluate(() => {
+			document.documentElement.scrollTop = 500;
+		});
+
+		// Wait for sticky to activate
+		await page.waitForTimeout(100);
+
+		// Check state after scroll on homepage
+		const homepageAfterScroll = await header.evaluate((el) => {
+			const rowWrapper = el.querySelector('.shfb-row-wrapper.shfb-main_header_row');
+			const rowStyles = rowWrapper ? window.getComputedStyle(rowWrapper) : null;
+			
+			return {
+				scrollY: window.scrollY,
+				rowWrapper: rowStyles ? {
+					backgroundColor: rowStyles.backgroundColor,
+					className: rowWrapper.className,
+					hasStickyActive: rowWrapper.className.includes('sticky-active')
+				} : null
+			};
+		});
+
+		// After scroll on homepage: sticky should be active with background
+		expect(homepageAfterScroll.scrollY).toBeGreaterThan(0);
+		expect(homepageAfterScroll.rowWrapper.hasStickyActive).toBe(true);
+		// Background color should be the dark blue color (with or without alpha)
+		expect(homepageAfterScroll.rowWrapper.backgroundColor).toMatch(/rgba?\(0,\s*16,\s*46/);
+
+		// Test sticky functionality on blog page
+		await page.goto(SITE_CONFIG.BASE_URL + 'my-blog-page/');
+		await page.waitForLoadState('networkidle');
+
+		// Check initial state on blog page (before scroll)
+		const blogBeforeScroll = await header.evaluate((el) => {
+			const headerStyles = window.getComputedStyle(el);
+			const rowWrapper = el.querySelector('.shfb-row-wrapper.shfb-main_header_row');
+			const rowStyles = rowWrapper ? window.getComputedStyle(rowWrapper) : null;
+			
+			return {
+				scrollY: window.scrollY,
+				header: {
+					position: headerStyles.position,
+					className: el.className
+				},
+				rowWrapper: rowStyles ? {
+					backgroundColor: rowStyles.backgroundColor,
+					className: rowWrapper.className,
+					hasStickyActive: rowWrapper.className.includes('sticky-active')
+				} : null
+			};
+		});
+
+		// Before scroll on blog page: header relative, row wrapper has background, sticky ready
+		expect(blogBeforeScroll.scrollY).toBe(0);
+		expect(blogBeforeScroll.header.position).toBe('relative');
+		expect(blogBeforeScroll.header.className).toContain('has-sticky-header');
+		// Background color should be the dark blue color (with or without alpha)
+		expect(blogBeforeScroll.rowWrapper.backgroundColor).toMatch(/rgba?\(0,\s*16,\s*46/);
+
+		// Scroll down on blog page
+		await page.evaluate(() => {
+			document.documentElement.scrollTop = 300;
+		});
+
+		// Wait for any sticky changes
+		await page.waitForTimeout(100);
+
+		// Check state after scroll on blog page
+		const blogAfterScroll = await header.evaluate((el) => {
+			const rowWrapper = el.querySelector('.shfb-row-wrapper.shfb-main_header_row');
+			const rowStyles = rowWrapper ? window.getComputedStyle(rowWrapper) : null;
+			
+			return {
+				scrollY: window.scrollY,
+				rowWrapper: rowStyles ? {
+					backgroundColor: rowStyles.backgroundColor,
+					className: rowWrapper.className,
+					hasStickyActive: rowWrapper.className.includes('sticky-active')
+				} : null
+			};
+		});
+
+		// After scroll on blog page: should maintain background and sticky behavior
+		expect(blogAfterScroll.scrollY).toBeGreaterThan(0);
+		// Background color should be the dark blue color (with or without alpha)
+		expect(blogAfterScroll.rowWrapper.backgroundColor).toMatch(/rgba?\(0,\s*16,\s*46/);
+		
+		// Verify header has sticky classes indicating it's configured for sticky behavior
+		const headerClasses = await header.getAttribute('class');
+		expect(headerClasses).toContain('has-sticky-header');
+		expect(headerClasses).toContain('sticky-always');
+	});
+
+	test('should have site logo, title, and description with proper links', async ({ page }) => {
+		// Test on homepage only
+		await page.goto(SITE_CONFIG.BASE_URL);
+		await page.waitForLoadState('networkidle');
+
+		// Check for site logo
+		const siteLogo = page.locator('img.site-logo').first();
+		await expect(siteLogo).toBeVisible();
+		
+		// Verify logo properties
+		await expect(siteLogo).toHaveAttribute('alt', 'Tests');
+		await expect(siteLogo).toHaveAttribute('src', /sydneylogo\.svg$/);
+		
+		// Check that logo is wrapped in a link to homepage
+		const logoLink = siteLogo.locator('..'); // Parent element (the link)
+		await expect(logoLink).toHaveAttribute('href', SITE_CONFIG.BASE_URL);
+
+		// Check for site title
+		const siteTitle = page.locator('h1.site-title');
+		await expect(siteTitle).toBeVisible();
+		await expect(siteTitle).toHaveText('Tests');
+		
+		// Check that site title contains a link to homepage
+		const siteTitleLink = siteTitle.locator('a');
+		await expect(siteTitleLink).toBeVisible();
+		await expect(siteTitleLink).toHaveAttribute('href', SITE_CONFIG.BASE_URL);
+		await expect(siteTitleLink).toHaveText('Tests');
+
+		// Check for site description
+		const siteDescription = page.locator('p.site-description').first();
+		await expect(siteDescription).toBeVisible();
+		await expect(siteDescription).toHaveText('Test site');
+
+		// Verify that logo and title links are clickable (without actually navigating)
+		await expect(logoLink).toBeEnabled();
+		await expect(siteTitleLink).toBeEnabled();
+	});
+});
+
+test.describe('Mobile Header', () => {
+	test.beforeEach(async ({ page }) => {
+		// Set mobile viewport
+		await page.setViewportSize(VIEWPORTS.MOBILE);
+	});
+
+	test('should have mobile menu toggle that opens offcanvas menu', async ({ page }) => {
+		// Navigate to homepage
+		await page.goto(SITE_CONFIG.BASE_URL);
+		await page.waitForLoadState('networkidle');
+
+		// Check that mobile menu toggle exists and is visible
+		const menuToggle = page.getByRole('link', { name: 'Open mobile offcanvas menu' });
+		await expect(menuToggle).toBeVisible();
+
+		// Verify initial state - mobile menu should be closed
+		const initialBodyClass = await page.evaluate(() => document.body.className);
+		expect(initialBodyClass).not.toContain('mobile-menu-visible');
+
+		// Click the mobile menu toggle to open the offcanvas menu
+		await menuToggle.click();
+
+		// Wait for menu animation/state change
+		await page.waitForTimeout(300);
+
+		// Verify that mobile menu is now open
+		const openBodyClass = await page.evaluate(() => document.body.className);
+		expect(openBodyClass).toContain('mobile-menu-visible');
+
+		// Check that the close button is now active/visible
+		const closeButton = page.getByRole('link', { name: 'Close mobile menu' });
+		await expect(closeButton).toBeVisible();
+
+		// Verify that navigation menu is visible in the offcanvas
+		const navigation = page.getByRole('navigation');
+		await expect(navigation).toBeVisible();
+
+		// Check that navigation contains expected menu items (scoped to the mobile navigation)
+		await expect(navigation.getByRole('link', { name: 'Home' })).toBeVisible();
+		await expect(navigation.getByRole('link', { name: 'Blog' })).toBeVisible();
+		await expect(navigation.getByRole('link', { name: 'About' })).toBeVisible();
+		await expect(navigation.getByRole('link', { name: 'Contact' })).toBeVisible();
+		await expect(navigation.getByRole('link', { name: 'Portfolio' })).toBeVisible();
+		await expect(navigation.getByRole('link', { name: 'Services' })).toBeVisible();
+
+		// Test that close button works
+		await closeButton.click();
+		await page.waitForTimeout(300);
+
+		// Verify that mobile menu is closed again
+		const closedBodyClass = await page.evaluate(() => document.body.className);
+		expect(closedBodyClass).not.toContain('mobile-menu-visible');
+	});
+
+	test('should not show mobile menu toggle on desktop', async ({ page }) => {
+		// Switch to desktop viewport
+		await page.setViewportSize(VIEWPORTS.DESKTOP);
+		
+		// Navigate to homepage
+		await page.goto(SITE_CONFIG.BASE_URL);
+		await page.waitForLoadState('networkidle');
+
+		// Mobile menu toggle should not be visible on desktop
+		const menuToggle = page.getByRole('link', { name: 'Open mobile offcanvas menu' });
+		await expect(menuToggle).not.toBeVisible();
+	});
+
+	test('should close offcanvas menu when close button is clicked', async ({ page }) => {
+		// Navigate to homepage
+		await page.goto(SITE_CONFIG.BASE_URL);
+		await page.waitForLoadState('networkidle');
+
+		// Verify initial state - mobile menu should be closed
+		const initialBodyClass = await page.evaluate(() => document.body.className);
+		expect(initialBodyClass).not.toContain('mobile-menu-visible');
+
+		// Open the mobile menu first
+		const menuToggle = page.getByRole('link', { name: 'Open mobile offcanvas menu' });
+		await menuToggle.click();
+		await page.waitForTimeout(300);
+
+		// Verify menu is open
+		const openBodyClass = await page.evaluate(() => document.body.className);
+		expect(openBodyClass).toContain('mobile-menu-visible');
+
+		// Verify close button is visible and active
+		const closeButton = page.getByRole('link', { name: 'Close mobile menu' });
+		await expect(closeButton).toBeVisible();
+
+		// Click the close button
+		await closeButton.click();
+		await page.waitForTimeout(300);
+
+		// Verify menu is now closed
+		const closedBodyClass = await page.evaluate(() => document.body.className);
+		expect(closedBodyClass).not.toContain('mobile-menu-visible');
+
+		// Verify close button is no longer active (menu toggle should be active instead)
+		await expect(menuToggle).toBeVisible();
+	});
+
+	test('should have correct header colors across different pages and states', async ({ page }) => {
+		// Test homepage colors (transparent header)
+		await page.goto(SITE_CONFIG.BASE_URL);
+		await page.waitForLoadState('networkidle');
+
+		// Get homepage header colors (initial state)
+		const homepageColors = await page.evaluate(() => {
+			const header = document.querySelector('header');
+			const headerStyles = window.getComputedStyle(header);
+			const siteTitle = document.querySelector('.site-title');
+			const siteTitleStyles = siteTitle ? window.getComputedStyle(siteTitle) : null;
+			const siteDescription = document.querySelector('.site-description');
+			const siteDescriptionStyles = siteDescription ? window.getComputedStyle(siteDescription) : null;
+			const headerRow = document.querySelector('.shfb-row-wrapper.shfb-main_header_row');
+			const headerRowStyles = headerRow ? window.getComputedStyle(headerRow) : null;
+			
+			return {
+				header: {
+					backgroundColor: headerStyles.backgroundColor,
+					position: headerStyles.position
+				},
+				siteTitle: siteTitleStyles ? {
+					color: siteTitleStyles.color
+				} : null,
+				siteDescription: siteDescriptionStyles ? {
+					color: siteDescriptionStyles.color
+				} : null,
+				headerRow: headerRowStyles ? {
+					backgroundColor: headerRowStyles.backgroundColor
+				} : null
+			};
+		});
+
+		// Verify homepage initial colors
+		expect(homepageColors.header.backgroundColor).toBe('rgba(255, 255, 255, 0)'); // Transparent header
+		expect(homepageColors.header.position).toBe('absolute'); // Absolutely positioned
+		expect(homepageColors.siteTitle.color).toBe('rgb(0, 16, 46)'); // Dark blue site title
+		expect(homepageColors.siteDescription.color).toBe('rgba(255, 255, 255, 0.6)'); // Semi-transparent white description
+		expect(homepageColors.headerRow.backgroundColor).toBe('rgba(0, 0, 0, 0)'); // Transparent header row initially
+
+		// Test sticky mode on homepage
+		await page.evaluate(() => {
+			document.documentElement.scrollTop = 500;
+		});
+		await page.waitForTimeout(200);
+
+		const homepageStickyColors = await page.evaluate(() => {
+			const headerRow = document.querySelector('.shfb-row-wrapper.shfb-main_header_row');
+			const headerRowStyles = headerRow ? window.getComputedStyle(headerRow) : null;
+			
+			return {
+				headerRow: headerRowStyles ? {
+					backgroundColor: headerRowStyles.backgroundColor,
+					hasStickyActive: headerRow.className.includes('sticky-active')
+				} : null
+			};
+		});
+
+		// Verify sticky mode colors on homepage
+		expect(homepageStickyColors.headerRow.hasStickyActive).toBe(true);
+		expect(homepageStickyColors.headerRow.backgroundColor).toBe('rgb(0, 16, 46)'); // Dark blue background when sticky
+
+		// Test blog page colors
+		await page.goto(SITE_CONFIG.BASE_URL + 'my-blog-page/');
+		await page.waitForLoadState('networkidle');
+
+		const blogPageColors = await page.evaluate(() => {
+			const header = document.querySelector('header');
+			const headerStyles = window.getComputedStyle(header);
+			const siteTitle = document.querySelector('.site-title');
+			const siteTitleStyles = siteTitle ? window.getComputedStyle(siteTitle) : null;
+			const siteDescription = document.querySelector('.site-description');
+			const siteDescriptionStyles = siteDescription ? window.getComputedStyle(siteDescription) : null;
+			const headerRow = document.querySelector('.shfb-row-wrapper.shfb-main_header_row');
+			const headerRowStyles = headerRow ? window.getComputedStyle(headerRow) : null;
+			
+			return {
+				header: {
+					backgroundColor: headerStyles.backgroundColor,
+					position: headerStyles.position
+				},
+				siteTitle: siteTitleStyles ? {
+					color: siteTitleStyles.color
+				} : null,
+				siteDescription: siteDescriptionStyles ? {
+					color: siteDescriptionStyles.color
+				} : null,
+				headerRow: headerRowStyles ? {
+					backgroundColor: headerRowStyles.backgroundColor
+				} : null
+			};
+		});
+
+		// Verify blog page colors
+		expect(blogPageColors.header.backgroundColor).toBe('rgba(255, 255, 255, 0)'); // Header wrapper still transparent
+		expect(blogPageColors.header.position).toBe('relative'); // Relatively positioned on blog page
+		expect(blogPageColors.siteTitle.color).toBe('rgb(20, 46, 44)'); // Different site title color on blog page
+		expect(blogPageColors.siteDescription.color).toBe('rgba(255, 255, 255, 0.6)'); // Same description color
+		expect(blogPageColors.headerRow.backgroundColor).toBe('rgb(0, 16, 46)'); // Header row has background on blog page
+	});
+});
