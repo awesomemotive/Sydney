@@ -7,10 +7,10 @@
 
 // Site Configuration
 export const SITE_CONFIG = {
-	BASE_URL: 'https://qa-sydney.athemes.wpfc.io',
-	ADMIN_URL: 'https://qa-sydney.athemes.wpfc.io/wp-admin',
-	WP_JSON_URL: 'https://qa-sydney.athemes.wpfc.io/wp-json/wp/v2',
-	CUSTOMIZER_API_URL: 'https://qa-sydney.athemes.wpfc.io/wp-json/wp/v2/customizer/settings'
+	BASE_URL: 'https://demo.athemes.com/sydney-tests/',
+	ADMIN_URL: 'https://demo.athemes.com/sydney-test/wp-admin',
+	WP_JSON_URL: 'https://demo.athemes.com/sydney-test/wp-json/wp/v2',
+	CUSTOMIZER_API_URL: 'https://demo.athemes.com/sydney-test/wp-json/wp/v2/customizer/settings'
 };
 
 // Theme Settings
