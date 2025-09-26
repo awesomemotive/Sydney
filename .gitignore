@@ -10,3 +10,4 @@ tasks.md
 !/vendor/wptt-webfont-loader/
 .phpunit.result.cache
 .temporary.json
+.cursor/
