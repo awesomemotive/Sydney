@@ -1,6 +1,8 @@
+import { SITE_CONFIG } from './constants.js';
+
 export async function activatePlugin( slug, page ) {
 
-	await page.goto('http://tests.local/wp-admin/plugins.php');
+	await page.goto(`${SITE_CONFIG.ADMIN_URL}/plugins.php`);
 	
 	const disableLink = await page.$(
 		`tr[data-slug="${ slug }"] .deactivate a`
@@ -14,7 +16,7 @@ export async function activatePlugin( slug, page ) {
 
 export async function deactivatePlugin( slug, page ) {
 
-	await page.goto('http://tests.local/wp-admin/plugins.php');
+	await page.goto(`${SITE_CONFIG.ADMIN_URL}/plugins.php`);
 
 	const deleteLink = await page.$( `tr[data-slug="${ slug }"] .delete a` );
 	if ( deleteLink ) {

@@ -1,5 +1,7 @@
+import { SITE_CONFIG } from './constants.js';
+
 export function setCustomizerSetting(settingKey, settingValue) {
-	fetch('http://tests.local/wp-json/wp/v2/customizer/settings', {
+	fetch(SITE_CONFIG.CUSTOMIZER_API_URL, {
 	  method: 'POST',
 	  headers: {
 		'Content-Type': 'application/json',
