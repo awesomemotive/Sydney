@@ -257,4 +257,200 @@ test.describe('Single Post: similique-quis-a-libero-enim-quod-corporis-3/', () =
 		// Test that category link color is the expected gray: rgb(109, 118, 133)
 		expect(categoryLinkColor).toBe('rgb(109, 118, 133)');
 	});
+
+	test('layout paddings match theme design specifications', async ({ page }) => {
+		// Navigate to the post
+		await page.goto(`${SITE_CONFIG.BASE_URL}2021/11/03/similique-quis-a-libero-enim-quod-corporis-3/`);
+
+		// Test container padding (main content container)
+		const container = page.locator('#content .container').first();
+		const containerStyles = await container.evaluate(el => {
+			const styles = window.getComputedStyle(el);
+			return {
+				paddingTop: styles.paddingTop,
+				paddingRight: styles.paddingRight,
+				paddingBottom: styles.paddingBottom,
+				paddingLeft: styles.paddingLeft
+			};
+		});
+
+		expect(containerStyles.paddingTop).toBe('0px');
+		expect(containerStyles.paddingRight).toBe('15px');
+		expect(containerStyles.paddingBottom).toBe('0px');
+		expect(containerStyles.paddingLeft).toBe('15px');
+
+		// Test primary content area padding
+		const primary = page.locator('#primary');
+		const primaryStyles = await primary.evaluate(el => {
+			const styles = window.getComputedStyle(el);
+			return {
+				paddingTop: styles.paddingTop,
+				paddingRight: styles.paddingRight,
+				paddingBottom: styles.paddingBottom,
+				paddingLeft: styles.paddingLeft
+			};
+		});
+
+		expect(primaryStyles.paddingTop).toBe('0px');
+		expect(primaryStyles.paddingRight).toBe('15px');
+		expect(primaryStyles.paddingBottom).toBe('0px');
+		expect(primaryStyles.paddingLeft).toBe('15px');
+
+		// Test sidebar padding
+		const secondary = page.locator('#secondary');
+		const secondaryStyles = await secondary.evaluate(el => {
+			const styles = window.getComputedStyle(el);
+			return {
+				paddingTop: styles.paddingTop,
+				paddingRight: styles.paddingRight,
+				paddingBottom: styles.paddingBottom,
+				paddingLeft: styles.paddingLeft
+			};
+		});
+
+		expect(secondaryStyles.paddingTop).toBe('30px');
+		expect(secondaryStyles.paddingRight).toBe('30px');
+		expect(secondaryStyles.paddingBottom).toBe('30px');
+		expect(secondaryStyles.paddingLeft).toBe('30px');
+
+		// Test article spacing
+		const article = page.locator('article');
+		const articleStyles = await article.evaluate(el => {
+			const styles = window.getComputedStyle(el);
+			return {
+				paddingTop: styles.paddingTop,
+				paddingRight: styles.paddingRight,
+				paddingBottom: styles.paddingBottom,
+				paddingLeft: styles.paddingLeft,
+				marginBottom: styles.marginBottom
+			};
+		});
+
+		expect(articleStyles.paddingTop).toBe('0px');
+		expect(articleStyles.paddingRight).toBe('0px');
+		expect(articleStyles.paddingBottom).toBe('0px');
+		expect(articleStyles.paddingLeft).toBe('0px');
+		expect(articleStyles.marginBottom).toBe('60px');
+
+		// Test entry content padding
+		const entryContent = page.locator('article .entry-content');
+		const entryContentStyles = await entryContent.evaluate(el => {
+			const styles = window.getComputedStyle(el);
+			return {
+				paddingTop: styles.paddingTop,
+				paddingRight: styles.paddingRight,
+				paddingBottom: styles.paddingBottom,
+				paddingLeft: styles.paddingLeft
+			};
+		});
+
+		expect(entryContentStyles.paddingTop).toBe('0px');
+		expect(entryContentStyles.paddingRight).toBe('0px');
+		expect(entryContentStyles.paddingBottom).toBe('0px');
+		expect(entryContentStyles.paddingLeft).toBe('0px');
+	});
+
+	test('post navigation and comment form layout spacing', async ({ page }) => {
+		// Navigate to the post
+		await page.goto(`${SITE_CONFIG.BASE_URL}2021/11/03/similique-quis-a-libero-enim-quod-corporis-3/`);
+
+		// Test post navigation padding
+		const postNavigation = page.locator('.post-navigation');
+		const postNavStyles = await postNavigation.evaluate(el => {
+			const styles = window.getComputedStyle(el);
+			return {
+				paddingTop: styles.paddingTop,
+				paddingRight: styles.paddingRight,
+				paddingBottom: styles.paddingBottom,
+				paddingLeft: styles.paddingLeft
+			};
+		});
+
+		expect(postNavStyles.paddingTop).toBe('0px');
+		expect(postNavStyles.paddingRight).toBe('0px');
+		expect(postNavStyles.paddingBottom).toBe('0px');
+		expect(postNavStyles.paddingLeft).toBe('0px');
+
+		// Test comment form padding
+		const commentForm = page.locator('.comment-form');
+		const commentFormStyles = await commentForm.evaluate(el => {
+			const styles = window.getComputedStyle(el);
+			return {
+				paddingTop: styles.paddingTop,
+				paddingRight: styles.paddingRight,
+				paddingBottom: styles.paddingBottom,
+				paddingLeft: styles.paddingLeft
+			};
+		});
+
+		expect(commentFormStyles.paddingTop).toBe('0px');
+		expect(commentFormStyles.paddingRight).toBe('0px');
+		expect(commentFormStyles.paddingBottom).toBe('0px');
+		expect(commentFormStyles.paddingLeft).toBe('0px');
+	});
+
+	test('layout paddings are consistent across different viewports', async ({ page }) => {
+		// Test on different viewports
+		const viewports = [
+			VIEWPORTS.MOBILE,
+			VIEWPORTS.TABLET,
+			VIEWPORTS.DESKTOP
+		];
+
+		for (const viewport of viewports) {
+			// Set viewport size
+			await page.setViewportSize({ width: viewport.width, height: viewport.height });
+
+			// Navigate to the post
+			await page.goto(`${SITE_CONFIG.BASE_URL}2021/11/03/similique-quis-a-libero-enim-quod-corporis-3/`);
+
+			// Test container padding consistency
+			const container = page.locator('#content .container').first();
+			const containerStyles = await container.evaluate(el => {
+				const styles = window.getComputedStyle(el);
+				return {
+					paddingRight: styles.paddingRight,
+					paddingLeft: styles.paddingLeft
+				};
+			});
+
+			// Container should maintain 15px horizontal padding across all viewports
+			expect(containerStyles.paddingRight).toBe('15px');
+			expect(containerStyles.paddingLeft).toBe('15px');
+
+			// Test primary content area padding consistency
+			const primary = page.locator('#primary');
+			const primaryStyles = await primary.evaluate(el => {
+				const styles = window.getComputedStyle(el);
+				return {
+					paddingRight: styles.paddingRight,
+					paddingLeft: styles.paddingLeft
+				};
+			});
+
+			// Primary should maintain 15px horizontal padding across all viewports
+			expect(primaryStyles.paddingRight).toBe('15px');
+			expect(primaryStyles.paddingLeft).toBe('15px');
+
+			// Test sidebar padding consistency (when visible)
+			const secondary = page.locator('#secondary');
+			if (viewport.width >= VIEWPORTS.TABLET.width) {
+				const secondaryStyles = await secondary.evaluate(el => {
+					const styles = window.getComputedStyle(el);
+					return {
+						paddingTop: styles.paddingTop,
+						paddingRight: styles.paddingRight,
+						paddingBottom: styles.paddingBottom,
+						paddingLeft: styles.paddingLeft
+					};
+				});
+
+				// Sidebar should maintain 30px padding on larger screens
+				expect(secondaryStyles.paddingTop).toBe('30px');
+				expect(secondaryStyles.paddingRight).toBe('30px');
+				expect(secondaryStyles.paddingBottom).toBe('30px');
+				expect(secondaryStyles.paddingLeft).toBe('30px');
+			}
+		}
+	});
 });
