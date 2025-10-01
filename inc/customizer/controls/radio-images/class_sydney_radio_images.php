@@ -78,7 +78,7 @@ class Sydney_Radio_Images extends WP_Customize_Control {
 							<label for="<?php echo esc_attr( "{$this->id}_tablet-{$value}" ); ?>">
 								<input type="radio" value="<?php echo esc_attr( $value ); ?>" name="<?php echo esc_attr( "_customize-radio-{$this->id}_tablet" ); ?>" id="<?php echo esc_attr( "{$this->id}_tablet-{$value}" ); ?>" <?php $this->link( 'tablet' ); ?> <?php checked( $this->value( 'tablet' ), $value ); ?> /> 
 								<span class="screen-reader-text"><?php echo esc_html( $args['label'] ); ?></span>
-								<figure><img src="<?php echo esc_url( sprintf( $args['url'], get_template_directory_uri(), get_stylesheet_directory_uri() ) ); ?>" title="<?php echo esc_attr( $args['label'] ); ?>" alt="<?php echo esc_attr( $args['label'] ); ?>" /></ class="img-cont">
+								<figure><img src="<?php echo esc_url( sprintf( $args['url'], get_template_directory_uri(), get_stylesheet_directory_uri() ) ); ?>" title="<?php echo esc_attr( $args['label'] ); ?>" alt="<?php echo esc_attr( $args['label'] ); ?>" /></figure>
 								<span class="label-tooltip"><?php echo esc_html( $args['label'] ); ?></span>
 							</label>
 
