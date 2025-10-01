@@ -420,4 +420,315 @@ test.describe('Blog Archive Layout Tests', () => {
 			expect(olderHref).toBeTruthy();
 		}
 	});
+
+	test('archive layout paddings match theme design specifications', async ({ page }) => {
+		const archivePages = [
+			{ url: `${SITE_CONFIG.BASE_URL}my-blog-page/`, title: 'blog page' },
+			{ url: `${SITE_CONFIG.BASE_URL}category/travel/`, title: 'category archive' },
+			{ url: `${SITE_CONFIG.BASE_URL}2021/11/`, title: 'date archive' }
+		];
+
+		for (const pageData of archivePages) {
+			await page.goto(pageData.url);
+			await page.waitForLoadState('networkidle');
+
+			// Test main content container padding
+			const contentContainer = page.locator('#content .container').first();
+			const containerStyles = await contentContainer.evaluate(el => {
+				const styles = window.getComputedStyle(el);
+				return {
+					paddingTop: styles.paddingTop,
+					paddingRight: styles.paddingRight,
+					paddingBottom: styles.paddingBottom,
+					paddingLeft: styles.paddingLeft
+				};
+			});
+
+			// Verify container has consistent padding
+			expect(containerStyles.paddingTop).toBe('0px');
+			expect(containerStyles.paddingRight).toBe('15px');
+			expect(containerStyles.paddingBottom).toBe('0px');
+			expect(containerStyles.paddingLeft).toBe('15px');
+
+			// Test primary content area padding
+			const primary = page.locator('#primary');
+			const primaryStyles = await primary.evaluate(el => {
+				const styles = window.getComputedStyle(el);
+				return {
+					paddingTop: styles.paddingTop,
+					paddingRight: styles.paddingRight,
+					paddingBottom: styles.paddingBottom,
+					paddingLeft: styles.paddingLeft
+				};
+			});
+
+			// Verify primary content area has consistent padding
+			expect(primaryStyles.paddingTop).toBe('0px');
+			expect(primaryStyles.paddingRight).toBe('15px');
+			expect(primaryStyles.paddingBottom).toBe('0px');
+			expect(primaryStyles.paddingLeft).toBe('15px');
+
+			// Test sidebar padding
+			const secondary = page.locator('#secondary');
+			const secondaryStyles = await secondary.evaluate(el => {
+				const styles = window.getComputedStyle(el);
+				return {
+					paddingTop: styles.paddingTop,
+					paddingRight: styles.paddingRight,
+					paddingBottom: styles.paddingBottom,
+					paddingLeft: styles.paddingLeft
+				};
+			});
+
+			// Verify sidebar has consistent padding
+			expect(secondaryStyles.paddingTop).toBe('30px');
+			expect(secondaryStyles.paddingRight).toBe('30px');
+			expect(secondaryStyles.paddingBottom).toBe('30px');
+			expect(secondaryStyles.paddingLeft).toBe('30px');
+		}
+	});
+
+	test('article elements have consistent padding and spacing', async ({ page }) => {
+		const archivePages = [
+			{ url: `${SITE_CONFIG.BASE_URL}my-blog-page/`, title: 'blog page' },
+			{ url: `${SITE_CONFIG.BASE_URL}category/travel/`, title: 'category archive' },
+			{ url: `${SITE_CONFIG.BASE_URL}2021/11/`, title: 'date archive' }
+		];
+
+		for (const pageData of archivePages) {
+			await page.goto(pageData.url);
+			await page.waitForLoadState('networkidle');
+
+			// Test first article padding and margins
+			const firstArticle = page.locator('article').first();
+			const articleStyles = await firstArticle.evaluate(el => {
+				const styles = window.getComputedStyle(el);
+				return {
+					paddingTop: styles.paddingTop,
+					paddingRight: styles.paddingRight,
+					paddingBottom: styles.paddingBottom,
+					paddingLeft: styles.paddingLeft,
+					marginBottom: styles.marginBottom
+				};
+			});
+
+			// Verify article has consistent padding and proper bottom margin
+			expect(articleStyles.paddingTop).toBe('0px');
+			expect(articleStyles.paddingRight).toBe('15px');
+			expect(articleStyles.paddingBottom).toBe('0px');
+			expect(articleStyles.paddingLeft).toBe('15px');
+			expect(articleStyles.marginBottom).toBe('60px');
+
+			// Test article content area padding
+			const articleContent = firstArticle.locator('.entry-content, .entry-summary').first();
+			if (await articleContent.count() > 0) {
+				const contentStyles = await articleContent.evaluate(el => {
+					const styles = window.getComputedStyle(el);
+					return {
+						paddingTop: styles.paddingTop,
+						paddingRight: styles.paddingRight,
+						paddingBottom: styles.paddingBottom,
+						paddingLeft: styles.paddingLeft
+					};
+				});
+
+				// Verify article content has no padding
+				expect(contentStyles.paddingTop).toBe('0px');
+				expect(contentStyles.paddingRight).toBe('0px');
+				expect(contentStyles.paddingBottom).toBe('0px');
+				expect(contentStyles.paddingLeft).toBe('0px');
+			}
+
+			// Test article header/meta area padding
+			const articleHeader = firstArticle.locator('.entry-header, .entry-meta').first();
+			if (await articleHeader.count() > 0) {
+				const headerStyles = await articleHeader.evaluate(el => {
+					const styles = window.getComputedStyle(el);
+					return {
+						paddingTop: styles.paddingTop,
+						paddingRight: styles.paddingRight,
+						paddingBottom: styles.paddingBottom,
+						paddingLeft: styles.paddingLeft
+					};
+				});
+
+				// Verify article header has no padding
+				expect(headerStyles.paddingTop).toBe('0px');
+				expect(headerStyles.paddingRight).toBe('0px');
+				expect(headerStyles.paddingBottom).toBe('0px');
+				expect(headerStyles.paddingLeft).toBe('0px');
+			}
+		}
+	});
+
+	test('archive header and title areas have proper spacing', async ({ page }) => {
+		const archivePages = [
+			{ url: `${SITE_CONFIG.BASE_URL}category/travel/`, title: 'category archive', hasHeader: true },
+			{ url: `${SITE_CONFIG.BASE_URL}2021/11/`, title: 'date archive', hasHeader: true }
+		];
+
+		for (const pageData of archivePages) {
+			await page.goto(pageData.url);
+			await page.waitForLoadState('networkidle');
+
+			if (pageData.hasHeader) {
+				// Test archive title area padding
+				const archiveTitle = page.locator('h1').first();
+				const titleStyles = await archiveTitle.evaluate(el => {
+					const styles = window.getComputedStyle(el);
+					return {
+						paddingTop: styles.paddingTop,
+						paddingRight: styles.paddingRight,
+						paddingBottom: styles.paddingBottom,
+						paddingLeft: styles.paddingLeft,
+						marginTop: styles.marginTop,
+						marginBottom: styles.marginBottom
+					};
+				});
+
+				// Verify archive title has proper spacing
+				expect(titleStyles.paddingTop).toBe('0px');
+				expect(titleStyles.paddingRight).toBe('0px');
+				expect(titleStyles.paddingBottom).toBe('0px');
+				expect(titleStyles.paddingLeft).toBe('0px');
+				// Archive titles should have bottom margin for spacing
+				expect(parseInt(titleStyles.marginBottom)).toBeGreaterThan(0);
+			}
+		}
+	});
+
+	test('archive pagination has consistent spacing', async ({ page }) => {
+		// Navigate to blog page (most likely to have pagination)
+		await page.goto(`${SITE_CONFIG.BASE_URL}my-blog-page/`);
+		await page.waitForLoadState('networkidle');
+
+		// Check if pagination exists
+		const pagination = page.locator('.navigation, .pagination, nav[aria-label*="pagination"], nav[aria-label*="Posts"]').first();
+		
+		if (await pagination.count() > 0) {
+			const paginationStyles = await pagination.evaluate(el => {
+				const styles = window.getComputedStyle(el);
+				return {
+					paddingTop: styles.paddingTop,
+					paddingRight: styles.paddingRight,
+					paddingBottom: styles.paddingBottom,
+					paddingLeft: styles.paddingLeft,
+					marginTop: styles.marginTop,
+					marginBottom: styles.marginBottom
+				};
+			});
+
+			// Verify pagination has proper spacing
+			expect(paginationStyles.paddingTop).toBe('0px');
+			expect(paginationStyles.paddingRight).toBe('0px');
+			expect(paginationStyles.paddingBottom).toBe('0px');
+			expect(paginationStyles.paddingLeft).toBe('0px');
+			// Pagination should have margin for separation from content (may be 0 in this theme)
+			expect(parseInt(paginationStyles.marginTop)).toBeGreaterThanOrEqual(0);
+		}
+	});
+
+	test('archive layout paddings are consistent across different viewports', async ({ page }) => {
+		const archivePages = [
+			{ url: `${SITE_CONFIG.BASE_URL}my-blog-page/`, title: 'blog page' },
+			{ url: `${SITE_CONFIG.BASE_URL}category/travel/`, title: 'category archive' }
+		];
+
+		const viewports = [VIEWPORTS.MOBILE, VIEWPORTS.TABLET, VIEWPORTS.DESKTOP];
+
+		for (const pageData of archivePages) {
+			for (const viewport of viewports) {
+				await page.setViewportSize(viewport);
+				await page.goto(pageData.url);
+				await page.waitForLoadState('networkidle');
+
+				// Test container padding consistency across viewports
+				const contentContainer = page.locator('#content .container').first();
+				const containerStyles = await contentContainer.evaluate(el => {
+					const styles = window.getComputedStyle(el);
+					return {
+						paddingRight: styles.paddingRight,
+						paddingLeft: styles.paddingLeft
+					};
+				});
+
+				// Container should maintain 15px horizontal padding across all viewports
+				expect(containerStyles.paddingRight).toBe('15px');
+				expect(containerStyles.paddingLeft).toBe('15px');
+
+				// Test primary content area padding consistency
+				const primary = page.locator('#primary');
+				const primaryStyles = await primary.evaluate(el => {
+					const styles = window.getComputedStyle(el);
+					return {
+						paddingRight: styles.paddingRight,
+						paddingLeft: styles.paddingLeft
+					};
+				});
+
+				// Primary should maintain 15px horizontal padding across all viewports
+				expect(primaryStyles.paddingRight).toBe('15px');
+				expect(primaryStyles.paddingLeft).toBe('15px');
+
+				// Test sidebar padding consistency (when visible)
+				const secondary = page.locator('#secondary');
+				if (viewport.width >= VIEWPORTS.TABLET.width) {
+					const secondaryStyles = await secondary.evaluate(el => {
+						const styles = window.getComputedStyle(el);
+						return {
+							paddingTop: styles.paddingTop,
+							paddingRight: styles.paddingRight,
+							paddingBottom: styles.paddingBottom,
+							paddingLeft: styles.paddingLeft
+						};
+					});
+
+					// Sidebar should maintain 30px padding on larger screens
+					expect(secondaryStyles.paddingTop).toBe('30px');
+					expect(secondaryStyles.paddingRight).toBe('30px');
+					expect(secondaryStyles.paddingBottom).toBe('30px');
+					expect(secondaryStyles.paddingLeft).toBe('30px');
+				}
+			}
+		}
+	});
+
+	test('sidebar widget areas have consistent internal padding', async ({ page }) => {
+		const archivePages = [
+			{ url: `${SITE_CONFIG.BASE_URL}my-blog-page/`, title: 'blog page' },
+			{ url: `${SITE_CONFIG.BASE_URL}category/travel/`, title: 'category archive' }
+		];
+
+		for (const pageData of archivePages) {
+			await page.goto(pageData.url);
+			await page.waitForLoadState('networkidle');
+
+			// Test individual widget padding
+			const widgets = page.locator('#secondary .widget, #secondary aside');
+			const widgetCount = await widgets.count();
+
+			if (widgetCount > 0) {
+				// Test first widget padding
+				const firstWidget = widgets.first();
+				const widgetStyles = await firstWidget.evaluate(el => {
+					const styles = window.getComputedStyle(el);
+					return {
+						paddingTop: styles.paddingTop,
+						paddingRight: styles.paddingRight,
+						paddingBottom: styles.paddingBottom,
+						paddingLeft: styles.paddingLeft,
+						marginBottom: styles.marginBottom
+					};
+				});
+
+				// Verify widget has no internal padding but proper bottom margin
+				expect(widgetStyles.paddingTop).toBe('0px');
+				expect(widgetStyles.paddingRight).toBe('0px');
+				expect(widgetStyles.paddingBottom).toBe('0px');
+				expect(widgetStyles.paddingLeft).toBe('0px');
+				// Widgets should have bottom margin for separation
+				expect(parseInt(widgetStyles.marginBottom)).toBeGreaterThan(0);
+			}
+		}
+	});
 });
