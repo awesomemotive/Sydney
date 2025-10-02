@@ -16,6 +16,9 @@
  .shfb .header-search-form {
   background-color: #f5f5f5;
 }
+.shfb.has-sticky-header .header-search-form {
+  position: fixed;
+}
 .shfb-desktop,
 .shfb-mobile {
   position: relative;
