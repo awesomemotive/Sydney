@@ -282,7 +282,7 @@ function sydney_scripts() {
 
 	if ( defined( 'SITEORIGIN_PANELS_VERSION' ) ) {
 
-		wp_enqueue_style( 'sydney-siteorigin', get_template_directory_uri() . '/css/components/siteorigin.min.css', array(), '20220824' );
+		wp_enqueue_style( 'sydney-siteorigin', get_template_directory_uri() . '/css/components/siteorigin.min.css', array(), '20251002' );
 
 		wp_enqueue_script( 'sydney-scripts', get_template_directory_uri() . '/js/scripts.js', array( 'jquery' ), '20250902', true );
 
