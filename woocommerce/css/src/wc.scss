@@ -150,8 +150,8 @@ ol.flex-control-nav.flex-control-thumbs li img:not(.flex-active) {
 	padding-bottom: 30px;
 	border-bottom: 1px solid var(--sydney-border-color);	
 }
-.woocommerce-product-details__short-description p:last-of-type {
-	margin: 0;
+.single-product .woocommerce-product-details__short-description p:last-of-type {
+	margin-bottom: 0;
 }
 .yith-placeholder > * {
 	margin: 15px 0 0;
