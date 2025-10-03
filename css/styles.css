@@ -205,7 +205,15 @@ Content
 	margin: 0;
 	border: 0;
 }
-
+.archive-header {
+	margin-bottom: 60px;
+}
+.archive-header h1 {
+	margin-bottom: 0;
+}
+.archive-header .taxonomy-description {
+	margin-top: 15px;
+}
 .single .meta-post .post-cat::before {
 	content: '/';
 	padding: 0 10px;
