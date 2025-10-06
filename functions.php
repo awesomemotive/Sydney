@@ -255,7 +255,7 @@ function sydney_scripts() {
 	$is_amp = sydney_is_amp();
 
 	if ( null !== sydney_google_fonts_url() ) {
-		wp_enqueue_style( 'sydney-google-fonts', esc_url( sydney_google_fonts_url() ), array(), '20250902' );
+		wp_enqueue_style( 'sydney-google-fonts', sydney_google_fonts_url(), array(), '20250902' );
 	}
 
 	wp_enqueue_style( 'sydney-ie9', get_template_directory_uri() . '/css/ie9.css', array( 'sydney-style' ), '20250902' );
