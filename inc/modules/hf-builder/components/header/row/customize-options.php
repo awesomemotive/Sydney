@@ -332,6 +332,14 @@ foreach( $this->header_rows as $row ) {
 
     // Transparent Header Background Color
     $wp_customize->add_setting(
+        'global_sydney_header_row__' . $row['id'] . '_transparent_background_color',
+        array(
+            'default'           => '',
+            'sanitize_callback' => 'wp_kses_post',
+            'transport'         => 'postMessage'
+        )
+    );
+    $wp_customize->add_setting(
         'sydney_header_row__' . $row['id'] . '_transparent_background_color',
         array(
             'default'           => '',
@@ -346,6 +354,10 @@ foreach( $this->header_rows as $row ) {
             array(
                 'label'         	=> esc_html__( 'Background Color (transparent mode)', 'sydney' ),
                 'section'       	=> $row['section'],
+                'settings'       => array(
+                    'global'  => 'global_sydney_header_row__' . $row['id'] . '_transparent_background_color',
+                    'setting' => 'sydney_header_row__' . $row['id'] . '_transparent_background_color',
+                ),
                 'active_callback' => function() {
                     $transparent_header = get_theme_mod( 'transparent_header', '' );
                     return ! empty( $transparent_header );
