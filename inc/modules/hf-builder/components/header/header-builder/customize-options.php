@@ -158,6 +158,7 @@ $wp_customize->add_control(
 		array(
 			'label'             => esc_html__( 'Enable sticky header on mobile devices', 'sydney' ),
 			'section'           => 'sydney_section_hb_wrapper',
+			'active_callback'   => 'sydney_callback_sticky_header',
 			'priority'        => 26
 		)
 	)
