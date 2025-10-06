@@ -362,7 +362,7 @@ foreach( $this->header_rows as $row ) {
                     $transparent_header = get_theme_mod( 'transparent_header', '' );
                     return ! empty( $transparent_header );
                 },
-                'priority'			=> 33
+                'priority'			=> 32
             )
         )
     );
