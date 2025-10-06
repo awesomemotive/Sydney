@@ -392,3 +392,16 @@ function sydney_block_templates_active_callback() {
 		return false;
 	}
 }
+
+/**
+ * Transparent header
+ */
+function sydney_callback_transparent_header() {
+	$transparent_header = get_theme_mod( 'transparent_header', '' );
+
+	if ( ! empty( $transparent_header ) && '[]' !== $transparent_header ) {
+		return true;
+	} else {
+		return false;
+	}
+}

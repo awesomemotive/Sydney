@@ -358,10 +358,7 @@ foreach( $this->header_rows as $row ) {
                     'global'  => 'global_sydney_header_row__' . $row['id'] . '_transparent_background_color',
                     'setting' => 'sydney_header_row__' . $row['id'] . '_transparent_background_color',
                 ),
-                'active_callback' => function() {
-                    $transparent_header = get_theme_mod( 'transparent_header', '' );
-                    return ! empty( $transparent_header );
-                },
+                'active_callback' => 'sydney_callback_transparent_header',
                 'priority'			=> 32
             )
         )
