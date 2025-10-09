@@ -870,6 +870,7 @@ class Sydney_Header_Footer_Builder {
         $sticky_header        = get_theme_mod( 'enable_sticky_header', 1 );
         $sticky_header_type   = get_theme_mod( 'sticky_header_type', 'always' );
         $sticky_row           = get_theme_mod( 'sydney_section_hb_wrapper__header_builder_sticky_row', 'main-header-row' );
+        $sticky_mobile_header = get_theme_mod( 'enable_sticky_mobile_header_hb', 0 );
 
         $devices = array( 'desktop', 'mobile' );
         foreach( $devices as $device ) { ?>
@@ -886,7 +887,7 @@ class Sydney_Header_Footer_Builder {
             } 
             ?>
 
-            <header class="shfb shfb-header shfb-<?php echo esc_attr( $device ); ?><?php echo ( $device === 'desktop' && $sticky_header ? ' has-sticky-header sticky-' . esc_attr( $sticky_header_type ) . ' sticky-row-' . esc_attr( $sticky_row ) : '' ); ?>"<?php echo $device === 'desktop' && ! empty($sticky_header_styles) ? 'style="' . esc_attr( implode( ' ', $sticky_header_styles ) ) . '"' : ''; ?> <?php sydney_get_schema( 'header' ); ?>> <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+            <header class="shfb shfb-header shfb-<?php echo esc_attr( $device ); ?><?php echo ( $device === 'desktop' && $sticky_header ? ' has-sticky-header sticky-' . esc_attr( $sticky_header_type ) . ' sticky-row-' . esc_attr( $sticky_row ) : '' ); ?><?php echo ( $device === 'mobile' && $sticky_header && $sticky_mobile_header ? ' has-sticky-header sticky-' . esc_attr( $sticky_header_type ) . ' sticky-row-' . esc_attr( $sticky_row ) : '' ); ?>"<?php echo $device === 'desktop' && ! empty($sticky_header_styles) ? 'style="' . esc_attr( implode( ' ', $sticky_header_styles ) ) . '"' : ''; ?> <?php sydney_get_schema( 'header' ); ?>> <?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 
                 <?php 
                 /**
@@ -917,6 +918,17 @@ class Sydney_Header_Footer_Builder {
 
                         // Sticky Row
                         if( $sticky_header && $device === 'desktop' ) {
+                            if( $row[ 'id' ] === 'main_header_row' && $sticky_row !== 'below-header-row' ) {
+                                $classes[] = ' shfb-sticky-header';
+                            }
+
+                            if( $row[ 'id' ] === 'below_header_row' ) {
+                                $classes[] = ' shfb-sticky-header';
+                            }
+                        }
+
+                        // Mobile Sticky Row
+                        if( $sticky_header && $sticky_mobile_header && $device === 'mobile' ) {
                             if( $row[ 'id' ] === 'main_header_row' && $sticky_row !== 'below-header-row' ) {
                                 $classes[] = ' shfb-sticky-header';
                             }

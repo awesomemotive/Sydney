@@ -1111,9 +1111,11 @@ wp.customize('enable_sticky_header', function (value) {
 		if (newval === true) {
 			wp.customize.control('sticky_header_type').activate();
 			wp.customize.control('sydney_section_hb_wrapper__header_builder_sticky_row').activate();
+			wp.customize.control('enable_sticky_mobile_header_hb').activate();
 		} else {
 			wp.customize.control('sticky_header_type').deactivate();
 			wp.customize.control('sydney_section_hb_wrapper__header_builder_sticky_row').deactivate();
+			wp.customize.control('enable_sticky_mobile_header_hb').deactivate();
 		}
 	});
 } );

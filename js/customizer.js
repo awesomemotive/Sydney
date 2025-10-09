@@ -1124,6 +1124,21 @@
 		} );
 	} );	
 
+	//enable_sticky_mobile_header_hb (Header Footer Builder)
+	wp.customize( 'enable_sticky_mobile_header_hb', function( val ) {
+
+		var sticky_header_type = wp.customize.instance( 'sticky_header_type' ).get();
+		var sticky_row = wp.customize.instance( 'sydney_section_hb_wrapper__header_builder_sticky_row' ).get();
+
+		val.bind( function( to ) {
+			if ( true === to ) {
+				$( '.shfb-mobile' ).addClass( 'has-sticky-header sticky-' + sticky_header_type + ' sticky-row-' + sticky_row );
+			} else {
+				$( '.shfb-mobile' ).removeClass( 'has-sticky-header sticky-always sticky-scrolltop sticky-row-all sticky-row-main-header-row sticky-row-below-header-row' );
+			}
+		} );
+	} );
+
 	var $header_components = ['header_components_l1','header_components_l3left','header_components_l3right','header_components_l4top','header_components_l4bottom','header_components_l5topleft','header_components_l5topright','header_components_l5bottom','social_profiles_header_layouts_6_7'];
 	$.each( $header_components, function( index, value ) {
 		wp.customize( value, function( val ) {

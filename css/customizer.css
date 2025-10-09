@@ -1017,6 +1017,9 @@ li#customize-control-sydney_upsell_mobile_header {
   padding: 0 12px;
   display: none;
 }
+#sub-accordion-section-sydney_themeinfo .customize-section-description {
+  display: block;
+}
 #sub-accordion-section-sydney_section_fb_wrapper .customize-section-description,
 #sub-accordion-section-sydney_section_hb_wrapper .customize-section-description {
   display: none;

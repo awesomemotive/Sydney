@@ -832,7 +832,7 @@ function sydney_archive_template() {
 
 			<?php if ( !is_home() && apply_filters( 'sydney_display_archive_title', true ) ) : ?>
 				<?php if ( ( !is_category() && !is_tag() && !is_author() ) || ( 'post' === $post_type && 'layout1' === $archive_title_layout ) ) : ?>
-				<header class="page-header">
+				<header class="page-header archive-header">
 					<?php
 						do_action( 'sydney_before_title' );
 						the_archive_title( '<h1 class="archive-title">', '</h1>' );

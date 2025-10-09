@@ -365,32 +365,55 @@ sydney.stickyMenu = {
  */
  sydney.stickyHeader = {
 	init: function() {
-		let sticky 		= document.getElementsByClassName( 'sticky-header' )[0];
-		let shfb_sticky 	= document.getElementsByClassName( 'shfb-sticky-header' )[0];
-		let body      	= document.getElementsByTagName( 'body' )[0];
+		let body = document.getElementsByTagName( 'body' )[0];
 
-		if ( 'undefined' === typeof sticky && 'undefined' === typeof shfb_sticky ) {
+		// Check for header builder sticky headers
+		let desktopStickyHeaders = document.querySelectorAll( '.shfb-desktop .shfb-sticky-header' );
+		let mobileStickyHeaders = document.querySelectorAll( '.shfb-mobile .shfb-sticky-header' );
+		
+		// Check for legacy sticky header
+		let legacyStickyHeader = document.getElementsByClassName( 'sticky-header' )[0];
+
+		// Return if no sticky headers found
+		if ( desktopStickyHeaders.length === 0 && mobileStickyHeaders.length === 0 && typeof legacyStickyHeader === 'undefined' ) {
 			return;
-		} 
-
-		if( 'undefined' === typeof sticky ) {
-			sticky = shfb_sticky;
 		}
 
+		// Handle legacy sticky header
+		if ( typeof legacyStickyHeader !== 'undefined' ) {
+			this.initLegacyStickyHeader( legacyStickyHeader, body );
+			return;
+		}
+
+		// Handle header builder sticky headers
+		this.handleStickyScroll();
+
+		window.addEventListener( 'scroll', function() {
+			this.handleStickyScroll();
+		}.bind( this ) );
+
+		// Handle viewport changes (desktop <-> mobile)
+		window.addEventListener( 'resize', function() {
+			this.handleStickyScroll();
+		}.bind( this ) );
+	},
+
+	/**
+	 * Initialize legacy sticky header (deprecated)
+	 */
+	initLegacyStickyHeader: function( sticky, body ) {
 		if ( sticky.classList.contains( 'sticky-scrolltop' ) ) {
 			var lastScrollTop = 0;
-			var elDist 	 = sticky.offsetTop;
-
-			var adminBar 	=  document.getElementsByClassName( 'admin-bar' )[0];
+			var elDist = sticky.offsetTop;
+			var adminBar = document.getElementsByClassName( 'admin-bar' )[0];
 	
 			if ( typeof( adminBar ) != 'undefined' && adminBar != null ) {		
-				var elDist = elDist + 32;
+				elDist = elDist + 32;
 			}
 
 			window.addEventListener( 'scroll', function() {
-			   var scroll = window.pageYOffset || document.documentElement.scrollTop;
-			   console.log( elDist, lastScrollTop );
-			    if ( scroll < lastScrollTop ) {
+				var scroll = window.pageYOffset || document.documentElement.scrollTop;
+				if ( scroll < lastScrollTop ) {
 					sticky.classList.add( 'is-sticky' );
 					body.classList.add( 'sticky-active' );
 					body.classList.add( 'sticky-header-active' );
@@ -409,62 +432,196 @@ sydney.stickyMenu = {
 				}
 			}, false);
 		} else {
-
-			this.sticky();
+			this.applySticky( sticky, body );
 
 			window.addEventListener( 'scroll', function() {
-				this.sticky();
+				this.applySticky( sticky, body );
 			}.bind( this ) );
-
 		}
-
 	},
 
-	sticky: function() {
-		let sticky 	= document.getElementsByClassName( 'sticky-header' )[0];
-		let shfb_sticky 	= document.getElementsByClassName( 'shfb-sticky-header' )[0];
-		let body      = document.getElementsByTagName( 'body' )[0];
+	/**
+	 * Handle sticky scroll for header builder
+	 */
+	handleStickyScroll: function() {
+		let isMobile = window.matchMedia( '(max-width: 1024px)' ).matches;
+		let stickyHeaders = isMobile 
+			? document.querySelectorAll( '.shfb-mobile .shfb-sticky-header' )
+			: document.querySelectorAll( '.shfb-desktop .shfb-sticky-header' );
 
-		if ( 'undefined' === typeof sticky && 'undefined' === typeof shfb_sticky ) {
+		// Clean up sticky classes from the inactive viewport headers
+		let inactiveHeaders = isMobile
+			? document.querySelectorAll( '.shfb-desktop .shfb-sticky-header' )
+			: document.querySelectorAll( '.shfb-mobile .shfb-sticky-header' );
+		
+		inactiveHeaders.forEach( function( header ) {
+			header.classList.remove( 'sticky-active' );
+		} );
+
+		if ( stickyHeaders.length === 0 ) {
 			return;
-		} 
-
-		if( 'undefined' === typeof sticky ) {
-			sticky = shfb_sticky;
 		}
 
-		if ( sticky.classList.contains( 'header_layout_1' ) || sticky.classList.contains( 'header_layout_2' ) ) {
-			var vertDist = window.pageYOffset;
-			var elDist 	 = 0;
+		let body = document.getElementsByTagName( 'body' )[0];
+
+		// Check if header has sticky-scrolltop class - if so, use scroll direction logic
+		let headerContainer = stickyHeaders[0].closest( '.shfb' );
+		if ( headerContainer && headerContainer.classList.contains( 'sticky-scrolltop' ) ) {
+			this.handleScrollToTopHeaders( stickyHeaders, body );
 		} else {
-			var vertDist = window.pageYOffset;
-			var elDist 	 = sticky.offsetTop;
+			// Apply normal sticky to each header (usually just one)
+			stickyHeaders.forEach( function( sticky ) {
+				this.applySticky( sticky, body );
+			}.bind( this ) );
+		}
+	},
+
+	/**
+	 * Handle scroll-to-top headers (adapted from legacy implementation)
+	 */
+	handleScrollToTopHeaders: function( stickyHeaders, body ) {
+		// Initialize lastScrollTop if not exists
+		if ( typeof this.lastScrollTop === 'undefined' ) {
+			this.lastScrollTop = 0;
+		}
+
+		var scroll = window.pageYOffset || document.documentElement.scrollTop;
+		var elDist = 0;
+		
+		// Calculate element distance (use first header for reference)
+		if ( stickyHeaders.length > 0 ) {
+			let firstHeader = stickyHeaders[0];
+			if ( !firstHeader.classList.contains( 'header_layout_1' ) && !firstHeader.classList.contains( 'header_layout_2' ) ) {
+				elDist = firstHeader.offsetTop;
+			}
 		}
 		
-		var adminBar 	=  document.getElementsByClassName( 'admin-bar' )[0];
-
-		if ( typeof( adminBar ) != 'undefined' && adminBar != null ) {		
-			var elDist = elDist + 32;
+		var adminBar = document.getElementsByClassName( 'admin-bar' )[0];
+		if ( typeof( adminBar ) != 'undefined' && adminBar != null ) {
+			// Mobile admin bar is 46px, desktop is 32px
+			let isMobile = window.matchMedia( '(max-width: 1024px)' ).matches;
+			elDist = elDist + ( isMobile ? 46 : 32 );
 		}
 
+		// Scroll direction logic (adapted from legacy)
+		if ( scroll < this.lastScrollTop ) {
+			// Scrolling up - show header
+			stickyHeaders.forEach( function( sticky ) {
+				sticky.classList.add( 'sticky-active' );
+			} );
+			body.classList.add( 'sticky-active' );
+			body.classList.add( 'sticky-header-active' );
+			body.classList.remove( 'sydney-scrolling-down' );
+			
+			// Add body padding to prevent jump when header becomes visible
+			this.updateBodyPaddingForScrollTop( stickyHeaders );
+		} else {
+			// Scrolling down - hide header
+			stickyHeaders.forEach( function( sticky ) {
+				sticky.classList.remove( 'sticky-active' );
+			} );
+			body.classList.remove( 'sticky-active' );
+			body.classList.remove( 'sticky-header-active' );
+			body.classList.add( 'sydney-scrolling-down' );
+			
+			// Remove body padding when header is hidden (not covering content)
+			document.body.style.paddingTop = '0px';
+		}
+		
+		// Remove sticky when above header area (adapted from legacy)
+		if ( this.lastScrollTop < elDist ) {
+			stickyHeaders.forEach( function( sticky ) {
+				sticky.classList.remove( 'sticky-active' );
+			} );
+			body.classList.remove( 'sticky-active' );
+			body.classList.remove( 'sticky-header-active' );
+			body.classList.remove( 'sydney-scrolling-down' );
+			
+			// Remove body padding when not sticky
+			document.body.style.paddingTop = '0px';
+		}
+		
+		this.lastScrollTop = scroll <= 0 ? 0 : scroll;
+
+ 		// Failsafe: Force remove all sticky classes when at absolute top
+		// This handles edge cases in customizer preview with transparent headers
+		if ( scroll === 0 ) {
+			stickyHeaders.forEach( function( sticky ) {
+				sticky.classList.remove( 'sticky-active' );
+			} );
+			body.classList.remove( 'sticky-active' );
+			body.classList.remove( 'sticky-header-active' );
+			body.classList.remove( 'sydney-scrolling-down' );
+			body.classList.remove( 'sydney-scrolling-up' );
+			document.body.style.paddingTop = '0px';
+		}
+	},
+
+	/**
+	 * Update body padding for scroll-to-top headers to prevent jump
+	 */
+	updateBodyPaddingForScrollTop: function( stickyHeaders ) {
+		// Get all active sticky header elements (for the current viewport)
+		let isMobile = window.matchMedia( '(max-width: 1024px)' ).matches;
+		let activeStickySelector = isMobile 
+			? '.shfb-mobile .shfb-sticky-header.sticky-active'
+			: '.shfb-desktop .shfb-sticky-header.sticky-active';
+		const stickyElements = document.querySelectorAll( activeStickySelector );
+
+		// Calculate total height
+		let totalHeight = 0;
+		stickyElements.forEach( function( element ) {
+			totalHeight += element.offsetHeight;
+		} );
+
+		// Set body padding-top (same logic as applySticky method)
+		if ( totalHeight > 0 && !document.body.classList.contains( 'transparent-header' ) ) {
+			document.body.style.paddingTop = totalHeight + 'px';
+		}
+	},
+
+	/**
+	 * Apply sticky behavior to a header element
+	 */
+	applySticky: function( sticky, body ) {
+		if ( !sticky ) {
+			return;
+		}
+
+		var vertDist = window.pageYOffset;
+		var elDist = 0;
+
+		// Calculate element distance based on header type
+		if ( !sticky.classList.contains( 'header_layout_1' ) && !sticky.classList.contains( 'header_layout_2' ) ) {
+			elDist = sticky.offsetTop;
+		}
+		
+		var adminBar = document.getElementsByClassName( 'admin-bar' )[0];
+
+		if ( typeof( adminBar ) != 'undefined' && adminBar != null ) {		
+			elDist = elDist + 32;
+		}
 
 		if ( vertDist > elDist ) {
 			sticky.classList.add( 'sticky-active' );
 			body.classList.add( 'sticky-active' );
 			body.classList.add( 'sticky-header-active' );
 
-			
-			// Get all sticky header elements
-			const stickyElements = document.querySelectorAll('.shfb-sticky-header.sticky-active');
+			// Get all active sticky header elements (for the current viewport)
+			let isMobile = window.matchMedia( '(max-width: 1024px)' ).matches;
+			let activeStickySelector = isMobile 
+				? '.shfb-mobile .shfb-sticky-header.sticky-active'
+				: '.shfb-desktop .shfb-sticky-header.sticky-active';
+			const stickyElements = document.querySelectorAll( activeStickySelector );
 
 			// Calculate total height
 			let totalHeight = 0;
-			stickyElements.forEach(function(element) {
+			stickyElements.forEach( function( element ) {
 				totalHeight += element.offsetHeight;
-			});
+			} );
 
 			// Set body padding-top
-			if (totalHeight > 0 && !document.body.classList.contains('transparent-header')) {
+			if ( totalHeight > 0 && !document.body.classList.contains( 'transparent-header' ) ) {
 				document.body.style.paddingTop = totalHeight + 'px';
 			}
 		} else {
@@ -475,7 +632,6 @@ sydney.stickyMenu = {
 			// Remove body padding-top
 			document.body.style.paddingTop = '0px';
 		}
-		
 	}
 };
 
@@ -495,6 +651,16 @@ sydney.headerSearch = {
 
 		if (document.body.classList.contains('has-shfb-builder')) {
 			form = window.matchMedia('(max-width: 1024px)').matches ? document.querySelector('.shfb-mobile .header-search-form') : document.querySelector('.shfb-desktop .header-search-form');
+		}
+
+		// Initial positioning
+		this.updateSearchFormPosition(form);
+
+		// Update position on scroll for sticky headers
+		if (document.body.classList.contains('has-shfb-builder') && document.body.classList.contains('transparent-header')) {
+			window.addEventListener('scroll', () => {
+				this.updateSearchFormPosition(form);
+			});
 		}
 		
 		var searchInput 	= form.getElementsByClassName('search-field')[0];
@@ -541,6 +707,24 @@ sydney.headerSearch = {
 		});
 
 		return this;
+	},
+
+	updateSearchFormPosition: function(form) {
+		if (document.body.classList.contains('has-shfb-builder') && document.body.classList.contains('transparent-header')) {
+			var shfbHeader = window.matchMedia('(max-width: 1024px)').matches ? document.querySelector('.shfb-mobile') : document.querySelector('.shfb-desktop');
+			
+			if (shfbHeader && form) {
+				const stickyActive = shfbHeader.querySelector('.sticky-active');
+				if (stickyActive) {
+					let stickyHeight = stickyActive.offsetHeight;
+					const stickyTop = parseInt(window.getComputedStyle(stickyActive).top) || 0;
+					
+					stickyHeight += stickyTop;
+					
+					form.style.top = stickyHeight + 'px';
+				}
+			}
+		}
 	},
 
 	backButtonsToDefaultState: function( button ) {

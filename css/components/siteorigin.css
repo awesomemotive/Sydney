@@ -105,6 +105,9 @@ Social
 .social-menu-widget a[href*="trello.com"]::before {
 	content: '\f181';
 }
+.social-menu-widget a[href*="tiktok.com"]::before {
+	content: '\e07b';
+}
 
 .panel-grid {
 	max-width: 1170px;

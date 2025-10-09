@@ -205,7 +205,15 @@ Content
 	margin: 0;
 	border: 0;
 }
-
+.archive-header {
+	margin-bottom: 60px;
+}
+.archive-header h1 {
+	margin-bottom: 0;
+}
+.archive-header .taxonomy-description {
+	margin-top: 15px;
+}
 .single .meta-post .post-cat::before {
 	content: '/';
 	padding: 0 10px;
@@ -1079,124 +1087,129 @@ Header
 .admin-bar.transparent-header .sticky-header.sticky-scrolltop {
 	top: 32px;
 }
-	.sticky-header.sticky-scrolltop {
-		position: sticky;
-		top: -200px;
-		transition: top 0.4s;
+.sticky-header.sticky-scrolltop {
+	position: sticky;
+	top: -200px;
+	transition: top 0.4s;
 }
-	.sticky-header.is-sticky, .sticky-header.sticky-always {
-		position: sticky;
-		top: 0;
+.sticky-header.is-sticky,
+.sticky-header.sticky-always {
+	position: sticky;
+	top: 0;
 }
-	.admin-bar .sticky-header.is-sticky, .admin-bar .sticky-header.sticky-always {
-		top: 32px;
+.admin-bar .sticky-header.is-sticky,
+.admin-bar .sticky-header.sticky-always {
+	top: 32px;
 }
-	.sticky-header.sticky-shadow, .sticky-header.is-sticky {
-		box-shadow: 0 0 30px rgba(0, 0, 0, 0.07);
+.sticky-header.sticky-shadow,
+.sticky-header.is-sticky {
+	box-shadow: 0 0 30px rgba(0, 0, 0, 0.07);
 }
-	.bottom-header-row {
-		background-color: var(--sydney-dark-background);
-		z-index: 999;
+.bottom-header-row {
+	background-color: var(--sydney-dark-background);
+	z-index: 999;
 }
-	.bottom-header-inner {
-		padding-top: 15px;
-		padding-bottom: 15px;
+.bottom-header-inner {
+	padding-top: 15px;
+	padding-bottom: 15px;
 }
-	.header-item {
-		margin-right: 25px;
-		line-height: 1;
-		font-size: 14px;
+.header-item {
+	margin-right: 25px;
+	line-height: 1;
+	font-size: 14px;
 }
-	.header-item:last-child {
-		margin-right: 0;
+.header-item:last-child {
+	margin-right: 0;
 }
-	.header-contact a {
-		display: block;
-		margin-bottom: 5px;
+.header-contact a {
+	display: block;
+	margin-bottom: 5px;
 }
-	.header-contact a:last-of-type {
-		margin-bottom: 0;
+.header-contact a:last-of-type {
+	margin-bottom: 0;
 }
-	.header-search .icon-search, .header-search .icon-cancel {
-		display: none;
-		cursor: pointer;
-		position: relative;
-		z-index: 999;
+.header-search .icon-search,
+.header-search .icon-cancel {
+	display: none;
+	cursor: pointer;
+	position: relative;
+	z-index: 999;
 }
-	.header-search .icon-search.active, .header-search .icon-cancel.active {
-		display: inline-block;
+.header-search .icon-search.active,
+.header-search .icon-cancel.active {
+	display: inline-block;
 }
-	.header-search .icon-cancel svg {
-		width: 20px;
-		height: 24px;
+.header-search .icon-cancel svg {
+	width: 20px;
+	height: 24px;
 }
-	.icon-cancel {
-		cursor: pointer;
+.icon-cancel {
+	cursor: pointer;
 }
-	.header-search-form {
-		position: absolute;
-		width: 100%;
-		top: auto;
-		padding: 20px;
-		z-index: 999999;
-		left: -9999em;
-		opacity: 0;
-		transition: opacity 0.3s;
-		visibility: hidden;
+.header-search-form {
+	position: absolute;
+	width: 100%;
+	top: auto;
+	padding: 20px;
+	z-index: 999999;
+	left: -9999em;
+	opacity: 0;
+	transition: opacity 0.3s;
+	visibility: hidden;
 }
-	.header-search-form form {
-		max-width: 720px;
-		margin-left: auto;
-		margin-right: auto;
-		display: flex;
+.header-search-form form {
+	max-width: 720px;
+	margin-left: auto;
+	margin-right: auto;
+	display: flex;
 }
-	.header-search-form form .search-field,
-	.header-search-form form label {
-		width: 100%;
+.header-search-form form .search-field,
+.header-search-form form label {
+	width: 100%;
 }
 .header-search-form label {
 	margin-bottom: 0;
 }
-	.header-search-form form button, .header-search-form form .search-field {
-		display: block;
+.header-search-form form button, .header-search-form form .search-field {
+	display: block;
 }
-	.header-search-form form button svg, .header-search-form form .search-field svg {
-		fill: #fff;
+.header-search-form form button svg, .header-search-form form .search-field svg {
+	fill: #fff;
 }
-	.header-search-form form button {
-		padding: 13px 24px !important;
-		border-radius: 0 !important;
-		font-size: 14px !important;
+.header-search-form form button {
+	padding: 13px 24px !important;
+	border-radius: 0 !important;
+	font-size: 14px !important;
 }
-	.header-search-form.active {
-		opacity: 1;
-		left: 0;
-		visibility: visible;
+.header-search-form.active {
+	opacity: 1;
+	left: 0;
+	visibility: visible;
 }
-	.search-overlay {
-		position: fixed;
-		top: 0;
-		height: 100%;
-		width: 100%;
-		z-index: 998;
-		background-color: rgba(0, 0, 0, 0.3);
-		left: -100%;
-		opacity: 0;
-		transition: opacity 0.3s;
+.search-overlay {
+	position: fixed;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	z-index: 998;
+	background-color: rgba(0, 0, 0, 0.3);
+	left: -100%;
+	opacity: 0;
+	transition: opacity 0.3s;
 }
-	.search-overlay.active {
-		opacity: 1;
-		left: 0;
+.search-overlay.active {
+	opacity: 1;
+	left: 0;
 }
-	.header-image img {
-		width: 100%;
-		vertical-align: top;
+.header-image img {
+	width: 100%;
+	vertical-align: top;
 }
-	.custom-logo-link {
-		line-height: 1;
+.custom-logo-link {
+	line-height: 1;
 }
-	.custom-logo-link img {
-		max-width: 180px;
+.custom-logo-link img {
+	max-width: 180px;
 }
 
 @media (max-width: 1024px) {
