@@ -464,10 +464,120 @@ sydney.stickyMenu = {
 
 		let body = document.getElementsByTagName( 'body' )[0];
 
-		// Apply sticky to each header (usually just one)
-		stickyHeaders.forEach( function( sticky ) {
-			this.applySticky( sticky, body );
-		}.bind( this ) );
+		// Check if header has sticky-scrolltop class - if so, use scroll direction logic
+		let headerContainer = stickyHeaders[0].closest( '.shfb' );
+		if ( headerContainer && headerContainer.classList.contains( 'sticky-scrolltop' ) ) {
+			this.handleScrollToTopHeaders( stickyHeaders, body );
+		} else {
+			// Apply normal sticky to each header (usually just one)
+			stickyHeaders.forEach( function( sticky ) {
+				this.applySticky( sticky, body );
+			}.bind( this ) );
+		}
+	},
+
+	/**
+	 * Handle scroll-to-top headers (adapted from legacy implementation)
+	 */
+	handleScrollToTopHeaders: function( stickyHeaders, body ) {
+		// Initialize lastScrollTop if not exists
+		if ( typeof this.lastScrollTop === 'undefined' ) {
+			this.lastScrollTop = 0;
+		}
+
+		var scroll = window.pageYOffset || document.documentElement.scrollTop;
+		var elDist = 0;
+		
+		// Calculate element distance (use first header for reference)
+		if ( stickyHeaders.length > 0 ) {
+			let firstHeader = stickyHeaders[0];
+			if ( !firstHeader.classList.contains( 'header_layout_1' ) && !firstHeader.classList.contains( 'header_layout_2' ) ) {
+				elDist = firstHeader.offsetTop;
+			}
+		}
+		
+		var adminBar = document.getElementsByClassName( 'admin-bar' )[0];
+		if ( typeof( adminBar ) != 'undefined' && adminBar != null ) {
+			// Mobile admin bar is 46px, desktop is 32px
+			let isMobile = window.matchMedia( '(max-width: 1024px)' ).matches;
+			elDist = elDist + ( isMobile ? 46 : 32 );
+		}
+
+		// Scroll direction logic (adapted from legacy)
+		if ( scroll < this.lastScrollTop ) {
+			// Scrolling up - show header
+			stickyHeaders.forEach( function( sticky ) {
+				sticky.classList.add( 'sticky-active' );
+			} );
+			body.classList.add( 'sticky-active' );
+			body.classList.add( 'sticky-header-active' );
+			body.classList.remove( 'sydney-scrolling-down' );
+			
+			// Add body padding to prevent jump when header becomes visible
+			this.updateBodyPaddingForScrollTop( stickyHeaders );
+		} else {
+			// Scrolling down - hide header
+			stickyHeaders.forEach( function( sticky ) {
+				sticky.classList.remove( 'sticky-active' );
+			} );
+			body.classList.remove( 'sticky-active' );
+			body.classList.remove( 'sticky-header-active' );
+			body.classList.add( 'sydney-scrolling-down' );
+			
+			// Remove body padding when header is hidden (not covering content)
+			document.body.style.paddingTop = '0px';
+		}
+		
+		// Remove sticky when above header area (adapted from legacy)
+		if ( this.lastScrollTop < elDist ) {
+			stickyHeaders.forEach( function( sticky ) {
+				sticky.classList.remove( 'sticky-active' );
+			} );
+			body.classList.remove( 'sticky-active' );
+			body.classList.remove( 'sticky-header-active' );
+			body.classList.remove( 'sydney-scrolling-down' );
+			
+			// Remove body padding when not sticky
+			document.body.style.paddingTop = '0px';
+		}
+		
+		this.lastScrollTop = scroll <= 0 ? 0 : scroll;
+
+ 		// Failsafe: Force remove all sticky classes when at absolute top
+		// This handles edge cases in customizer preview with transparent headers
+		if ( scroll === 0 ) {
+			stickyHeaders.forEach( function( sticky ) {
+				sticky.classList.remove( 'sticky-active' );
+			} );
+			body.classList.remove( 'sticky-active' );
+			body.classList.remove( 'sticky-header-active' );
+			body.classList.remove( 'sydney-scrolling-down' );
+			body.classList.remove( 'sydney-scrolling-up' );
+			document.body.style.paddingTop = '0px';
+		}
+	},
+
+	/**
+	 * Update body padding for scroll-to-top headers to prevent jump
+	 */
+	updateBodyPaddingForScrollTop: function( stickyHeaders ) {
+		// Get all active sticky header elements (for the current viewport)
+		let isMobile = window.matchMedia( '(max-width: 1024px)' ).matches;
+		let activeStickySelector = isMobile 
+			? '.shfb-mobile .shfb-sticky-header.sticky-active'
+			: '.shfb-desktop .shfb-sticky-header.sticky-active';
+		const stickyElements = document.querySelectorAll( activeStickySelector );
+
+		// Calculate total height
+		let totalHeight = 0;
+		stickyElements.forEach( function( element ) {
+			totalHeight += element.offsetHeight;
+		} );
+
+		// Set body padding-top (same logic as applySticky method)
+		if ( totalHeight > 0 && !document.body.classList.contains( 'transparent-header' ) ) {
+			document.body.style.paddingTop = totalHeight + 'px';
+		}
 	},
 
 	/**
