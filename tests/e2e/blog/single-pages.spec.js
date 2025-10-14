@@ -93,9 +93,13 @@ test.describe('Single Page: Sample Page', () => {
 
 			// Navigate to the page
 			await page.goto(`${SITE_CONFIG.BASE_URL}sample-page/`);
+			await page.waitForLoadState('networkidle');
 
-			// Check that essential elements are visible
+			// Check that essential elements are visible - wait for elements to be stable
+			await page.locator('article h1').waitFor({ state: 'visible' });
 			await expect(page.locator('article h1')).toBeVisible();
+			
+			await page.locator('article .entry-content').waitFor({ state: 'visible' });
 			await expect(page.locator('article .entry-content')).toBeVisible();
 
 			// Check that sidebar is visible (on larger screens)
@@ -122,9 +126,12 @@ test.describe('Single Page: Sample Page', () => {
 	test('page content text colors match theme design', async ({ page }) => {
 		// Navigate to the page
 		await page.goto(`${SITE_CONFIG.BASE_URL}sample-page/`);
+		await page.waitForLoadState('networkidle');
 
-		// Check paragraph text color
+		// Check paragraph text color - wait for element to be visible and stable
 		const firstParagraph = page.locator('article .entry-content p').first();
+		await firstParagraph.waitFor({ state: 'visible' });
+		await page.waitForTimeout(500); // Allow styles to fully compute
 		const paragraphColor = await firstParagraph.evaluate(el => {
 			return window.getComputedStyle(el).color;
 		});
@@ -291,9 +298,11 @@ test.describe('Single Page: Sample Page', () => {
 
 				// Navigate to the page
 				await page.goto(`${SITE_CONFIG.BASE_URL}page-with-featured-image/`);
+				await page.waitForLoadState('networkidle');
 
-				// Check that featured image is visible
+				// Check that featured image is visible - wait for element to be stable
 				const featuredImage = page.locator('article .wp-post-image');
+				await featuredImage.waitFor({ state: 'visible' });
 				await expect(featuredImage).toBeVisible();
 
 				// Check that image has proper dimensions
