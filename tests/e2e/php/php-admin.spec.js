@@ -133,8 +133,8 @@ test.describe('PHP Error Detection - WordPress Admin Pages', () => {
 			await loginAndNavigateToAdmin(page, 'admin.php?page=sydney-dashboard');
 			await page.waitForLoadState('networkidle');
 			
-			// Look for navigation tabs - the actual structure uses navigation > list > listitem > link
-			const tabs = await page.locator('navigation list listitem link').all();
+			// Look for navigation tabs - the actual structure uses .sydney-dashboard-tabs-nav ul li a
+			const tabs = await page.locator('.sydney-dashboard-tabs-nav ul li a').all();
 			
 			if (tabs.length > 0) {
 				// Click each tab and check for PHP errors
@@ -142,9 +142,10 @@ test.describe('PHP Error Detection - WordPress Admin Pages', () => {
 					const tab = tabs[i];
 					const tabText = await tab.textContent();
 					
-					// Skip if tab is already active (has [active] attribute)
-					const isActive = await tab.getAttribute('aria-current');
-					if (isActive === 'page' || await tab.evaluate(el => el.hasAttribute('active'))) {
+					// Skip if tab is already active (parent li has 'active' class)
+					const parentLi = await tab.evaluateHandle(el => el.parentElement);
+					const hasActiveClass = await parentLi.evaluate(li => li.classList.contains('active'));
+					if (hasActiveClass) {
 						continue;
 					}
 					
