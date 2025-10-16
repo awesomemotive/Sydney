@@ -232,7 +232,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       // Site Logo Size.
       'site_logo_size': {
         'selector': '.site-logo',
-        'prop': 'max-width',
+        'prop': 'max-height',
         'unit': 'px'
       },
       // Site Logo Text Alignment.

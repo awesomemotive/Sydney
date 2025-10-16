@@ -518,10 +518,10 @@
 		} );
 	} );	
 
-	var $maxWidth = {
+	var $logoSize = {
 		"site_logo_size": ".site-logo"
 	};
-	$.each($maxWidth, function (option, selector) {
+	$.each($logoSize, function (option, selector) {
 		$.each($devices, function (device, mediaSize) {
 			wp.customize(option + '_' + device, function (value) {
 			value.bind(function (to) {
