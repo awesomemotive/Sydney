@@ -49,7 +49,14 @@ jQuery(document).ready(function ($) {
 		var isPublishSettingsOpen = $publishSettings.hasClass('open');
 		
 		// If publish settings is open and we're in header panel, close publish settings and collapse header panel
-		if( isPublishSettingsOpen && current_panel && current_panel.id === 'sydney_panel_header' ) {
+		if(
+			isPublishSettingsOpen && 
+			current_panel && 
+			(
+				current_panel.id === 'sydney_panel_header' ||
+				current_panel.id === 'sydney_panel_footer'
+			)
+		) {
 			// Prevent the default behavior
 			e.preventDefault();
 			e.stopPropagation();
