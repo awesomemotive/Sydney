@@ -262,13 +262,6 @@ function sydney_dashboard_settings( $settings ) {
 	) );
 	$settings['tabs'][0]['data'] = array_merge( $settings['tabs'][0]['data'], Sydney_Modules::get_modules( 'integrations' ) ); //insert modules
 
-	$settings['tabs'][0]['data'] = array_merge( $settings['tabs'][0]['data'], array(
-		array(
-			'name'          => esc_html__( 'Google Maps', 'sydney' ),
-			'type'          => 'pro',
-			'customize_uri' => '/wp-admin/customize.php?autofocus[section]=sydney_pro_maps',
-		),
-	) );
 
 	// Documentation.
 	$settings['documentation_link'] = 'https://docs.athemes.com/category/8-sydney';
