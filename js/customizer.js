@@ -1081,11 +1081,11 @@
 			if ( 'container-fluid' === to ) {
 				$( '.main-header > .container' ).removeClass( 'container' ).addClass( 'container-fluid' );
 				$( '.bottom-header-row > .container' ).removeClass( 'container' ).addClass( 'container-fluid' );
-				$( '.shfb-row-wrapper > .container' ).removeClass( 'container' ).addClass( 'container-fluid' );
+				$( '.shfb-header .shfb-row-wrapper > div' ).removeClass( 'container' ).addClass( 'container-fluid' );
 			} else {
 				$( '.main-header > .container-fluid' ).removeClass( 'container-fluid' ).addClass( 'container' );
 				$( '.bottom-header-row > .container-fluid' ).removeClass( 'container-fluid' ).addClass( 'container' );
-				$( '.shfb-row-wrapper > .container-fluid' ).removeClass( 'container-fluid' ).addClass( 'container' );
+				$( '.shfb-header .shfb-row-wrapper > div' ).removeClass( 'container-fluid' ).addClass( 'container' );
 			}
 		} );
 	} );	
@@ -1392,10 +1392,10 @@
 		val.bind( function( to ) {
 			if ( 'container' === to ) {
 				$( '#sidebar-footer > div' ).removeClass( 'container-fluid' ).addClass( 'container' );
-				$( '.shfb-row-wrapper > div' ).removeClass( 'container' ).addClass( 'container-fluid' );
+				$( '.shfb-footer .shfb-row-wrapper > div' ).removeClass( 'container-fluid' ).addClass( 'container' );
 			} else {
 				$( '#sidebar-footer > div' ).removeClass( 'container' ).addClass( 'container-fluid' );
-				$( '.shfb-row-wrapper > div' ).removeClass( 'container-fluid' ).addClass( 'container' );
+				$( '.shfb-footer .shfb-row-wrapper > div' ).removeClass( 'container' ).addClass( 'container-fluid' );
 			}
 		} );
 	} );
