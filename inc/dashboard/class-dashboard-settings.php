@@ -485,6 +485,7 @@ function sydney_dashboard_settings()
 		'module'     => 'hooks',
 		'link_label' => esc_html__('Customize', 'sydney'),
 		'link_url'   => add_query_arg('autofocus[panel]', 'sydney_hooks_panel', admin_url('customize.php')),
+		'docs_link'  => 'https://docs.athemes.com/article/pro-hooks-system-overview/',
 	);
 
 	$settings['features'][] = array(
