@@ -1929,6 +1929,7 @@ ul[id^="sub-accordion-section-sydney_cpt_"] li:not(.customize-control-sydney-tex
   }
 }
 
-.control-section button {
+.control-section button,
+.delete-attachment {
   font-size: 13px !important;
 }
