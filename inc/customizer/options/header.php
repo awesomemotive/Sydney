@@ -41,7 +41,6 @@ $wp_customize->add_setting( 'site_logo_size_mobile', array(
 $wp_customize->add_control( new Sydney_Responsive_Slider( $wp_customize, 'site_logo_size',
 	array(
 		'label'         => esc_html__( 'Logo height', 'sydney' ),
-		'description'   => esc_html__( 'Note: the logo will not grow past the original image height.', 'sydney' ),
 		'section'       => 'title_tagline',
 		'is_responsive' => 1,
 		'settings'      => array(
