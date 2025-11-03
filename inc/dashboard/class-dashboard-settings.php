@@ -477,13 +477,6 @@ function sydney_dashboard_settings()
 		'link_url'   => add_query_arg('autofocus[section]', 'sydney_extra_widget_area', admin_url('customize.php')),
 	);
 	
-	$settings['features'][] = array(
-		'type'       => 'pro',
-		'title'      => esc_html__('Google Maps', 'sydney'),
-		'desc'       => esc_html__('Customize Google Maps integration in your theme.', 'sydney'),
-		'link_label' => esc_html__('Customize', 'sydney'),
-		//'link_url'   => add_query_arg('autofocus[section]', 'sydney_pro_maps', admin_url('customize.php'))
-	);
 
 	$settings['features'][] = array(
 		'type'       => 'pro',
@@ -492,6 +485,7 @@ function sydney_dashboard_settings()
 		'module'     => 'hooks',
 		'link_label' => esc_html__('Customize', 'sydney'),
 		'link_url'   => add_query_arg('autofocus[panel]', 'sydney_hooks_panel', admin_url('customize.php')),
+		'docs_link'  => 'https://docs.athemes.com/article/pro-hooks-system-overview/',
 	);
 
 	$settings['features'][] = array(

@@ -8,15 +8,21 @@
             e.preventDefault();
             var $styleBook = $( '.sydney-style-book' );
 
-            if ( $styleBook.length ) {
-                $styleBook.remove();
+            if ( $styleBook.length && $styleBook.is(':visible') ) {
+                // Hide instead of removing to preserve state
+                $styleBook.hide();
+            } else if ( $styleBook.length ) {
+                // Show existing Style Book to preserve live preview state
+                $styleBook.show();
             } else {
+                // Create Style Book only if it doesn't exist
                 var template = wp.template( 'sydney-style-book' );
                 $( 'body' ).append( template );
+                $styleBook = $( '.sydney-style-book' );
                 
-                //Close button
+                //Close button - use hide instead of remove
                 $( '.sydney-style-book-close' ).on( 'click', function() {
-                    $( '.sydney-style-book' ).remove();
+                    $styleBook.hide();
                 } );
             }
         } );

@@ -232,7 +232,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       // Site Logo Size.
       'site_logo_size': {
         'selector': '.site-logo',
-        'prop': 'max-width',
+        'prop': 'height',
         'unit': 'px'
       },
       // Site Logo Text Alignment.
@@ -452,4 +452,36 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       return 'margin-left';
     }
   }
+
+  // Customizer preview handlers for interactive elements
+
+  //enable_sticky_header (Header Footer Builder)
+  wp.customize( 'enable_sticky_header', function( val ) {
+
+    var sticky_header_type = wp.customize.instance( 'sticky_header_type' ).get();
+    var sticky_row = wp.customize.instance( 'sydney_section_hb_wrapper__header_builder_sticky_row' ).get();
+
+    val.bind( function( to ) {
+      if ( true === to ) {
+        $( '.shfb-header' ).addClass( 'has-sticky-header sticky-' + sticky_header_type + ' sticky-row-' + sticky_row );
+      } else {
+        $( '.shfb-header' ).removeClass( 'has-sticky-header sticky-always sticky-scrolltop sticky-row-all sticky-row-main-header-row sticky-row-below-header-row' );
+      }
+    } );
+  } );
+
+  //enable_sticky_mobile_header_hb (Header Footer Builder)
+  wp.customize( 'enable_sticky_mobile_header_hb', function( val ) {
+
+    var sticky_header_type = wp.customize.instance( 'sticky_header_type' ).get();
+    var sticky_row = wp.customize.instance( 'sydney_section_hb_wrapper__header_builder_sticky_row' ).get();
+
+    val.bind( function( to ) {
+      if ( true === to ) {
+        $( '.shfb-mobile' ).addClass( 'has-sticky-header sticky-' + sticky_header_type + ' sticky-row-' + sticky_row );
+      } else {
+        $( '.shfb-mobile' ).removeClass( 'has-sticky-header sticky-always sticky-scrolltop sticky-row-all sticky-row-main-header-row sticky-row-below-header-row' );
+      }
+    } );
+  } );
 })(jQuery);

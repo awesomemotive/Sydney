@@ -537,3 +537,20 @@ function sydney_hf_mobile_offcanvas_background() {
     set_theme_mod( 'sydney_hf_mobile_offcanvas_background_flag', true );
 }
 add_action( 'init', 'sydney_hf_mobile_offcanvas_background' );
+
+/**
+ * Use height instead of max-height for logo for new users
+ * 
+ * @since 2.60
+ */
+function sydney_use_height_for_logo() {
+    $flag = get_theme_mod( 'sydney_use_height_for_logo', false );
+
+    if ( true === $flag ) {
+        return;
+    }
+
+    // Set flag
+    set_theme_mod( 'sydney_use_height_for_logo', true );
+}
+add_action( 'after_switch_theme', 'sydney_use_height_for_logo' );

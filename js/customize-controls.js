@@ -41,6 +41,42 @@ jQuery(document).ready(function ($) {
 			return false;
 		}
 
+		// Enhanced logic for header panel navigation
+		// back button should return to main customizer instead of header panel sections
+		var current_panel = wp.customize.state('expandedPanel').get();
+		var current_section = wp.customize.state('expandedSection').get();
+		var $publishSettings = $('#sub-accordion-section-publish_settings');
+		var isPublishSettingsOpen = $publishSettings.hasClass('open');
+		
+		// If publish settings is open and we're in header panel, close publish settings and collapse header panel
+		if(
+			isPublishSettingsOpen && 
+			current_panel && 
+			(
+				current_panel.id === 'sydney_panel_header' ||
+				current_panel.id === 'sydney_panel_footer'
+			)
+		) {
+			// Prevent the default behavior
+			e.preventDefault();
+			e.stopPropagation();
+			
+			// Close the publish settings section first
+			wp.customize.section('publish_settings').collapse();
+			
+			// Then collapse the header panel to return to main customizer
+			wp.customize.panel( 'sydney_panel_header' ).collapse();
+			
+			// Reset flags and return early
+			is_any_header_footer_section = false;
+			is_header_builder_section = false;
+			is_header_builder_component_section = false;
+			is_footer_builder_section = false;
+			is_footer_builder_component_section = false;
+			is_hidden_section_content = false;
+			return false;
+		}
+
 		if( is_header_builder_section ) {
 			wp.customize.section( 'sydney_section_hb_wrapper' ).collapse();
 			setTimeout(function(){

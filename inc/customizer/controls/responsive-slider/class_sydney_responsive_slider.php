@@ -58,6 +58,9 @@ class Sydney_Responsive_Slider extends WP_Customize_Control {
 				</div>		
 				<?php endif; ?>										
 			</div>	
+			<?php if ( !empty( $this->description ) ) : ?>
+				<span style="margin-top: 10px;" class="description customize-control-description"><?php echo esc_html( $this->description ); ?></span>
+			<?php endif; ?>
 
 		<?php if ( 'after' === $this->separator ) : ?>
 			<hr class="sydney-cust-divider">

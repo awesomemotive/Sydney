@@ -41,9 +41,11 @@ test.describe('Single Post: similique-quis-a-libero-enim-quod-corporis-3/', () =
 	test('post content structure is correct', async ({ page }) => {
 		// Navigate to the post
 		await page.goto(`${SITE_CONFIG.BASE_URL}2021/11/03/similique-quis-a-libero-enim-quod-corporis-3/`);
+		await page.waitForLoadState('networkidle');
 
-		// Check that the post content exists
+		// Check that the post content exists - wait for element to be stable
 		const postContent = page.locator('article .entry-content');
+		await postContent.waitFor({ state: 'visible' });
 		await expect(postContent).toBeVisible();
 
 		// Check for the correct number of paragraphs (5 paragraphs)
@@ -189,9 +191,12 @@ test.describe('Single Post: similique-quis-a-libero-enim-quod-corporis-3/', () =
 	test('post title colors match theme design', async ({ page }) => {
 		// Navigate to the post
 		await page.goto(`${SITE_CONFIG.BASE_URL}2021/11/03/similique-quis-a-libero-enim-quod-corporis-3/`);
+		await page.waitForLoadState('networkidle');
 
-		// Check post title color
+		// Check post title color - wait for element to be visible and stable
 		const postTitle = page.locator('article h1');
+		await postTitle.waitFor({ state: 'visible' });
+		await page.waitForTimeout(500); // Allow styles to fully compute
 		const titleColor = await postTitle.evaluate(el => {
 			return window.getComputedStyle(el).color;
 		});
@@ -229,9 +234,12 @@ test.describe('Single Post: similique-quis-a-libero-enim-quod-corporis-3/', () =
 	test('post metadata link colors match theme design', async ({ page }) => {
 		// Navigate to the post
 		await page.goto(`${SITE_CONFIG.BASE_URL}2021/11/03/similique-quis-a-libero-enim-quod-corporis-3/`);
+		await page.waitForLoadState('networkidle');
 
-		// Check author link color
+		// Check author link color - wait for element to be visible and stable
 		const authorLink = page.locator('article .byline a');
+		await authorLink.waitFor({ state: 'visible' });
+		await page.waitForTimeout(500); // Allow styles to fully compute
 		const authorLinkColor = await authorLink.evaluate(el => {
 			return window.getComputedStyle(el).color;
 		});
@@ -239,8 +247,9 @@ test.describe('Single Post: similique-quis-a-libero-enim-quod-corporis-3/', () =
 		// Test that author link color is the expected dark blue: rgb(0, 16, 46)
 		expect(authorLinkColor).toBe('rgb(0, 16, 46)');
 
-		// Check date link color
+		// Check date link color - wait for element to be visible and stable
 		const dateLink = page.locator('article .posted-on a');
+		await dateLink.waitFor({ state: 'visible' });
 		const dateLinkColor = await dateLink.evaluate(el => {
 			return window.getComputedStyle(el).color;
 		});
@@ -248,8 +257,9 @@ test.describe('Single Post: similique-quis-a-libero-enim-quod-corporis-3/', () =
 		// Test that date link color is the expected gray: rgb(109, 118, 133)
 		expect(dateLinkColor).toBe('rgb(109, 118, 133)');
 
-		// Check category link color
+		// Check category link color - wait for element to be visible and stable
 		const categoryLink = page.locator('article .cat-links a');
+		await categoryLink.waitFor({ state: 'visible' });
 		const categoryLinkColor = await categoryLink.evaluate(el => {
 			return window.getComputedStyle(el).color;
 		});
@@ -261,9 +271,12 @@ test.describe('Single Post: similique-quis-a-libero-enim-quod-corporis-3/', () =
 	test('layout paddings match theme design specifications', async ({ page }) => {
 		// Navigate to the post
 		await page.goto(`${SITE_CONFIG.BASE_URL}2021/11/03/similique-quis-a-libero-enim-quod-corporis-3/`);
+		await page.waitForLoadState('networkidle');
 
-		// Test container padding (main content container)
+		// Test container padding (main content container) - wait for element to be visible and stable
 		const container = page.locator('#content .container').first();
+		await container.waitFor({ state: 'visible' });
+		await page.waitForTimeout(500); // Allow styles to fully compute
 		const containerStyles = await container.evaluate(el => {
 			const styles = window.getComputedStyle(el);
 			return {
@@ -353,9 +366,12 @@ test.describe('Single Post: similique-quis-a-libero-enim-quod-corporis-3/', () =
 	test('post navigation and comment form layout spacing', async ({ page }) => {
 		// Navigate to the post
 		await page.goto(`${SITE_CONFIG.BASE_URL}2021/11/03/similique-quis-a-libero-enim-quod-corporis-3/`);
+		await page.waitForLoadState('networkidle');
 
-		// Test post navigation padding
+		// Test post navigation padding - wait for element to be visible and stable
 		const postNavigation = page.locator('.post-navigation');
+		await postNavigation.waitFor({ state: 'visible' });
+		await page.waitForTimeout(500); // Allow styles to fully compute
 		const postNavStyles = await postNavigation.evaluate(el => {
 			const styles = window.getComputedStyle(el);
 			return {
