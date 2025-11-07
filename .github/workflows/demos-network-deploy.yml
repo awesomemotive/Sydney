@@ -31,11 +31,11 @@ jobs:
       - name: Sync files with SSH
         uses: easingthemes/ssh-deploy@main
         with:
-          SSH_PRIVATE_KEY: ${{secrets.SERVER_SSH_KEY}}
+          SSH_PRIVATE_KEY: ${{secrets.DEMO_SSH_KEY}}
           ARGS: "-rlgoDzvc -i --delete"
           SOURCE: "${{ env.PROJECT_NAME }}/"
-          REMOTE_HOST: ${{secrets.SERVER_REMOTE_HOST}}
-          REMOTE_USER: ${{secrets.SERVER_REMOTE_USER}}
+          REMOTE_HOST: ${{secrets.DEMO_REMOTE_HOST}}
+          REMOTE_USER: ${{secrets.DEMO_REMOTE_USER}}
           REMOTE_PORT: "22"
           TARGET: "www/wp-content/themes/${{ env.PROJECT_NAME }}/"
         
