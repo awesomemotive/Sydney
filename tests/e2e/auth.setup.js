@@ -25,11 +25,39 @@ setup('authenticate', async ({ page }) => {
 	console.log(`Setting up authentication for user: ${username}`);
 	console.log(`Target URL: ${SITE_CONFIG.ADMIN_URL}/`);
 	
-	// Navigate to WordPress login page
-	await page.goto(`${SITE_CONFIG.ADMIN_URL}/`);
+	// Navigate to WordPress login page (wp-login.php is more reliable than wp-admin redirect)
+	const loginUrl = `${SITE_CONFIG.ADMIN_URL}/`.replace('/wp-admin/', '/wp-login.php');
+	console.log(`Navigating to login URL: ${loginUrl}`);
+	
+	await page.goto(loginUrl, { waitUntil: 'networkidle' });
+	
+	console.log(`Current URL after navigation: ${page.url()}`);
+	
+	// Check if we're already logged in (might happen if session persists or redirect occurred)
+	const isAlreadyLoggedIn = await page.locator('#wpadminbar, .wp-admin, #adminmenu').first().isVisible().catch(() => false);
+	
+	if (isAlreadyLoggedIn) {
+		console.log('✅ Already authenticated - session exists');
+		await page.context().storageState({ path: authFile });
+		console.log(`✅ Authentication state saved to ${authFile}`);
+		return;
+	}
+	
+	// Check page title for debugging
+	const pageTitle = await page.title();
+	console.log(`Page title: ${pageTitle}`);
 	
 	// Wait for login form to be visible
-	await expect(page.locator('#loginform')).toBeVisible({ timeout: 10000 });
+	const loginForm = page.locator('#loginform, form[name="loginform"], form#login');
+	try {
+		await expect(loginForm).toBeVisible({ timeout: 10000 });
+	} catch (error) {
+		// Take screenshot to debug what page we're on
+		await page.screenshot({ path: 'test-results/auth-page-no-login-form.png', fullPage: true });
+		const bodyText = await page.locator('body').textContent();
+		console.error(`Failed to find login form. Page body text: ${bodyText?.substring(0, 500)}`);
+		throw new Error(`Login form not found at ${page.url()}. Check screenshot at test-results/auth-page-no-login-form.png`);
+	}
 	
 	// Fill in login credentials
 	await page.fill('#user_login', username);
