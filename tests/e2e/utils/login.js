@@ -16,12 +16,12 @@ import { SITE_CONFIG } from './constants.js';
  */
 export async function loginToWordPressAdmin(page) {
 	// Get credentials from environment variables (GitHub secrets)
-	const username = process.env.DEMO_NETWORK_USER;
-	const password = process.env.DEMO_NETWORK_PASSWORD;
+	const username = process.env.E2E_TESTS_USER;
+	const password = process.env.E2E_TESTS_PASSWORD;
 	
 	if (!username || !password) {
 		throw new Error(
-			'Login credentials not found. Please ensure DEMO_NETWORK_USER and DEMO_NETWORK_PASSWORD ' +
+			'Login credentials not found. Please ensure E2E_TESTS_USER and E2E_TESTS_PASSWORD ' +
 			'environment variables are set from GitHub secrets.'
 		);
 	}
