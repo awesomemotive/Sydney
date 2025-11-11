@@ -1,20 +1,49 @@
 /**
  * Login utilities for Playwright E2E tests
  * 
- * This module provides login functionality for WordPress admin authentication
- * using credentials from GitHub secrets.
+ * This module provides login functionality for WordPress admin authentication.
+ * 
+ * NOTE: Most tests will use storage state from auth.setup.js and won't need
+ * to call these login functions directly. They're kept for special cases or
+ * tests that need to test login functionality itself.upda
  */
 
 import { expect } from '@playwright/test';
 import { SITE_CONFIG } from './constants.js';
 
 /**
- * Login to WordPress admin using GitHub secrets
+ * Check if user is currently logged in to WordPress admin
+ * 
+ * @param {import('@playwright/test').Page} page - Playwright page object
+ * @returns {Promise<boolean>}
+ */
+export async function isLoggedIn(page) {
+	try {
+		// Check for admin bar or admin menu
+		const adminElements = page.locator('#wpadminbar, #adminmenu');
+		return await adminElements.first().isVisible();
+	} catch {
+		return false;
+	}
+}
+
+/**
+ * Login to WordPress admin using credentials
+ * 
+ * NOTE: This function is primarily used by auth.setup.js. Regular tests
+ * will automatically use the saved authentication state and won't need
+ * to call this directly.
  * 
  * @param {import('@playwright/test').Page} page - Playwright page object
  * @returns {Promise<void>}
  */
 export async function loginToWordPressAdmin(page) {
+	// Check if already logged in (from storage state)
+	if (await isLoggedIn(page)) {
+		console.log('✅ Already logged in via storage state');
+		return;
+	}
+	
 	// Get credentials from environment variables (GitHub secrets)
 	const username = process.env.E2E_TESTS_USER;
 	const password = process.env.E2E_TESTS_PASSWORD;
@@ -27,12 +56,13 @@ export async function loginToWordPressAdmin(page) {
 	}
 	
 	console.log(`Attempting to login to WordPress admin with user: ${username}`);
+	console.log(`Target URL: ${SITE_CONFIG.ADMIN_URL}/`);
 	
 	// Navigate to WordPress login page
 	await page.goto(`${SITE_CONFIG.ADMIN_URL}/`);
 	
 	// Wait for login form to be visible
-	await expect(page.locator('#loginform')).toBeVisible();
+	await expect(page.locator('#loginform')).toBeVisible({ timeout: 10000 });
 	
 	// Fill in login credentials
 	await page.fill('#user_login', username);
@@ -51,11 +81,21 @@ export async function loginToWordPressAdmin(page) {
 			page.locator('#wpadminbar, .wp-admin, #adminmenu').first()
 		).toBeVisible({ timeout: 10000 });
 		
-		console.log('Successfully logged into WordPress admin');
+		console.log('✅ Successfully logged into WordPress admin');
 	} catch (error) {
-		// If login failed, check for error messages
-		const errorMessage = await page.locator('.login .message').textContent();
-		if (errorMessage) {
+		// Enhanced error reporting
+		const currentUrl = page.url();
+		console.error(`❌ Login failed. Current URL: ${currentUrl}`);
+		
+		// Take screenshot for debugging in CI
+		if (process.env.CI) {
+			await page.screenshot({ path: 'playwright-report/login-failure.png', fullPage: true });
+		}
+		
+		// Check for error messages
+		const errorElement = page.locator('.login .message, #login_error');
+		if (await errorElement.isVisible()) {
+			const errorMessage = await errorElement.textContent();
 			throw new Error(`Login failed: ${errorMessage}`);
 		}
 		
@@ -65,7 +105,7 @@ export async function loginToWordPressAdmin(page) {
 			throw new Error('Login failed: Still on login page after submission');
 		}
 		
-		throw new Error('Login verification failed: Could not confirm successful login');
+		throw new Error(`Login verification failed at ${currentUrl}: Could not confirm successful login`);
 	}
 }
 
@@ -124,21 +164,5 @@ export async function logoutFromWordPress(page) {
 		}
 	} catch (error) {
 		console.warn('Logout attempt failed:', error.message);
-	}
-}
-
-/**
- * Check if user is currently logged in to WordPress admin
- * 
- * @param {import('@playwright/test').Page} page - Playwright page object
- * @returns {Promise<boolean>}
- */
-export async function isLoggedIn(page) {
-	try {
-		// Check for admin bar or admin menu
-		const adminElements = page.locator('#wpadminbar, #adminmenu');
-		return await adminElements.first().isVisible();
-	} catch {
-		return false;
 	}
 }

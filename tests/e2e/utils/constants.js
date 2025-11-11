@@ -8,9 +8,9 @@
 // Site Configuration
 export const SITE_CONFIG = {
 	BASE_URL: 'https://demo.athemes.com/sydney-tests/',
-	ADMIN_URL: 'https://demo.athemes.com/sydney-test/wp-admin',
-	WP_JSON_URL: 'https://demo.athemes.com/sydney-test/wp-json/wp/v2',
-	CUSTOMIZER_API_URL: 'https://demo.athemes.com/sydney-test/wp-json/wp/v2/customizer/settings'
+	ADMIN_URL: 'https://demo.athemes.com/sydney-tests/wp-admin',
+	WP_JSON_URL: 'https://demo.athemes.com/sydney-tests/wp-json/wp/v2',
+	CUSTOMIZER_API_URL: 'https://demo.athemes.com/sydney-tests/wp-json/wp/v2/customizer/settings'
 };
 
 // Theme Settings

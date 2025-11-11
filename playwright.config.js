@@ -44,9 +44,20 @@ module.exports = defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
+    // Setup project for authentication
+    {
+      name: 'setup',
+      testMatch: /.*\.setup\.js/,
+    },
+    
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: { 
+        ...devices['Desktop Chrome'],
+        // Use signed-in state from setup
+        storageState: 'playwright/.auth/user.json',
+      },
+      dependencies: ['setup'],
     },
 
     /*
