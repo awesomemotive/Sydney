@@ -573,6 +573,13 @@ test.describe('Blog Archive Layout Tests', () => {
 
 			if (pageData.hasHeader) {
 				// Test archive title area padding
+				const archiveHeader = page.locator('.archive-header').first();
+				const archiveHeaderStyles = await archiveHeader.evaluate(el => {
+					const styles = window.getComputedStyle(el);
+					return {
+						marginBottom: styles.marginBottom
+					};
+				});
 				const archiveTitle = page.locator('h1').first();
 				const titleStyles = await archiveTitle.evaluate(el => {
 					const styles = window.getComputedStyle(el);
@@ -592,7 +599,7 @@ test.describe('Blog Archive Layout Tests', () => {
 				expect(titleStyles.paddingBottom).toBe('0px');
 				expect(titleStyles.paddingLeft).toBe('0px');
 				// Archive titles should have bottom margin for spacing
-				expect(parseInt(titleStyles.marginBottom)).toBeGreaterThan(0);
+				expect(parseInt(archiveHeaderStyles.marginBottom)).toBeGreaterThan(0);
 			}
 		}
 	});
