@@ -58,11 +58,15 @@ export async function loginToWordPressAdmin(page) {
 	console.log(`Attempting to login to WordPress admin with user: ${username}`);
 	console.log(`Target URL: ${SITE_CONFIG.ADMIN_URL}/`);
 	
-	// Navigate to WordPress login page
-	await page.goto(`${SITE_CONFIG.ADMIN_URL}/`);
+	// Navigate to WordPress login page - use wp-login.php directly
+	const loginUrl = `${SITE_CONFIG.ADMIN_URL}/`.replace('/wp-admin/', '/wp-login.php');
+	await page.goto(loginUrl, { 
+		waitUntil: 'domcontentloaded',
+		timeout: 30000 
+	});
 	
 	// Wait for login form to be visible
-	await expect(page.locator('#loginform')).toBeVisible({ timeout: 10000 });
+	await expect(page.locator('#loginform, form[name="loginform"]')).toBeVisible({ timeout: 10000 });
 	
 	// Fill in login credentials
 	await page.fill('#user_login', username);
@@ -71,8 +75,8 @@ export async function loginToWordPressAdmin(page) {
 	// Click login button
 	await page.click('#wp-submit');
 	
-	// Wait for successful login - check for admin bar or dashboard
-	await page.waitForLoadState('networkidle');
+	// Wait for successful login - use domcontentloaded to avoid timeout
+	await page.waitForLoadState('domcontentloaded');
 	
 	// Verify we're logged in by checking for admin elements
 	try {

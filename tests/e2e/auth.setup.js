@@ -29,9 +29,21 @@ setup('authenticate', async ({ page }) => {
 	const loginUrl = `${SITE_CONFIG.ADMIN_URL}/`.replace('/wp-admin/', '/wp-login.php');
 	console.log(`Navigating to login URL: ${loginUrl}`);
 	
-	await page.goto(loginUrl, { waitUntil: 'networkidle' });
+	// Use 'domcontentloaded' instead of 'networkidle' to avoid timeout issues
+	try {
+		await page.goto(loginUrl, { 
+			waitUntil: 'domcontentloaded',
+			timeout: 30000 
+		});
+		console.log(`✅ Page loaded at: ${page.url()}`);
+	} catch (error) {
+		console.error(`Failed to navigate to login page: ${error.message}`);
+		throw new Error(`Cannot reach login page at ${loginUrl}. Error: ${error.message}`);
+	}
 	
-	console.log(`Current URL after navigation: ${page.url()}`);
+	// Check page title for debugging
+	const pageTitle = await page.title();
+	console.log(`Page title: ${pageTitle}`);
 	
 	// Check if we're already logged in (might happen if session persists or redirect occurred)
 	const isAlreadyLoggedIn = await page.locator('#wpadminbar, .wp-admin, #adminmenu').first().isVisible().catch(() => false);
@@ -43,18 +55,15 @@ setup('authenticate', async ({ page }) => {
 		return;
 	}
 	
-	// Check page title for debugging
-	const pageTitle = await page.title();
-	console.log(`Page title: ${pageTitle}`);
-	
 	// Wait for login form to be visible
 	const loginForm = page.locator('#loginform, form[name="loginform"], form#login');
 	try {
 		await expect(loginForm).toBeVisible({ timeout: 10000 });
+		console.log('✅ Login form found');
 	} catch (error) {
 		// Take screenshot to debug what page we're on
 		await page.screenshot({ path: 'test-results/auth-page-no-login-form.png', fullPage: true });
-		const bodyText = await page.locator('body').textContent();
+		const bodyText = await page.locator('body').textContent().catch(() => 'Unable to get body text');
 		console.error(`Failed to find login form. Page body text: ${bodyText?.substring(0, 500)}`);
 		throw new Error(`Login form not found at ${page.url()}. Check screenshot at test-results/auth-page-no-login-form.png`);
 	}
@@ -66,8 +75,10 @@ setup('authenticate', async ({ page }) => {
 	// Click login button
 	await page.click('#wp-submit');
 	
-	// Wait for successful login
-	await page.waitForLoadState('networkidle');
+	// Wait for successful login - use domcontentloaded to avoid timeout
+	await page.waitForLoadState('domcontentloaded');
+	
+	console.log(`After login - Current URL: ${page.url()}`);
 	
 	// Verify we're logged in by checking for admin elements
 	try {
