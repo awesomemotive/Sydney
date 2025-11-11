@@ -26,7 +26,7 @@ jobs:
         uses: actions/download-artifact@v5
         with:
           name: ${{ env.PROJECT_NAME }}
-          path: ${{ env.PROJECT_NAME }}
+          path: .
 
       - name: Sync files with SSH
         uses: easingthemes/ssh-deploy@main
