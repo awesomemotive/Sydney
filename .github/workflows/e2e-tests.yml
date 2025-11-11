@@ -25,6 +25,9 @@ jobs:
 
       - name: Run all e2e tests
         run: npx playwright test tests/e2e --project chromium
+        env:
+          E2E_TESTS_USER: ${{ secrets.E2E_TESTS_USER }}
+          E2E_TESTS_PASSWORD: ${{ secrets.E2E_TESTS_PASSWORD }}
 
       - uses: actions/upload-artifact@v4
         if: always()
