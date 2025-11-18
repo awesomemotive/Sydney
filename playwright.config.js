@@ -12,8 +12,8 @@ const { defineConfig, devices } = require('@playwright/test');
  */
 module.exports = defineConfig({
   testDir: './tests',
-  /* Ignore PHP tests folder */
-  testIgnore: '**/php/**',
+  /* Ignore PHP tests folder and auth setup */
+  testIgnore: ['**/php/**', '**/auth.setup.js'],
   /* Maximum time one test can run for. */
   timeout: 30 * 1000,
   expect: {
