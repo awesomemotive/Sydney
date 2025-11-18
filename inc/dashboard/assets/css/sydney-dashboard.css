@@ -1103,6 +1103,10 @@
   background-color: #967BE3;
 }
 
+.sydney-dashboard-notification .sydney-dashboard-notification-content li:has(.changelog-fixed) {
+  display: none;
+}
+
 .sydney-dashboard-notification .changelog-description {
   display: block;
   font-size: 13px;
