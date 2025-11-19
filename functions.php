@@ -258,9 +258,6 @@ function sydney_scripts() {
 		wp_enqueue_style( 'sydney-google-fonts', sydney_google_fonts_url(), array(), '20250902' );
 	}
 
-	wp_enqueue_style( 'sydney-ie9', get_template_directory_uri() . '/css/ie9.css', array( 'sydney-style' ), '20250902' );
-	wp_style_add_data( 'sydney-ie9', 'conditional', 'lte IE 9' );
-
 	if ( !$is_amp ) {
 		wp_enqueue_script( 'sydney-functions', get_template_directory_uri() . '/js/functions.min.js', array(), '20240822', true );
 		
