@@ -225,6 +225,16 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
                     $custom .= "@media only screen and (max-width: 767px) { .content-inner {padding: 20px;} }" . "\n";
                 }
             }
+
+			//Archive boxed content (applies to all archives: blog, CPT archives, taxonomies, etc.)
+			if ( is_archive() || is_home() ) {
+                $boxed = get_theme_mod( 'blog_archive_boxed_content', 'unboxed' );
+                
+                if ( $boxed === 'boxed' ) {
+                    $custom .= ".content-inner { padding: 60px; background-color: #fff; box-shadow: 0 0 15px 0 rgba(0,0,0,0.05);}"."\n";
+                    $custom .= "@media only screen and (max-width: 767px) { .content-inner {padding: 20px;} }" . "\n";
+                }
+            }
         
             $text_slide = get_theme_mod('textslider_slide', 0);
             if ( $text_slide ) {
