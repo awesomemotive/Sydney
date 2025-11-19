@@ -722,14 +722,21 @@
 		// Boxed content
 		wp.customize( value + '_boxed_content', function( val ) {
 			val.bind( function( to ) {
+				var $target;
+				if ( 'page' === value ) {
+					$target = $( '.page .content-inner' );
+				} else {
+					$target = $( '.single-' + value + ' .content-inner' );
+				}
+				
 				if ( 'unboxed' === to ) {
-					$( '.content-inner' ).css( {
+					$target.css( {
 						'padding': 0,
 						'background': 'transparent',
 						'box-shadow': 'none',
 					} );
 				} else {
-					$( '.content-inner' ).css( {
+					$target.css( {
 						'padding': 60,
 						'background': '#fff',
 						'box-shadow': '0 0 15px 0 rgba(0,0,0,0.05)',
@@ -746,6 +753,54 @@
 					$( '.single-' + value ).find( '.content-area' ).removeClass( 'sidebar-left sidebar-right' ).addClass( to );
 				}
 			} );
+		} );
+
+		// Archive boxed content
+		wp.customize( value + '_archive_boxed_content', function( val ) {
+			val.bind( function( to ) {
+				var $target;
+				
+				// Check if we're on an archive page for this post type
+				if ( $('body').hasClass('post-type-archive-' + value) || $('body').hasClass('tax-') ) {
+					$target = $( '.content-inner' );
+					
+					if ( 'unboxed' === to ) {
+						$target.css( {
+							'padding': 0,
+							'background': 'transparent',
+							'box-shadow': 'none',
+						} );
+					} else {
+						$target.css( {
+							'padding': 60,
+							'background': '#fff',
+							'box-shadow': '0 0 15px 0 rgba(0,0,0,0.05)',
+						} );
+					}
+				}
+			} );
+		} );
+	} );
+
+	// Blog archive boxed content
+	wp.customize( 'blog_archive_boxed_content', function( val ) {
+		val.bind( function( to ) {
+			// Check if we're on a blog archive page
+			if ( $('body').hasClass('blog') || $('body').hasClass('archive') || $('body').hasClass('home') ) {
+				if ( 'unboxed' === to ) {
+					$( '.content-inner' ).css( {
+						'padding': 0,
+						'background': 'transparent',
+						'box-shadow': 'none',
+					} );
+				} else {
+					$( '.content-inner' ).css( {
+						'padding': 60,
+						'background': '#fff',
+						'box-shadow': '0 0 15px 0 rgba(0,0,0,0.05)',
+					} );
+				}
+			}
 		} );
 	} );
 
