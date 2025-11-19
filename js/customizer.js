@@ -722,14 +722,21 @@
 		// Boxed content
 		wp.customize( value + '_boxed_content', function( val ) {
 			val.bind( function( to ) {
+				var $target;
+				if ( 'page' === value ) {
+					$target = $( '.page .content-inner' );
+				} else {
+					$target = $( '.single-' + value + ' .content-inner' );
+				}
+				
 				if ( 'unboxed' === to ) {
-					$( '.content-inner' ).css( {
+					$target.css( {
 						'padding': 0,
 						'background': 'transparent',
 						'box-shadow': 'none',
 					} );
 				} else {
-					$( '.content-inner' ).css( {
+					$target.css( {
 						'padding': 60,
 						'background': '#fff',
 						'box-shadow': '0 0 15px 0 rgba(0,0,0,0.05)',
@@ -746,6 +753,28 @@
 					$( '.single-' + value ).find( '.content-area' ).removeClass( 'sidebar-left sidebar-right' ).addClass( to );
 				}
 			} );
+		} );
+	} );
+
+	// Archive boxed content (applies to all archives: blog, CPT archives, taxonomies, etc.)
+	wp.customize( 'blog_archive_boxed_content', function( val ) {
+		val.bind( function( to ) {
+			// Check if we're on any archive page
+			if ( $('body').hasClass('blog') || $('body').hasClass('archive') || $('body').hasClass('home') ) {
+				if ( 'unboxed' === to ) {
+					$( '.content-inner' ).css( {
+						'padding': 0,
+						'background': 'transparent',
+						'box-shadow': 'none',
+					} );
+				} else {
+					$( '.content-inner' ).css( {
+						'padding': 60,
+						'background': '#fff',
+						'box-shadow': '0 0 15px 0 rgba(0,0,0,0.05)',
+					} );
+				}
+			}
 		} );
 	} );
 
