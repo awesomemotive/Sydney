@@ -849,21 +849,21 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
 
 		//height
 		public static function get_height_css( $setting, $defaults, $selector ) {
-			$devices 	= array( 
-				'desktop' 	=> '@media (min-width: 992px)',
-				'tablet'	=> '@media (min-width: 576px) and (max-width:  991px)',
-				'mobile'	=> '@media (max-width: 575px)'
+			$devices    = array( 
+				'desktop'   => '@media (min-width: 992px)',
+				'tablet'    => '@media (min-width: 576px) and (max-width:  991px)',
+				'mobile'    => '@media (max-width: 575px)',
 			);
 
 			$css = '';
 
 			foreach ( $devices as $device => $media ) {
 				$mod = get_theme_mod( $setting . '_' . $device, $defaults[$device] );
-				$css .= $media . ' { ' . $selector . ' { height:' . intval( $mod ) . 'px;} }' . "\n";	
+				$css .= $media . ' { ' . $selector . ' { height:' . intval( $mod ) . 'px;} }' . "\n";   
 			}
 
 			return $css;
-		}	 
+		}    
 
 		//Max height
 		public static function get_max_height_css( $setting, $defaults, $selector ) {
