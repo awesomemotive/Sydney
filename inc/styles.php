@@ -221,8 +221,8 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
                 //Boxed content
                 $boxed = get_theme_mod( $post_type . '_boxed_content', 'unboxed' );
                 if ( $boxed === 'boxed' ) {
-                    $custom .= ".content-inner { padding: 60px; background-color: #fff; box-shadow: 0 0 15px 0 rgba(0,0,0,0.05);}"."\n";
-                    $custom .= "@media only screen and (max-width: 767px) { .content-inner {padding: 20px;} }" . "\n";
+                    $custom .= "body.singular .content-inner { padding: 60px; background-color: #fff; box-shadow: 0 0 15px 0 rgba(0,0,0,0.05);}"."\n";
+                    $custom .= "@media only screen and (max-width: 767px) { body.singular .content-inner {padding: 20px;} }" . "\n";
                 }
             }
 
@@ -231,8 +231,8 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
                 $boxed = get_theme_mod( 'blog_archive_boxed_content', 'unboxed' );
                 
                 if ( $boxed === 'boxed' ) {
-                    $custom .= ".content-inner { padding: 60px; background-color: #fff; box-shadow: 0 0 15px 0 rgba(0,0,0,0.05);}"."\n";
-                    $custom .= "@media only screen and (max-width: 767px) { .content-inner {padding: 20px;} }" . "\n";
+                    $custom .= "body.archive .content-inner, body.blog .content-inner, body.home .content-inner { padding: 60px; background-color: #fff; box-shadow: 0 0 15px 0 rgba(0,0,0,0.05);}"."\n";
+                    $custom .= "@media only screen and (max-width: 767px) { body.archive .content-inner, body.blog .content-inner, body.home .content-inner {padding: 20px;} }" . "\n";
                 }
             }
         
