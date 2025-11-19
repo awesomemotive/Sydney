@@ -158,4 +158,8 @@ Hero section
         background-attachment: scroll !important;
         background-position: center !important;
     }
+    /* Hide all slide items except the first one on mobile to prevent flash during load */
+    .slides-container .slide-item:not(:first-child) {
+        display: none;
+    }
 }
