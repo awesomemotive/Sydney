@@ -231,7 +231,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       },
       // Site Logo Size.
       'site_logo_size': {
-        'selector': '.site-logo',
+        'selector': '.site-logo, .shfb-component-logo .site-logo',
         'prop': 'height',
         'unit': 'px'
       },

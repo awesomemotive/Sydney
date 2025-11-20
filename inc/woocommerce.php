@@ -84,7 +84,7 @@ function sydney_woo_actions() {
 	}
 
     //Archive layout
-	if ( is_shop() || is_product_category() || is_product_tag() ) {
+	if ( is_shop() || is_product_category() || is_product_tag() || is_tax( 'product_brand' ) ) {
 
 		if ( 'product-list' === $layout ) {
 			add_action( 'woocommerce_before_shop_loop_item', function() use ($loop_image_wrap_extra_class) { echo '<div class="row valign"><div class="col-md-4"><div class="loop-image-wrap '. esc_attr( $loop_image_wrap_extra_class ) .'">'; }, 1 );
@@ -258,7 +258,7 @@ function sydney_woo_actions() {
 	$wishlist_layout            = get_theme_mod( 'shop_product_wishlist_layout', 'layout1' );
 
 	//Quick view and wishlist buttons
-	if ( is_shop() || is_product_category() || is_product_tag() || is_product() || is_cart() && $shop_cart_show_cross_sell ) {
+	if ( is_shop() || is_product_category() || is_product_tag() || is_product() || is_tax( 'product_brand' ) || is_cart() && $shop_cart_show_cross_sell ) {
 		if( 'layout1' !== $quick_view_layout || 'layout1' !== $wishlist_layout ) {
 			remove_action( 'woocommerce_before_shop_loop_item', 'woocommerce_template_loop_product_link_open' );
 			remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_product_link_close' );
@@ -324,7 +324,7 @@ function sydney_woocommerce_css() {
 	//Enqueue gallery scripts for quick view
 	$shop_cart_show_cross_sell = get_theme_mod( 'shop_cart_show_cross_sell', 1 );
 	
-	if ( is_shop() || is_product_category() || is_product_tag() || is_cart() && $shop_cart_show_cross_sell ) {
+	if ( is_shop() || is_product_category() || is_product_tag() || is_tax( 'product_brand' ) || is_cart() && $shop_cart_show_cross_sell ) {
 		$quick_view_layout = get_theme_mod( 'shop_product_quickview_layout', 'layout1' );
 		
 		if( 'layout1' !== $quick_view_layout ) {
@@ -541,7 +541,7 @@ add_action( 'woocommerce_after_shop_loop_item_title', 'sydney_shop_descriptions'
  * Returns true if current page is shop, product archive or product tag
  */
 function sydney_wc_archive_check() {
-    if ( is_shop() || is_product_category() || is_product_tag() ) {
+    if ( is_shop() || is_product_category() || is_product_tag() || is_tax( 'product_brand' ) ) {
         return true;
     } else {
         return false;
