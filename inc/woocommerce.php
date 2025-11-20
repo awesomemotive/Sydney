@@ -541,7 +541,7 @@ add_action( 'woocommerce_after_shop_loop_item_title', 'sydney_shop_descriptions'
  * Returns true if current page is shop, product archive or product tag
  */
 function sydney_wc_archive_check() {
-    if ( is_shop() || is_product_category() || is_product_tag() ) {
+    if ( is_shop() || is_product_category() || is_product_tag() || is_tax( 'product_brand' ) ) {
         return true;
     } else {
         return false;
