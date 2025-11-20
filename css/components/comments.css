@@ -91,3 +91,6 @@ Comments
 .comment-respond .comment-notes {
 	margin-bottom: 40px;
 }
+.comment-reply-title #cancel-comment-reply-link {
+	margin-left: 10px;
+}
