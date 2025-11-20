@@ -507,7 +507,7 @@ if ( !class_exists( 'Sydney_Custom_CSS' ) ) :
 			if ( true !== get_theme_mod( 'sydney_use_height_for_logo', false ) ) {
 				$custom .= $this->get_max_height_css( 'site_logo_size', $defaults = array( 'desktop' => 100, 'tablet' => 100, 'mobile' => 100 ), '.site-logo' );
 			} else {
-				$custom .= $this->get_height_css( 'site_logo_size', $defaults = array( 'desktop' => 100, 'tablet' => 100, 'mobile' => 100 ), '.site-logo' );
+				$custom .= $this->get_height_css( 'site_logo_size', $defaults = array( 'desktop' => 100, 'tablet' => 100, 'mobile' => 100 ), '.site-logo, .shfb-component-logo .site-logo' );
 				$custom .= ".site-logo { max-height: none; }"."\n";
 			}
             
