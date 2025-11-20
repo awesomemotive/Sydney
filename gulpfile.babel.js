@@ -286,12 +286,11 @@ gulp.task('unzip-remote-file', async function () {
   */
  gulp.task(
 	 'default',
-	 gulp.parallel( 'stylesMin', 'wooStyles', 'wooStylesMin', 'mainStyles', browsersync, (done) => {
+	 gulp.parallel( 'stylesMin', 'wooStyles', 'wooStylesMin', 'mainStyles', browsersync, () => {
 		 gulp.watch( config.watchPhp, reload); // Reload on PHP file changes.
 		 gulp.watch( config.watchWooStyles, gulp.parallel('wooStyles') );
 		 gulp.watch( config.watchWooStyles, gulp.parallel('wooStylesMin') );
 		 gulp.watch( config.mainCSS, gulp.parallel('mainStyles') );
 		 gulp.watch( config.mainCSS, gulp.parallel('stylesMin') );
-		 done();
 	 })
  ); 
